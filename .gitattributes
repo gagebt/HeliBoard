@@ -1,0 +1,7 @@
+*.aar binary
+*.combined binary
+*.dict binary
+*.gguf binary
+*.pte binary
+*.so binary
+app/src/main/assets/futo-swipe/** -text

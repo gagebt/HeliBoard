@@ -1,4 +1,8 @@
 import com.android.build.api.variant.ApplicationVariant
+import java.net.URI
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+import java.security.MessageDigest
 
 plugins {
     id("com.android.application")
@@ -10,27 +14,28 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "helium314.keyboard"
-        minSdk = 21
+        applicationId = "helium314.keyboard.parakeetfuto"
+        minSdk = 26
         targetSdk = 37
         versionCode = 4101
-        versionName = "4.1"
+        versionName = "4.1-pf1"
         ndk {
             abiFilters.clear()
-            abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64"))
+            abiFilters.addAll(listOf("arm64-v8a", "x86_64"))
         }
         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            // Native NoTune callbacks and the pinned FUTO AAR use JNI-visible class names.
+            isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = false
             isJniDebuggable = false
         }
         create("nouserlib") { // same as release, but does not allow the user to provide a library
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = false
             isJniDebuggable = false
@@ -91,6 +96,10 @@ android {
         }
     }
 
+    androidResources {
+        noCompress += listOf("pte", "gguf", "combined")
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -115,6 +124,8 @@ android {
 }
 
 dependencies {
+    implementation(files("libs/futo-swipe-release.aar"))
+
     // androidx
     implementation("androidx.core:core-ktx:1.17.0") // 1.18.0 requires minSdk 23
     implementation("androidx.recyclerview:recyclerview:1.4.0")
@@ -144,3 +155,36 @@ dependencies {
     testImplementation("androidx.test:runner:1.7.0")
     testImplementation("androidx.test:core:1.7.0")
 }
+
+val parakeetModel = file("src/main/assets/builtin-model/parakeet-tdt-0.6b-v3-Q4_K_M.gguf")
+val parakeetSha256 = "b68557be1e3c40207fd7c4bd9d63f1d3316b963f15325bfb0cc16a8bb0ffd181"
+
+fun sha256(file: File): String {
+    val digest = MessageDigest.getInstance("SHA-256")
+    file.inputStream().use { input ->
+        val buffer = ByteArray(1024 * 1024)
+        while (true) {
+            val read = input.read(buffer)
+            if (read < 0) break
+            digest.update(buffer, 0, read)
+        }
+    }
+    return digest.digest().joinToString("") { byte -> "%02x".format(byte) }
+}
+
+val prepareParakeetModel by tasks.registering {
+    description = "Download and verify the pinned offline Parakeet model"
+    notCompatibleWithConfigurationCache("Downloads and verifies a large external model asset")
+    outputs.file(parakeetModel)
+    outputs.upToDateWhen { parakeetModel.isFile && sha256(parakeetModel) == parakeetSha256 }
+    doLast {
+        parakeetModel.parentFile.mkdirs()
+        val pending = File(parakeetModel.path + ".download")
+        URI("https://huggingface.co/handy-computer/parakeet-tdt-0.6b-v3-gguf/resolve/main/${parakeetModel.name}?download=true")
+            .toURL().openStream().use { input -> pending.outputStream().use(input::copyTo) }
+        check(sha256(pending) == parakeetSha256) { "Parakeet model checksum mismatch" }
+        Files.move(pending.toPath(), parakeetModel.toPath(), StandardCopyOption.REPLACE_EXISTING)
+    }
+}
+
+tasks.named("preBuild") { dependsOn(prepareParakeetModel) }

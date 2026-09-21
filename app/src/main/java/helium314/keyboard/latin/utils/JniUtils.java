@@ -40,6 +40,11 @@ public final class JniUtils {
     }
 
     public static boolean sHaveGestureLib = false;
+
+    /** This fork always bundles FUTO swipe; the Google gesture library remains optional. */
+    public static boolean hasGestureTyping() {
+        return true;
+    }
     static {
         // hardcoded default path, may not work on all phones
         @SuppressLint("SdCardPath") String filesDir = "/data/data/" + BuildConfig.APPLICATION_ID + "/files";

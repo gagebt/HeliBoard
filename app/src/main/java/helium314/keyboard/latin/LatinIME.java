@@ -6,12 +6,15 @@
 
 package helium314.keyboard.latin;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -21,18 +24,26 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Message;
+import android.os.Looper;
 import android.os.Process;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.Gravity;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import dev.notune.transcribe.RustInputMethodService;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
@@ -93,7 +104,10 @@ import helium314.keyboard.settings.SettingsActivity2;
 import kotlin.Unit;
 
 import java.io.FileDescriptor;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -141,6 +155,10 @@ public class LatinIME extends InputMethodService implements
     private View mInputView;
     private InsetsOutlineProvider mInsetsUpdater;
     private SuggestionStripView mSuggestionStripView;
+    private RustInputMethodService mVoiceController;
+    private RustInputMethodService.VoiceState mVoiceState;
+    private long mVoiceEditorGeneration;
+    private boolean mVoiceExternalVisible;
 
     private RichInputMethodManager mRichImm;
     final KeyboardSwitcher mKeyboardSwitcher;
@@ -556,6 +574,33 @@ public class LatinIME extends InputMethodService implements
         KeyboardSwitcher.init(this);
         super.onCreate();
 
+        FutoSuggestions.INSTANCE.init(this);
+        syncVoiceSettings();
+        mVoiceController = new RustInputMethodService(this, new RustInputMethodService.Host() {
+            @Override public android.view.inputmethod.InputConnection currentInputConnection() {
+                return getCurrentInputConnection();
+            }
+            @Override public EditorInfo currentEditorInfo() {
+                return getCurrentInputEditorInfo();
+            }
+            @Override public Object currentEditorIdentity() {
+                return Long.valueOf(mVoiceEditorGeneration);
+            }
+            @Override public boolean inputActive() {
+                return getCurrentInputConnection() != null && getCurrentInputEditorInfo() != null;
+            }
+            @Override public boolean isMainThread() {
+                return Looper.myLooper() == Looper.getMainLooper();
+            }
+            @Override public void postToMain(final Runnable action) {
+                mHandler.post(action);
+            }
+            @Override public void postVoiceState(final RustInputMethodService.VoiceState state) {
+                mHandler.post(() -> renderVoiceState(state));
+            }
+        });
+        mVoiceController.initialize();
+
         loadSettings();
         mClipboardHistoryManager.onCreate();
         mHandler.onCreate();
@@ -704,6 +749,11 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onDestroy() {
+        if (mVoiceController != null) {
+            mVoiceController.close();
+            mVoiceController = null;
+        }
+        FutoSuggestions.INSTANCE.close();
         mClipboardHistoryManager.onDestroy();
         mDictionaryFacilitator.closeDictionaries();
         mSettings.onDestroy();
@@ -782,6 +832,7 @@ public class LatinIME extends InputMethodService implements
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
             mSuggestionStripView.setListener(this, view);
+            renderVoiceState(mVoiceState);
         }
     }
 
@@ -792,6 +843,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onStartInput(final EditorInfo editorInfo, final boolean restarting) {
+        mVoiceEditorGeneration++;
         mHandler.onStartInput(editorInfo, restarting);
     }
 
@@ -812,6 +864,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onFinishInput() {
+        mVoiceEditorGeneration++;
         mHandler.onFinishInput();
         BackgroundGatheringCache.saveOrClear(this);
     }
@@ -1424,7 +1477,8 @@ public class LatinIME extends InputMethodService implements
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
         if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
-            mRichImm.switchToShortcutIme(this);
+            toggleVoiceInput();
+            return;
         }
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event,
@@ -1432,6 +1486,131 @@ public class LatinIME extends InputMethodService implements
                         mKeyboardSwitcher.getCurrentKeyboardScript(), mHandler);
         updateStateAfterInputTransaction(completeInputTransaction);
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+    }
+
+    private void toggleVoiceInput() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            final Intent permission = new Intent(this, VoicePermissionActivity.class);
+            permission.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(permission);
+            return;
+        }
+        if (mVoiceController == null) return;
+        syncVoiceSettings();
+        if (mVoiceState != null && mVoiceState.phase != RustInputMethodService.Phase.IDLE) {
+            mVoiceController.stop();
+        } else {
+            mVoiceController.start();
+        }
+    }
+
+    private void syncVoiceSettings() {
+        final SharedPreferences prefs = KtxKt.prefs(this);
+        final float pause = prefs.getFloat(Settings.PREF_VOICE_PAUSE_SECONDS,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_PAUSE_SECONDS);
+        final float autoStop = prefs.getFloat(Settings.PREF_VOICE_AUTO_STOP_SECONDS,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_AUTO_STOP_SECONDS);
+        final float sensitivity = prefs.getFloat(Settings.PREF_VOICE_SPEECH_SENSITIVITY,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_SPEECH_SENSITIVITY);
+        writeVoiceSetting(RustInputMethodService.SETTING_SENTENCE_PAUSE_SECONDS, pause);
+        writeVoiceSetting(RustInputMethodService.SETTING_SPLIT_SECONDS, pause);
+        writeVoiceSetting(RustInputMethodService.SETTING_AUTO_STOP_SECONDS, autoStop);
+        writeVoiceSetting(RustInputMethodService.SETTING_SPEECH_SENSITIVITY, sensitivity);
+    }
+
+    private void writeVoiceSetting(final String name, final float value) {
+        final File target = new File(getFilesDir(), name);
+        final File pending = new File(getFilesDir(), name + ".new");
+        try (FileOutputStream output = new FileOutputStream(pending)) {
+            output.write(Float.toString(value).getBytes(StandardCharsets.UTF_8));
+            output.getFD().sync();
+            if (!pending.renameTo(target)) {
+                // Android's same-directory rename normally replaces the destination. Some OEM
+                // filesystems require an explicit unlink first.
+                if (!target.delete() || !pending.renameTo(target)) {
+                    throw new java.io.IOException("Could not replace " + name);
+                }
+            }
+        } catch (java.io.IOException error) {
+            Log.w(TAG, "Could not save voice setting " + name, error);
+            //noinspection ResultOfMethodCallIgnored
+            pending.delete();
+        }
+    }
+
+    private void renderVoiceState(@Nullable final RustInputMethodService.VoiceState state) {
+        mVoiceState = state;
+        if (mSuggestionStripView == null) return;
+        if (state == null || state.phase == RustInputMethodService.Phase.IDLE) {
+            if (mVoiceExternalVisible) {
+                mVoiceExternalVisible = false;
+                setNeutralSuggestionStrip();
+                mHandler.postResumeSuggestions(false);
+            }
+            if (state == null || (!state.canInsert && !state.canCopy
+                    && !state.canDiscard && !state.canRetry)) {
+                mSuggestionStripView.setVoiceRecoveryView(null);
+                return;
+            }
+            final LinearLayout recovery = new LinearLayout(this);
+            recovery.setOrientation(LinearLayout.HORIZONTAL);
+            recovery.setGravity(Gravity.CENTER_VERTICAL);
+            addVoiceButton(recovery, R.string.dictation_draft, () -> showVoiceRecoveryActions(state));
+            mSuggestionStripView.setVoiceRecoveryView(recovery);
+            return;
+        }
+
+        mSuggestionStripView.setVoiceRecoveryView(null);
+        final LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        final int padding = (int) (8 * getResources().getDisplayMetrics().density);
+        row.setPadding(padding, 0, padding, 0);
+        final TextView status = new TextView(this);
+        status.setText(state.message);
+        status.setSingleLine(true);
+        row.addView(status);
+        if (state.phase == RustInputMethodService.Phase.RECORDING) {
+            addVoiceButton(row, R.string.dictation_stop, () -> mVoiceController.stop());
+        }
+        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, () -> mVoiceController.retry());
+        if (state.canInsert) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
+        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, () -> mVoiceController.copyDraft());
+        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, () -> mVoiceController.discardDraft());
+        final HorizontalScrollView scroll = new HorizontalScrollView(this);
+        scroll.setHorizontalScrollBarEnabled(false);
+        scroll.addView(row);
+        mSuggestionStripView.setExternalSuggestionView(scroll, false);
+        mVoiceExternalVisible = true;
+    }
+
+    private void showVoiceRecoveryActions(final RustInputMethodService.VoiceState state) {
+        if (mSuggestionStripView == null) return;
+        mSuggestionStripView.setVoiceRecoveryView(null);
+        final LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, () -> mVoiceController.retry());
+        if (state.canInsert) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
+        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, () -> mVoiceController.copyDraft());
+        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, () -> mVoiceController.discardDraft());
+        addVoiceButton(row, R.string.dictation_back, () -> renderVoiceState(state));
+        final HorizontalScrollView scroll = new HorizontalScrollView(this);
+        scroll.setHorizontalScrollBarEnabled(false);
+        scroll.addView(row);
+        mSuggestionStripView.setExternalSuggestionView(scroll, false);
+        mVoiceExternalVisible = true;
+    }
+
+    private void addVoiceButton(final LinearLayout row, final int label, final Runnable action) {
+        final Button button = new Button(this);
+        button.setText(label);
+        button.setAllCaps(false);
+        button.setMinWidth(0);
+        button.setMinimumWidth(0);
+        button.setOnClickListener(ignored -> action.run());
+        row.addView(button);
     }
 
     public void onTextInput(@Nullable String rawText) {

@@ -44,6 +44,10 @@ fun PreferencesScreen(
     val clipboardHistoryEnabled = prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
     val items = listOf(
         R.string.settings_category_input,
+        R.string.settings_category_voice_input,
+        Settings.PREF_VOICE_PAUSE_SECONDS,
+        Settings.PREF_VOICE_AUTO_STOP_SECONDS,
+        Settings.PREF_VOICE_SPEECH_SENSITIVITY,
         Settings.PREF_SHOW_HINTS,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS))
             Settings.PREF_POPUP_KEYS_HINT_ORDER else null,
@@ -92,6 +96,36 @@ fun PreferencesScreen(
 }
 
 fun createPreferencesSettings(context: Context) = listOf(
+    Setting(context, Settings.PREF_VOICE_PAUSE_SECONDS, R.string.voice_pause_seconds,
+        R.string.voice_pause_seconds_summary) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_VOICE_PAUSE_SECONDS,
+            description = { "%.1f s".format(it) },
+            range = 1.5f..8f,
+        )
+    },
+    Setting(context, Settings.PREF_VOICE_AUTO_STOP_SECONDS, R.string.voice_auto_stop_seconds,
+        R.string.voice_auto_stop_seconds_summary) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_VOICE_AUTO_STOP_SECONDS,
+            description = { "%.1f s".format(it) },
+            range = 1.5f..8f,
+        )
+    },
+    Setting(context, Settings.PREF_VOICE_SPEECH_SENSITIVITY, R.string.voice_speech_sensitivity,
+        R.string.voice_speech_sensitivity_summary) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_VOICE_SPEECH_SENSITIVITY,
+            description = { "%.1fx".format(it) },
+            range = 1f..4f,
+        )
+    },
     Setting(context, Settings.PREF_SAVE_SUBTYPE_PER_APP, R.string.save_subtype_per_app) {
         SwitchPreference(it, Defaults.PREF_SAVE_SUBTYPE_PER_APP)
     },

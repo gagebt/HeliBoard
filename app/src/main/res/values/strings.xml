@@ -1311,4 +1311,22 @@ New dictionary:
     <string name="gesture_data_swipe_o_scope">Tool for visualizing gesture data: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
 
     <!-- new strings should go above the section for gesture data gathering -->
+    <string name="settings_category_voice_input">Parakeet voice input</string>
+    <string name="voice_pause_seconds">Sentence pause</string>
+    <string name="voice_pause_seconds_summary">Silence that ends one dictated sentence</string>
+    <string name="voice_auto_stop_seconds">Automatic stop pause</string>
+    <string name="voice_auto_stop_seconds_summary">Silence after speech that stops recording</string>
+    <string name="voice_speech_sensitivity">Speech sensitivity</string>
+    <string name="voice_speech_sensitivity_summary">Relative speech threshold above the measured noise floor</string>
+    <string name="dictation_copy">Copy</string>
+    <string name="dictation_insert">Insert</string>
+    <string name="dictation_discard">Discard</string>
+    <string name="dictation_stop">Stop</string>
+    <string name="dictation_retry">Retry</string>
+    <string name="dictation_draft">Draft</string>
+    <string name="dictation_back">Back</string>
+    <string name="dictation_recording">Recording…</string>
+    <string name="dictation_saved">Saved dictation</string>
+    <string name="futo_swipe_attribution">Powered by FUTO Swipe</string>
+    <string name="integration_attribution">HeliBoard with offline NVIDIA Parakeet TDT 0.6B v3 voice input. Powered by FUTO Swipe.</string>
 </resources>

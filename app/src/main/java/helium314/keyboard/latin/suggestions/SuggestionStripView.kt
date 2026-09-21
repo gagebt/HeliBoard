@@ -278,6 +278,16 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         if (Settings.getValues().mAutoHideToolbar) setToolbarVisibility(false)
     }
 
+    /** Adds compact recovery actions beside normal suggestions and pinned toolbar keys. */
+    fun setVoiceRecoveryView(view: View?) {
+        pinnedKeys.findViewWithTag<View>(VOICE_RECOVERY_TAG)?.let(pinnedKeys::removeView)
+        if (view != null) {
+            view.tag = VOICE_RECOVERY_TAG
+            pinnedKeys.addView(view)
+        }
+        updateVoiceKey()
+    }
+
     fun setMoreSuggestionsHeight(remainingHeight: Int) {
         layoutHelper.setMoreSuggestionsHeight(remainingHeight)
     }
@@ -549,6 +559,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     companion object {
+        private const val VOICE_RECOVERY_TAG = "voice_recovery"
         @JvmField
         var DEBUG_SUGGESTIONS = false
         private const val DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f

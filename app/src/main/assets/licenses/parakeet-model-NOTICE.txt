@@ -1,0 +1,14 @@
+Parakeet TDT 0.6B v3 speech model by NVIDIA
+https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3
+
+GGUF conversion and Q4_K_M quantization by Handy Computer
+https://huggingface.co/handy-computer/parakeet-tdt-0.6b-v3-gguf
+
+Model license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Bundled file: parakeet-tdt-0.6b-v3-Q4_K_M.gguf
+SHA-256: b68557be1e3c40207fd7c4bd9d63f1d3316b963f15325bfb0cc16a8bb0ffd181
+
+Inference backend: transcribe.cpp by CJ Pais / Handy Computer
+https://github.com/handy-computer/transcribe.cpp

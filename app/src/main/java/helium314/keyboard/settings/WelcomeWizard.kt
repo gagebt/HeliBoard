@@ -93,7 +93,7 @@ fun WelcomeWizard(
                 textAlign = TextAlign.Center,
                 color = titleColor,
             )
-            if (JniUtils.sHaveGestureLib)
+            if (JniUtils.hasGestureTyping())
                 Text(
                     stringResource(R.string.setup_welcome_additional_description),
                     style = MaterialTheme.typography.bodyLarge,

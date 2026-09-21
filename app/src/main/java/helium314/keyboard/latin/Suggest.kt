@@ -273,7 +273,12 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         settingsValuesForSuggestion: SettingsValuesForSuggestion,
         inputStyle: Int, isCorrectionEnabled: Boolean, sequenceNumber: Int
     ): SuggestedWords {
-        val suggestionResults = mDictionaryFacilitator.getSuggestionResults(
+        val suggestionResults = FutoSuggestions.recognize(
+            wordComposer.composedDataSnapshot.mInputPointers,
+            ngramContext.extractPrevWordsContextArray().filter { it != NgramContext.BEGINNING_OF_SENTENCE_TAG },
+            keyboard,
+            mDictionaryFacilitator.mainLocale,
+        ) ?: mDictionaryFacilitator.getSuggestionResults(
             wordComposer.composedDataSnapshot, ngramContext, keyboard,
             settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle
         )
@@ -356,7 +361,11 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                                        settingsValuesForSuggestion: SettingsValuesForSuggestion): SuggestionResults {
         val cachedResults = nextWordSuggestionsCache[ngramContext]
         if (cachedResults != null) return cachedResults
-        val newResults = mDictionaryFacilitator.getSuggestionResults(ComposedData(InputPointers(1),
+        val newResults = FutoSuggestions.predictNext(
+            keyboard,
+            mDictionaryFacilitator.mainLocale,
+            ngramContext.extractPrevWordsContextArray().filter { it != NgramContext.BEGINNING_OF_SENTENCE_TAG },
+        ) ?: mDictionaryFacilitator.getSuggestionResults(ComposedData(InputPointers(1),
             false, ""), ngramContext, keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyle)
         nextWordSuggestionsCache[ngramContext] = newResults
         return newResults

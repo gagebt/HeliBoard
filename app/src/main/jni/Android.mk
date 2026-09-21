@@ -104,3 +104,6 @@ include $(LOCAL_PATH)/CleanupNativeFileList.mk
 
 #################### Unit test on target environment
 #include $(LOCAL_PATH)/TargetUnitTests.mk
+
+#################### FUTO raw vocabulary loader
+include $(LOCAL_PATH)/../cpp/futo/Android.mk

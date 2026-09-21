@@ -69,7 +69,7 @@ fun AboutScreen(
 }
 
 fun createAboutSettings(context: Context) = listOf(
-    Setting(context, SettingsWithoutKey.APP, R.string.english_ime_name, R.string.app_slogan) {
+    Setting(context, SettingsWithoutKey.APP, R.string.english_ime_name, R.string.integration_attribution) {
         Preference(
             name = it.title,
             description = it.description,
