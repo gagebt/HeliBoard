@@ -37,4 +37,9 @@ final class SessionDraftPolicy {
                 ? new StartResolution(candidateSessionId, false, true)
                 : new StartResolution(currentSessionId, retryAvailable, false);
     }
+
+    static boolean canDiscard(boolean hasDraft, boolean draftReadError,
+                              boolean retryAvailable) {
+        return hasDraft || draftReadError || retryAvailable;
+    }
 }

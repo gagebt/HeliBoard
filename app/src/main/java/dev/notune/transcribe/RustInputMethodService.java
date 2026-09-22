@@ -354,10 +354,27 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         }
     }
 
-    /** Discards only the saved recovery copy. Capture and normal keyboard input continue. */
+    /** Discards saved recovery and any retry audio after native cancellation accepts it. */
     public boolean discardDraft() {
-        if ((retainedRecoveryText.isEmpty() && !draftReadError) || !host.isMainThread()) {
+        final boolean hasDraft = !retainedRecoveryText.isEmpty();
+        if (!host.isMainThread()
+                || !SessionDraftPolicy.canDiscard(hasDraft, draftReadError, retryAvailable)) {
             return false;
+        }
+        if (retryAvailable) {
+            boolean cancelled;
+            try {
+                cancelled = cancelRecording(activeSessionId);
+            } catch (Throwable error) {
+                Log.e(TAG, "Could not discard retry audio", error);
+                cancelled = false;
+            }
+            if (!cancelled) {
+                message = "Could not discard retry audio; saved text is unchanged";
+                publishState();
+                return false;
+            }
+            retryAvailable = false;
         }
         if (!clearDraftFile()) {
             message = "Could not discard saved dictation";
@@ -365,7 +382,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return false;
         }
         retireRecovery();
-        message = "Saved dictation discarded";
+        message = hasDraft ? "Saved dictation discarded" : "Retry audio discarded";
         publishState();
         return true;
     }
@@ -767,7 +784,8 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private void publishState() {
         boolean hasDraft = !retainedRecoveryText.isEmpty();
         host.postVoiceState(new VoiceState(phase, message, level,
-                hasDraft && terminal, hasDraft, hasDraft || draftReadError,
+                hasDraft && terminal, hasDraft,
+                SessionDraftPolicy.canDiscard(hasDraft, draftReadError, retryAvailable),
                 retryAvailable && terminal));
     }
 

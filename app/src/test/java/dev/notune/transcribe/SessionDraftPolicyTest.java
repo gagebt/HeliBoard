@@ -63,4 +63,9 @@ public class SessionDraftPolicyTest {
         assertFalse(resolution.retryAvailable);
         assertTrue(resolution.replaced);
     }
+
+    @Test public void retryOnlyFailureOffersDiscard() {
+        assertTrue(SessionDraftPolicy.canDiscard(false, false, true));
+        assertFalse(SessionDraftPolicy.canDiscard(false, false, false));
+    }
 }
