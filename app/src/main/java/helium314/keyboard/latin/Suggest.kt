@@ -366,12 +366,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                                        settingsValuesForSuggestion: SettingsValuesForSuggestion): SuggestionResults {
         val cachedResults = nextWordSuggestionsCache[ngramContext]
         if (cachedResults != null) return cachedResults
-        val newResults = FutoSuggestions.predictNext(
+        val futoResults = FutoSuggestions.predictNext(
             keyboard,
             mDictionaryFacilitator.mainLocale,
             ngramContext.extractPrevWordsContextArray().filter { it != NgramContext.BEGINNING_OF_SENTENCE_TAG },
-        ) ?: mDictionaryFacilitator.getSuggestionResults(ComposedData(InputPointers(1),
+        )
+        val nativeResults = mDictionaryFacilitator.getSuggestionResults(ComposedData(InputPointers(1),
             false, ""), ngramContext, keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyle)
+        val newResults = mergeNextWordPredictions(futoResults, nativeResults)
         nextWordSuggestionsCache[ngramContext] = newResults
         return newResults
     }
@@ -582,4 +584,42 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             return pseudoTypedWordInfo
         }
     }
+}
+
+/** Keep HeliBoard's personal predictions visible when FUTO also has next-word results. */
+internal fun mergeNextWordPredictions(
+    futoResults: SuggestionResults?,
+    nativeResults: SuggestionResults,
+): SuggestionResults {
+    if (futoResults.isNullOrEmpty()) return nativeResults
+    val personal = nativeResults.filter { it.mSourceDict.isUserSpecific }
+    if (personal.isEmpty()) return futoResults
+
+    val ordered = ArrayList<SuggestedWordInfo>(personal.size + futoResults.size)
+    val seen = HashSet<String>()
+    val personalIterator = personal.iterator()
+    val futoIterator = futoResults.iterator()
+    while (personalIterator.hasNext() || futoIterator.hasNext()) {
+        if (personalIterator.hasNext()) {
+            personalIterator.next().also { if (seen.add(it.mWord)) ordered.add(it) }
+        }
+        if (futoIterator.hasNext()) {
+            futoIterator.next().also { if (seen.add(it.mWord)) ordered.add(it) }
+        }
+    }
+
+    val merged = SuggestionResults(ordered.size, futoResults.mIsBeginningOfSentence,
+        futoResults.mFirstSuggestionExceedsConfidenceThreshold)
+    ordered.forEachIndexed { rank, candidate ->
+        merged.add(SuggestedWordInfo(
+            candidate.mWord,
+            candidate.mPrevWordsContext,
+            1_000_000_000 - rank,
+            candidate.mKindAndFlags,
+            candidate.mSourceDict,
+            candidate.mIndexOfTouchPointOfSecondWord,
+            candidate.mAutoCommitFirstWordConfidence,
+        ).also { it.mOriginalScore = candidate.mOriginalScore })
+    }
+    return merged
 }
