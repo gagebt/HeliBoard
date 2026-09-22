@@ -67,8 +67,8 @@ object FutoSuggestions {
         val result = active.recognize(FutoSwipeInput(generation, x, y, t, contextWords, topK = 8))
         result.words.toSuggestionResults(false, SuggestedWordInfo.KIND_CORRECTION)
     } catch (failure: Throwable) {
-        Log.e(TAG, "FUTO swipe failed; retaining HeliBoard fallback", failure)
-        null
+        Log.e(TAG, "FUTO swipe failed; dropping this gesture", failure)
+        SuggestionResults(1, false, false)
     }
 
     @Synchronized
