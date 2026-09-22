@@ -24,6 +24,7 @@ import helium314.keyboard.latin.suggestions.SuggestionStripView
 import helium314.keyboard.latin.utils.AutoCorrectionUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.BackgroundGatheringCache
+import helium314.keyboard.latin.utils.JniUtils
 import helium314.keyboard.latin.utils.SuggestionResults
 import helium314.keyboard.latin.utils.WordData
 import helium314.keyboard.latin.utils.useBackgroundGathering
@@ -278,10 +279,14 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             ngramContext.extractPrevWordsContextArray().filter { it != NgramContext.BEGINNING_OF_SENTENCE_TAG },
             keyboard,
             mDictionaryFacilitator.mainLocale,
-        ) ?: mDictionaryFacilitator.getSuggestionResults(
-            wordComposer.composedDataSnapshot, ngramContext, keyboard,
-            settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle
-        )
+        ) ?: if (JniUtils.sHaveGestureLib) {
+            mDictionaryFacilitator.getSuggestionResults(
+                wordComposer.composedDataSnapshot, ngramContext, keyboard,
+                settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle
+            )
+        } else {
+            SuggestionResults(1, false, false)
+        }
 
         // For transforming words that don't come from a dictionary, because it's our best bet
         val locale = mDictionaryFacilitator.mainLocale
