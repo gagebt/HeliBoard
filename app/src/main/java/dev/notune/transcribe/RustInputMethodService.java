@@ -135,6 +135,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         this.host = host;
         draftFile = new AtomicFile(new File(getNoBackupFilesDir(), DRAFT_FILE));
         restoreDraft();
+        publishState();
     }
 
     /** Loads the native engine once. Call from HeliBoard's main thread. */

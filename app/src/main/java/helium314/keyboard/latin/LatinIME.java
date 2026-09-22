@@ -599,7 +599,6 @@ public class LatinIME extends InputMethodService implements
                 mHandler.post(() -> renderVoiceState(state));
             }
         });
-        mVoiceController.initialize();
 
         loadSettings();
         mClipboardHistoryManager.onCreate();
@@ -1501,7 +1500,7 @@ public class LatinIME extends InputMethodService implements
         if (mVoiceState != null && mVoiceState.phase != RustInputMethodService.Phase.IDLE) {
             mVoiceController.stop();
         } else {
-            mVoiceController.start();
+            if (mVoiceController.initialize()) mVoiceController.start();
         }
     }
 
