@@ -22,8 +22,11 @@ import kotlin.math.min
 object FutoSuggestions {
     private const val TAG = "FutoSuggestions"
     private const val ENCODER = "futo-swipe/honorable_sturgeon/model_fp32.pte"
+    private const val ENCODER_METADATA = "futo-swipe/honorable_sturgeon/metadata.json"
     private const val DECODER = "futo-swipe/magic_macaw/model_fp32.pte"
+    private const val DECODER_METADATA = "futo-swipe/magic_macaw/metadata.json"
     private const val CONTEXT_LM = "futo-swipe/hungry_jellyfish/context_lm.pte"
+    private const val CONTEXT_LM_METADATA = "futo-swipe/hungry_jellyfish/metadata.json"
     private const val CONTEXT_VOCAB = "futo-swipe/hungry_jellyfish/vocab.txt"
     private const val EN_VOCAB = "futo-vocab/main_en_US.combined"
     private const val RU_VOCAB = "futo-vocab/main_ru.combined"
@@ -103,6 +106,11 @@ object FutoSuggestions {
 
         generation++
         val english = locale.language == Locale.ENGLISH.language
+        materialize(appContext, ENCODER_METADATA)
+        if (english) {
+            materialize(appContext, DECODER_METADATA)
+            materialize(appContext, CONTEXT_LM_METADATA)
+        }
         active.configure(FutoSwipeMode(
             generation = generation,
             languageTag = locale.toLanguageTag(),
