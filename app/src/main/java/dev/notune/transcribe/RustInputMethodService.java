@@ -170,49 +170,59 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             Log.w(TAG, "Could not finish existing composition", error);
         }
 
-        activeSessionId = Math.max(activeSessionId + 1, Math.max(1, System.nanoTime()));
+        final long candidateSessionId = Math.max(
+                activeSessionId + 1, Math.max(1, System.nanoTime()));
+        final TextFitter.FieldKind candidateFieldKind = FieldKinds.of(info);
+        int candidateCapsMode;
+        try {
+            candidateCapsMode = connection.getCursorCapsMode(info.inputType);
+        } catch (Throwable ignored) {
+            candidateCapsMode = 0;
+        }
+        final String candidateBefore = readBefore(connection);
+        final String candidateAfter = readAfter(connection);
+        final float candidateSentencePauseSeconds = readSentencePauseSeconds();
+
+        boolean started;
+        try {
+            started = startRecording(candidateSessionId);
+        } catch (Throwable error) {
+            Log.e(TAG, "Could not start recording", error);
+            started = false;
+        }
+        SessionDraftPolicy.StartResolution resolution = SessionDraftPolicy.afterStartAttempt(
+                activeSessionId, retryAvailable, candidateSessionId, started);
+        if (!resolution.replaced) {
+            message = retryAvailable
+                    ? "Retry or discard the saved dictation before recording again"
+                    : "Could not start recording";
+            publishState();
+            return false;
+        }
+
+        activeSessionId = resolution.sessionId;
         nextPieceSequence = 0;
         targetEditor = editor;
-        targetFieldKind = FieldKinds.of(info);
-        try {
-            targetCapsMode = connection.getCursorCapsMode(info.inputType);
-        } catch (Throwable ignored) {
-            targetCapsMode = 0;
-        }
-        expectedBefore = readBefore(connection);
-        expectedAfter = readAfter(connection);
-        sentencePauseSeconds = readSentencePauseSeconds();
+        targetFieldKind = candidateFieldKind;
+        targetCapsMode = candidateCapsMode;
+        expectedBefore = candidateBefore;
+        expectedAfter = candidateAfter;
+        sentencePauseSeconds = candidateSentencePauseSeconds;
         joiner.finish();
         hasAcceptedPiece = false;
         terminal = false;
-        recording = false;
-        retryAvailable = false;
+        recording = true;
+        retryAvailable = resolution.retryAvailable;
         autoDeliveryOpen = true;
         phase = Phase.RECORDING;
-        message = "Starting";
+        message = "Listening";
         level = 0;
         undeliveredText = "";
         sessionCopyText = "";
         sessionRecoveryBase = retainedRecoveryText;
         currentSessionNeedsRecovery = false;
-
-        boolean started;
-        try {
-            started = startRecording(activeSessionId);
-        } catch (Throwable error) {
-            Log.e(TAG, "Could not start recording", error);
-            started = false;
-        }
-        if (!started) {
-            terminal = true;
-            phase = Phase.IDLE;
-            message = "Could not start recording";
-        } else {
-            recording = true;
-            message = "Listening";
-        }
         publishState();
-        return started;
+        return true;
     }
 
     public boolean stop() {
@@ -394,7 +404,6 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         onMain(() -> {
             if (sessionId != activeSessionId) return;
             level = newLevel;
-            publishState();
         });
     }
 
@@ -576,7 +585,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         }
         EditorSnapshot after = accepted ? readSnapshot(connection) : null;
         if (!accepted || before == null || after == null || !after.isExactCommitOf(before, sent)) {
-            autoDeliveryOpen = false;
+            autoDeliveryOpen = SessionDraftPolicy.deliveryOpenAfterUnconfirmedCommit(accepted);
             settleDelivery(true, accepted
                     ? "Saved copy available; delivery could not be confirmed"
                     : "Saved copy available; editor rejected the text");

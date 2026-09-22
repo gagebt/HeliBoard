@@ -241,6 +241,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         toolbarExpandKey.scaleX = (if (toolbarVisible) -1f else 1f) * direction
     }
 
+    fun isToolbarVisible() = toolbarContainer.isVisible
+
     fun setSuggestions(suggestions: SuggestedWords, isRtlLanguage: Boolean) {
         clear()
         setRtl(isRtlLanguage)

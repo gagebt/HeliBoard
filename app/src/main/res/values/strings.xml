@@ -1312,10 +1312,10 @@ New dictionary:
 
     <!-- new strings should go above the section for gesture data gathering -->
     <string name="settings_category_voice_input">Parakeet voice input</string>
+    <string name="voice_show_insert">Show Insert for saved dictation</string>
+    <string name="voice_show_insert_summary">Allow manual insertion when a saved copy needs recovery</string>
     <string name="voice_pause_seconds">Sentence pause</string>
     <string name="voice_pause_seconds_summary">Silence that ends one dictated sentence</string>
-    <string name="voice_auto_stop_seconds">Automatic stop pause</string>
-    <string name="voice_auto_stop_seconds_summary">Silence after speech that stops recording</string>
     <string name="voice_speech_sensitivity">Speech sensitivity</string>
     <string name="voice_speech_sensitivity_summary">Relative speech threshold above the measured noise floor</string>
     <string name="dictation_copy">Copy</string>

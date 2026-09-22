@@ -45,8 +45,8 @@ fun PreferencesScreen(
     val items = listOf(
         R.string.settings_category_input,
         R.string.settings_category_voice_input,
+        Settings.PREF_VOICE_SHOW_INSERT,
         Settings.PREF_VOICE_PAUSE_SECONDS,
-        Settings.PREF_VOICE_AUTO_STOP_SECONDS,
         Settings.PREF_VOICE_SPEECH_SENSITIVITY,
         Settings.PREF_SHOW_HINTS,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS))
@@ -96,22 +96,16 @@ fun PreferencesScreen(
 }
 
 fun createPreferencesSettings(context: Context) = listOf(
+    Setting(context, Settings.PREF_VOICE_SHOW_INSERT, R.string.voice_show_insert,
+        R.string.voice_show_insert_summary) { setting ->
+        SwitchPreference(setting, Defaults.PREF_VOICE_SHOW_INSERT)
+    },
     Setting(context, Settings.PREF_VOICE_PAUSE_SECONDS, R.string.voice_pause_seconds,
         R.string.voice_pause_seconds_summary) { setting ->
         SliderPreference(
             name = setting.title,
             key = setting.key,
             default = Defaults.PREF_VOICE_PAUSE_SECONDS,
-            description = { "%.1f s".format(it) },
-            range = 1.5f..8f,
-        )
-    },
-    Setting(context, Settings.PREF_VOICE_AUTO_STOP_SECONDS, R.string.voice_auto_stop_seconds,
-        R.string.voice_auto_stop_seconds_summary) { setting ->
-        SliderPreference(
-            name = setting.title,
-            key = setting.key,
-            default = Defaults.PREF_VOICE_AUTO_STOP_SECONDS,
             description = { "%.1f s".format(it) },
             range = 1.5f..8f,
         )

@@ -159,6 +159,7 @@ public class LatinIME extends InputMethodService implements
     private RustInputMethodService.VoiceState mVoiceState;
     private long mVoiceEditorGeneration;
     private boolean mVoiceExternalVisible;
+    private boolean mVoiceRestoreToolbar;
 
     private RichInputMethodManager mRichImm;
     final KeyboardSwitcher mKeyboardSwitcher;
@@ -1508,13 +1509,10 @@ public class LatinIME extends InputMethodService implements
         final SharedPreferences prefs = KtxKt.prefs(this);
         final float pause = prefs.getFloat(Settings.PREF_VOICE_PAUSE_SECONDS,
                 helium314.keyboard.latin.settings.Defaults.PREF_VOICE_PAUSE_SECONDS);
-        final float autoStop = prefs.getFloat(Settings.PREF_VOICE_AUTO_STOP_SECONDS,
-                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_AUTO_STOP_SECONDS);
         final float sensitivity = prefs.getFloat(Settings.PREF_VOICE_SPEECH_SENSITIVITY,
                 helium314.keyboard.latin.settings.Defaults.PREF_VOICE_SPEECH_SENSITIVITY);
         writeVoiceSetting(RustInputMethodService.SETTING_SENTENCE_PAUSE_SECONDS, pause);
         writeVoiceSetting(RustInputMethodService.SETTING_SPLIT_SECONDS, pause);
-        writeVoiceSetting(RustInputMethodService.SETTING_AUTO_STOP_SECONDS, autoStop);
         writeVoiceSetting(RustInputMethodService.SETTING_SPEECH_SENSITIVITY, sensitivity);
     }
 
@@ -1545,6 +1543,7 @@ public class LatinIME extends InputMethodService implements
             if (mVoiceExternalVisible) {
                 mVoiceExternalVisible = false;
                 setNeutralSuggestionStrip();
+                if (mVoiceRestoreToolbar) mSuggestionStripView.setToolbarVisibility(true);
                 mHandler.postResumeSuggestions(false);
             }
             if (state == null || (!state.canInsert && !state.canCopy
@@ -1574,13 +1573,16 @@ public class LatinIME extends InputMethodService implements
             addVoiceButton(row, R.string.dictation_stop, () -> mVoiceController.stop());
         }
         if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, () -> mVoiceController.retry());
-        if (state.canInsert) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
+        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
         if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, () -> mVoiceController.copyDraft());
         if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, () -> mVoiceController.discardDraft());
         final HorizontalScrollView scroll = new HorizontalScrollView(this);
         scroll.setHorizontalScrollBarEnabled(false);
         scroll.addView(row);
+        final boolean enteringVoice = !mVoiceExternalVisible;
+        if (enteringVoice) mVoiceRestoreToolbar = mSuggestionStripView.isToolbarVisible();
         mSuggestionStripView.setExternalSuggestionView(scroll, false);
+        if (enteringVoice) mSuggestionStripView.setToolbarVisibility(false);
         mVoiceExternalVisible = true;
     }
 
@@ -1591,15 +1593,23 @@ public class LatinIME extends InputMethodService implements
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
         if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, () -> mVoiceController.retry());
-        if (state.canInsert) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
+        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
         if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, () -> mVoiceController.copyDraft());
         if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, () -> mVoiceController.discardDraft());
         addVoiceButton(row, R.string.dictation_back, () -> renderVoiceState(state));
         final HorizontalScrollView scroll = new HorizontalScrollView(this);
         scroll.setHorizontalScrollBarEnabled(false);
         scroll.addView(row);
+        final boolean enteringVoice = !mVoiceExternalVisible;
+        if (enteringVoice) mVoiceRestoreToolbar = mSuggestionStripView.isToolbarVisible();
         mSuggestionStripView.setExternalSuggestionView(scroll, false);
+        if (enteringVoice) mSuggestionStripView.setToolbarVisibility(false);
         mVoiceExternalVisible = true;
+    }
+
+    private boolean showVoiceInsert(final RustInputMethodService.VoiceState state) {
+        return state.canInsert && KtxKt.prefs(this).getBoolean(Settings.PREF_VOICE_SHOW_INSERT,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_SHOW_INSERT);
     }
 
     private void addVoiceButton(final LinearLayout row, final int label, final Runnable action) {
