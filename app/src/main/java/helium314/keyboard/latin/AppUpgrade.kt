@@ -713,7 +713,8 @@ private object AppUpgrade {
                 Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME)
             if (retention > 120) prefs.edit { putInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, -1) }
             // The old untouched pinned list had every key disabled. Custom lists keep their choice.
-            val oldPinned = defaultPinnedToolbarPref.replace("VOICE,true", "VOICE,false")
+            val oldPinned = defaultPinnedToolbarPref.replace(
+                "VOICE${Separators.KV}true", "VOICE${Separators.KV}false")
             if (prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, null) == oldPinned)
                 prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref) }
         }
