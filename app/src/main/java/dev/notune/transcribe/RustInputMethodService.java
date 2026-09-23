@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -144,6 +145,21 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     private String undeliveredText = "";
     private String sessionCopyText = "";
+    private static final class DeferredPiece {
+        final String text;
+        final float pauseBeforeSeconds;
+
+        DeferredPiece(String text, float pauseBeforeSeconds) {
+            this.text = text;
+            this.pauseBeforeSeconds = pauseBeforeSeconds;
+        }
+    }
+    private final ArrayList<DeferredPiece> deferredPieces = new ArrayList<>();
+    private int deferredCopyStart = -1;
+    private boolean completionDeferred;
+    private int deferredOutcome;
+    private String deferredFinalText;
+    private String deferredError;
     private String sessionRecoveryBase = "";
     private boolean currentSessionNeedsRecovery;
     private boolean maySaveCurrentSession;
@@ -285,6 +301,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         level = 0;
         undeliveredText = "";
         sessionCopyText = "";
+        deferredPieces.clear();
+        deferredCopyStart = -1;
+        completionDeferred = false;
         sessionRecoveryBase = retainedRecoveryText;
         currentSessionNeedsRecovery = false;
         publishState();
@@ -550,6 +569,35 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (sessionId != activeSessionId || terminal || text == null
                 || text.trim().isEmpty()) return false;
         if (pieceSequence < nextPieceSequence) return true;
+        if (!host.voiceCommitReady() || !deferredPieces.isEmpty()) {
+            // A swipe can change both cursor position and text before the cursor.
+            // Save the raw words before acknowledging native; format them only after
+            // the gesture result has reached the editor.
+            String previousCopy = sessionCopyText;
+            String raw = text.trim();
+            sessionCopyText += sessionCopyText.isEmpty()
+                    || Character.isWhitespace(sessionCopyText.charAt(sessionCopyText.length() - 1))
+                    ? raw : " " + raw;
+            String saved = RecoveryText.joinRecords(sessionRecoveryBase,
+                    sessionCopyText);
+            PendingDictationDraft staged = new PendingDictationDraft(sessionId,
+                    pieceSequence + 1, sessionRecoveryBase.isEmpty()
+                    ? PendingDictationDraft.PENDING : PendingDictationDraft.UNCERTAIN, saved);
+            if (!writeDraft(staged)) {
+                sessionCopyText = previousCopy;
+                message = "Could not save dictated text";
+                stateError = true;
+                publishState();
+                return false;
+            }
+            if (deferredPieces.isEmpty()) deferredCopyStart = previousCopy.length();
+            deferredPieces.add(new DeferredPiece(raw, pauseBeforeSeconds));
+            pendingDraft = staged;
+            nextPieceSequence = pieceSequence + 1;
+            if (host.voiceCommitReady()) deliverStagedText();
+            publishState();
+            return true;
+        }
         InputConnection connection = currentTargetConnection();
         if (connection != null && host.voiceCommitReady()) reconcileContinuity(connection);
 
@@ -587,6 +635,33 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     private void finishSession(long sessionId, int outcome, String text, String error) {
         if (sessionId != activeSessionId || terminal) return;
+        if (outcome == OUTCOME_SUCCESS && !deferredPieces.isEmpty()) {
+            if (host.voiceCommitReady()) deliverStagedText();
+            if (!deferredPieces.isEmpty()) {
+                if (!host.voiceCommitReady()) {
+                    completionDeferred = true;
+                    deferredOutcome = outcome;
+                    deferredFinalText = text;
+                    deferredError = error;
+                    recording = false;
+                    phase = Phase.FINISHING;
+                    message = "Finishing";
+                    publishState();
+                    return;
+                }
+                // A write or editor preparation failed after the gesture. The raw
+                // transcript is already durable, so finish with a recoverable error.
+                retainCurrentSession(PendingDictationDraft.UNCERTAIN);
+                deferredPieces.clear();
+                deferredCopyStart = -1;
+                outcome = OUTCOME_INTERRUPTED;
+                error = "Could not deliver dictated text";
+            }
+        }
+        if (outcome != OUTCOME_SUCCESS && !deferredPieces.isEmpty()) {
+            deferredPieces.clear();
+            deferredCopyStart = -1;
+        }
         stateError = false;
         terminal = true;
         recording = false;
@@ -684,7 +759,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     }
 
     private void deliverStagedText() {
-        if (undeliveredText.isEmpty() || pendingDraft == null) return;
+        if ((undeliveredText.isEmpty() && deferredPieces.isEmpty()) || pendingDraft == null) return;
         SessionDraftPolicy.Delivery decision = SessionDraftPolicy.automatic(
                 targetEditor, host.currentEditorIdentity(), host.inputActive(), autoDeliveryOpen);
         InputConnection connection = decision == SessionDraftPolicy.Delivery.INSERT
@@ -693,6 +768,8 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             autoDeliveryOpen = false;
             retainCurrentSession(PendingDictationDraft.UNCERTAIN);
             undeliveredText = "";
+            deferredPieces.clear();
+            deferredCopyStart = -1;
             message = "Saved copy available; target field changed";
             return;
         }
@@ -705,6 +782,10 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             message = "Could not prepare the editor for dictation";
             stateError = true;
             return;
+        }
+        if (!deferredPieces.isEmpty()) {
+            reconcileContinuity(connection);
+            if (!stageDeferredPieces()) return;
         }
         refreshContext(connection);
         EditorSnapshot before = readSnapshot(connection);
@@ -738,10 +819,54 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     /** Retries an already staged chunk once a swipe has been committed or canceled. */
     public void resumePendingDelivery() {
-        if (!host.isMainThread() || undeliveredText.isEmpty()) return;
+        if (!host.isMainThread()
+                || (undeliveredText.isEmpty() && deferredPieces.isEmpty())) return;
         Log.i(TAG, "Resuming pending voice delivery");
         deliverStagedText();
-        publishState();
+        if (completionDeferred && host.voiceCommitReady()) {
+            completionDeferred = false;
+            finishSession(activeSessionId, deferredOutcome, deferredFinalText, deferredError);
+        } else {
+            publishState();
+        }
+    }
+
+    /** Replays saved raw pieces against the cursor after the swipe, before any commit. */
+    private boolean stageDeferredPieces() {
+        String rawCopy = sessionCopyText;
+        String oldTail = joiner.pendingTail();
+        boolean oldAccepted = hasAcceptedPiece;
+        sessionCopyText = rawCopy.substring(0, deferredCopyStart);
+        StringBuilder rendered = new StringBuilder();
+        for (DeferredPiece piece : deferredPieces) {
+            CharSequence before = expectedBefore;
+            if (before != null) before = before.toString() + undeliveredText + rendered;
+            String candidate = joiner.join(piece.text, piece.pauseBeforeSeconds,
+                    before, expectedAfter, targetFieldKind,
+                    PieceJoiner.capsModeForPiece(targetCapsMode, hasAcceptedPiece),
+                    sentencePauseSeconds);
+            rendered.append(candidate);
+            sessionCopyText += candidate;
+            hasAcceptedPiece = true;
+        }
+        PendingDictationDraft staged = new PendingDictationDraft(activeSessionId,
+                nextPieceSequence, sessionRecoveryBase.isEmpty()
+                ? PendingDictationDraft.PENDING : PendingDictationDraft.UNCERTAIN,
+                RecoveryText.joinRecords(sessionRecoveryBase,
+                        sessionCopyText + joiner.pendingTail()));
+        if (!writeDraft(staged)) {
+            sessionCopyText = rawCopy;
+            joiner.restorePendingTail(oldTail);
+            hasAcceptedPiece = oldAccepted;
+            message = "Could not save dictated text";
+            stateError = true;
+            return false;
+        }
+        pendingDraft = staged;
+        undeliveredText += rendered;
+        deferredPieces.clear();
+        deferredCopyStart = -1;
+        return true;
     }
 
     private void settleDelivery(boolean retainCopy, String newMessage) {

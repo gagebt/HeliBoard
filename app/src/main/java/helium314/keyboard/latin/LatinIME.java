@@ -1685,7 +1685,7 @@ public class LatinIME extends InputMethodService implements
             if (showTranscribeNow && !"stop_only".equals(controlMode)
                     && !("auto_hide".equals(controlMode) && mVoiceOptionalHidden))
                 addVoiceButton(row, R.string.dictation_transcribe_now,
-                        R.drawable.sym_keyboard_send_rounded, () -> mVoiceController.transcribeNow());
+                        R.drawable.ic_voice_draft, () -> mVoiceController.transcribeNow());
         } else {
             final TextView status = new TextView(this);
             status.setText(state.message);
