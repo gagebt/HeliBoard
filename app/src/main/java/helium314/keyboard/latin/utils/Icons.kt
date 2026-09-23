@@ -5,7 +5,14 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +25,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import helium314.keyboard.latin.R
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HintIconButton(
+    hint: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit,
+) {
+    TooltipBox(
+        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
+        tooltip = { PlainTooltip { Text(hint) } },
+        state = rememberTooltipState(),
+        modifier = modifier,
+    ) {
+        IconButton(onClick = onClick, enabled = enabled, content = content)
+    }
+}
+
 @Composable
 fun NextScreenIcon() {
     Icon(
@@ -28,12 +54,16 @@ fun NextScreenIcon() {
 
 @Composable
 fun EditButton(enabled: Boolean = true, onClick: () -> Unit) {
-    IconButton(onClick, enabled = enabled)  { Icon(painterResource(R.drawable.ic_edit), "edit") }
+    HintIconButton(stringResource(R.string.icon_hint_edit), onClick, enabled = enabled) {
+        Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.icon_hint_edit))
+    }
 }
 
 @Composable
 fun DeleteButton(onClick: () -> Unit) {
-    IconButton(onClick)  { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
+    HintIconButton(stringResource(R.string.delete), onClick) {
+        Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete))
+    }
 }
 
 @Composable
@@ -48,14 +78,14 @@ fun CloseIcon(@StringRes resId: Int) {
 
 @Composable
 fun DefaultButton(isDefault: Boolean, onClick: () -> Unit) {
-    IconButton(onClick = onClick, enabled = !isDefault) {
+    HintIconButton(stringResource(R.string.button_default), onClick, enabled = !isDefault) {
         Icon(painterResource(R.drawable.ic_settings_default), "default")
     }
 }
 
 @Composable
 fun ExpandButton(enabled: Boolean = true, onClick: () -> Unit) {
-    IconButton(onClick = onClick, enabled = enabled) {
+    HintIconButton(stringResource(R.string.icon_hint_expand), onClick, enabled = enabled) {
         Icon(
             painterResource(R.drawable.ic_arrow_left),
             "expand",
@@ -66,7 +96,7 @@ fun ExpandButton(enabled: Boolean = true, onClick: () -> Unit) {
 
 @Composable
 fun BackButton(onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
+    HintIconButton(stringResource(R.string.spoken_description_action_previous), onClick) {
         Icon(
             painterResource(R.drawable.ic_arrow_back),
             stringResource(R.string.spoken_description_action_previous)

@@ -26,7 +26,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -64,6 +63,7 @@ import androidx.core.content.edit
 import androidx.core.graphics.drawable.toBitmap
 import helium314.keyboard.latin.AppsManager
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.HintIconButton
 import helium314.keyboard.latin.utils.DeleteButton
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings
 import helium314.keyboard.latin.utils.dpToPx
@@ -386,9 +386,10 @@ fun BackgroundGatheringSettings() {
                     label = { Text(stringResource(R.string.user_dict_add_word_button)) },
                     keyboardActions = KeyboardActions { addWord() }
                 )
-                IconButton(
-                    { if (!error) addWord() },
-                    Modifier.weight(0.2f)
+                HintIconButton(
+                    hint = stringResource(R.string.add),
+                    onClick = { if (!error) addWord() },
+                    modifier = Modifier.weight(0.2f)
                 ) {
                     val tint = if (error) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f) else MaterialTheme.colorScheme.onSurface
                     Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.add), tint = tint)

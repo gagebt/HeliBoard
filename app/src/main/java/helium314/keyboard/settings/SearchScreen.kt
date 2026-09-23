@@ -22,7 +22,6 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -52,6 +51,7 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.latin.utils.SearchIcon
+import helium314.keyboard.latin.utils.HintIconButton
 import helium314.keyboard.settings.preferences.PreferenceCategory
 
 @Composable
@@ -153,13 +153,15 @@ fun <T: Any?> SearchScreen(
                         },
                         actions = {
                             if (icon == null)
-                                IconButton(onClick = { setShowSearch(!showSearch) }) { SearchIcon() }
+                                HintIconButton(stringResource(R.string.label_search_key),
+                                    onClick = { setShowSearch(!showSearch) }) { SearchIcon() }
                             else
                                 icon()
                             if (menu != null)
                                 Box {
                                     var showMenu by remember { mutableStateOf(false) }
-                                    IconButton(
+                                    HintIconButton(
+                                        hint = stringResource(R.string.icon_hint_menu),
                                         onClick = { showMenu = true }
                                     ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
                                     DropdownMenu(
@@ -234,7 +236,10 @@ fun ExpandableSearchField(
             onValueChange = onSearchChange,
             modifier = modifier.focusRequester(focusRequester),
             leadingIcon = { SearchIcon() },
-            trailingIcon = { IconButton(onClick = {
+            trailingIcon = { HintIconButton(
+                hint = if (search.text.isBlank()) stringResource(R.string.dialog_close)
+                    else stringResource(R.string.icon_hint_clear_search),
+                onClick = {
                 if (search.text.isBlank()) onDismiss()
                 else onSearchChange(TextFieldValue())
             }) { CloseIcon(android.R.string.cancel) } },

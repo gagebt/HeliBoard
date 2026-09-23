@@ -32,7 +32,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -77,6 +76,7 @@ import helium314.keyboard.compat.locale
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.latin.NgramContext
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.HintIconButton
 import helium314.keyboard.latin.SingleDictionaryFacilitator
 import helium314.keyboard.latin.SuggestedWords
 import helium314.keyboard.latin.common.ComposedData
@@ -394,7 +394,8 @@ fun GestureDataScreen(
                 TopAppBar(
                     title = { Text(stringResource(if (activeGathering) R.string.gesture_data_active else R.string.gesture_data_screen)) },
                     navigationIcon = {
-                        IconButton(onClick = { if (activeGathering) activeGathering = false else onClickBack() }) {
+                        HintIconButton(stringResource(R.string.spoken_description_action_previous),
+                            onClick = { if (activeGathering) activeGathering = false else onClickBack() }) {
                             Icon(
                                 painterResource(R.drawable.ic_arrow_back),
                                 stringResource(R.string.spoken_description_action_previous)
@@ -505,7 +506,8 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                IconButton(
+                HintIconButton(
+                    hint = stringResource(R.string.delete),
                     onClick = { showDeleteDialog = true},
                     enabled = hasWords
                 ) {
@@ -515,7 +517,8 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         Modifier.size(30.dp)
                     )
                 }
-                IconButton(
+                HintIconButton(
+                    hint = stringResource(R.string.icon_hint_share),
                     onClick = { showExportDialog = true },
                     enabled = hasWords
                 ) {
@@ -525,7 +528,7 @@ private fun BottomBar(hasWords: Boolean, onDeleted: () -> Unit) {
                         Modifier.size(30.dp)
                     )
                 }
-                IconButton(onClick = { showLinks = true }) {
+                HintIconButton(stringResource(R.string.icon_hint_links), onClick = { showLinks = true }) {
                     Icon(
                         painterResource(R.drawable.ic_link),
                         "links",

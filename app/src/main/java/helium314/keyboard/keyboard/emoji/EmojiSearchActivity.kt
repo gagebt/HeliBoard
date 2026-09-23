@@ -35,7 +35,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -102,6 +101,7 @@ import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.CloseIcon
+import helium314.keyboard.latin.utils.HintIconButton
 import helium314.keyboard.latin.utils.DictionaryInfoUtils
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ResourceUtils
@@ -175,7 +175,8 @@ class EmojiSearchActivity : ComponentActivity() {
                         }) {
                         val fontFamily = remember { KeyboardTypeface.customFontFamily() }
                         Row(modifier = Modifier.fillMaxWidth().height(30.dp)) {
-                            IconButton(onClick = { cancel() }) {
+                            HintIconButton(stringResource(R.string.spoken_description_action_previous),
+                                onClick = { cancel() }) {
                                 Icon(painter = painterResource(R.drawable.ic_arrow_back),
                                     stringResource(R.string.spoken_description_action_previous),
                                     tint = Color(colors.get(ColorType.EMOJI_KEY_TEXT)))
@@ -235,7 +236,7 @@ class EmojiSearchActivity : ComponentActivity() {
                                     placeholder = { Text(stringResource(R.string.search_field_placeholder), fontFamily = fontFamily) },
                                     leadingIcon = { SearchIcon() },
                                     trailingIcon = {
-                                        IconButton(onClick = {
+                                        HintIconButton(stringResource(cancel), onClick = {
                                             text = TextFieldValue()
                                             search("")
                                         }) { CloseIcon(cancel) }

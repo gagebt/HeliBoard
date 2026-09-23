@@ -41,12 +41,14 @@ import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodSubtype;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import dev.notune.transcribe.RustInputMethodService;
+import dev.notune.transcribe.AudioFocusPauser;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
@@ -159,6 +161,7 @@ public class LatinIME extends InputMethodService implements
     private InsetsOutlineProvider mInsetsUpdater;
     private SuggestionStripView mSuggestionStripView;
     private RustInputMethodService mVoiceController;
+    private final AudioFocusPauser mVoiceAudioPauser = new AudioFocusPauser();
     private RustInputMethodService.VoiceState mVoiceState;
     private long mVoiceEditorGeneration;
     private boolean mVoiceExternalVisible;
@@ -775,6 +778,7 @@ public class LatinIME extends InputMethodService implements
             mVoiceController.close();
             mVoiceController = null;
         }
+        mVoiceAudioPauser.abandon(this);
         FutoSuggestions.INSTANCE.close();
         mClipboardHistoryManager.onDestroy();
         mDictionaryFacilitator.closeDictionaries();
@@ -1531,10 +1535,12 @@ public class LatinIME extends InputMethodService implements
         final SharedPreferences prefs = KtxKt.prefs(this);
         final float pause = prefs.getFloat(Settings.PREF_VOICE_PAUSE_SECONDS,
                 helium314.keyboard.latin.settings.Defaults.PREF_VOICE_PAUSE_SECONDS);
+        final float split = prefs.getFloat(Settings.PREF_VOICE_SPLIT_SECONDS,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_SPLIT_SECONDS);
         final float sensitivity = prefs.getFloat(Settings.PREF_VOICE_SPEECH_SENSITIVITY,
                 helium314.keyboard.latin.settings.Defaults.PREF_VOICE_SPEECH_SENSITIVITY);
         writeVoiceSetting(RustInputMethodService.SETTING_SENTENCE_PAUSE_SECONDS, pause);
-        writeVoiceSetting(RustInputMethodService.SETTING_SPLIT_SECONDS, pause);
+        writeVoiceSetting(RustInputMethodService.SETTING_SPLIT_SECONDS, split);
         writeVoiceSetting(RustInputMethodService.SETTING_SPEECH_SENSITIVITY, sensitivity);
     }
 
@@ -1559,6 +1565,16 @@ public class LatinIME extends InputMethodService implements
     }
 
     private void renderVoiceState(@Nullable final RustInputMethodService.VoiceState state) {
+        final boolean wasRecording = mVoiceState != null
+                && mVoiceState.phase == RustInputMethodService.Phase.RECORDING;
+        final boolean isRecording = state != null
+                && state.phase == RustInputMethodService.Phase.RECORDING;
+        if (wasRecording && !isRecording) mVoiceAudioPauser.abandon(this);
+        if (!wasRecording && isRecording && KtxKt.prefs(this).getBoolean(
+                Settings.PREF_VOICE_PAUSE_AUDIO,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_PAUSE_AUDIO)) {
+            mVoiceAudioPauser.request(this);
+        }
         final boolean enteringActiveVoice = state != null
                 && state.phase != RustInputMethodService.Phase.IDLE
                 && (mVoiceState == null
@@ -1580,7 +1596,8 @@ public class LatinIME extends InputMethodService implements
             final LinearLayout recovery = new LinearLayout(this);
             recovery.setOrientation(LinearLayout.HORIZONTAL);
             recovery.setGravity(Gravity.CENTER_VERTICAL);
-            addVoiceButton(recovery, R.string.dictation_draft, () -> showVoiceRecoveryActions(state));
+            addVoiceButton(recovery, R.string.dictation_draft, R.drawable.ic_voice_draft,
+                    () -> showVoiceRecoveryActions(state));
             mSuggestionStripView.setVoiceRecoveryView(recovery);
             return;
         }
@@ -1596,7 +1613,8 @@ public class LatinIME extends InputMethodService implements
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
         if (state.phase == RustInputMethodService.Phase.RECORDING) {
-            addVoiceButton(row, R.string.dictation_stop, () -> mVoiceController.stop());
+            addVoiceButton(row, R.string.dictation_stop, R.drawable.ic_voice_stop,
+                    () -> mVoiceController.stop());
             row.setContentDescription(state.message + ". "
                     + getString(R.string.dictation_stop));
         } else {
@@ -1605,10 +1623,10 @@ public class LatinIME extends InputMethodService implements
             status.setSingleLine(true);
             row.addView(status);
         }
-        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, () -> mVoiceController.retry());
-        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
-        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, () -> mVoiceController.copyDraft());
-        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, () -> mVoiceController.discardDraft());
+        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, R.drawable.ic_voice_retry, () -> mVoiceController.retry());
+        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, R.drawable.sym_keyboard_paste, () -> mVoiceController.insertDraft());
+        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, R.drawable.sym_keyboard_copy, () -> mVoiceController.copyDraft());
+        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, R.drawable.ic_bin, () -> mVoiceController.discardDraft());
         mSuggestionStripView.setVoiceRecoveryView(row);
     }
 
@@ -1618,11 +1636,11 @@ public class LatinIME extends InputMethodService implements
         final LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
-        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, () -> mVoiceController.retry());
-        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
-        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, () -> mVoiceController.copyDraft());
-        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, () -> mVoiceController.discardDraft());
-        addVoiceButton(row, R.string.dictation_back, () -> renderVoiceState(state));
+        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, R.drawable.ic_voice_retry, () -> mVoiceController.retry());
+        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, R.drawable.sym_keyboard_paste, () -> mVoiceController.insertDraft());
+        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, R.drawable.sym_keyboard_copy, () -> mVoiceController.copyDraft());
+        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, R.drawable.ic_bin, () -> mVoiceController.discardDraft());
+        addVoiceButton(row, R.string.dictation_back, R.drawable.ic_arrow_back, () -> renderVoiceState(state));
         final HorizontalScrollView scroll = new HorizontalScrollView(this);
         scroll.setHorizontalScrollBarEnabled(false);
         scroll.addView(row);
@@ -1638,14 +1656,19 @@ public class LatinIME extends InputMethodService implements
                 helium314.keyboard.latin.settings.Defaults.PREF_VOICE_SHOW_INSERT);
     }
 
-    private void addVoiceButton(final LinearLayout row, final int label, final Runnable action) {
-        final Button button = new Button(this);
-        button.setText(label);
-        button.setAllCaps(false);
-        button.setMinWidth(0);
-        button.setMinimumWidth(0);
+    private void addVoiceButton(final LinearLayout row, final int label, final int icon,
+            final Runnable action) {
+        final ImageButton button = new ImageButton(this, null, R.attr.suggestionWordStyle);
+        button.setImageResource(icon);
+        button.setScaleType(ImageView.ScaleType.CENTER);
+        button.setContentDescription(getString(label));
+        button.setTooltipText(getString(label));
+        mSettings.getCurrent().mColors.setColor(button, ColorType.TOOL_BAR_KEY);
+        mSettings.getCurrent().mColors.setBackground(button, ColorType.STRIP_BACKGROUND);
         button.setOnClickListener(ignored -> action.run());
-        row.addView(button);
+        row.addView(button, new LinearLayout.LayoutParams(
+                getResources().getDimensionPixelSize(R.dimen.config_suggestions_strip_edge_key_width),
+                LinearLayout.LayoutParams.MATCH_PARENT));
     }
 
     public void onTextInput(@Nullable String rawText) {

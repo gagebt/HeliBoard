@@ -15,7 +15,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -53,6 +52,7 @@ import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.LayoutType.Companion.displayNameId
 import helium314.keyboard.latin.utils.LayoutUtils
 import helium314.keyboard.latin.utils.LayoutUtilsCustom
+import helium314.keyboard.latin.utils.HintIconButton
 import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.ScriptUtils
 import helium314.keyboard.latin.utils.ScriptUtils.script
@@ -264,7 +264,7 @@ fun SubtypeScreen(
                             ) {
                                 Text(displayName)
                                 if (LayoutUtilsCustom.isCustomLayout(it))
-                                    IconButton({
+                                    HintIconButton(stringResource(R.string.edit_layout), {
                                         showLayoutEditDialog = true
                                     }) {
                                         Icon(
@@ -419,7 +419,7 @@ private fun MainLayoutRow(
                 else setCurrentSubtype(currentSubtype.withLayout(LayoutType.MAIN, layout))
             },
             extraButton = {
-                IconButton({ showAddLayoutDialog = true })
+                HintIconButton(stringResource(R.string.button_title_add_custom_layout), { showAddLayoutDialog = true })
                 { Icon(painterResource(R.drawable.ic_plus), stringResource(R.string.button_title_add_custom_layout)) }
             }
         ) {
@@ -431,9 +431,9 @@ private fun MainLayoutRow(
             ) {
                 Text(SubtypeLocaleUtils.getLayoutDisplayNameInSystemLocale(it, currentSubtype.locale))
                 Row (verticalAlignment = Alignment.CenterVertically) {
-                    IconButton({ showLayoutEditDialog = it to null }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
+                    HintIconButton(stringResource(R.string.edit_layout), { showLayoutEditDialog = it to null }) { Icon(painterResource(R.drawable.ic_edit), stringResource(R.string.edit_layout)) }
                     if (it in customLayouts)
-                        IconButton({ showLayoutDeleteDialog = true }) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
+                        HintIconButton(stringResource(R.string.delete), { showLayoutDeleteDialog = true }) { Icon(painterResource(R.drawable.ic_bin), stringResource(R.string.delete)) }
                 }
             }
             if (showLayoutDeleteDialog) {

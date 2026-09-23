@@ -172,11 +172,8 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return false;
         }
-        if (!prepareHostForVoiceCommit()) {
-            message = "Could not prepare the text field for dictation";
-            publishState();
-            return false;
-        }
+        // Some editors reject HeliBoard composition but still accept a direct commit.
+        prepareHostForVoiceCommit();
 
         final long candidateSessionId = Math.max(
                 activeSessionId + 1, Math.max(1, System.nanoTime()));
@@ -297,11 +294,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return false;
         }
-        if (!prepareHostForVoiceCommit()) {
-            message = "Saved copy available; text field was not ready";
-            publishState();
-            return false;
-        }
+        prepareHostForVoiceCommit();
         int capsMode;
         try {
             capsMode = connection.getCursorCapsMode(info.inputType);
@@ -603,11 +596,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return;
         }
 
-        if (!prepareHostForVoiceCommit()) {
-            autoDeliveryOpen = false;
-            settleDelivery(true, "Saved copy available; text field was not ready");
-            return;
-        }
+        prepareHostForVoiceCommit();
         refreshContext(connection);
         EditorSnapshot before = readSnapshot(connection);
         PendingDictationDraft attempted = pendingDraft.with(

@@ -27,6 +27,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
 import helium314.keyboard.event.HapticEvent
@@ -379,7 +380,13 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private fun onLongClickToolbarKey(view: View) {
         val tag = view.tag as? ToolbarKey ?: return
         if (!Settings.getValues().mQuickPinToolbarKeys || view.parent === pinnedKeys) {
-            onLongClickToolbarKey(view) { code, isRepeat -> listener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, isRepeat) }
+            if (helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick(tag) == KeyCode.UNSPECIFIED) {
+                val hint = if (tag == ToolbarKey.VOICE) context.getString(R.string.voice_button_hint)
+                    else view.contentDescription
+                Toast.makeText(context, hint, Toast.LENGTH_SHORT).show()
+            } else {
+                onLongClickToolbarKey(view) { code, isRepeat -> listener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, isRepeat) }
+            }
         } else if (view.parent === toolbar) {
             AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(this, HapticEvent.KEY_LONG_PRESS)
             val pinnedKeyView = pinnedKeys.findViewWithTag<View>(tag)

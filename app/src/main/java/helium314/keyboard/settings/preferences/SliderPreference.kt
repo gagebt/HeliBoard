@@ -24,6 +24,7 @@ fun <T: Number> SliderPreference(
     modifier: Modifier = Modifier,
     key: String,
     description: @Composable (T) -> String,
+    summary: String? = null,
     default: T,
     range: ClosedFloatingPointRange<Float>,
     stepSize: Int? = null,
@@ -44,7 +45,8 @@ fun <T: Number> SliderPreference(
         name = name,
         onClick = { showDialog = true },
         modifier = modifier,
-        description = description(initialValue)
+        description = summary?.let { "$it (${description(initialValue)})" }
+            ?: description(initialValue)
     )
     if (showDialog)
         SliderDialog(

@@ -47,7 +47,9 @@ fun PreferencesScreen(
         R.string.settings_category_voice_input,
         Settings.PREF_VOICE_SHOW_INSERT,
         Settings.PREF_VOICE_PAUSE_SECONDS,
+        Settings.PREF_VOICE_SPLIT_SECONDS,
         Settings.PREF_VOICE_SPEECH_SENSITIVITY,
+        Settings.PREF_VOICE_PAUSE_AUDIO,
         Settings.PREF_SHOW_HINTS,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS))
             Settings.PREF_POPUP_KEYS_HINT_ORDER else null,
@@ -105,7 +107,19 @@ fun createPreferencesSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
+            summary = setting.description,
             default = Defaults.PREF_VOICE_PAUSE_SECONDS,
+            description = { "%.1f s".format(it) },
+            range = 1.5f..8f,
+        )
+    },
+    Setting(context, Settings.PREF_VOICE_SPLIT_SECONDS, R.string.voice_split_seconds,
+        R.string.voice_split_seconds_summary) { setting ->
+        SliderPreference(
+            name = setting.title,
+            key = setting.key,
+            summary = setting.description,
+            default = Defaults.PREF_VOICE_SPLIT_SECONDS,
             description = { "%.1f s".format(it) },
             range = 1.5f..8f,
         )
@@ -115,10 +129,15 @@ fun createPreferencesSettings(context: Context) = listOf(
         SliderPreference(
             name = setting.title,
             key = setting.key,
+            summary = setting.description,
             default = Defaults.PREF_VOICE_SPEECH_SENSITIVITY,
-            description = { "%.1fx".format(it) },
+            description = { "%.1f of 4".format(it) },
             range = 1f..4f,
         )
+    },
+    Setting(context, Settings.PREF_VOICE_PAUSE_AUDIO, R.string.voice_pause_audio,
+        R.string.voice_pause_audio_summary) { setting ->
+        SwitchPreference(setting, Defaults.PREF_VOICE_PAUSE_AUDIO)
     },
     Setting(context, Settings.PREF_SAVE_SUBTYPE_PER_APP, R.string.save_subtype_per_app) {
         SwitchPreference(it, Defaults.PREF_SAVE_SUBTYPE_PER_APP)

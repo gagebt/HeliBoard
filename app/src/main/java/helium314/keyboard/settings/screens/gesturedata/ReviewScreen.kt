@@ -29,7 +29,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -67,6 +66,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.utils.HintIconButton
 import helium314.keyboard.latin.common.Links
 import helium314.keyboard.latin.common.decapitalize
 import helium314.keyboard.latin.utils.GestureData
@@ -393,7 +393,8 @@ private fun BottomBar(
                         Text(stringResource(R.string.gesture_data_words_selected, wordcount))
                     }
                 }
-                IconButton(
+                HintIconButton(
+                    hint = stringResource(R.string.icon_hint_sort_alphabetically),
                     onClick = {
                         if (sortByName) setReverseSort(!reverseSort)
                         else setSortByName(true)
@@ -404,7 +405,8 @@ private fun BottomBar(
                         "sort alphabetically"
                     )
                 }
-                IconButton(
+                HintIconButton(
+                    hint = stringResource(R.string.icon_hint_sort_chronologically),
                     onClick = {
                         if (!sortByName) setReverseSort(!reverseSort)
                         else setSortByName(false)
@@ -462,7 +464,8 @@ private fun TopBar(
     TopAppBar( // not in the scaffold, thus will not cover data column in wide screen layout
         title = { Text(stringResource(R.string.gesture_data_review_screen_title)) },
         navigationIcon = {
-            IconButton(onClick = onClickBack) {
+            HintIconButton(stringResource(R.string.spoken_description_action_previous),
+                onClick = onClickBack) {
                 Icon(
                     painterResource(R.drawable.ic_arrow_back),
                     stringResource(R.string.spoken_description_action_previous)
@@ -472,7 +475,8 @@ private fun TopBar(
         actions = {
             Box {
                 var showMenu by remember { mutableStateOf(false) }
-                IconButton(
+                HintIconButton(
+                    hint = stringResource(R.string.icon_hint_menu),
                     onClick = { showMenu = true }
                 ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
                 DropdownMenu(

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static helium314.keyboard.latin.common.Constants.ImeOption.NO_FLOATING_GESTURE_PREVIEW;
-import static helium314.keyboard.latin.common.Constants.ImeOption.NO_MICROPHONE;
 
 import androidx.annotation.NonNull;
 
@@ -78,7 +77,7 @@ public final class InputAttributes {
             mInputTypeShouldAutoCorrect = false;
             mApplicationSpecifiedCompletionOn = false;
             mShouldInsertSpacesAutomatically = false;
-            mShouldShowVoiceInputKey = false;
+            mShouldShowVoiceInputKey = true;
             mDisableGestureFloatingPreviewText = false;
             mIsGeneralTextInput = false;
             mNoLearning = false;
@@ -98,10 +97,7 @@ public final class InputAttributes {
 
         mShouldInsertSpacesAutomatically = InputTypeUtils.isAutoSpaceFriendlyType(mInputType);
 
-        final boolean noMicrophone = mIsPasswordField
-                || InputTypeUtils.isEmailVariation(variation)
-                || hasNoMicrophoneKeyOption();
-        mShouldShowVoiceInputKey = !noMicrophone;
+        mShouldShowVoiceInputKey = true;
 
         mDisableGestureFloatingPreviewText = InputAttributes.inPrivateImeOptions(
                 mPackageNameForPrivateImeOptions, NO_FLOATING_GESTURE_PREVIEW, editorInfo);
@@ -142,10 +138,6 @@ public final class InputAttributes {
     public boolean isSameInputType(final EditorInfo editorInfo) {
         return editorInfo.inputType == mInputType && mEditorInfo != null
                 && (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) == (editorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII);
-    }
-
-    private boolean hasNoMicrophoneKeyOption() {
-        return InputAttributes.inPrivateImeOptions(mPackageNameForPrivateImeOptions, NO_MICROPHONE, mEditorInfo);
     }
 
     @SuppressWarnings("unused")
