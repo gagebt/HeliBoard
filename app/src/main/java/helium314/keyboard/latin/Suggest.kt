@@ -336,7 +336,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         // modify inputType such in getSuggestedWordsForNonBatchInput.
         val pseudoTypedWordInfo = preferNextWordSuggestion(
             pseudoTypedWord, suggestionsContainer,
-            getNextWordSuggestions(ngramContext, keyboard, inputStyle, settingsValuesForSuggestion), rejected
+            { getNextWordSuggestions(ngramContext, keyboard, inputStyle, settingsValuesForSuggestion) }, rejected
         )
         val suggestionsList = if (SuggestionStripView.DEBUG_SUGGESTIONS && suggestionsContainer.isNotEmpty()) {
             getSuggestionsInfoListWithDebugInfo(suggestionResults.first().mWord, suggestionsContainer)
@@ -556,15 +556,15 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         }
 
         /** returns new pseudoTypedWordInfo, puts it in suggestionsContainer, modifies nextWordSuggestions */
-        private fun preferNextWordSuggestion(
+        internal fun preferNextWordSuggestion(
             pseudoTypedWordInfo: SuggestedWordInfo?,
             suggestionsContainer: ArrayList<SuggestedWordInfo>,
-            nextWordSuggestions: SuggestionResults, rejected: SuggestedWordInfo?
+            nextWordSuggestions: () -> SuggestionResults, rejected: SuggestedWordInfo?
         ): SuggestedWordInfo? {
-            if (pseudoTypedWordInfo == null || !Settings.getValues().mUsePersonalizedDicts
-                || pseudoTypedWordInfo.mSourceDict.mDictType != Dictionary.TYPE_MAIN || suggestionsContainer.size < 2
+            if (pseudoTypedWordInfo == null || pseudoTypedWordInfo.mSourceDict.mDictType != Dictionary.TYPE_MAIN
+                || suggestionsContainer.size < 2 || !Settings.getValues().mUsePersonalizedDicts
             ) return pseudoTypedWordInfo
-            val goodNextSuggestions = nextWordSuggestions.filter { it.mScore >= 170 } // we only want reasonably often typed words, value may require tuning
+            val goodNextSuggestions = nextWordSuggestions().filter { it.mScore >= 170 } // we only want reasonably often typed words, value may require tuning
             if (goodNextSuggestions.isEmpty()) return pseudoTypedWordInfo
 
             // for each suggestion, check whether the word was already typed in this ngram context (i.e. is nextWordSuggestion)

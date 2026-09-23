@@ -5,3 +5,5 @@
 *.pte binary
 *.so binary
 app/src/main/assets/futo-swipe/** -text
+/gradlew text eol=lf
+*.sh text eol=lf

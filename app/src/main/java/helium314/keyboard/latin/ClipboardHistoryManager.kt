@@ -238,6 +238,7 @@ class ClipboardHistoryManager(
         closeButton.setImageDrawable(KeyboardIconsSet.instance.getIconDrawable(ToolbarKey.CLOSE_HISTORY.name.lowercase()))
         closeButton.layoutParams.width = textView.lineHeight // scale the icon to the text
         closeButton.layoutParams.height = textView.lineHeight
+        closeButton.tooltipText = latinIME.getString(R.string.clipboard_suggestion_dismiss)
         closeButton.setOnClickListener { removeClipboardSuggestion() }
 
         val colors = latinIME.mSettings.current.mColors

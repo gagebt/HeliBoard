@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_control_mode">Кнопки диктовки</string>
+    <string name="voice_transcribe_now">Показывать «Распознать сейчас»</string>
+    <string name="voice_transcribe_now_summary">Обработать текущий фрагмент речи без остановки записи. Кнопка остановки завершает запись.</string>
+    <string name="voice_control_mode_summary">Выберите кнопки во время записи. Остановка доступна всегда; копирование появится при сомнении во вставке.</string>
+    <string name="voice_control_full">Все действия</string>
+    <string name="voice_control_auto_hide">Скрывать дополнительные действия</string>
+    <string name="voice_control_stop_only">Только остановка</string>
+    <string name="voice_save_dictations_to_history">Сохранять диктовки в истории буфера обмена</string>
+    <string name="voice_save_dictations_to_history_summary">Одна запись на диктовку при включённой истории. Не сохраняет пароли и текст из приватных полей. Системный буфер не меняется.</string>
+    <string name="clipboard_retention_summary">Срок хранения незакреплённых записей. Закреплённые записи не удаляются по сроку.</string>
+    <string name="clipboard_history_switch_summary">При изменении настройки незакреплённые записи удаляются. Закреплённые остаются. Если история выключена, клавиша буфера вставляет его содержимое.</string>
+    <string name="clipboard_suggestion_dismiss">Скрыть предложение из буфера обмена</string>
+    <string name="dictation_transcribe_now">Распознать сейчас; продолжить запись</string>
+    <string name="retention_1_minute">1 минута</string>
+    <string name="retention_5_minutes">5 минут</string>
+    <string name="retention_10_minutes">10 минут</string>
+    <string name="retention_30_minutes">30 минут</string>
+    <string name="retention_1_hour">1 час</string>
+    <string name="retention_2_hours">2 часа</string>
+    <string name="retention_6_hours">6 часов</string>
+    <string name="retention_12_hours">12 часов</string>
+    <string name="retention_1_day">1 день</string>
+    <string name="retention_3_days">3 дня</string>
+    <string name="retention_7_days">7 дней</string>
+    <string name="retention_14_days">14 дней</string>
+    <string name="retention_30_days">30 дней</string>
+    <string name="retention_90_days">90 дней</string>
+    <string name="retention_180_days">180 дней</string>
+    <string name="retention_365_days">1 год</string>
+    <string name="retention_custom_minutes">Текущее значение: %1$d минут</string>
+</resources>

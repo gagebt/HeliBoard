@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_mode_smart">Умный</string>
+    <string name="search_mode_normal">Обычный</string>
+    <string name="search_languages_summary">Добавить язык и открыть его раскладку и подсказки.</string>
+    <string name="search_dictionaries_summary">Управлять словарями языков и импортировать их.</string>
+    <string name="search_layouts_summary">Управлять дополнительными раскладками клавиатуры.</string>
+    <string name="search_subtype_title">Настройки языка %1$s</string>
+    <string name="search_subtype_summary">Открыть раскладку языка, дополнительные подсказки и символы удержания.</string>
+    <string name="search_enable_first">Требуется: %1$s</string>
+</resources>

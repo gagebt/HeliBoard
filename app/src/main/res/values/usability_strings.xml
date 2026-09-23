@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_control_mode">Dictation controls</string>
+    <string name="voice_transcribe_now">Show Transcribe now</string>
+    <string name="voice_transcribe_now_summary">Process the current speech piece while recording continues. Stop ends the recording.</string>
+    <string name="voice_control_mode_summary">Choose which controls appear while recording. Stop is always available; Copy appears if delivery is uncertain.</string>
+    <string name="voice_control_full">Full actions</string>
+    <string name="voice_control_auto_hide">Auto-hide optional actions</string>
+    <string name="voice_control_stop_only">Stop only</string>
+    <string name="voice_save_dictations_to_history">Save dictations to clipboard history</string>
+    <string name="voice_save_dictations_to_history_summary">Save one complete text entry per recording when clipboard history is on. Excludes passwords, incognito and fields that forbid learning. Does not replace the system clipboard.</string>
+    <string name="clipboard_retention_summary">Keep unpinned history for this long. Pinned items do not expire.</string>
+    <string name="clipboard_history_switch_summary">Changing this setting deletes unpinned history. Pinned items stay. When off, the clipboard key pastes the current clipboard.</string>
+    <string name="clipboard_suggestion_dismiss">Dismiss clipboard suggestion</string>
+    <string name="dictation_transcribe_now">Transcribe now; keep recording</string>
+    <string name="retention_1_minute">1 minute</string>
+    <string name="retention_5_minutes">5 minutes</string>
+    <string name="retention_10_minutes">10 minutes</string>
+    <string name="retention_30_minutes">30 minutes</string>
+    <string name="retention_1_hour">1 hour</string>
+    <string name="retention_2_hours">2 hours</string>
+    <string name="retention_6_hours">6 hours</string>
+    <string name="retention_12_hours">12 hours</string>
+    <string name="retention_1_day">1 day</string>
+    <string name="retention_3_days">3 days</string>
+    <string name="retention_7_days">7 days</string>
+    <string name="retention_14_days">14 days</string>
+    <string name="retention_30_days">30 days</string>
+    <string name="retention_90_days">90 days</string>
+    <string name="retention_180_days">180 days</string>
+    <string name="retention_365_days">1 year</string>
+    <string name="retention_custom_minutes">Current value: %1$d minutes</string>
+</resources>

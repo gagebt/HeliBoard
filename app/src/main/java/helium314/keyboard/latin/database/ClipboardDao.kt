@@ -22,7 +22,7 @@ import kotlin.collections.joinToString
 
 /** Class providing cached access to the clipboard table */
 // currently we should not need to worry about synchronizing access (though maybe we could addClip in a coroutine, then it might be relevant)
-class ClipboardDao private constructor(private val db: Database) {
+class ClipboardDao private constructor(private val db: Database, private val prefs: SharedPreferences) {
     interface Listener {
         fun onClipInserted(position: Int)
         fun onClipsRemoved(position: Int, count: Int)
@@ -117,7 +117,7 @@ class ClipboardDao private constructor(private val db: Database) {
     }
 
     /** only public for restoring backups */
-    fun insertNewEntry(timestamp: Long, pinned: Boolean, text: String?, filename: String?, mimeTypes: List<String>?, context: Context?) {
+    fun insertNewEntry(timestamp: Long, pinned: Boolean, text: String?, filename: String?, mimeTypes: List<String>?, context: Context?): Long {
         val cv = ContentValues(5)
         cv.put(COLUMN_TIMESTAMP, timestamp)
         cv.put(COLUMN_PINNED, pinned)
@@ -125,7 +125,7 @@ class ClipboardDao private constructor(private val db: Database) {
         cv.put(COLUMN_FILE, filename)
         // § should be a safe separator, not allowed in mime types: https://datatracker.ietf.org/doc/html/rfc6838#section-4.2
         cv.put(COLUMN_MIME_TYPE, mimeTypes?.joinToString("§"))
-        val rowId = db.writableDatabase.insert(TABLE, null, cv)
+        val rowId = db.writableDatabase.insertOrThrow(TABLE, null, cv)
 
         val entry = ClipboardHistoryEntry(rowId, timestamp, pinned, text, filename, mimeTypes)
         if (filename != null && context != null)
@@ -133,6 +133,28 @@ class ClipboardDao private constructor(private val db: Database) {
         cache.add(entry)
         cache.sort()
         listener?.onClipInserted(cache.indexOf(entry))
+        return rowId
+    }
+
+    /** One recording keeps one row, even if native inference is retried. */
+    fun saveDictation(text: String, previousId: Long): Long = synchronized(this) {
+        clearOldClips()
+        val timestamp = System.currentTimeMillis()
+        val previous = cache.firstOrNull { it.id == previousId }
+        if (previous == null) return@synchronized insertNewEntry(timestamp, false, text, null, null, null)
+        val values = ContentValues(2).apply {
+            put(COLUMN_TEXT, text)
+            put(COLUMN_TIMESTAMP, timestamp)
+        }
+        check(db.writableDatabase.update(TABLE, values, "$COLUMN_ID = ?",
+            arrayOf(previousId.toString())) == 1)
+        val oldPosition = cache.indexOf(previous)
+        previous.text = text
+        previous.timeStamp = timestamp
+        cache.sort()
+        listener?.onClipsRemoved(oldPosition, 1)
+        listener?.onClipInserted(cache.indexOf(previous))
+        previousId
     }
 
     private fun updateTimestampAt(index: Int, timestamp: Long) {
@@ -194,8 +216,9 @@ class ClipboardDao private constructor(private val db: Database) {
             return
 
         lastClearOldClips = SystemClock.elapsedRealtime()
-        val retentionTime = Settings.getValues()?.mClipboardHistoryRetentionTime ?: 121L
-        if (retentionTime > 120) return
+        val retentionTime = prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+            Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME)
+        if (retentionTime <= 0) return
         val minTime = System.currentTimeMillis() - retentionTime * 60 * 1000L
         val toRemove = cache.filter { it.timeStamp < minTime && !it.isPinned }
         delete(toRemove)
@@ -214,9 +237,10 @@ class ClipboardDao private constructor(private val db: Database) {
     }
 
     fun clear() {
-        if (count() == 0) return
+        val oldCount = count()
+        if (oldCount == 0) return
         cache.clear()
-        listener?.onClipsRemoved(0, count())
+        listener?.onClipsRemoved(0, oldCount)
         db.writableDatabase.delete(TABLE, null, null)
     }
 
@@ -277,7 +301,7 @@ class ClipboardDao private constructor(private val db: Database) {
         fun getInstance(context: Context): ClipboardDao? {
             if (instance == null)
                 try {
-                    instance = ClipboardDao(Database.getInstance(context))
+                    instance = ClipboardDao(Database.getInstance(context), context.prefs())
                     clipFilesDir = File(context.filesDir, "clipboard")
                     clipFilesDir.mkdirs()
                     instance?.cleanupFiles(context.prefs())

@@ -34,7 +34,7 @@
         android:scaleType="centerInside" />
     <ImageView
         android:id="@+id/clipboard_suggestion_close"
-        android:contentDescription="@string/spoken_clipboard_suggestion"
+        android:contentDescription="@string/clipboard_suggestion_dismiss"
         android:src="@drawable/ic_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

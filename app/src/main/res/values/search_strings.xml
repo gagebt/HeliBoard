@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_mode_smart">Smart</string>
+    <string name="search_mode_normal">Normal</string>
+    <string name="search_languages_summary">Add a language and open its layout and suggestion options.</string>
+    <string name="search_dictionaries_summary">Manage and import language dictionaries.</string>
+    <string name="search_layouts_summary">Manage secondary keyboard layouts.</string>
+    <string name="search_subtype_title">%1$s language options</string>
+    <string name="search_subtype_summary">Open this language to change its layout, secondary suggestions, and popup keys.</string>
+    <string name="search_enable_first">Needs: %1$s</string>
+</resources>

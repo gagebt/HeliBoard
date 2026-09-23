@@ -27,7 +27,7 @@ fun <T: Any> ListPreference(
     val selected = items.firstOrNull { it.second == getPrefOfType(prefs, setting.key, default) }
     Preference(
         name = setting.title,
-        description = selected?.first,
+        description = setting.description?.let { "$it (${selected?.first.orEmpty()})" } ?: selected?.first,
         onClick = { showDialog = true }
     )
     if (showDialog) {
@@ -43,10 +43,8 @@ fun <T: Any> ListPreference(
             title = { Text(setting.title) },
             getItemName = { it.first },
             onDefault = {
-                onDefault?.let {
-                    onChanged(default)
-                    it()
-                }
+                if (onDefault != null) onDefault() else prefs.edit { remove(setting.key) }
+                onChanged(default)
             }
         )
     }

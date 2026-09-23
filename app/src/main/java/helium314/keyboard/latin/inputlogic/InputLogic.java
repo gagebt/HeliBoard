@@ -180,6 +180,7 @@ public final class InputLogic {
         // editorInfo.initialSelStart is not the actual cursor position, so we try using some heuristics to find the correct position.
         mConnection.tryFixIncorrectCursorPosition();
         cancelDoubleSpacePeriodCountdown();
+        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
         mInputLogicHandler.reset();
         mConnection.requestCursorUpdates(true, true);
         setInlineEmojiSearchAction(false);
@@ -221,6 +222,7 @@ public final class InputLogic {
             StatsUtils.onWordCommitUserTyped(mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
         }
         resetComposingState(true);
+        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
         mInputLogicHandler.reset();
         mSpaceState = SpaceState.NONE;
     }
@@ -228,6 +230,7 @@ public final class InputLogic {
     /** Reconciles HeliBoard after text was committed through the voice controller. */
     public void onExternalTextCommitted(final int newSelStart, final int newSelEnd) {
         resetComposingState(true /* alsoResetLastComposedWord */);
+        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
         mInputLogicHandler.reset();
         mSpaceState = SpaceState.NONE;
         mConnection.resetCachesUponCursorMoveAndReturnSuccess(
@@ -557,6 +560,7 @@ public final class InputLogic {
     public void onStartBatchInput(final SettingsValues settingsValues,
             final KeyboardSwitcher keyboardSwitcher, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
+        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
         mInputLogicHandler.onStartBatchInput();
         handler.showGesturePreviewAndSetSuggestions(SuggestedWords.getEmptyBatchInstance(), false);
         handler.cancelUpdateSuggestionStrip();
@@ -636,16 +640,35 @@ public final class InputLogic {
      * earlier sequence number.
      */
     private int mAutoCommitSequenceNumber = 1;
+    private int mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+
+    public boolean isGesturePending() {
+        return mInputLogicHandler.isInBatchInput()
+                || mPendingTailBatchSequenceNumber != SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+    }
+
+    public boolean isCurrentTailBatchInputResult(final SuggestedWords suggestedWords) {
+        return mPendingTailBatchSequenceNumber != SuggestedWords.NOT_A_SEQUENCE_NUMBER
+                && suggestedWords.mSequenceNumber == mPendingTailBatchSequenceNumber;
+    }
+
+    public void onTailBatchInputResultDelivered(final SuggestedWords suggestedWords) {
+        if (isCurrentTailBatchInputResult(suggestedWords))
+            mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+    }
     public void onUpdateBatchInput(final InputPointers batchPointers) {
         mInputLogicHandler.onUpdateBatchInput(batchPointers, mAutoCommitSequenceNumber);
     }
 
     public void onEndBatchInput(final InputPointers batchPointers) {
+        if (!mInputLogicHandler.isInBatchInput()) return;
+        mPendingTailBatchSequenceNumber = mAutoCommitSequenceNumber;
         mInputLogicHandler.updateTailBatchInput(batchPointers, mAutoCommitSequenceNumber);
         ++mAutoCommitSequenceNumber;
     }
 
     public void onCancelBatchInput(final LatinIME.UIHandler handler) {
+        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
         mInputLogicHandler.onCancelBatchInput();
         handler.showGesturePreviewAndSetSuggestions(
                 SuggestedWords.getEmptyInstance(), true /* dismissGestureFloatingPreviewText */);

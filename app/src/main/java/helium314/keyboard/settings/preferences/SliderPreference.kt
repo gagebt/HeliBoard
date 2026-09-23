@@ -2,6 +2,7 @@
 package helium314.keyboard.settings.preferences
 
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,6 +51,7 @@ fun <T: Number> SliderPreference(
     )
     if (showDialog)
         SliderDialog(
+            title = { Text(name) },
             onDismissRequest = { showDialog = false },
             onDone = {
                 if (default is Int) {

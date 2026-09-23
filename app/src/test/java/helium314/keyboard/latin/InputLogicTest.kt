@@ -21,6 +21,7 @@ import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.ShadowFacilitator2.Companion.lastAddedWord
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.common.InputPointers
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.inputlogic.InputLogic
@@ -79,6 +80,23 @@ class InputLogicTest {
     init {
         ShadowLog.setupLogging()
         ShadowLog.stream = System.out
+    }
+
+    @Test fun staleTailResultCannotClearPendingGesture() {
+        inputLogic.onEndBatchInput(InputPointers(1))
+        assertEquals(false, inputLogic.isGesturePending)
+        val pending = InputLogic::class.java.getDeclaredField("mPendingTailBatchSequenceNumber").apply { isAccessible = true }
+        pending.setInt(inputLogic, 42)
+        fun result(sequence: Int) = SuggestedWords(arrayListOf(), null, null, true, false, false,
+            SuggestedWords.INPUT_STYLE_TAIL_BATCH, sequence)
+
+        assertEquals(true, inputLogic.isGesturePending)
+        assertEquals(false, inputLogic.isCurrentTailBatchInputResult(result(41)))
+        inputLogic.onTailBatchInputResultDelivered(result(41))
+        assertEquals(true, inputLogic.isGesturePending)
+        assertEquals(true, inputLogic.isCurrentTailBatchInputResult(result(42)))
+        inputLogic.onTailBatchInputResultDelivered(result(42))
+        assertEquals(false, inputLogic.isGesturePending)
     }
 
     @Test fun inputCode() {

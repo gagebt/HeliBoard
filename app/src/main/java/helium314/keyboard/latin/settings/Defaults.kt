@@ -120,10 +120,12 @@ object Defaults {
     const val PREF_VIBRATION_DURATION_SETTINGS = -1
     const val PREF_KEYPRESS_SOUND_VOLUME = -0.01f
     const val PREF_VOICE_PAUSE_SECONDS = 3f
-    const val PREF_VOICE_SPLIT_SECONDS = 3f
+    const val PREF_VOICE_SPLIT_SECONDS = 1.5f
     const val PREF_VOICE_SPEECH_SENSITIVITY = 3f
-    const val PREF_VOICE_SHOW_INSERT = true
+    const val PREF_VOICE_TRANSCRIBE_NOW = true
     const val PREF_VOICE_PAUSE_AUDIO = false
+    const val PREF_VOICE_CONTROL_MODE = "full"
+    const val PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY = false
     const val PREF_KEY_LONGPRESS_TIMEOUT = 300
     const val PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY = true
     const val PREF_GESTURE_PREVIEW_TRAIL = true

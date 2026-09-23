@@ -60,9 +60,9 @@ object FutoSuggestions {
         if (count == 0) return null
         val width = keyboard.mOccupiedWidth.toFloat()
         val height = keyboard.mOccupiedHeight.toFloat()
-        val x = pointers.xCoordinates.copyOf(count).map { it / width }.toFloatArray()
+        val x = pointers.xCoordinates.copyOf(count).map { normalizedGestureCoordinate(it, width) }.toFloatArray()
         val y = pointers.yCoordinates.copyOf(count)
-            .map { min(1f, it / height * (4f / 3f)) }.toFloatArray()
+            .map { normalizedGestureCoordinate(it, height, 4f / 3f) }.toFloatArray()
         val t = pointers.times.copyOf(count).map(Int::toFloat).toFloatArray()
         val result = active.recognize(FutoSwipeInput(generation, x, y, t, contextWords, topK = 8))
         result.words.toSuggestionResults(false, SuggestedWordInfo.KIND_CORRECTION)
@@ -158,3 +158,6 @@ object FutoSuggestions {
         return results
     }
 }
+
+internal fun normalizedGestureCoordinate(point: Int, extent: Float, scale: Float = 1f): Float =
+    (point / extent * scale).coerceIn(0f, 1f)

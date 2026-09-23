@@ -45,7 +45,9 @@ fun PreferencesScreen(
     val items = listOf(
         R.string.settings_category_input,
         R.string.settings_category_voice_input,
-        Settings.PREF_VOICE_SHOW_INSERT,
+        Settings.PREF_VOICE_TRANSCRIBE_NOW,
+        Settings.PREF_VOICE_CONTROL_MODE,
+        Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
         Settings.PREF_VOICE_PAUSE_SECONDS,
         Settings.PREF_VOICE_SPLIT_SECONDS,
         Settings.PREF_VOICE_SPEECH_SENSITIVITY,
@@ -98,9 +100,21 @@ fun PreferencesScreen(
 }
 
 fun createPreferencesSettings(context: Context) = listOf(
-    Setting(context, Settings.PREF_VOICE_SHOW_INSERT, R.string.voice_show_insert,
-        R.string.voice_show_insert_summary) { setting ->
-        SwitchPreference(setting, Defaults.PREF_VOICE_SHOW_INSERT)
+    Setting(context, Settings.PREF_VOICE_TRANSCRIBE_NOW, R.string.voice_transcribe_now,
+        R.string.voice_transcribe_now_summary) { setting ->
+        SwitchPreference(setting, Defaults.PREF_VOICE_TRANSCRIBE_NOW)
+    },
+    Setting(context, Settings.PREF_VOICE_CONTROL_MODE, R.string.voice_control_mode,
+        R.string.voice_control_mode_summary) { setting ->
+        ListPreference(setting, listOf(
+            stringResource(R.string.voice_control_full) to "full",
+            stringResource(R.string.voice_control_auto_hide) to "auto_hide",
+            stringResource(R.string.voice_control_stop_only) to "stop_only"
+        ), Defaults.PREF_VOICE_CONTROL_MODE)
+    },
+    Setting(context, Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
+        R.string.voice_save_dictations_to_history, R.string.voice_save_dictations_to_history_summary) {
+        SwitchPreference(it, Defaults.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY)
     },
     Setting(context, Settings.PREF_VOICE_PAUSE_SECONDS, R.string.voice_pause_seconds,
         R.string.voice_pause_seconds_summary) { setting ->
@@ -110,7 +124,7 @@ fun createPreferencesSettings(context: Context) = listOf(
             summary = setting.description,
             default = Defaults.PREF_VOICE_PAUSE_SECONDS,
             description = { "%.1f s".format(it) },
-            range = 1.5f..8f,
+            range = 1f..8f,
         )
     },
     Setting(context, Settings.PREF_VOICE_SPLIT_SECONDS, R.string.voice_split_seconds,
@@ -121,7 +135,7 @@ fun createPreferencesSettings(context: Context) = listOf(
             summary = setting.description,
             default = Defaults.PREF_VOICE_SPLIT_SECONDS,
             description = { "%.1f s".format(it) },
-            range = 1.5f..8f,
+            range = 1f..8f,
         )
     },
     Setting(context, Settings.PREF_VOICE_SPEECH_SENSITIVITY, R.string.voice_speech_sensitivity,
@@ -216,23 +230,30 @@ fun createPreferencesSettings(context: Context) = listOf(
         SwitchPreference(it, Defaults.PREF_REMOVE_REDUNDANT_POPUPS) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
     Setting(context, Settings.PREF_ENABLE_CLIPBOARD_HISTORY,
-        R.string.enable_clipboard_history, R.string.enable_clipboard_history_summary)
+        R.string.enable_clipboard_history, R.string.clipboard_history_switch_summary)
     {
         val ctx = LocalContext.current
         SwitchPreference(it, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY) { ClipboardDao.getInstance(ctx)?.clearNonPinned() }
     },
-    Setting(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, R.string.clipboard_history_retention_time) { setting ->
+    Setting(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+        R.string.clipboard_history_retention_time, R.string.clipboard_retention_summary) { setting ->
         val ctx = LocalContext.current
-        SliderPreference(
-            name = setting.title,
-            key = setting.key,
-            default = Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
-            description = {
-                if (it > 120) stringResource(R.string.settings_no_limit)
-                else stringResource(R.string.abbreviation_unit_minutes, it.toString())
-            },
-            range = 1f..121f,
-        ) { ClipboardDao.getInstance(ctx)?.clearOldClips(true) }
+        val choices = listOf(
+            1 to R.string.retention_1_minute, 5 to R.string.retention_5_minutes,
+            10 to R.string.retention_10_minutes, 30 to R.string.retention_30_minutes,
+            60 to R.string.retention_1_hour, 120 to R.string.retention_2_hours,
+            360 to R.string.retention_6_hours, 720 to R.string.retention_12_hours,
+            1440 to R.string.retention_1_day, 4320 to R.string.retention_3_days,
+            10080 to R.string.retention_7_days, 20160 to R.string.retention_14_days,
+            43200 to R.string.retention_30_days, 129600 to R.string.retention_90_days,
+            259200 to R.string.retention_180_days, 525600 to R.string.retention_365_days,
+            -1 to R.string.settings_no_limit
+        ).map { stringResource(it.second) to it.first }.toMutableList()
+        val saved = ctx.prefs().getInt(setting.key, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME)
+        if (choices.none { it.second == saved })
+            choices.add(0, stringResource(R.string.retention_custom_minutes, saved) to saved)
+        ListPreference(setting, choices, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+            onChanged = { ClipboardDao.getInstance(ctx)?.clearOldClips(true) })
     },
     Setting(context, Settings.PREF_CLIPBOARD_HISTORY_PINNED_FIRST, R.string.clipboard_history_pinned_first) {
         SwitchPreference(it, Defaults.PREF_CLIPBOARD_HISTORY_PINNED_FIRST)

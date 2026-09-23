@@ -6,6 +6,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
@@ -34,14 +36,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -52,6 +57,8 @@ import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.latin.utils.SearchIcon
 import helium314.keyboard.latin.utils.HintIconButton
+import helium314.keyboard.latin.utils.getActivity
+import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.preferences.PreferenceCategory
 
 @Composable
@@ -61,6 +68,8 @@ fun SearchSettingsScreen(
     settings: List<Any?>,
     content: @Composable (ColumnScope.() -> Unit)? = null // overrides settings if not null
 ) {
+    val prefs = LocalContext.current.prefs()
+    var smart by remember { mutableStateOf(prefs.getBoolean("settings_smart_search", true)) }
     SearchScreen(
         onClickBack = onClickBack,
         title = { Text(title) },
@@ -105,9 +114,49 @@ fun SearchSettingsScreen(
                 }
             }
         },
-        filteredItems = { SettingsActivity.settingsContainer.filter(it) },
-        itemContent = { it.Preference() }
+        filteredItems = { if (smart) SettingsActivity.settingsContainer.smartFilter(it)
+                          else SettingsActivity.settingsContainer.filter(it) },
+        itemContent = { SearchSettingResult(it) },
+        searchModeToggle = {
+            TextButton(onClick = {
+                smart = !smart
+                prefs.edit().putBoolean("settings_smart_search", smart).apply()
+            }) { Text(stringResource(if (smart) R.string.search_mode_smart else R.string.search_mode_normal)) }
+        }
     )
+}
+
+@Composable
+private fun SearchSettingResult(setting: Setting) {
+    val context = LocalContext.current
+    (context.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()?.value
+    val prefs = context.prefs()
+    val prerequisite = when (setting.key) {
+        "voice_save_dictations_to_history", "clipboard_history_retention_time",
+        "clipboard_history_pinned_first", "clipboard_histor_usey_files" -> "enable_clipboard_history"
+        "clipboard_history_files_size_limit" -> "clipboard_histor_usey_files"
+        "vibrate_in_dnd_mode", "vibration_duration_settings" -> "vibrate_on"
+        "keypress_sound_volume" -> "sound_on"
+        "gesture_preview_trail", "gesture_floating_preview_text", "gesture_floating_preview_dynamic",
+        "gesture_space_aware", "gesture_fast_typing_cooldown", "gesture_trail_fadeout_duration" -> "gesture_input"
+        else -> null
+    }
+    Column {
+        if (prerequisite != null && !prefs.getBoolean(prerequisite, false)) {
+            Text(stringResource(R.string.search_enable_first,
+                SettingsActivity.settingsContainer[prerequisite]?.title.orEmpty()),
+                modifier = Modifier.padding(horizontal = 16.dp))
+            SettingsActivity.settingsContainer[prerequisite]?.Preference()
+        }
+        if (setting.key == "gesture_floating_preview_dynamic" &&
+            !prefs.getBoolean("gesture_floating_preview_text", false)) {
+            Text(stringResource(R.string.search_enable_first,
+                SettingsActivity.settingsContainer["gesture_floating_preview_text"]?.title.orEmpty()),
+                modifier = Modifier.padding(horizontal = 16.dp))
+            SettingsActivity.settingsContainer["gesture_floating_preview_text"]?.Preference()
+        }
+        setting.Preference()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -120,6 +169,7 @@ fun <T: Any?> SearchScreen(
     icon: @Composable (() -> Unit)? = null,
     menu: List<Pair<String, () -> Unit>>? = null,
     content: @Composable (ColumnScope.() -> Unit)? = null,
+    searchModeToggle: @Composable (() -> Unit)? = null,
 ) {
     // searchText and showSearch should have the same remember or rememberSaveable
     // saveable survives orientation changes and switching between screens, but shows the
@@ -183,6 +233,7 @@ fun <T: Any?> SearchScreen(
                         onDismiss = { setShowSearch(false) },
                         search = searchText,
                         onSearchChange = { searchText = it },
+                        searchModeToggle = searchModeToggle,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -222,6 +273,7 @@ fun ExpandableSearchField(
     onDismiss: () -> Unit,
     search: TextFieldValue,
     onSearchChange: (TextFieldValue) -> Unit,
+    searchModeToggle: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     colors: TextFieldColors = TextFieldDefaults.colors(),
 ) {
@@ -236,13 +288,16 @@ fun ExpandableSearchField(
             onValueChange = onSearchChange,
             modifier = modifier.focusRequester(focusRequester),
             leadingIcon = { SearchIcon() },
-            trailingIcon = { HintIconButton(
+            trailingIcon = { Row(verticalAlignment = Alignment.CenterVertically) {
+                searchModeToggle?.invoke()
+                HintIconButton(
                 hint = if (search.text.isBlank()) stringResource(R.string.dialog_close)
                     else stringResource(R.string.icon_hint_clear_search),
                 onClick = {
                 if (search.text.isBlank()) onDismiss()
                 else onSearchChange(TextFieldValue())
-            }) { CloseIcon(android.R.string.cancel) } },
+                }) { CloseIcon(android.R.string.cancel) }
+            } },
             singleLine = true,
             colors = colors,
             textStyle = contentTextDirectionStyle,

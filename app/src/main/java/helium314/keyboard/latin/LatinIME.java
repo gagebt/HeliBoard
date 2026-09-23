@@ -43,7 +43,6 @@ import android.view.inputmethod.InlineSuggestionsResponse;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -77,6 +76,7 @@ import helium314.keyboard.latin.common.ColorType;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.database.ClipboardDao;
 import helium314.keyboard.latin.common.ViewOutlineProviderUtilsKt;
 import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.inputlogic.InputLogic;
@@ -92,6 +92,7 @@ import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
+import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.KtxKt;
@@ -164,8 +165,11 @@ public class LatinIME extends InputMethodService implements
     private final AudioFocusPauser mVoiceAudioPauser = new AudioFocusPauser();
     private RustInputMethodService.VoiceState mVoiceState;
     private long mVoiceEditorGeneration;
-    private boolean mVoiceExternalVisible;
     private boolean mVoiceRestoreToolbar;
+    private boolean mVoiceOptionalHidden;
+    private Runnable mVoiceHideOptional;
+    private long mVoiceHistorySessionId;
+    private long mVoiceHistoryEntryId;
 
     private RichInputMethodManager mRichImm;
     final KeyboardSwitcher mKeyboardSwitcher;
@@ -299,10 +303,15 @@ public class LatinIME extends InputMethodService implements
                     break;
                 case MSG_UPDATE_TAIL_BATCH_INPUT_COMPLETED:
                     final SuggestedWords suggestedWords = (SuggestedWords) msg.obj;
+                    if (!latinIme.mInputLogic.isCurrentTailBatchInputResult(suggestedWords)) break;
                     latinIme.mInputLogic.onUpdateTailBatchInputCompleted(
                             latinIme.mSettings.getCurrent(),
                             suggestedWords, latinIme.mKeyboardSwitcher);
                     latinIme.onTailBatchInputResultShown(suggestedWords);
+                    latinIme.mInputLogic.onTailBatchInputResultDelivered(suggestedWords);
+                    if (latinIme.mVoiceController != null) {
+                        latinIme.mVoiceController.resumePendingDelivery();
+                    }
                     break;
                 case MSG_RESET_CACHES:
                     final SettingsValues settingsValues = latinIme.mSettings.getCurrent();
@@ -603,8 +612,12 @@ public class LatinIME extends InputMethodService implements
                 mHandler.post(action);
             }
             @Override public boolean prepareForVoiceCommit() {
+                if (mInputLogic.isGesturePending()) return false;
                 mInputLogic.finishInput();
                 return true;
+            }
+            @Override public boolean voiceCommitReady() {
+                return !mInputLogic.isGesturePending();
             }
             @Override public void finishVoiceCommit() {
                 final InputConnection connection = getCurrentInputConnection();
@@ -623,6 +636,31 @@ public class LatinIME extends InputMethodService implements
             }
             @Override public void postVoiceState(final RustInputMethodService.VoiceState state) {
                 mHandler.post(() -> renderVoiceState(state));
+            }
+            @Override public boolean maySaveDictation(final EditorInfo info) {
+                final SharedPreferences prefs = KtxKt.prefs(LatinIME.this);
+                return prefs.getBoolean(Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY, false)
+                        && prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, true)
+                        && !mSettings.getCurrent().mIncognitoModeEnabled
+                        && !InputTypeUtils.isAnyPasswordInputType(info.inputType)
+                        && (info.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) == 0;
+            }
+            @Override public boolean saveDictation(final long sessionId, final String text) {
+                final SharedPreferences prefs = KtxKt.prefs(LatinIME.this);
+                if (!prefs.getBoolean(Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY, false)
+                        || !prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, true)) return true;
+                try {
+                    final ClipboardDao dao = ClipboardDao.Companion.getInstance(LatinIME.this);
+                    if (dao == null) return false;
+                    final long previousId = sessionId == mVoiceHistorySessionId
+                            ? mVoiceHistoryEntryId : 0;
+                    mVoiceHistoryEntryId = dao.saveDictation(text, previousId);
+                    mVoiceHistorySessionId = sessionId;
+                    return true;
+                } catch (Throwable error) {
+                    Log.e(TAG, "Could not save dictation history", error);
+                    return false;
+                }
             }
         });
 
@@ -1136,6 +1174,7 @@ public class LatinIME extends InputMethodService implements
         // Should do the following in onFinishInputInternal but until JB MR2 it's not called :(
         mInputLogic.finishInput();
         mKeyboardActionListener.resetMetaState();
+        if (mVoiceController != null) mVoiceController.resumePendingDelivery();
     }
 
     protected void deallocateMemory() {
@@ -1565,6 +1604,7 @@ public class LatinIME extends InputMethodService implements
     }
 
     private void renderVoiceState(@Nullable final RustInputMethodService.VoiceState state) {
+        final RustInputMethodService.VoiceState previous = mVoiceState;
         final boolean wasRecording = mVoiceState != null
                 && mVoiceState.phase == RustInputMethodService.Phase.RECORDING;
         final boolean isRecording = state != null
@@ -1579,36 +1619,61 @@ public class LatinIME extends InputMethodService implements
                 && state.phase != RustInputMethodService.Phase.IDLE
                 && (mVoiceState == null
                 || mVoiceState.phase == RustInputMethodService.Phase.IDLE);
+        if (enteringActiveVoice) {
+            mVoiceOptionalHidden = false;
+            if (mVoiceHideOptional != null) mHandler.removeCallbacks(mVoiceHideOptional);
+            mVoiceHideOptional = null;
+        }
+        if (state == null || state.phase == RustInputMethodService.Phase.IDLE) {
+            if (mVoiceHideOptional != null) mHandler.removeCallbacks(mVoiceHideOptional);
+            mVoiceHideOptional = null;
+            mVoiceOptionalHidden = false;
+        }
         mVoiceState = state;
         if (mSuggestionStripView == null) return;
+        mSuggestionStripView.setVoiceInputKeyHiddenForRecording(
+                state != null && state.phase != RustInputMethodService.Phase.IDLE);
         if (state == null || state.phase == RustInputMethodService.Phase.IDLE) {
-            if (mVoiceExternalVisible) {
-                mVoiceExternalVisible = false;
-                setNeutralSuggestionStrip();
+            if (previous != null && previous.phase != RustInputMethodService.Phase.IDLE) {
                 if (mVoiceRestoreToolbar) mSuggestionStripView.setToolbarVisibility(true);
                 mHandler.postResumeSuggestions(false);
             }
-            if (state == null || (!state.canInsert && !state.canCopy
-                    && !state.canDiscard && !state.canRetry)) {
+            if (state == null || (!state.canCopy && !state.error)) {
                 mSuggestionStripView.setVoiceRecoveryView(null);
                 return;
             }
-            final LinearLayout recovery = new LinearLayout(this);
-            recovery.setOrientation(LinearLayout.HORIZONTAL);
-            recovery.setGravity(Gravity.CENTER_VERTICAL);
-            addVoiceButton(recovery, R.string.dictation_draft, R.drawable.ic_voice_draft,
-                    () -> showVoiceRecoveryActions(state));
-            mSuggestionStripView.setVoiceRecoveryView(recovery);
+            final LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            if (state.error) {
+                final TextView status = new TextView(this);
+                status.setSingleLine(true);
+                status.setText(state.message);
+                row.addView(status);
+            }
+            if (state.canCopy) addVoiceButton(row, R.string.dictation_copy,
+                    R.drawable.sym_keyboard_copy, () -> mVoiceController.copyDraft());
+            mSuggestionStripView.setVoiceRecoveryView(row);
             return;
         }
-
-        if (mVoiceExternalVisible) {
-            mVoiceExternalVisible = false;
-            setNeutralSuggestionStrip();
-            if (mVoiceRestoreToolbar) mSuggestionStripView.setToolbarVisibility(true);
-            mHandler.postResumeSuggestions(false);
+        if (enteringActiveVoice) {
+            mVoiceRestoreToolbar = mSuggestionStripView.isToolbarVisible();
+            mSuggestionStripView.setToolbarVisibility(false);
         }
-        if (enteringActiveVoice) mSuggestionStripView.setToolbarVisibility(false);
+        final String controlMode = KtxKt.prefs(this).getString(Settings.PREF_VOICE_CONTROL_MODE,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_CONTROL_MODE);
+        final boolean showTranscribeNow = state.phase == RustInputMethodService.Phase.RECORDING
+                && KtxKt.prefs(this).getBoolean(Settings.PREF_VOICE_TRANSCRIBE_NOW,
+                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_TRANSCRIBE_NOW);
+        if ("auto_hide".equals(controlMode) && showTranscribeNow && !mVoiceOptionalHidden
+                && mVoiceHideOptional == null) {
+            mVoiceHideOptional = () -> {
+                mVoiceHideOptional = null;
+                mVoiceOptionalHidden = true;
+                renderVoiceState(mVoiceState);
+            };
+            mHandler.postDelayed(mVoiceHideOptional, 4000);
+        }
         final LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
@@ -1617,43 +1682,17 @@ public class LatinIME extends InputMethodService implements
                     () -> mVoiceController.stop());
             row.setContentDescription(state.message + ". "
                     + getString(R.string.dictation_stop));
+            if (showTranscribeNow && !"stop_only".equals(controlMode)
+                    && !("auto_hide".equals(controlMode) && mVoiceOptionalHidden))
+                addVoiceButton(row, R.string.dictation_transcribe_now,
+                        R.drawable.sym_keyboard_send_rounded, () -> mVoiceController.transcribeNow());
         } else {
             final TextView status = new TextView(this);
             status.setText(state.message);
             status.setSingleLine(true);
             row.addView(status);
         }
-        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, R.drawable.ic_voice_retry, () -> mVoiceController.retry());
-        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, R.drawable.sym_keyboard_paste, () -> mVoiceController.insertDraft());
-        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, R.drawable.sym_keyboard_copy, () -> mVoiceController.copyDraft());
-        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, R.drawable.ic_bin, () -> mVoiceController.discardDraft());
         mSuggestionStripView.setVoiceRecoveryView(row);
-    }
-
-    private void showVoiceRecoveryActions(final RustInputMethodService.VoiceState state) {
-        if (mSuggestionStripView == null) return;
-        mSuggestionStripView.setVoiceRecoveryView(null);
-        final LinearLayout row = new LinearLayout(this);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(Gravity.CENTER_VERTICAL);
-        if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, R.drawable.ic_voice_retry, () -> mVoiceController.retry());
-        if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, R.drawable.sym_keyboard_paste, () -> mVoiceController.insertDraft());
-        if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, R.drawable.sym_keyboard_copy, () -> mVoiceController.copyDraft());
-        if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, R.drawable.ic_bin, () -> mVoiceController.discardDraft());
-        addVoiceButton(row, R.string.dictation_back, R.drawable.ic_arrow_back, () -> renderVoiceState(state));
-        final HorizontalScrollView scroll = new HorizontalScrollView(this);
-        scroll.setHorizontalScrollBarEnabled(false);
-        scroll.addView(row);
-        final boolean enteringVoice = !mVoiceExternalVisible;
-        if (enteringVoice) mVoiceRestoreToolbar = mSuggestionStripView.isToolbarVisible();
-        mSuggestionStripView.setExternalSuggestionView(scroll, false);
-        if (enteringVoice) mSuggestionStripView.setToolbarVisibility(false);
-        mVoiceExternalVisible = true;
-    }
-
-    private boolean showVoiceInsert(final RustInputMethodService.VoiceState state) {
-        return state.canInsert && KtxKt.prefs(this).getBoolean(Settings.PREF_VOICE_SHOW_INSERT,
-                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_SHOW_INSERT);
     }
 
     private void addVoiceButton(final LinearLayout row, final int label, final int icon,
@@ -1699,6 +1738,7 @@ public class LatinIME extends InputMethodService implements
     public void onCancelBatchInput() {
         mInputLogic.onCancelBatchInput(mHandler);
         mGestureConsumer.onGestureCanceled();
+        if (mVoiceController != null) mVoiceController.resumePendingDelivery();
     }
 
     /**

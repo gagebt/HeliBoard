@@ -65,4 +65,14 @@ class NextWordPredictionMergerTest {
 
         assertSame(futo, mergeNextWordPredictions(futo, native))
     }
+
+    @Test
+    fun futoSwipeCandidateDoesNotRunUnusedNextWordPrediction() {
+        val first = word("hello", 1_000_000_000, Dictionary.DICTIONARY_APPLICATION_DEFINED)
+        val candidates = arrayListOf(first, word("help", 999_999_999, Dictionary.DICTIONARY_APPLICATION_DEFINED))
+
+        assertSame(first, Suggest.preferNextWordSuggestion(first, candidates, {
+            error("FUTO next-word inference must not delay swipe candidates")
+        }, null))
+    }
 }

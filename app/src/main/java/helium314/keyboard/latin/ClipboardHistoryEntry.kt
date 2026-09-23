@@ -21,7 +21,7 @@ class ClipboardHistoryEntry(
     val id: Long,
     var timeStamp: Long,
     var isPinned: Boolean,
-    val text: String?,
+    var text: String?,
     val filename: String?,
     val mimeTypes: List<String>?
 ) : Comparable<ClipboardHistoryEntry> {
@@ -52,8 +52,8 @@ class ClipboardHistoryEntry(
             opt.inJustDecodeBounds = true
             BitmapFactory.decodeFile(path, opt)
             // reduce size of images larger than the screen, only needs to fit half screen width
-            val scale = opt.outWidth / (imageView.resources.displayMetrics.widthPixels * 2)
-            opt.inSampleSize = scale
+            val target = (imageView.resources.displayMetrics.widthPixels / 2).coerceAtLeast(1)
+            opt.inSampleSize = maxOf(1, maxOf(opt.outWidth, opt.outHeight) / target)
             opt.inJustDecodeBounds = false
             val bitmap = BitmapFactory.decodeFile(path, opt)
             if (bitmap != null) {

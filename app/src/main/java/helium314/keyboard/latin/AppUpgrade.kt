@@ -708,6 +708,15 @@ private object AppUpgrade {
                 prefs.edit { remove("emoji_recent_keys")  }
             }
         }
+        if (oldVersion < 4104) {
+            val retention = prefs.getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+                Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME)
+            if (retention > 120) prefs.edit { putInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, -1) }
+            // The old untouched pinned list had every key disabled. Custom lists keep their choice.
+            val oldPinned = defaultPinnedToolbarPref.replace("VOICE,true", "VOICE,false")
+            if (prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, null) == oldPinned)
+                prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref) }
+        }
         upgradeToolbarPrefs(prefs)
         LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
         prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }

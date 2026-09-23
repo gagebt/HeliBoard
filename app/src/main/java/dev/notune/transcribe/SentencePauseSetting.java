@@ -1,7 +1,7 @@
 package dev.notune.transcribe;
 
 final class SentencePauseSetting {
-    static final float MIN = 1.5f;
+    static final float MIN = 1.0f;
     static final float MAX = 8.0f;
 
     private SentencePauseSetting() { }
@@ -20,5 +20,4 @@ final class SentencePauseSetting {
         }
     }
 }
-
 
