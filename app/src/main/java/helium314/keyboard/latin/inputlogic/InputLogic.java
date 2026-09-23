@@ -225,6 +225,15 @@ public final class InputLogic {
         mSpaceState = SpaceState.NONE;
     }
 
+    /** Reconciles HeliBoard after text was committed through the voice controller. */
+    public void onExternalTextCommitted(final int newSelStart, final int newSelEnd) {
+        resetComposingState(true /* alsoResetLastComposedWord */);
+        mInputLogicHandler.reset();
+        mSpaceState = SpaceState.NONE;
+        mConnection.resetCachesUponCursorMoveAndReturnSuccess(
+                newSelStart, newSelEnd, false /* shouldFinishComposition */);
+    }
+
     /**
      * React to a string input.
      * <p>

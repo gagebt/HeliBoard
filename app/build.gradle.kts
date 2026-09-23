@@ -17,8 +17,8 @@ android {
         applicationId = "helium314.keyboard.parakeetfuto"
         minSdk = 26
         targetSdk = 37
-        versionCode = 4101
-        versionName = "4.1-pf1"
+        versionCode = 4102
+        versionName = "4.1-pf2"
         ndk {
             abiFilters.clear()
             abiFilters.addAll(listOf("arm64-v8a", "x86_64"))

@@ -42,4 +42,21 @@ final class SessionDraftPolicy {
                               boolean retryAvailable) {
         return hasDraft || draftReadError || retryAvailable;
     }
+
+    /** True when the same field no longer has the cursor/text state last owned by voice. */
+    static boolean contextChanged(String expectedBefore, String expectedAfter,
+                                  int expectedSelectionStart, int expectedSelectionEnd,
+                                  String currentBefore, String currentAfter,
+                                  int currentSelectionStart, int currentSelectionEnd) {
+        if (expectedSelectionStart >= 0 && expectedSelectionEnd >= 0
+                && currentSelectionStart >= 0 && currentSelectionEnd >= 0
+                && (expectedSelectionStart != currentSelectionStart
+                || expectedSelectionEnd != currentSelectionEnd)) {
+            return true;
+        }
+        return expectedBefore != null && currentBefore != null
+                && !expectedBefore.equals(currentBefore)
+                || expectedAfter != null && currentAfter != null
+                && !expectedAfter.equals(currentAfter);
+    }
 }

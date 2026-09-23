@@ -34,6 +34,9 @@ import android.view.Window;
 import android.view.Gravity;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InlineSuggestion;
 import android.view.inputmethod.InlineSuggestionsRequest;
 import android.view.inputmethod.InlineSuggestionsResponse;
@@ -595,6 +598,25 @@ public class LatinIME extends InputMethodService implements
             }
             @Override public void postToMain(final Runnable action) {
                 mHandler.post(action);
+            }
+            @Override public boolean prepareForVoiceCommit() {
+                mInputLogic.finishInput();
+                return true;
+            }
+            @Override public void finishVoiceCommit() {
+                final InputConnection connection = getCurrentInputConnection();
+                if (connection == null) return;
+                final ExtractedText extracted = connection.getExtractedText(
+                        new ExtractedTextRequest(), 0);
+                if (extracted == null) return;
+                mInputLogic.onExternalTextCommitted(
+                        extracted.startOffset + extracted.selectionStart,
+                        extracted.startOffset + extracted.selectionEnd);
+                mHandler.postResumeSuggestions(false);
+                if (mKeyboardSwitcher.getKeyboard() != null) {
+                    mKeyboardSwitcher.updateShiftState(
+                            getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+                }
             }
             @Override public void postVoiceState(final RustInputMethodService.VoiceState state) {
                 mHandler.post(() -> renderVoiceState(state));
@@ -1537,6 +1559,10 @@ public class LatinIME extends InputMethodService implements
     }
 
     private void renderVoiceState(@Nullable final RustInputMethodService.VoiceState state) {
+        final boolean enteringActiveVoice = state != null
+                && state.phase != RustInputMethodService.Phase.IDLE
+                && (mVoiceState == null
+                || mVoiceState.phase == RustInputMethodService.Phase.IDLE);
         mVoiceState = state;
         if (mSuggestionStripView == null) return;
         if (state == null || state.phase == RustInputMethodService.Phase.IDLE) {
@@ -1559,31 +1585,31 @@ public class LatinIME extends InputMethodService implements
             return;
         }
 
-        mSuggestionStripView.setVoiceRecoveryView(null);
+        if (mVoiceExternalVisible) {
+            mVoiceExternalVisible = false;
+            setNeutralSuggestionStrip();
+            if (mVoiceRestoreToolbar) mSuggestionStripView.setToolbarVisibility(true);
+            mHandler.postResumeSuggestions(false);
+        }
+        if (enteringActiveVoice) mSuggestionStripView.setToolbarVisibility(false);
         final LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
-        final int padding = (int) (8 * getResources().getDisplayMetrics().density);
-        row.setPadding(padding, 0, padding, 0);
-        final TextView status = new TextView(this);
-        status.setText(state.message);
-        status.setSingleLine(true);
-        row.addView(status);
         if (state.phase == RustInputMethodService.Phase.RECORDING) {
             addVoiceButton(row, R.string.dictation_stop, () -> mVoiceController.stop());
+            row.setContentDescription(state.message + ". "
+                    + getString(R.string.dictation_stop));
+        } else {
+            final TextView status = new TextView(this);
+            status.setText(state.message);
+            status.setSingleLine(true);
+            row.addView(status);
         }
         if (state.canRetry) addVoiceButton(row, R.string.dictation_retry, () -> mVoiceController.retry());
         if (showVoiceInsert(state)) addVoiceButton(row, R.string.dictation_insert, () -> mVoiceController.insertDraft());
         if (state.canCopy) addVoiceButton(row, R.string.dictation_copy, () -> mVoiceController.copyDraft());
         if (state.canDiscard) addVoiceButton(row, R.string.dictation_discard, () -> mVoiceController.discardDraft());
-        final HorizontalScrollView scroll = new HorizontalScrollView(this);
-        scroll.setHorizontalScrollBarEnabled(false);
-        scroll.addView(row);
-        final boolean enteringVoice = !mVoiceExternalVisible;
-        if (enteringVoice) mVoiceRestoreToolbar = mSuggestionStripView.isToolbarVisible();
-        mSuggestionStripView.setExternalSuggestionView(scroll, false);
-        if (enteringVoice) mSuggestionStripView.setToolbarVisibility(false);
-        mVoiceExternalVisible = true;
+        mSuggestionStripView.setVoiceRecoveryView(row);
     }
 
     private void showVoiceRecoveryActions(final RustInputMethodService.VoiceState state) {

@@ -100,6 +100,13 @@ public final class PieceJoiner {
         return !heldTail.isEmpty();
     }
 
+    /** Drops formatting that belonged to an editor position the user has left. */
+    String abandonHeldTail() {
+        String tail = heldTail;
+        heldTail = "";
+        return tail;
+    }
+
     String pendingTail() {
         return heldTail;
     }
@@ -108,5 +115,4 @@ public final class PieceJoiner {
         heldTail = tail == null ? "" : tail;
     }
 }
-
 

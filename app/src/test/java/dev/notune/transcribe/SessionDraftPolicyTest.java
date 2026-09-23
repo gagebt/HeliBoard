@@ -68,4 +68,19 @@ public class SessionDraftPolicyTest {
         assertTrue(SessionDraftPolicy.canDiscard(false, false, true));
         assertFalse(SessionDraftPolicy.canDiscard(false, false, false));
     }
+
+    @Test public void unchangedCursorAndContextContinueTheVoiceSegment() {
+        assertFalse(SessionDraftPolicy.contextChanged(
+                "before", "after", 6, 6, "before", "after", 6, 6));
+    }
+
+    @Test public void typedTextStartsANewVoiceSegment() {
+        assertTrue(SessionDraftPolicy.contextChanged(
+                "before", "after", 6, 6, "before typed", "after", 12, 12));
+    }
+
+    @Test public void selectionCoordinatesDetectMovesInRepeatedText() {
+        assertTrue(SessionDraftPolicy.contextChanged(
+                "same", "same", 4, 4, "same", "same", 20, 20));
+    }
 }

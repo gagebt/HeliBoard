@@ -70,6 +70,12 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         boolean isMainThread();
         void postToMain(Runnable action);
 
+        /** Commits HeliBoard's active composing word before voice writes to the editor. */
+        boolean prepareForVoiceCommit();
+
+        /** Reloads HeliBoard's editor state after the controller has attempted a write. */
+        void finishVoiceCommit();
+
         /** Must enqueue or render state without opening a modal surface. */
         void postVoiceState(VoiceState state);
     }
@@ -116,6 +122,8 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private Object targetEditor;
     private String expectedBefore;
     private String expectedAfter;
+    private int expectedSelectionStart = -1;
+    private int expectedSelectionEnd = -1;
     private TextFitter.FieldKind targetFieldKind = TextFitter.FieldKind.PROSE;
     private int targetCapsMode;
     private boolean hasAcceptedPiece;
@@ -164,10 +172,10 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return false;
         }
-        try {
-            connection.finishComposingText();
-        } catch (Throwable error) {
-            Log.w(TAG, "Could not finish existing composition", error);
+        if (!prepareHostForVoiceCommit()) {
+            message = "Could not prepare the text field for dictation";
+            publishState();
+            return false;
         }
 
         final long candidateSessionId = Math.max(
@@ -181,6 +189,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         }
         final String candidateBefore = readBefore(connection);
         final String candidateAfter = readAfter(connection);
+        final EditorSnapshot candidateSnapshot = readSnapshot(connection);
         final float candidateSentencePauseSeconds = readSentencePauseSeconds();
 
         boolean started;
@@ -207,6 +216,8 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         targetCapsMode = candidateCapsMode;
         expectedBefore = candidateBefore;
         expectedAfter = candidateAfter;
+        expectedSelectionStart = selectionStart(candidateSnapshot);
+        expectedSelectionEnd = selectionEnd(candidateSnapshot);
         sentencePauseSeconds = candidateSentencePauseSeconds;
         joiner.finish();
         hasAcceptedPiece = false;
@@ -286,6 +297,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return false;
         }
+        if (!prepareHostForVoiceCommit()) {
+            message = "Saved copy available; text field was not ready";
+            publishState();
+            return false;
+        }
         int capsMode;
         try {
             capsMode = connection.getCursorCapsMode(info.inputType);
@@ -317,6 +333,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             accepted = false;
         }
         EditorSnapshot after = accepted ? readSnapshot(connection) : null;
+        finishHostVoiceCommit();
         if (!accepted || before == null || after == null || !after.isExactCommitOf(before, fitted)) {
             retainedRecoveryText = fitted;
             message = accepted ? "Saved copy available; insertion could not be confirmed"
@@ -467,7 +484,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 || text.trim().isEmpty()) return false;
         if (pieceSequence < nextPieceSequence) return true;
         InputConnection connection = currentTargetConnection();
-        if (connection != null) refreshContext(connection);
+        if (connection != null) reconcileContinuity(connection);
 
         String oldTail = joiner.pendingTail();
         int capsMode = PieceJoiner.capsModeForPiece(targetCapsMode, hasAcceptedPiece);
@@ -508,6 +525,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         level = 0;
 
         if (outcome == OUTCOME_SUCCESS) {
+            InputConnection connection = currentTargetConnection();
+            boolean abandonedTail = connection != null && reconcileContinuity(connection);
+            if (abandonedTail && undeliveredText.isEmpty()) settleDelivery(false, null);
             String tail = joiner.finish();
             if (!tail.isEmpty()) {
                 undeliveredText += tail;
@@ -583,6 +603,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return;
         }
 
+        if (!prepareHostForVoiceCommit()) {
+            autoDeliveryOpen = false;
+            settleDelivery(true, "Saved copy available; text field was not ready");
+            return;
+        }
         refreshContext(connection);
         EditorSnapshot before = readSnapshot(connection);
         PendingDictationDraft attempted = pendingDraft.with(
@@ -601,6 +626,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             accepted = false;
         }
         EditorSnapshot after = accepted ? readSnapshot(connection) : null;
+        finishHostVoiceCommit();
         if (!accepted || before == null || after == null || !after.isExactCommitOf(before, sent)) {
             autoDeliveryOpen = SessionDraftPolicy.deliveryOpenAfterUnconfirmedCommit(accepted);
             settleDelivery(true, accepted
@@ -608,8 +634,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     : "Saved copy available; editor rejected the text");
             return;
         }
-        expectedBefore = readBefore(connection);
-        expectedAfter = readAfter(connection);
+        refreshContext(connection, after);
         settleDelivery(false, null);
     }
 
@@ -652,11 +677,69 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 ? host.currentInputConnection() : null;
     }
 
+    private boolean reconcileContinuity(InputConnection connection) {
+        String before = readBefore(connection);
+        String after = readAfter(connection);
+        EditorSnapshot snapshot = readSnapshot(connection);
+        boolean changed = SessionDraftPolicy.contextChanged(
+                expectedBefore, expectedAfter, expectedSelectionStart, expectedSelectionEnd,
+                before, after, selectionStart(snapshot), selectionEnd(snapshot));
+        boolean abandonedTail = false;
+        if (changed) {
+            abandonedTail = !joiner.abandonHeldTail().isEmpty();
+            hasAcceptedPiece = false;
+            EditorInfo info = host.currentEditorInfo();
+            try {
+                targetCapsMode = info == null ? 0 : connection.getCursorCapsMode(info.inputType);
+            } catch (Throwable ignored) {
+                targetCapsMode = 0;
+            }
+        }
+        expectedBefore = before;
+        expectedAfter = after;
+        expectedSelectionStart = selectionStart(snapshot);
+        expectedSelectionEnd = selectionEnd(snapshot);
+        return abandonedTail;
+    }
+
     private void refreshContext(InputConnection connection) {
+        refreshContext(connection, readSnapshot(connection));
+    }
+
+    private void refreshContext(InputConnection connection, EditorSnapshot snapshot) {
         String before = readBefore(connection);
         String after = readAfter(connection);
         if (before != null) expectedBefore = before;
         if (after != null) expectedAfter = after;
+        int selectionStart = selectionStart(snapshot);
+        int selectionEnd = selectionEnd(snapshot);
+        if (selectionStart >= 0) expectedSelectionStart = selectionStart;
+        if (selectionEnd >= 0) expectedSelectionEnd = selectionEnd;
+    }
+
+    private boolean prepareHostForVoiceCommit() {
+        try {
+            return host.prepareForVoiceCommit();
+        } catch (Throwable error) {
+            Log.w(TAG, "Could not prepare HeliBoard for voice text", error);
+            return false;
+        }
+    }
+
+    private void finishHostVoiceCommit() {
+        try {
+            host.finishVoiceCommit();
+        } catch (Throwable error) {
+            Log.w(TAG, "Could not refresh HeliBoard after voice text", error);
+        }
+    }
+
+    private static int selectionStart(EditorSnapshot snapshot) {
+        return snapshot == null ? -1 : snapshot.startOffset + snapshot.selectionStart;
+    }
+
+    private static int selectionEnd(EditorSnapshot snapshot) {
+        return snapshot == null ? -1 : snapshot.startOffset + snapshot.selectionEnd;
     }
 
     private void restoreDraft() {

@@ -155,6 +155,15 @@ public class PieceJoinerTest {
         assertEquals("", f.joiner.finish());
     }
 
+    @Test public void movingAwayDropsOnlyTheHeldFormatting() {
+        PieceJoiner joiner = new PieceJoiner();
+        assertEquals("Hello", joiner.join("Hello.", 0f, "", "", FieldKind.PROSE,
+                NO_CAPS, THRESHOLD));
+        assertEquals(". ", joiner.abandonHeldTail());
+        assertFalse(joiner.hasHeldTail());
+        assertEquals("", joiner.finish());
+    }
+
     @Test public void theFirstPieceOfASessionIsNeverJoinedToAnything() {
         Field f = new Field("I typed this. ", THRESHOLD);
         f.say("And then we go home.", 0f);
@@ -223,5 +232,4 @@ public class PieceJoinerTest {
         assertEquals(3.0f, PieceJoiner.DEFAULT_SENTENCE_PAUSE_SECONDS, 0.0001f);
     }
 }
-
 
