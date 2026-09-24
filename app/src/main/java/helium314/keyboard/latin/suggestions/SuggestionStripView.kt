@@ -287,7 +287,10 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         pinnedKeys.findViewWithTag<View>(VOICE_RECOVERY_TAG)?.let(pinnedKeys::removeView)
         if (view != null) {
             view.tag = VOICE_RECOVERY_TAG
-            pinnedKeys.addView(view)
+            val voice = pinnedKeys.findViewWithTag<View>(ToolbarKey.VOICE)
+            val index = if (voice == null) pinnedKeys.childCount else pinnedKeys.indexOfChild(voice)
+            pinnedKeys.addView(view, index, LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
         }
         updateVoiceKey()
     }

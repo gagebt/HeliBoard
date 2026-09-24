@@ -122,7 +122,6 @@ object Defaults {
     const val PREF_VOICE_PAUSE_SECONDS = 3f
     const val PREF_VOICE_SPLIT_SECONDS = 1.5f
     const val PREF_VOICE_SPEECH_SENSITIVITY = 3f
-    const val PREF_VOICE_TRANSCRIBE_NOW = true
     const val PREF_VOICE_PAUSE_AUDIO = false
     const val PREF_VOICE_CONTROL_MODE = "full"
     const val PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY = false

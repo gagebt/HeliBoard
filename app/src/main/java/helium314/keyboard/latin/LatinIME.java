@@ -1566,7 +1566,11 @@ public class LatinIME extends InputMethodService implements
         if (mVoiceState != null && mVoiceState.phase != RustInputMethodService.Phase.IDLE) {
             mVoiceController.stop();
         } else {
-            if (mVoiceController.initialize()) mVoiceController.start();
+            if (mVoiceController.initialize()) {
+                if (mVoiceController.start()) {
+                    mInputLogic.warmUpSwipe(mKeyboardSwitcher.getKeyboard(), mRichImm.getCurrentSubtypeLocale());
+                }
+            }
         }
     }
 
@@ -1663,8 +1667,7 @@ public class LatinIME extends InputMethodService implements
         final String controlMode = KtxKt.prefs(this).getString(Settings.PREF_VOICE_CONTROL_MODE,
                 helium314.keyboard.latin.settings.Defaults.PREF_VOICE_CONTROL_MODE);
         final boolean showTranscribeNow = state.phase == RustInputMethodService.Phase.RECORDING
-                && KtxKt.prefs(this).getBoolean(Settings.PREF_VOICE_TRANSCRIBE_NOW,
-                helium314.keyboard.latin.settings.Defaults.PREF_VOICE_TRANSCRIBE_NOW);
+                && !"stop_only".equals(controlMode);
         if ("auto_hide".equals(controlMode) && showTranscribeNow && !mVoiceOptionalHidden
                 && mVoiceHideOptional == null) {
             mVoiceHideOptional = () -> {
@@ -1678,14 +1681,14 @@ public class LatinIME extends InputMethodService implements
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
         if (state.phase == RustInputMethodService.Phase.RECORDING) {
-            addVoiceButton(row, R.string.dictation_stop, R.drawable.ic_voice_stop,
-                    () -> mVoiceController.stop());
-            row.setContentDescription(state.message + ". "
-                    + getString(R.string.dictation_stop));
             if (showTranscribeNow && !"stop_only".equals(controlMode)
                     && !("auto_hide".equals(controlMode) && mVoiceOptionalHidden))
                 addVoiceButton(row, R.string.dictation_transcribe_now,
                         R.drawable.ic_voice_draft, () -> mVoiceController.transcribeNow());
+            addVoiceButton(row, R.string.dictation_stop, R.drawable.ic_voice_stop,
+                    () -> mVoiceController.stop());
+            row.setContentDescription(state.message + ". "
+                    + getString(R.string.dictation_stop));
         } else {
             final TextView status = new TextView(this);
             status.setText(state.message);

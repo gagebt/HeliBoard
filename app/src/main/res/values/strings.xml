@@ -1312,8 +1312,6 @@ New dictionary:
 
     <!-- new strings should go above the section for gesture data gathering -->
     <string name="settings_category_voice_input">Parakeet voice input</string>
-    <string name="voice_show_insert">Show Insert for saved dictation</string>
-    <string name="voice_show_insert_summary">Show manual Insert for saved dictation. Copy remains available.</string>
     <string name="voice_pause_seconds">Sentence pause</string>
     <string name="voice_pause_seconds_summary">Silence that makes the next words start a new sentence. Recording continues.</string>
     <string name="voice_split_seconds">Processing pause</string>
@@ -1322,7 +1320,7 @@ New dictionary:
     <string name="voice_speech_sensitivity_summary">Relative to room noise. Higher hears quieter speech but may hear noise.</string>
     <string name="voice_pause_audio">Pause other audio while recording</string>
     <string name="voice_pause_audio_summary">Ask music and video apps to pause until dictation ends.</string>
-    <string name="voice_button_hint">Voice input. Tap to start or stop dictation.</string>
+    <string name="voice_button_hint">Start voice input</string>
     <string name="icon_hint_edit">Edit</string>
     <string name="icon_hint_expand">Expand</string>
     <string name="icon_hint_menu">More options</string>
@@ -1331,15 +1329,7 @@ New dictionary:
     <string name="icon_hint_links">Information links</string>
     <string name="icon_hint_sort_alphabetically">Sort alphabetically</string>
     <string name="icon_hint_sort_chronologically">Sort chronologically</string>
-    <string name="dictation_copy">Copy saved dictation</string>
-    <string name="dictation_insert">Insert saved dictation</string>
-    <string name="dictation_discard">Discard saved dictation</string>
+    <string name="dictation_copy">Copy saved dictation for recovery</string>
     <string name="dictation_stop">Stop dictation</string>
-    <string name="dictation_retry">Retry dictation</string>
-    <string name="dictation_draft">Saved dictation actions</string>
-    <string name="dictation_back">Back to keyboard</string>
-    <string name="dictation_recording">Recording…</string>
-    <string name="dictation_saved">Saved dictation</string>
-    <string name="futo_swipe_attribution">Powered by FUTO Swipe</string>
     <string name="integration_attribution">HeliBoard with offline NVIDIA Parakeet TDT 0.6B v3 voice input. Powered by FUTO Swipe.</string>
 </resources>

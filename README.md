@@ -1,4 +1,21 @@
-# HeliBoard
+# HeliBoard with Parakeet voice input and FUTO swipe
+
+This personal beta keeps HeliBoard as the keyboard and adds offline Parakeet voice input plus FUTO swipe components. It is a separate app, not an official HeliBoard release.
+
+**[Download the current APK and read its test results](https://olegk.ai/r/5b79f3e08101cead8ceb1796/windows/keyboard/#heliboard).** The report also links the matching source archive and lists known limitations. Install a new APK to update; the app does not download updates itself. Android 8 or later is required. Builds contain arm64 and x86-64 native libraries.
+
+- Type, swipe and move the cursor while dictation runs. The pinned microphone starts voice input; Stop ends it. Transcribe now inserts a piece without ending the recording.
+- Text is inserted by default. If the editor cannot confirm delivery, Copy preserves a recovery route without blocking the keyboard. A successful copy dismisses that recovery action.
+- Voice settings include processing and sentence pauses, relative speech sensitivity, optional dictation history and control visibility. The keyboard keeps its existing dimensions.
+- FUTO swipe supports English and Russian here; FUTO next-word prediction supports English. Other languages retain HeliBoard's existing layout and dictionary capabilities. Interface translations do not add recognition models.
+- Models are bundled for offline use, so the APK is about 607 MB. A smaller download/import edition is not available.
+
+The code and interface translations are AI-assisted. Translation coverage and emulator evidence are described in the report; machine drafts are not native-speaker certification. Physical-phone microphone testing remains a separate limit. Bundled component and model notices are included in the app assets. Upstream contribution rules apply to upstream submissions; this fork does not imply upstream acceptance.
+
+## Upstream HeliBoard documentation
+
+The badges and project links below refer to the original HeliBoard app, not this personal beta.
+
 HeliBoard is a privacy-conscious and customizable open-source keyboard, based on AOSP / OpenBoard.
 Does not use internet permission, and thus is 100% offline.
 

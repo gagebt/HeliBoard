@@ -718,6 +718,13 @@ private object AppUpgrade {
             if (prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, null) == oldPinned)
                 prefs.edit { putString(Settings.PREF_PINNED_TOOLBAR_KEYS, defaultPinnedToolbarPref) }
         }
+        if (prefs.contains(Settings.PREF_VOICE_TRANSCRIBE_NOW)) {
+            val oldTranscribeNow = prefs.getBoolean(Settings.PREF_VOICE_TRANSCRIBE_NOW, true)
+            prefs.edit {
+                if (!oldTranscribeNow) putString(Settings.PREF_VOICE_CONTROL_MODE, "stop_only")
+                remove(Settings.PREF_VOICE_TRANSCRIBE_NOW)
+            }
+        }
         upgradeToolbarPrefs(prefs)
         LayoutUtilsCustom.onLayoutFileChanged() // just to be sure
         prefs.edit { putInt(Settings.PREF_VERSION_CODE, BuildConfig.VERSION_CODE) }

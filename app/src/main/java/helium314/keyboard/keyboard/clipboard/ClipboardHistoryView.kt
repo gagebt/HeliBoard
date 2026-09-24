@@ -163,7 +163,7 @@ class ClipboardHistoryView @JvmOverloads constructor(
         placeholderView.apply {
             KeyboardTypeface.applyToTextView(this)
             setTextColor(params.mTextColor)
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat() * 2)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())
         }
         clipboardRecyclerView.apply {
             adapter = clipboardAdapter

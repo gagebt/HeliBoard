@@ -79,7 +79,7 @@ fun CloseIcon(@StringRes resId: Int) {
 @Composable
 fun DefaultButton(isDefault: Boolean, onClick: () -> Unit) {
     HintIconButton(stringResource(R.string.button_default), onClick, enabled = !isDefault) {
-        Icon(painterResource(R.drawable.ic_settings_default), "default")
+        Icon(painterResource(R.drawable.ic_settings_default), stringResource(R.string.button_default))
     }
 }
 
@@ -88,7 +88,7 @@ fun ExpandButton(enabled: Boolean = true, onClick: () -> Unit) {
     HintIconButton(stringResource(R.string.icon_hint_expand), onClick, enabled = enabled) {
         Icon(
             painterResource(R.drawable.ic_arrow_left),
-            "expand",
+            stringResource(R.string.icon_hint_expand),
             Modifier.rotate(-90f)
         )
     }

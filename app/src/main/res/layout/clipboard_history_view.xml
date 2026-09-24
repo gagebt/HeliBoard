@@ -4,7 +4,6 @@
 -->
 <helium314.keyboard.keyboard.clipboard.ClipboardHistoryView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
@@ -22,9 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
             android:visibility="invisible"
-            android:text="¯\\_(ツ)_/¯"
-            tools:ignore="HardcodedText" />
+            android:text="@string/clipboard_empty_guidance" />
 
         <helium314.keyboard.keyboard.clipboard.ClipboardHistoryRecyclerView
             android:id="@+id/clipboard_list"

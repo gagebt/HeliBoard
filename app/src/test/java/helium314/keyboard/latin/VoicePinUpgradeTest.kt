@@ -11,6 +11,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 
 @RunWith(RobolectricTestRunner::class)
@@ -46,5 +47,26 @@ class VoicePinUpgradeTest {
         checkVersionUpgrade(context)
 
         assertEquals(custom, prefs.getString(Settings.PREF_PINNED_TOOLBAR_KEYS, null))
+    }
+
+    @Test fun oldTranscribeChoiceKeepsItsEffectiveVisibility() {
+        val prefs = context.prefs()
+        prefs.edit {
+            putInt(Settings.PREF_VERSION_CODE, 4103)
+            putString(Settings.PREF_VOICE_CONTROL_MODE, "auto_hide")
+            putBoolean(Settings.PREF_VOICE_TRANSCRIBE_NOW, false)
+        }
+        checkVersionUpgrade(context)
+        assertEquals("stop_only", prefs.getString(Settings.PREF_VOICE_CONTROL_MODE, null))
+        assertFalse(prefs.contains(Settings.PREF_VOICE_TRANSCRIBE_NOW))
+
+        prefs.edit {
+            putInt(Settings.PREF_VERSION_CODE, 4103)
+            putString(Settings.PREF_VOICE_CONTROL_MODE, "auto_hide")
+            putBoolean(Settings.PREF_VOICE_TRANSCRIBE_NOW, true)
+        }
+        checkVersionUpgrade(context)
+        assertEquals("auto_hide", prefs.getString(Settings.PREF_VOICE_CONTROL_MODE, null))
+        assertFalse(prefs.contains(Settings.PREF_VOICE_TRANSCRIBE_NOW))
     }
 }

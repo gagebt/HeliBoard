@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translations of this fork; native-language review remains welcome. -->
+<resources>
+    <string name="retention_14_days">14 روچ</string>
+    <string name="retention_180_days">180 روچ</string>
+    <string name="retention_1_day">1 روچ</string>
+    <string name="retention_30_days">30 روچ</string>
+    <string name="retention_365_days">1 سال</string>
+    <string name="retention_3_days">3 روچ</string>
+    <string name="retention_7_days">7 روچ</string>
+    <string name="retention_90_days">90 روچ</string>
+</resources>

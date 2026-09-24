@@ -79,10 +79,22 @@ public final class WordComposer {
         return new WordComposer(this);
     }
 
+    /** Capture gesture points before a later gesture can replace the shared input pointers. */
+    public WordComposer copyForBatchInput(final InputPointers pointers) {
+        final InputPointers snapshot = new InputPointers(pointers.getPointerSize());
+        snapshot.set(pointers);
+        return new WordComposer(this, snapshot);
+    }
+
     @SuppressWarnings("CopyConstructorMissesField")
     private WordComposer(WordComposer other) {
+        this(other, other.mInputPointers);
+    }
+
+    @SuppressWarnings("CopyConstructorMissesField")
+    private WordComposer(WordComposer other, InputPointers pointers) {
         mEvents = null;
-        mInputPointers = other.mInputPointers; // ideally we would have an actual copy, but for current use it should be ok
+        mInputPointers = pointers;
         mAutoCorrection = other.mAutoCorrection;
         mIsResumed = other.mIsResumed;
         mIsBatchMode = other.mIsBatchMode;

@@ -478,7 +478,7 @@ private fun TopBar(
                 HintIconButton(
                     hint = stringResource(R.string.icon_hint_menu),
                     onClick = { showMenu = true }
-                ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
+                ) { Icon(painterResource(R.drawable.ic_arrow_left), stringResource(R.string.icon_hint_menu), Modifier.rotate(-90f)) }
                 DropdownMenu(
                     expanded = showMenu,
                     onDismissRequest = { showMenu = false }

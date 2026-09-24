@@ -8,6 +8,7 @@ import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.edit
 import androidx.core.view.forEach
 import helium314.keyboard.event.HapticEvent
@@ -266,6 +267,8 @@ fun onLongClickToolbarKey(view: View, onCodeInput: (Int, Boolean) -> Unit) {
         repeatToolbarKey(view) { onClickToolbarKey(view) { onCodeInput(it, true) } }
     } else if (longClickCode != KeyCode.UNSPECIFIED) {
         onCodeInput(longClickCode, false)
+    } else {
+        Toast.makeText(view.context, view.contentDescription, Toast.LENGTH_SHORT).show()
     }
 }
 

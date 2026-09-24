@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translations of this fork; native-language review remains welcome. -->
+<resources>
+    <string name="icon_hint_clear_search">ג׳סתג׳ו רא פאכּ כּן</string>
+    <string name="icon_hint_edit">ויראיש</string>
+    <string name="icon_hint_expand">גֻסתראש</string>
+    <string name="icon_hint_links">פיונד האי אטלאעאתי</string>
+    <string name="icon_hint_menu">גזינה האי בישתר</string>
+    <string name="icon_hint_share">בא דיגראן בֶגזאר</string>
+    <string name="icon_hint_sort_alphabetically">בר אסאס אלפבא מרתב כּן</string>
+    <string name="icon_hint_sort_chronologically">בר אסאס זמאן מרתב כּן</string>
+    <string name="retention_10_minutes">10 דקיקה</string>
+    <string name="retention_12_hours">12 סאעת</string>
+    <string name="retention_14_days">14 רוז</string>
+    <string name="retention_180_days">180 רוז</string>
+    <string name="retention_1_day">1 רוז</string>
+    <string name="retention_1_hour">1 סאעת</string>
+    <string name="retention_1_minute">1 דקיקה</string>
+    <string name="retention_2_hours">2 סאעת</string>
+    <string name="retention_30_days">30 רוז</string>
+    <string name="retention_30_minutes">30 דקיקה</string>
+    <string name="retention_365_days">1 סאל</string>
+    <string name="retention_3_days">3 רוז</string>
+    <string name="retention_5_minutes">5 דקיקה</string>
+    <string name="retention_6_hours">6 סאעת</string>
+    <string name="retention_7_days">7 רוז</string>
+    <string name="retention_90_days">90 רוז</string>
+    <string name="retention_custom_minutes">מקדר פעלי: %1$d דקיקה</string>
+    <string name="search_enable_first">ניאזמנד: %1$s</string>
+    <string name="search_mode_normal">עאדי</string>
+    <string name="search_mode_smart">הושמנד</string>
+    <string name="settings_category_voice_input">ורודי צותי Parakeet</string>
+    <string name="voice_button_hint">אגאז ורודי צותי</string>
+    <string name="voice_control_auto_hide">פס אז 4 סאניה פנהאן כּן</string>
+    <string name="voice_control_full">נמאיש בדה</string>
+    <string name="voice_control_stop_only">כֿאמוש</string>
+    <string name="voice_seconds_format">%1$.1f סאניה</string>
+    <string name="voice_sensitivity_format">%1$.1f אז 4</string>
+    <string name="voice_status_canceled">לגֿו שד</string>
+    <string name="voice_status_canceling">דר חאל לגֿו</string>
+    <string name="voice_status_complete">תכמיל שד</string>
+    <string name="voice_status_finishing">דר חאל תכמיל</string>
+    <string name="voice_status_initializing">ורודי צותי אגאז מישוד</string>
+    <string name="voice_status_listening">דר חאל גוש דאדן</string>
+    <string name="voice_status_loading">מדל צותי בארגזארי מישוד</string>
+    <string name="voice_status_ready">ורודי צותי אמאדה אסת</string>
+    <string name="voice_status_retrying">תלאש דובארה</string>
+    <string name="voice_status_transcribing">דר חאל תבדיל בה מתן</string>
+    <string name="voice_status_unavailable">ורודי צותי דר דסתרס ניסת</string>
+    <string name="voice_clip_label">אמרלא</string>
+</resources>

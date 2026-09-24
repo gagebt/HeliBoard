@@ -6,9 +6,13 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
@@ -82,6 +86,8 @@ public class DeferredVoiceDeliveryTest {
         voice.resumePendingDelivery();
         assertEquals("", editor.text.toString());
         assertEquals(0, editor.commits);
+        assertFalse(host.state.canCopy);
+        voice.onDictationComplete(SESSION, 0, "World.", "");
         assertTrue(host.state.canCopy);
         assertEquals("World.", savedDraft().text);
     }
@@ -106,9 +112,78 @@ public class DeferredVoiceDeliveryTest {
         assertFalse(host.state.canCopy);
     }
 
+    @Test public void copiedDraftDisappearsAcrossReopenAndNextDictation() throws Exception {
+        seedRecovery("first dictation");
+        FakeHost host = new FakeHost(new FakeEditor("").connection);
+        RustInputMethodService voice = new RustInputMethodService(context, host);
+        assertTrue(host.state.canCopy);
+        assertTrue(voice.copyDraft());
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        assertEquals("first dictation", clipboard.getPrimaryClip().getItemAt(0).getText().toString());
+        assertFalse(host.state.canCopy);
+        assertFalse(draftPath().exists());
+
+        FakeHost reopened = new FakeHost(new FakeEditor("").connection);
+        new RustInputMethodService(context, reopened);
+        assertFalse(reopened.state.canCopy);
+
+        seedRecovery("second dictation");
+        RustInputMethodService next = new RustInputMethodService(context, reopened);
+        assertTrue(next.copyDraft());
+        assertEquals("second dictation", clipboard.getPrimaryClip().getItemAt(0).getText().toString());
+    }
+
+    @Test public void failedClipboardWriteAndStaleCopyKeepRecovery() throws Exception {
+        seedRecovery("uncopied text");
+        ClipboardManager failingClipboard = mock(ClipboardManager.class);
+        doThrow(new SecurityException("test failure")).when(failingClipboard)
+                .setPrimaryClip(any(ClipData.class));
+        Context failingContext = new ContextWrapper(context) {
+            @Override public Context getApplicationContext() { return this; }
+            @Override public Object getSystemService(String name) {
+                return Context.CLIPBOARD_SERVICE.equals(name) ? failingClipboard : super.getSystemService(name);
+            }
+        };
+        FakeHost host = new FakeHost(new FakeEditor("").connection);
+        RustInputMethodService voice = new RustInputMethodService(failingContext, host);
+        assertFalse(voice.copyDraft());
+        assertTrue(host.state.canCopy);
+        assertEquals("uncopied text", savedDraft().text);
+
+        set(voice, "terminal", false);
+        set(voice, "phase", RustInputMethodService.Phase.RECORDING);
+        assertFalse(voice.copyDraft());
+        assertEquals("uncopied text", savedDraft().text);
+    }
+
+    @Test public void copyCleanupFailureDoesNotClaimRetirement() throws Exception {
+        seedRecovery("keep for recovery");
+        FakeHost host = new FakeHost(new FakeEditor("").connection);
+        RustInputMethodService voice = new RustInputMethodService(context, host);
+        File backup = new File(draftPath().getPath() + ".bak");
+        assertTrue(backup.mkdir());
+        File block = new File(backup, "block");
+        Files.write(block.toPath(), new byte[] {1});
+        try {
+            assertFalse(voice.copyDraft());
+            assertTrue(host.state.canCopy);
+            assertEquals(context.getString(helium314.keyboard.latin.R.string.voice_status_copy_retire_failed),
+                    host.state.message);
+        } finally {
+            block.delete();
+            backup.delete();
+        }
+    }
+
+    private File draftPath() { return new File(context.getNoBackupFilesDir(), "pending-dictation"); }
+
+    private void seedRecovery(String text) throws Exception {
+        Files.write(draftPath().toPath(),
+                new PendingDictationDraft(SESSION, 1, PendingDictationDraft.UNCERTAIN, text).encode());
+    }
+
     private PendingDictationDraft savedDraft() throws Exception {
-        File base = new File(context.getNoBackupFilesDir(), "pending-dictation");
-        return PendingDictationDraft.decode(Files.readAllBytes(base.toPath()));
+        return PendingDictationDraft.decode(Files.readAllBytes(draftPath().toPath()));
     }
 
     private RustInputMethodService recording(FakeHost host, FakeEditor editor) throws Exception {

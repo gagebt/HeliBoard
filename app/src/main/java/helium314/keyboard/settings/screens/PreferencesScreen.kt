@@ -43,15 +43,14 @@ fun PreferencesScreen(
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
     val clipboardHistoryEnabled = prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
     val items = listOf(
-        R.string.settings_category_input,
         R.string.settings_category_voice_input,
-        Settings.PREF_VOICE_TRANSCRIBE_NOW,
         Settings.PREF_VOICE_CONTROL_MODE,
         Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
         Settings.PREF_VOICE_PAUSE_SECONDS,
         Settings.PREF_VOICE_SPLIT_SECONDS,
         Settings.PREF_VOICE_SPEECH_SENSITIVITY,
         Settings.PREF_VOICE_PAUSE_AUDIO,
+        R.string.settings_category_input,
         Settings.PREF_SHOW_HINTS,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS))
             Settings.PREF_POPUP_KEYS_HINT_ORDER else null,
@@ -100,10 +99,6 @@ fun PreferencesScreen(
 }
 
 fun createPreferencesSettings(context: Context) = listOf(
-    Setting(context, Settings.PREF_VOICE_TRANSCRIBE_NOW, R.string.voice_transcribe_now,
-        R.string.voice_transcribe_now_summary) { setting ->
-        SwitchPreference(setting, Defaults.PREF_VOICE_TRANSCRIBE_NOW)
-    },
     Setting(context, Settings.PREF_VOICE_CONTROL_MODE, R.string.voice_control_mode,
         R.string.voice_control_mode_summary) { setting ->
         ListPreference(setting, listOf(
@@ -123,7 +118,7 @@ fun createPreferencesSettings(context: Context) = listOf(
             key = setting.key,
             summary = setting.description,
             default = Defaults.PREF_VOICE_PAUSE_SECONDS,
-            description = { "%.1f s".format(it) },
+            description = { context.getString(R.string.voice_seconds_format, it) },
             range = 1f..8f,
         )
     },
@@ -134,7 +129,7 @@ fun createPreferencesSettings(context: Context) = listOf(
             key = setting.key,
             summary = setting.description,
             default = Defaults.PREF_VOICE_SPLIT_SECONDS,
-            description = { "%.1f s".format(it) },
+            description = { context.getString(R.string.voice_seconds_format, it) },
             range = 1f..8f,
         )
     },
@@ -145,7 +140,7 @@ fun createPreferencesSettings(context: Context) = listOf(
             key = setting.key,
             summary = setting.description,
             default = Defaults.PREF_VOICE_SPEECH_SENSITIVITY,
-            description = { "%.1f of 4".format(it) },
+            description = { context.getString(R.string.voice_sensitivity_format, it) },
             range = 1f..4f,
         )
     },

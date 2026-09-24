@@ -36,7 +36,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,7 +56,6 @@ import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.latin.utils.SearchIcon
 import helium314.keyboard.latin.utils.HintIconButton
-import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.preferences.PreferenceCategory
 
@@ -116,7 +114,7 @@ fun SearchSettingsScreen(
         },
         filteredItems = { if (smart) SettingsActivity.settingsContainer.smartFilter(it)
                           else SettingsActivity.settingsContainer.filter(it) },
-        itemContent = { SearchSettingResult(it) },
+        itemContent = { it.Preference() },
         searchModeToggle = {
             TextButton(onClick = {
                 smart = !smart
@@ -124,39 +122,6 @@ fun SearchSettingsScreen(
             }) { Text(stringResource(if (smart) R.string.search_mode_smart else R.string.search_mode_normal)) }
         }
     )
-}
-
-@Composable
-private fun SearchSettingResult(setting: Setting) {
-    val context = LocalContext.current
-    (context.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()?.value
-    val prefs = context.prefs()
-    val prerequisite = when (setting.key) {
-        "voice_save_dictations_to_history", "clipboard_history_retention_time",
-        "clipboard_history_pinned_first", "clipboard_histor_usey_files" -> "enable_clipboard_history"
-        "clipboard_history_files_size_limit" -> "clipboard_histor_usey_files"
-        "vibrate_in_dnd_mode", "vibration_duration_settings" -> "vibrate_on"
-        "keypress_sound_volume" -> "sound_on"
-        "gesture_preview_trail", "gesture_floating_preview_text", "gesture_floating_preview_dynamic",
-        "gesture_space_aware", "gesture_fast_typing_cooldown", "gesture_trail_fadeout_duration" -> "gesture_input"
-        else -> null
-    }
-    Column {
-        if (prerequisite != null && !prefs.getBoolean(prerequisite, false)) {
-            Text(stringResource(R.string.search_enable_first,
-                SettingsActivity.settingsContainer[prerequisite]?.title.orEmpty()),
-                modifier = Modifier.padding(horizontal = 16.dp))
-            SettingsActivity.settingsContainer[prerequisite]?.Preference()
-        }
-        if (setting.key == "gesture_floating_preview_dynamic" &&
-            !prefs.getBoolean("gesture_floating_preview_text", false)) {
-            Text(stringResource(R.string.search_enable_first,
-                SettingsActivity.settingsContainer["gesture_floating_preview_text"]?.title.orEmpty()),
-                modifier = Modifier.padding(horizontal = 16.dp))
-            SettingsActivity.settingsContainer["gesture_floating_preview_text"]?.Preference()
-        }
-        setting.Preference()
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -213,7 +178,7 @@ fun <T: Any?> SearchScreen(
                                     HintIconButton(
                                         hint = stringResource(R.string.icon_hint_menu),
                                         onClick = { showMenu = true }
-                                    ) { Icon(painterResource(R.drawable.ic_arrow_left), "menu", Modifier.rotate(-90f)) }
+                                    ) { Icon(painterResource(R.drawable.ic_arrow_left), stringResource(R.string.icon_hint_menu), Modifier.rotate(-90f)) }
                                     DropdownMenu(
                                         expanded = showMenu,
                                         onDismissRequest = { showMenu = false }
@@ -296,7 +261,7 @@ fun ExpandableSearchField(
                 onClick = {
                 if (search.text.isBlank()) onDismiss()
                 else onSearchChange(TextFieldValue())
-                }) { CloseIcon(android.R.string.cancel) }
+                }) { CloseIcon(if (search.text.isBlank()) R.string.dialog_close else R.string.icon_hint_clear_search) }
             } },
             singleLine = true,
             colors = colors,

@@ -47,6 +47,7 @@ import helium314.keyboard.latin.Suggest.OnGetSuggestedWordsCallback;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo;
 import helium314.keyboard.latin.WordComposer;
+import helium314.keyboard.latin.FutoSuggestions;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.InputPointers;
 import helium314.keyboard.latin.common.StringUtils;
@@ -180,7 +181,7 @@ public final class InputLogic {
         // editorInfo.initialSelStart is not the actual cursor position, so we try using some heuristics to find the correct position.
         mConnection.tryFixIncorrectCursorPosition();
         cancelDoubleSpacePeriodCountdown();
-        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+        mPendingTailBatchSequenceNumbers.clear();
         mInputLogicHandler.reset();
         mConnection.requestCursorUpdates(true, true);
         setInlineEmojiSearchAction(false);
@@ -222,7 +223,7 @@ public final class InputLogic {
             StatsUtils.onWordCommitUserTyped(mWordComposer.getTypedWord(), mWordComposer.isBatchMode());
         }
         resetComposingState(true);
-        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+        mPendingTailBatchSequenceNumbers.clear();
         mInputLogicHandler.reset();
         mSpaceState = SpaceState.NONE;
     }
@@ -230,7 +231,7 @@ public final class InputLogic {
     /** Reconciles HeliBoard after text was committed through the voice controller. */
     public void onExternalTextCommitted(final int newSelStart, final int newSelEnd) {
         resetComposingState(true /* alsoResetLastComposedWord */);
-        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+        mPendingTailBatchSequenceNumbers.clear();
         mInputLogicHandler.reset();
         mSpaceState = SpaceState.NONE;
         mConnection.resetCachesUponCursorMoveAndReturnSuccess(
@@ -248,6 +249,7 @@ public final class InputLogic {
      * @return the complete transaction object
      */
     public InputTransaction onTextInput(SettingsValues settingsValues, Event event, CapsMode keyboardCapsMode, LatinIME.UIHandler handler) {
+        retirePendingGesturesForExplicitEdit();
         String rawText = event.getTextToCommit().toString();
         InputTransaction inputTransaction = new InputTransaction(settingsValues, event,
                 SystemClock.uptimeMillis(), mSpaceState,
@@ -300,6 +302,7 @@ public final class InputLogic {
     // interface
     public InputTransaction onPickSuggestionManually(SettingsValues settingsValues, SuggestedWordInfo suggestionInfo,
             CapsMode keyboardCapsMode, String currentKeyboardScript, LatinIME.UIHandler handler) {
+        retirePendingGesturesForExplicitEdit();
         if (isInlineEmojiSearchAction()) {
             deleteTextReplacedByEmoji();
         }
@@ -407,6 +410,10 @@ public final class InputLogic {
             // return whether we expect a user-initiated explicit cursor move (i.e. not as result of other input, but e.g. space swipe)
             // note that arrow keys are not considered, because for them isBelatedExpectedUpdate returns false
             return expectCursorMove;
+        }
+
+        if (oldSelStart != newSelStart || oldSelEnd != newSelEnd) {
+            retirePendingGesturesForExplicitEdit();
         }
 
         // if all text is gone, we treat it like onStartInput
@@ -554,13 +561,15 @@ public final class InputLogic {
             mEnteredText = null;
         }
         mConnection.endBatchEdit();
+        if (inputTransaction.didAffectContents()) {
+            retirePendingGesturesForExplicitEdit();
+        }
         return inputTransaction;
     }
 
     public void onStartBatchInput(final SettingsValues settingsValues,
             final KeyboardSwitcher keyboardSwitcher, final LatinIME.UIHandler handler) {
         mWordBeingCorrectedByCursor = null;
-        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
         mInputLogicHandler.onStartBatchInput();
         handler.showGesturePreviewAndSetSuggestions(SuggestedWords.getEmptyBatchInstance(), false);
         handler.cancelUpdateSuggestionStrip();
@@ -640,21 +649,37 @@ public final class InputLogic {
      * earlier sequence number.
      */
     private int mAutoCommitSequenceNumber = 1;
-    private int mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+    private final ArrayList<Integer> mPendingTailBatchSequenceNumbers = new ArrayList<>();
 
     public boolean isGesturePending() {
         return mInputLogicHandler.isInBatchInput()
-                || mPendingTailBatchSequenceNumber != SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+                || !mPendingTailBatchSequenceNumbers.isEmpty();
+    }
+
+    private void retirePendingGesturesForExplicitEdit() {
+        if (!isGesturePending()) return;
+        mPendingTailBatchSequenceNumbers.clear();
+        mInputLogicHandler.reset();
+    }
+
+    public void warmUpSwipe(final Keyboard keyboard, final Locale locale) {
+        final SettingsValues settings = Settings.getValues();
+        if (keyboard != null && locale != null
+                && (locale.getLanguage().equals("en") || locale.getLanguage().equals("ru"))
+                && (settings.mGestureInputEnabled || (locale.getLanguage().equals("en")
+                        && settings.mBigramPredictionEnabled && settings.needsToLookupSuggestions()))) {
+            mInputLogicHandler.getSuggestedWords(() -> FutoSuggestions.INSTANCE.warmUp(keyboard, locale));
+        }
     }
 
     public boolean isCurrentTailBatchInputResult(final SuggestedWords suggestedWords) {
-        return mPendingTailBatchSequenceNumber != SuggestedWords.NOT_A_SEQUENCE_NUMBER
-                && suggestedWords.mSequenceNumber == mPendingTailBatchSequenceNumber;
+        return !mPendingTailBatchSequenceNumbers.isEmpty()
+                && suggestedWords.mSequenceNumber == mPendingTailBatchSequenceNumbers.get(0);
     }
 
     public void onTailBatchInputResultDelivered(final SuggestedWords suggestedWords) {
         if (isCurrentTailBatchInputResult(suggestedWords))
-            mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
+            mPendingTailBatchSequenceNumbers.remove(0);
     }
     public void onUpdateBatchInput(final InputPointers batchPointers) {
         mInputLogicHandler.onUpdateBatchInput(batchPointers, mAutoCommitSequenceNumber);
@@ -662,14 +687,15 @@ public final class InputLogic {
 
     public void onEndBatchInput(final InputPointers batchPointers) {
         if (!mInputLogicHandler.isInBatchInput()) return;
-        mPendingTailBatchSequenceNumber = mAutoCommitSequenceNumber;
+        mPendingTailBatchSequenceNumbers.add(mAutoCommitSequenceNumber);
         mInputLogicHandler.updateTailBatchInput(batchPointers, mAutoCommitSequenceNumber);
         ++mAutoCommitSequenceNumber;
     }
 
     public void onCancelBatchInput(final LatinIME.UIHandler handler) {
-        mPendingTailBatchSequenceNumber = SuggestedWords.NOT_A_SEQUENCE_NUMBER;
-        mInputLogicHandler.onCancelBatchInput();
+        if (mInputLogicHandler.onCancelBatchInput()) {
+            mPendingTailBatchSequenceNumbers.remove(Integer.valueOf(mAutoCommitSequenceNumber - 1));
+        }
         handler.showGesturePreviewAndSetSuggestions(
                 SuggestedWords.getEmptyInstance(), true /* dismissGestureFloatingPreviewText */);
     }
@@ -2360,6 +2386,8 @@ public final class InputLogic {
      */
     public void onUpdateTailBatchInputCompleted(final SettingsValues settingsValues,
             final SuggestedWords suggestedWords, final KeyboardSwitcher keyboardSwitcher) {
+        final boolean newerGesturePending = mInputLogicHandler.isInBatchInput()
+                || mPendingTailBatchSequenceNumbers.size() > 1;
         final String batchInputText = suggestedWords.isEmpty() ? null : suggestedWords.getWord(0);
         if (TextUtils.isEmpty(batchInputText)) {
             return;
@@ -2377,6 +2405,13 @@ public final class InputLogic {
         if (settingsValues.mAutospaceAfterGestureTyping)
             mSpaceState = SpaceState.PHANTOM;
         keyboardSwitcher.updateShiftState(getCurrentAutoCapsState(settingsValues), getCurrentRecapitalizeState());
+
+        // A later gesture may already be drawing while this tail was waiting behind prediction.
+        // Finalize this word so that the later gesture cannot replace its composing span.
+        if (newerGesturePending) {
+            mSuggestedWords = suggestedWords;
+            commitTyped(settingsValues, LastComposedWord.NOT_A_SEPARATOR);
+        }
 
         if (isInlineEmojiSearchAction()) {
             searchForEmojiInline(SuggestedWords.NOT_A_SEQUENCE_NUMBER, mLatinIME::setSuggestions);
@@ -2584,6 +2619,11 @@ public final class InputLogic {
 
     // we used to provide keyboard, settingsValues and keyboardShiftMode, but every time read it from current instance anyway
     void getSuggestedWords(final int inputStyle, final int sequenceNumber, final OnGetSuggestedWordsCallback callback) {
+        getSuggestedWords(inputStyle, sequenceNumber, mWordComposer, callback);
+    }
+
+    void getSuggestedWords(final int inputStyle, final int sequenceNumber,
+            final WordComposer wordComposer, final OnGetSuggestedWordsCallback callback) {
         final Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
         if (keyboard == null) {
             callback.onGetSuggestedWords(SuggestedWords.getEmptyInstance());
@@ -2595,16 +2635,16 @@ public final class InputLogic {
             return;
         }
         final SettingsValues settingsValues = Settings.getValues();
-        mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
+        wordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardCapsMode()));
         try {
-            SuggestedWords suggestedWords = mSuggest.getSuggestedWords(mWordComposer.copy(),
+            SuggestedWords suggestedWords = mSuggest.getSuggestedWords(wordComposer.copy(),
                     getNgramContextFromNthPreviousWordForSuggestion(
                     settingsValues.mSpacingAndPunctuations,
                     // Get the word on which we should search the bigrams. If we are composing
                     // a word, it's whatever is *before* the half-committed word in the buffer,
                     // hence 2; if we aren't, we should just skip whitespace if any, so 1.
-                    mWordComposer.isComposingWord() ? 2 : 1),
+                    wordComposer.isComposingWord() ? 2 : 1),
                     keyboard,
                     settingsValues.mSettingsValuesForSuggestion,
                     settingsValues.mAutoCorrectEnabled,

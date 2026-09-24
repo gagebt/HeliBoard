@@ -76,7 +76,7 @@ class SearchMatcherTest {
             "move caret using space" to "horizontal_space_swipe",
             "не сохранять мои слова" to "always_incognito_mode",
             "пауза между словами" to "voice_split_seconds",
-            "recognize speech and keep listening" to "voice_transcribe_now",
+            "recognize speech and keep listening" to "voice_control_mode",
             "copied notes for several weeks" to "clipboard_history_retention_time",
             "words appear after processing pause" to "voice_split_seconds",
             "клавиши без вибрации" to "vibrate_on",

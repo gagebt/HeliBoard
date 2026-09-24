@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translations of this fork; native-language review remains welcome. -->
+<resources>
+    <string name="icon_hint_clear_search">ހޯދުން ފޮހެލުން</string>
+    <string name="icon_hint_edit">އެޑިޓް ކުރުން</string>
+    <string name="icon_hint_expand">ފުޅާ ކުރުން</string>
+    <string name="icon_hint_links">މަޢުލޫމާތުގެ ލިންކުތައް</string>
+    <string name="icon_hint_menu">އިތުރު އިޚްތިޔާރުތައް</string>
+    <string name="icon_hint_share">ހިއްސާ ކުރުން</string>
+    <string name="retention_10_minutes">10 މިނިޓް</string>
+    <string name="retention_12_hours">12 ގަޑިއިރު</string>
+    <string name="retention_14_days">14 ދުވަސް</string>
+    <string name="retention_180_days">180 ދުވަސް</string>
+    <string name="retention_1_day">1 ދުވަސް</string>
+    <string name="retention_1_hour">1 ގަޑިއިރު</string>
+    <string name="retention_1_minute">1 މިނިޓް</string>
+    <string name="retention_2_hours">2 ގަޑިއިރު</string>
+    <string name="retention_30_days">30 ދުވަސް</string>
+    <string name="retention_30_minutes">30 މިނިޓް</string>
+    <string name="retention_365_days">1 އަހަރު</string>
+    <string name="retention_3_days">3 ދުވަސް</string>
+    <string name="retention_5_minutes">5 މިނިޓް</string>
+    <string name="retention_6_hours">6 ގަޑިއިރު</string>
+    <string name="retention_7_days">7 ދުވަސް</string>
+    <string name="retention_90_days">90 ދުވަސް</string>
+    <string name="retention_custom_minutes">މިހާރުގެ އަދަދު: %1$d މިނިޓް</string>
+    <string name="search_enable_first">ބޭނުންވަނީ: %1$s</string>
+    <string name="search_mode_normal">އާންމު</string>
+    <string name="search_mode_smart">ސްމާޓް</string>
+    <string name="voice_control_auto_hide">4 ސިކުންތު ފަހުން ފޮރުވުން</string>
+    <string name="voice_control_full">ދެއްކުން</string>
+    <string name="voice_control_stop_only">ނިވާލާފައި</string>
+    <string name="voice_seconds_format">%1$.1f ސިކުންތު</string>
+    <string name="voice_sensitivity_format">4 އިން %1$.1f</string>
+    <string name="voice_status_canceled">ކެންސަލް ކުރެވިއްޖެ</string>
+    <string name="voice_status_complete">ނިމިއްޖެ</string>
+    <string name="voice_status_finishing">ނިމެނީ</string>
+    <string name="voice_status_listening">އަޑު އަހަމުން</string>
+    <string name="voice_status_retrying">އަލުން މަސައްކަތް ކުރަނީ</string>
+    <string name="voice_status_unavailable">އަޑުން ލިޔުން ލިބެން ނެތް</string>
+    <string name="voice_clip_label">އަޑުން ލިޔުން</string>
+    <string name="clipboard_empty_guidance">ސޭވްކޮށްފައިވާ ކްލިޕްތައް ނެތް. އެއް އިތުރުކުރުމަށް ލިޔުން ކޮޕީކުރޭ.</string>
+</resources>

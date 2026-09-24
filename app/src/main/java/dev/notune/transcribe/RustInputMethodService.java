@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
+import helium314.keyboard.latin.R;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -128,7 +129,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private boolean stateError;
     private boolean autoDeliveryOpen;
     private Phase phase = Phase.IDLE;
-    private String message = "Initializing";
+    private String message;
     private float level;
 
     private long activeSessionId;
@@ -172,6 +173,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (host == null) throw new IllegalArgumentException("host == null");
         this.host = host;
         draftFile = new AtomicFile(new File(getNoBackupFilesDir(), DRAFT_FILE));
+        message = getString(R.string.voice_status_initializing);
         restoreDraft();
         publishState();
     }
@@ -182,10 +184,10 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         try {
             initNative(this);
             initialized = true;
-            message = "Ready";
+            message = getString(R.string.voice_status_ready);
         } catch (Throwable error) {
             Log.e(TAG, "Native initialization failed", error);
-            message = "Voice engine is unavailable";
+            message = getString(R.string.voice_status_unavailable);
             stateError = true;
         }
         publishState();
@@ -199,7 +201,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         EditorInfo info = host.currentEditorInfo();
         Object editor = host.currentEditorIdentity();
         if (!host.inputActive() || connection == null || info == null || editor == null) {
-            message = "No text field is available";
+            message = getString(R.string.voice_status_no_field);
             stateError = true;
             publishState();
             return false;
@@ -207,7 +209,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (!undeliveredText.isEmpty()) {
             deliverStagedText();
             if (!undeliveredText.isEmpty()) {
-                message = "Finish the pending dictation before starting another";
+                message = getString(R.string.voice_status_pending_first);
                 stateError = true;
                 publishState();
                 return false;
@@ -215,7 +217,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         }
         // Some editors reject HeliBoard composition but still accept a direct commit.
         if (!prepareHostForVoiceCommit()) {
-            message = "Finish the gesture before starting dictation";
+            message = getString(R.string.voice_status_finish_gesture);
             stateError = true;
             publishState();
             return false;
@@ -245,7 +247,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                         : pendingDraft.preservingDeliveryRisk(PendingDictationDraft.RETRYABLE,
                                 retainedRecoveryText, nextPieceSequence);
                 if (!writeDraft(backup)) {
-                    message = "Could not save earlier dictation; recording was not started";
+                    message = getString(R.string.voice_status_save_earlier_failed);
                     stateError = true;
                     publishState();
                     return false;
@@ -253,7 +255,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 pendingDraft = backup;
             }
             if (!cancelRecording(activeSessionId)) {
-                message = "Could not clear earlier audio for a new recording";
+                message = getString(R.string.voice_status_clear_audio_failed);
                 stateError = true;
                 publishState();
                 return false;
@@ -271,7 +273,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         SessionDraftPolicy.StartResolution resolution = SessionDraftPolicy.afterStartAttempt(
                 activeSessionId, retryAvailable, candidateSessionId, started);
         if (!resolution.replaced) {
-            message = "Could not start recording";
+            message = getString(R.string.voice_status_start_failed);
             stateError = true;
             publishState();
             return false;
@@ -297,7 +299,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         retryAvailable = resolution.retryAvailable;
         autoDeliveryOpen = true;
         phase = Phase.RECORDING;
-        message = "Listening";
+        message = getString(R.string.voice_status_listening);
         level = 0;
         undeliveredText = "";
         sessionCopyText = "";
@@ -314,7 +316,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (terminal || !host.isMainThread()) return false;
         recording = false;
         phase = Phase.FINISHING;
-        message = "Finishing";
+        message = getString(R.string.voice_status_finishing);
         boolean accepted;
         try {
             accepted = stopRecording(activeSessionId);
@@ -333,7 +335,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return transcribeNowRecording(activeSessionId);
         } catch (Throwable error) {
             Log.e(TAG, "Could not transcribe current audio", error);
-            message = "Could not transcribe current audio";
+            message = getString(R.string.voice_status_transcribe_failed);
             stateError = true;
             publishState();
             return false;
@@ -344,7 +346,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (terminal || !host.isMainThread()) return false;
         recording = false;
         phase = Phase.FINISHING;
-        message = "Canceling";
+        message = getString(R.string.voice_status_canceling);
         boolean accepted;
         try {
             accepted = cancelRecording(activeSessionId);
@@ -370,7 +372,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             retryAvailable = false;
             terminal = false;
             phase = Phase.FINISHING;
-            message = "Retrying";
+            message = getString(R.string.voice_status_retrying);
         }
         publishState();
         return accepted;
@@ -382,7 +384,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         InputConnection connection = host.currentInputConnection();
         EditorInfo info = host.currentEditorInfo();
         if (!host.inputActive() || connection == null || info == null) {
-            message = "No text field is available";
+            message = getString(R.string.voice_status_no_field);
             stateError = true;
             publishState();
             return false;
@@ -405,7 +407,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         PendingDictationDraft attempted = original.with(
                 PendingDictationDraft.ATTEMPTED, fitted, original.nextSequence);
         if (!writeDraft(attempted)) {
-            message = "Could not save the insertion attempt";
+            message = getString(R.string.voice_status_save_attempt_failed);
             publishState();
             return false;
         }
@@ -422,36 +424,52 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         finishHostVoiceCommit();
         if (!accepted || before == null || after == null || !after.isExactCommitOf(before, fitted)) {
             retainedRecoveryText = fitted;
-            message = accepted ? "Saved copy available; insertion could not be confirmed"
-                    : "Editor rejected dictated text";
+            message = getString(accepted ? R.string.voice_status_uncertain
+                    : R.string.voice_status_rejected);
             publishState();
             return false;
         }
         if (!clearDraftFile()) {
-            message = "Text inserted, but the saved copy could not be cleared";
+            message = getString(R.string.voice_status_clear_copy_failed);
             publishState();
             return true;
         }
         retireRecovery();
-        message = "Dictation inserted";
+        message = getString(R.string.voice_status_inserted);
         publishState();
         return true;
     }
 
-    /** Copies without closing the keyboard or changing capture state. */
+    /** Retires copied recovery only after both clipboard and saved-draft cleanup succeed. */
     public boolean copyDraft() {
-        if (retainedRecoveryText.isEmpty() || !host.isMainThread()) return false;
+        if (!terminal || phase != Phase.IDLE || retainedRecoveryText.isEmpty()
+                || !host.isMainThread()) return false;
         try {
             ClipboardManager clipboard =
                     (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            if (clipboard == null) return false;
-            clipboard.setPrimaryClip(ClipData.newPlainText("dictation", retainedRecoveryText));
-            message = "Dictation copied";
+            if (clipboard == null) {
+                message = getString(R.string.voice_status_copy_failed);
+                stateError = true;
+                publishState();
+                return false;
+            }
+            clipboard.setPrimaryClip(ClipData.newPlainText(
+                    getString(R.string.voice_clip_label), retainedRecoveryText));
+            if (!clearDraftFile()) {
+                message = getString(R.string.voice_status_copy_retire_failed);
+                stateError = true;
+                publishState();
+                return false;
+            }
+            retireRecovery();
+            message = getString(R.string.voice_status_copied);
+            stateError = false;
             publishState();
             return true;
         } catch (Throwable error) {
             Log.w(TAG, "Clipboard write failed", error);
-            message = "Could not copy dictation";
+            message = getString(R.string.voice_status_copy_failed);
+            stateError = true;
             publishState();
             return false;
         }
@@ -473,19 +491,20 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 cancelled = false;
             }
             if (!cancelled) {
-                message = "Could not discard retry audio; saved text is unchanged";
+                message = getString(R.string.voice_status_discard_audio_failed);
                 publishState();
                 return false;
             }
             retryAvailable = false;
         }
         if (!clearDraftFile()) {
-            message = "Could not discard saved dictation";
+            message = getString(R.string.voice_status_discard_failed);
             publishState();
             return false;
         }
         retireRecovery();
-        message = hasDraft ? "Saved dictation discarded" : "Retry audio discarded";
+        message = getString(hasDraft ? R.string.voice_status_discarded
+                : R.string.voice_status_audio_discarded);
         publishState();
         return true;
     }
@@ -507,15 +526,25 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     public void onStatusUpdate(String status) {
         onMain(() -> {
-            if (terminal) message = status == null ? "" : status;
+            if (status != null && !status.isEmpty()) Log.i(TAG, "Native status: " + status);
+            if (!initialized && terminal) message = getString(status != null
+                    && status.startsWith("Error:") ? R.string.voice_status_unavailable
+                    : R.string.voice_status_loading);
             publishState();
         });
     }
 
     public void onDictationStatus(long sessionId, String status) {
         onMain(() -> {
-            if (sessionId != activeSessionId) return;
-            message = status == null ? "" : status;
+            if (sessionId != activeSessionId || terminal) return;
+            if (status != null && !status.isEmpty()) Log.i(TAG, "Native dictation status: " + status);
+            final int label = "Listening...".equals(status) ? R.string.voice_status_listening
+                    : "Transcribing...".equals(status) ? R.string.voice_status_transcribing
+                    : "Retrying...".equals(status) ? R.string.voice_status_retrying
+                    : status != null && status.startsWith("Error:") ? R.string.voice_status_failed
+                    : phase == Phase.RECORDING ? R.string.voice_status_listening
+                    : R.string.voice_status_transcribing;
+            message = getString(label);
             publishState();
         });
     }
@@ -585,7 +614,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     ? PendingDictationDraft.PENDING : PendingDictationDraft.UNCERTAIN, saved);
             if (!writeDraft(staged)) {
                 sessionCopyText = previousCopy;
-                message = "Could not save dictated text";
+                message = getString(R.string.voice_status_save_text_failed);
                 stateError = true;
                 publishState();
                 return false;
@@ -618,7 +647,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 stagedText);
         if (!writeDraft(staged)) {
             joiner.restorePendingTail(oldTail);
-            message = "Could not save dictated text";
+            message = getString(R.string.voice_status_save_text_failed);
             stateError = true;
             publishState();
             return false;
@@ -645,7 +674,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     deferredError = error;
                     recording = false;
                     phase = Phase.FINISHING;
-                    message = "Finishing";
+                    message = getString(R.string.voice_status_finishing);
                     publishState();
                     return;
                 }
@@ -690,11 +719,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     undeliveredText = "";
                     currentSessionNeedsRecovery = true;
                     retainedRecoveryText = staged.text;
-                    message = "Could not save final punctuation. Copy it now.";
+                    message = getString(R.string.voice_status_save_punctuation_failed);
                 }
             }
             if (!undeliveredText.isEmpty()) deliverStagedText();
-            if (message == null || message.isEmpty()) message = "Complete";
+            if (message == null || message.isEmpty()) message = getString(R.string.voice_status_complete);
         } else if (outcome == OUTCOME_REVIEW) {
             joiner.finish();
             autoDeliveryOpen = false;
@@ -707,16 +736,18 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     retainedRecoveryText);
             writeDraft(review);
             pendingDraft = review;
-            message = present(error, "Review final words. Earlier words may already be in the field.");
+            if (error != null && !error.isEmpty()) Log.w(TAG, "Native review: " + error);
+            message = getString(R.string.voice_status_review);
             stateError = true;
         } else if (outcome == OUTCOME_RETRYABLE) {
             retryAvailable = true;
             if (!sessionCopyText.isEmpty()) retainCurrentSession(PendingDictationDraft.RETRYABLE);
-            message = present(error, "Dictation failed");
+            if (error != null && !error.isEmpty()) Log.w(TAG, "Native retryable failure: " + error);
+            message = getString(R.string.voice_status_failed);
             stateError = true;
         } else if (outcome == OUTCOME_CANCELLED) {
             joiner.finish();
-            message = "Canceled";
+            message = getString(R.string.voice_status_canceled);
         } else {
             String recovery = pendingDraft == null ? undeliveredText : pendingDraft.text;
             if (!recovery.isEmpty()) {
@@ -730,8 +761,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 writeDraft(interrupted);
                 pendingDraft = interrupted;
             }
-            message = present(error, outcome == OUTCOME_INTERRUPTED
-                    ? "Dictation interrupted" : "Dictation failed");
+            if (error != null && !error.isEmpty()) Log.w(TAG, "Native failure: " + error);
+            message = getString(outcome == OUTCOME_INTERRUPTED
+                    ? R.string.voice_status_interrupted : R.string.voice_status_failed);
             stateError = true;
         }
         if (maySaveCurrentSession) {
@@ -748,9 +780,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     pendingDraft = backup;
                     retainedRecoveryText = backupText;
                     currentSessionNeedsRecovery = true;
-                    message = "Could not save dictation history; saved draft is available";
+                    message = getString(R.string.voice_status_history_backup);
                 } else {
-                    message = "Could not save dictation history or a backup";
+                    message = getString(R.string.voice_status_history_failed);
                 }
                 stateError = true;
             }
@@ -770,7 +802,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             undeliveredText = "";
             deferredPieces.clear();
             deferredCopyStart = -1;
-            message = "Saved copy available; target field changed";
+            message = getString(R.string.voice_status_field_changed);
             return;
         }
 
@@ -779,7 +811,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return;
         }
         if (!prepareHostForVoiceCommit()) {
-            message = "Could not prepare the editor for dictation";
+            message = getString(R.string.voice_status_editor_failed);
             stateError = true;
             return;
         }
@@ -792,7 +824,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         PendingDictationDraft attempted = pendingDraft.with(
                 PendingDictationDraft.ATTEMPTED, pendingDraft.text, nextPieceSequence);
         if (!writeDraft(attempted)) {
-            message = "Could not save the delivery attempt. Text was not sent.";
+            message = getString(R.string.voice_status_save_delivery_failed);
             return;
         }
         pendingDraft = attempted;
@@ -808,9 +840,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         finishHostVoiceCommit();
         if (!accepted || before == null || after == null || !after.isExactCommitOf(before, sent)) {
             autoDeliveryOpen = SessionDraftPolicy.deliveryOpenAfterUnconfirmedCommit(accepted);
-            settleDelivery(true, accepted
-                    ? "Saved copy available; delivery could not be confirmed"
-                    : "Saved copy available; editor rejected the text");
+            settleDelivery(true, getString(accepted
+                    ? R.string.voice_status_delivery_uncertain
+                    : R.string.voice_status_delivery_rejected));
             return;
         }
         refreshContext(connection, after);
@@ -858,7 +890,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             sessionCopyText = rawCopy;
             joiner.restorePendingTail(oldTail);
             hasAcceptedPiece = oldAccepted;
-            message = "Could not save dictated text";
+            message = getString(R.string.voice_status_save_text_failed);
             stateError = true;
             return false;
         }
@@ -979,7 +1011,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             PendingDictationDraft restored = PendingDictationDraft.decode(draftFile.readFully());
             if (restored == null) {
                 draftReadError = true;
-                message = "Saved dictation is damaged";
+                message = getString(R.string.voice_status_saved_damaged);
                 stateError = true;
                 return;
             }
@@ -993,13 +1025,13 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             retainedRecoveryText = restored.text;
             activeSessionId = restored.sessionId;
             nextPieceSequence = restored.nextSequence;
-            message = "Saved dictation available";
+            message = getString(R.string.voice_status_saved_available);
         } catch (FileNotFoundException ignored) {
             // First run.
         } catch (Throwable error) {
             Log.e(TAG, "Could not restore pending dictation", error);
             draftReadError = true;
-            message = "Saved dictation could not be read";
+            message = getString(R.string.voice_status_saved_unreadable);
             stateError = true;
         }
     }
@@ -1101,13 +1133,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private void publishState() {
         boolean hasDraft = !retainedRecoveryText.isEmpty();
         host.postVoiceState(new VoiceState(phase, message, level,
-                hasDraft && terminal, hasDraft,
+                hasDraft && terminal, hasDraft && terminal,
                 SessionDraftPolicy.canDiscard(hasDraft, draftReadError, retryAvailable),
                 retryAvailable && terminal, stateError));
-    }
-
-    private static String present(String value, String fallback) {
-        return value == null || value.isEmpty() ? fallback : value;
     }
 
     private static final class EditorSnapshot {

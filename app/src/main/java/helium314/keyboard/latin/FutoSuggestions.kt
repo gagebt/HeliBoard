@@ -85,6 +85,15 @@ object FutoSuggestions {
         }
     }
 
+    @Synchronized
+    fun warmUp(keyboard: Keyboard, locale: Locale) {
+        try {
+            configure(keyboard, locale)
+        } catch (failure: Throwable) {
+            Log.e(TAG, "FUTO swipe warm-up failed", failure)
+        }
+    }
+
     private fun configure(keyboard: Keyboard, locale: Locale): FutoSwipeRuntime? {
         val appContext = context ?: return null
         val vocabAsset = when (locale.language) {
