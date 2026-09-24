@@ -85,8 +85,10 @@ class InputLogicTest {
     @Test fun staleTailResultCannotClearPendingGesture() {
         inputLogic.onEndBatchInput(InputPointers(1))
         assertEquals(false, inputLogic.isGesturePending)
-        val pending = InputLogic::class.java.getDeclaredField("mPendingTailBatchSequenceNumber").apply { isAccessible = true }
-        pending.setInt(inputLogic, 42)
+        @Suppress("UNCHECKED_CAST")
+        val pending = InputLogic::class.java.getDeclaredField("mPendingTailBatchSequenceNumbers")
+            .apply { isAccessible = true }.get(inputLogic) as ArrayList<Int>
+        pending.add(42)
         fun result(sequence: Int) = SuggestedWords(arrayListOf(), null, null, true, false, false,
             SuggestedWords.INPUT_STYLE_TAIL_BATCH, sequence)
 
@@ -107,6 +109,83 @@ class InputLogicTest {
         assertEquals("c", composingText)
         latinIME.mHandler.onFinishInput()
         assertEquals("", composingText)
+    }
+
+    @Test fun toolbarPastePreservesComposingWordAndRetiresQueuedSwipe() {
+        val before = "we visit country"
+        val pasted = "C".repeat(17)
+        setText(before)
+        input('e')
+        input('d')
+        assertEquals("countryed", composingText)
+        (latinIME.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
+            .setPrimaryClip(android.content.ClipData.newPlainText("sample", pasted))
+        @Suppress("UNCHECKED_CAST")
+        val pending = InputLogic::class.java.getDeclaredField("mPendingTailBatchSequenceNumbers")
+            .apply { isAccessible = true }.get(inputLogic) as ArrayList<Int>
+        pending.add(77)
+
+        functionalKeyPress(KeyCode.CLIPBOARD_PASTE)
+
+        assertEquals(before + "ed" + pasted, text)
+        assertEquals("", composingText)
+        assertEquals(text, getTextFromConnection())
+        assertEquals(false, inputLogic.isGesturePending)
+    }
+
+    @Test fun clipboardKeyReplacesExplicitSelectionWithoutMovingOtherText() {
+        latinIME.prefs().edit { putBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, false) }
+        setText("left countryed right")
+        setCursorPosition(5, 14)
+        (latinIME.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
+            .setPrimaryClip(android.content.ClipData.newPlainText("sample", "new"))
+        functionalKeyPress(KeyCode.CLIPBOARD)
+
+        assertEquals("left new right", text)
+        assertEquals(8, cursor)
+        assertEquals("", composingText)
+        assertEquals(text, getTextFromConnection())
+    }
+
+    @Test fun toolbarPasteKeepsComposingTextWhenEditorRefusesReadback() {
+        setText("we visit country")
+        input('e')
+        input('d')
+        assertEquals("countryed", composingText)
+        (latinIME.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
+            .setPrimaryClip(android.content.ClipData.newPlainText("sample", "ZXQ"))
+
+        ShadowInputMethodService.refuseTextBeforeCursor = true
+        try {
+            latinIME.onEvent(Event.createSoftwareKeypressEvent(Event.NOT_A_CODE_POINT,
+                KeyCode.CLIPBOARD_PASTE, 0, Constants.NOT_A_COORDINATE,
+                Constants.NOT_A_COORDINATE, false))
+            handleMessages()
+            assertEquals("we visit countryedZXQ", text)
+            assertEquals("", composingText)
+        } finally {
+            ShadowInputMethodService.refuseTextBeforeCursor = false
+        }
+        assertEquals(true, connection.resetCachesUponCursorMoveAndReturnSuccess(
+            cursor, cursor, false))
+        assertEquals(text, getTextFromConnection())
+    }
+
+    @Test fun toolbarPasteInMiddleOfComposingWordKeepsCursorAndSuffix() {
+        setText("we visit country")
+        input('e')
+        input('d')
+        setCursorPosition(14)
+        assertEquals("countryed", composingText)
+        (latinIME.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
+            .setPrimaryClip(android.content.ClipData.newPlainText("sample", "ZXQ"))
+
+        functionalKeyPress(KeyCode.CLIPBOARD_PASTE)
+
+        assertEquals("we visit countZXQryed", text)
+        assertEquals(17, cursor)
+        assertEquals("", composingText)
+        assertEquals(text, getTextFromConnection())
     }
 
     @Test fun delete() {

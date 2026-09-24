@@ -828,11 +828,11 @@ public final class InputLogic {
                 // is being handled in {@link KeyboardState#onEvent(Event,int)}.
                 // If disabled, current clipboard content is committed.
                 if (!sv.mClipboardHistoryEnabled) {
-                    paste(mLatinIME.getCurrentInputEditorInfo().packageName);
+                    paste(mLatinIME.getCurrentInputEditorInfo().packageName, inputTransaction);
                 }
                 break;
             case KeyCode.CLIPBOARD_PASTE:
-                paste(mLatinIME.getCurrentInputEditorInfo().packageName);
+                paste(mLatinIME.getCurrentInputEditorInfo().packageName, inputTransaction);
                 break;
             case KeyCode.SHIFT_ENTER:
                 // todo: try using sendDownUpKeyEventWithMetaState() and remove the key code maybe
@@ -2750,10 +2750,18 @@ public final class InputLogic {
         return mWordComposer.size();
     }
 
-    private void paste(String packageName) {
+    private void paste(String packageName, InputTransaction inputTransaction) {
         // some apps ignore KeyEvent.KEYCODE_PASTE, other apps ignore CRTL+V
         // we try to deal with this by committing the text if the clipboard content is simply text,
         // and use KeyEvent.KEYCODE_PASTE otherwise except for apps that are known to ignore it
+        if (mWordComposer.isComposingWord()) {
+            resetEntireInputState(mConnection.getExpectedSelectionStart(),
+                    mConnection.getExpectedSelectionEnd(), false);
+        }
+        retirePendingGesturesForExplicitEdit();
+        mSpaceState = SpaceState.NONE;
+        inputTransaction.setDidAffectContents();
+        inputTransaction.setRequiresUpdateSuggestions();
         String primaryClip = mLatinIME.getClipboardHistoryManager().getPrimaryClipIfText();
         if (primaryClip != null) {
             mConnection.commitText(primaryClip, 1);

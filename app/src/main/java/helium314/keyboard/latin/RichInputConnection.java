@@ -233,6 +233,11 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         mComposingText.setLength(0);
         final boolean didReloadTextSuccessfully = reloadTextCache();
         if (!didReloadTextSuccessfully) {
+            // The editor may accept writes while refusing text reads. Finish its composing span
+            // before a later commitText can replace the unfinished word.
+            if (isConnected() && shouldFinishComposition) {
+                mIC.finishComposingText();
+            }
             Log.d(TAG, "Will try to retrieve text later.");
             // selection is set to INVALID_CURSOR_POSITION if reloadTextCache return false
             return false;

@@ -132,6 +132,7 @@ class ShadowInputMethodService {
         var selectionEnd = 0
         var composingStart = -1
         var composingEnd = -1
+        var refuseTextBeforeCursor = false
         var currentInputType = InputType.TYPE_CLASS_TEXT
 
         // convenience for access
@@ -151,6 +152,7 @@ class ShadowInputMethodService {
             selectionEnd = 0
             composingStart = -1
             composingEnd = -1
+            refuseTextBeforeCursor = false
             currentInputType = InputType.TYPE_CLASS_TEXT
         }
     }
@@ -169,7 +171,8 @@ class ShadowInputMethodService {
     private val ic = object : InputConnection {
         // pretty clear (though this may be slow depending on the editor)
         // bad return value here is likely the cause for that weird bug improved/fixed by fixIncorrectLength
-        override fun getTextBeforeCursor(p0: Int, p1: Int): CharSequence = textBeforeCursor.take(p0)
+        override fun getTextBeforeCursor(p0: Int, p1: Int): CharSequence? =
+            if (refuseTextBeforeCursor) null else textBeforeCursor.take(p0)
         // pretty clear (though this may be slow depending on the editor)
         override fun getTextAfterCursor(p0: Int, p1: Int): CharSequence = textAfterCursor.take(p0)
         // pretty clear
