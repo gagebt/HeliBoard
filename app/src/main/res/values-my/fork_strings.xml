@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ဘာသာစကား ရွေးချယ်စရာများ</string>
     <string name="settings_category_voice_input">Parakeet အသံဖြင့် စာရိုက်ခြင်း</string>
     <string name="voice_button_hint">အသံဖြင့် စာရိုက်ခြင်း စရန်</string>
-    <string name="voice_control_auto_hide">4 စက္ကန့်အကြာတွင် ဖျောက်ရန်</string>
+    <string name="voice_control_auto_hide">မှတ်တမ်းတင်ပြီးနောက် ၄ စက္ကန့်လောက် ပုန်းထားပါ။</string>
     <string name="voice_control_full">ပြရန်</string>
     <string name="voice_control_mode">ယခု အသံကို စာပြောင်းမည့် ခလုတ်</string>
     <string name="voice_control_mode_summary">အသံသွင်းခြင်းကို မရပ်ဘဲ လက်ရှိပြောထားသော အပိုင်းကို စာပြောင်းမည်။ ရပ်ရန် ခလုတ်ကို အမြဲ သုံးနိုင်သည်။</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">သိမ်းထားသော မိတ္တူရှိသည်၊ စာထည့်ပြီးကြောင်း အတည်မပြုနိုင်ပါ</string>
     <string name="voice_clip_label">အသံမှစာ</string>
     <string name="clipboard_empty_guidance">သိမ်းထားသော ကလစ်များ မရှိပါ။ တစ်ခုထည့်ရန် စာသားကို ကူးယူပါ။</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">အသံသွင်း၊ ခလုတ်၊ clipboard</string>
+    <string name="pf6_voice_help">မိုက်ခရိုဖုန်းကို ရိုက်ပြီး ညွှန်ကြားပါ။ စကားပြောနေတုန်း စာရိုက်နေနိုင်တယ် အသံအိုင်ကွန်ကို ကိုင်ပြီး နာမည်ကို ကြည့်ပါ။</string>
+    <string name="pf6_voice_saved_retention">သိမ်းဆည်းထားသော entry များသည် History ထိန်းသိမ်းချိန် (ယခု %1$s) ကိုလိုက်နာသည်။</string>
+    <string name="pf6_search_no_results">ကိုက်ညီတဲ့ settings မရှိ</string>
+    <string name="pf6_mic_permission_needed_allow">မိုက်ခရိုဖုန်း ခွင့်ပြုချက် လိုအပ်တယ်။ ခလုတ်နှိပ်ပြီး ခွင့်ပြုပါ။</string>
+    <string name="pf6_mic_permission_needed_settings">မိုက်ခရိုဖုန်း ခွင့်ပြုချက် လိုအပ်တယ်။ App သတင်းအချက်အလက်ကို ဖွင့်ရန်နှိပ်ပါ။</string>
+    <string name="pf6_retention_minutes">%1$d မိနစ်</string>
+    <string name="pf6_clipboard_kept_for">%1$s အတွက် ကူးယူထားတယ်။ ဒါကို Settings ထဲမှာ ပြောင်းနိုင်ပါတယ်။</string>
+    <string name="pf6_clipboard_kept_no_limit">ကိုယ်က ဖျက်တဲ့အထိ ကိုယ်က သိမ်းထားတယ်။</string>
+    <string name="pf6_clipboard_pinned">ပိတ်ထားသည်</string>
+    <string name="voice_status_nothing_heard">ဘာမှ မကြားရဘူး။</string>
 </resources>

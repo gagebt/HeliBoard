@@ -43,7 +43,7 @@
     <string name="search_subtype_title">የ%1$s ቋንቋ አማራጮች</string>
     <string name="settings_category_voice_input">የParakeet ድምፅ ግቤት</string>
     <string name="voice_button_hint">የድምፅ ግቤትን ጀምር</string>
-    <string name="voice_control_auto_hide">ከ4 ሰከንዶች በኋላ ደብቅ</string>
+    <string name="voice_control_auto_hide">ቀረጻ ከተጀመረ በኋላ 4 ሰከንዶች ይደብቁ</string>
     <string name="voice_control_full">አሳይ</string>
     <string name="voice_control_mode">አሁን ወደ ጽሑፍ ቀይር ቁልፍ</string>
     <string name="voice_control_mode_summary">ቀረጻውን ሳያቋርጥ የአሁኑን የንግግር ክፍል ወደ ጽሑፍ ይቀይራል። የማቆሚያ ቁልፍ ሁልጊዜ ይገኛል።</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">የተቀመጠ ቅጂ አለ፤ ጽሑፉ መግባቱን ማረጋገጥ አልተቻለም</string>
     <string name="voice_clip_label">የንግግር ጽሑፍ</string>
     <string name="clipboard_empty_guidance">የተቀመጡ ቅንጥቦች የሉም። አንድ ለመጨመር ጽሑፍ ይቅዱ።</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">የድምፅ ማስገቢያ፣ ቁልፎች፣ ክሊፕቦርድ</string>
+    <string name="pf6_voice_help">ለማዘዝ ማይክሮፎኑን መታ አድርግ። እየተናገርክ ሳለ መፃፍህን መቀጠል ትችላለህ። ስሙን ለማየት የድምፅ አዶን ይያዙ።</string>
+    <string name="pf6_voice_saved_retention">የተቀመጡ ግቤቶች የታሪክ ማቆያ ጊዜን ይከተላሉ (አሁን %1$s).</string>
+    <string name="pf6_search_no_results">የሚዛመዱ ቅንብሮች የሉም</string>
+    <string name="pf6_mic_permission_needed_allow">ማይክሮፎን ፈቃድ ያስፈልጋል። ለመፍቀድ መታ አድርግ።</string>
+    <string name="pf6_mic_permission_needed_settings">ማይክሮፎን ፈቃድ ያስፈልጋል። መተግበሪያ መረጃ ለመክፈት መታ.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">ቅጂዎች ለ %1$s ይቆያሉ። በቅንብሮች ውስጥ ይህን መቀየር ይችላሉ.</string>
+    <string name="pf6_clipboard_kept_no_limit">ቅጂዎቹ እስኪሰረዙ ድረስ ይቀመጣሉ።</string>
+    <string name="pf6_clipboard_pinned">የተጣራ</string>
+    <string name="voice_status_nothing_heard">ምንም አልሰማሁም</string>
 </resources>

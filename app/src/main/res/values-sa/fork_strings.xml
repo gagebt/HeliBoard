@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s भाषाविकल्पाः</string>
     <string name="settings_category_voice_input">Parakeet वाणीप्रवेशः</string>
     <string name="voice_button_hint">वाणीप्रवेशम् आरभताम्</string>
-    <string name="voice_control_auto_hide">4 क्षणानन्तरं गोपयतु</string>
+    <string name="voice_control_auto_hide">रेकर्डिङस्य आरम्भात् ४ सेकंदां लप्यताम्</string>
     <string name="voice_control_full">दर्शयतु</string>
     <string name="voice_control_mode">इदानीं लिप्यन्तरीकरणकुञ्जी</string>
     <string name="voice_control_mode_summary">ध्वनिमुद्रणम् अविरम्य वर्तमानं वाक्यांशं संसाधयतु। विरामकुञ्जी सर्वदा उपलभ्यते।</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">रक्षिता प्रतिलिपिः उपलभ्यते; निवेशः न निश्चितः</string>
     <string name="voice_clip_label">श्रुतलेखः</string>
     <string name="clipboard_empty_guidance">रक्षितानि अंशानि न सन्ति। एकं योजयितुं पाठस्य प्रतिलिपिं करोतु।</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">स्वरप्रवेश, कुञ्जी, क्लिपबोर्ड</string>
+    <string name="pf6_voice_help">मायक्रोफोनं टॅप करणम्। भवद्भिः भाषणं कुर्वन् तादृशप्रकारं लिखितुं शक्नुमः। तस्मिन् नाम्ना द्रष्टुम् इच्छति।</string>
+    <string name="pf6_voice_saved_retention">सहेता प्रविष्ट्याणि हिस्ट्री रक्षणकालस्य (अद्यतः %1$s) अनुपालनं कुर्वन्ति ।</string>
+    <string name="pf6_search_no_results">न संयोगेषु संयोगेषु</string>
+    <string name="pf6_mic_permission_needed_allow">माइक्रोफोन अनुज्ञाः आवश्यकः। अनुमतिं दद्यात् ।</string>
+    <string name="pf6_mic_permission_needed_settings">माइक्रोफोन अनुज्ञाः आवश्यकः। एप सूचनां खुल्तुं टॅप करा.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">प्रतिलिपिः %1$s इति प्रतिलिपिः । इदम् सेटिंग्स् मध्ये परिवर्तनं कर्तुम् शक्नोति ।</string>
+    <string name="pf6_clipboard_kept_no_limit">प्रतिलिपिः यदा तु तेषां लोपः न करिष्ये तादृशमेव भवति।</string>
+    <string name="pf6_clipboard_pinned">पिनः</string>
+    <string name="voice_status_nothing_heard">न श्रुतम् ।</string>
 </resources>

@@ -42,7 +42,7 @@
     <string name="search_subtype_title">Opciones de la llingua %1$s</string>
     <string name="settings_category_voice_input">Entrada de voz Parakeet</string>
     <string name="voice_button_hint">Entamar la entrada de voz</string>
-    <string name="voice_control_auto_hide">Anubrir dempués de 4 segundos</string>
+    <string name="voice_control_auto_hide">Esconder 4 s dempués de que empiece la grabación</string>
     <string name="voice_control_full">Amosar</string>
     <string name="voice_control_mode">Botón Trescribir agora</string>
     <string name="voice_control_mode_summary">Procesar el fragmentu de fala actual ensin rematar la grabación. Parar ta siempre disponible.</string>
@@ -105,4 +105,17 @@
     <string name="voice_status_uncertain">Hai una copia guardada; nun se pudo confirmar la inxerción</string>
     <string name="voice_clip_label">Dictáu</string>
     <string name="clipboard_empty_guidance">Nun hai fragmentos guardaos. Copia testu p\'añader ún.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Entraes de voz, tecles, tablilla</string>
+    <string name="pf6_voice_help">Tape al micrófono pa dictar. Puede escribir mientres fala. Tener un ícono de voz pa ver el so nome.</string>
+    <string name="pf6_voice_saved_retention">Les entredes guardadas siguen el tiempu de retención de l\'historial (agora %1$s).</string>
+    <string name="pf6_search_no_results">Ninguna configuración de coincidencia</string>
+    <string name="pf6_mic_permission_needed_allow">Ye necesariu un permisu de micrófono. Tapear pa permitir.</string>
+    <string name="pf6_mic_permission_needed_settings">Ye necesariu un permisu de micrófono. Tape pa abrir la información de la aplicación.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Les copies son conserváes pa %1$s. Puede cambiar esto en configuraciones.</string>
+    <string name="pf6_clipboard_kept_no_limit">Les copies se guardan hasta que les elimines.</string>
+    <string name="pf6_clipboard_pinned">Encañáu</string>
+    <string name="voice_status_nothing_heard">Nun se oyó nada.</string>
 </resources>

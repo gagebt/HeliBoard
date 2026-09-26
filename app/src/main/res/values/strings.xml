@@ -1332,4 +1332,17 @@ New dictionary:
     <string name="dictation_copy">Copy saved dictation for recovery</string>
     <string name="dictation_stop">Stop dictation</string>
     <string name="integration_attribution">HeliBoard with offline NVIDIA Parakeet TDT 0.6B v3 voice input. Powered by FUTO Swipe.</string>
+
+    <!-- pf6 strings -->
+    <string name="pf6_preferences_summary">Voice input, keys, clipboard</string>
+    <string name="pf6_voice_help">Tap the mic to dictate. You can keep typing while you speak. Hold a voice icon to see its name.</string>
+    <string name="pf6_voice_saved_retention">Saved entries follow the History retention time (now %1$s).</string>
+    <string name="pf6_search_no_results">No matching settings</string>
+    <string name="pf6_mic_permission_needed_allow">Microphone permission needed. Tap to allow.</string>
+    <string name="pf6_mic_permission_needed_settings">Microphone permission needed. Tap to open App info.</string>
+    <string name="pf6_retention_minutes">%1$d minutes</string>
+    <string name="pf6_clipboard_kept_for">Copies are kept for %1$s. You can change this in settings.</string>
+    <string name="pf6_clipboard_kept_no_limit">Copies are kept until you delete them.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Nothing heard</string>
 </resources>

@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Имконоти забони %1$s</string>
     <string name="settings_category_voice_input">Вуруди овозии Parakeet</string>
     <string name="voice_button_hint">Оғози вуруди овозӣ</string>
-    <string name="voice_control_auto_hide">Пас аз 4 сония пинҳон кунед</string>
+    <string name="voice_control_auto_hide">Пас аз оғози сабт 4 с пинҳон кунед</string>
     <string name="voice_control_full">Намоиш</string>
     <string name="voice_control_mode">Тугмаи «Ҳоло ба матн табдил диҳед»</string>
     <string name="voice_control_mode_summary">Қисми ҷории гуфторро бе анҷом додани сабт коркард кунед. Қатъ кардан ҳамеша дастрас аст.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Нусхаи захирашуда дастрас аст; воридкунӣ тасдиқ нашуд</string>
     <string name="voice_clip_label">Диктант</string>
     <string name="clipboard_empty_guidance">Порчаҳои захирашуда нестанд. Барои илова кардани яке матнро нусха кунед.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Дастрасии овозӣ, клавиатураҳо, клипборд</string>
+    <string name="pf6_voice_help">Барои фармудан аз микрофон такмил диҳед. Ҳангоми суханронӣ навиштанро идома диҳед. Икони овозиро нигоҳ доред, то номи онро бинед.</string>
+    <string name="pf6_voice_saved_retention">Таърифи захирашуда ба вақти нигоҳдории таърих (ҳоло %1$s) пайравӣ мекунад.</string>
+    <string name="pf6_search_no_results">Ҳеҷ гуна танзимоти мувофиқ</string>
+    <string name="pf6_mic_permission_needed_allow">Барои микрофон иҷозатнома лозим аст. Барои иҷозат додан ба даст оваред.</string>
+    <string name="pf6_mic_permission_needed_settings">Барои микрофон иҷозатнома лозим аст. Барои кушодани маълумоти барнома такс кунед.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Нусхаҳо барои %1$s нигоҳ дошта мешаванд. Шумо метавонед инро дар танзимотҳо иваз кунед.</string>
+    <string name="pf6_clipboard_kept_no_limit">Нусхаҳо то он даме, ки онҳоро нест кунед, нигоҳ дошта мешаванд.</string>
+    <string name="pf6_clipboard_pinned">Бандкардашуда</string>
+    <string name="voice_status_nothing_heard">Ҳеҷ чиз нашунида шуд</string>
 </resources>

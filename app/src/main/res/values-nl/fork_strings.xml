@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Taalopties voor %1$s</string>
     <string name="settings_category_voice_input">Parakeet-spraakinvoer</string>
     <string name="voice_button_hint">Spraakinvoer starten</string>
-    <string name="voice_control_auto_hide">Verbergen na 4 seconden</string>
+    <string name="voice_control_auto_hide">Verberg 4 seconden na het opnemen</string>
     <string name="voice_control_full">Tonen</string>
     <string name="voice_control_mode">Knop Nu transcriberen</string>
     <string name="voice_control_mode_summary">Verwerk het huidige spraakfragment zonder de opname te beëindigen. Stoppen blijft altijd beschikbaar.</string>
@@ -106,4 +106,17 @@
     <string name="voice_status_uncertain">Opgeslagen kopie beschikbaar; invoegen kon niet worden bevestigd</string>
     <string name="voice_clip_label">Dictaat</string>
     <string name="clipboard_empty_guidance">Geen opgeslagen items. Kopieer tekst om er een toe te voegen.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Stemtoevoer, toetsen, clipboard</string>
+    <string name="pf6_voice_help">Tik op de microfoon om te dicteren. Je kunt blijven tikken terwijl je spreekt. Houd een stem icoon om de naam te zien.</string>
+    <string name="pf6_voice_saved_retention">De opgeslagen gegevens volgen de bewaartijd van de geschiedenis (nu %1$s).</string>
+    <string name="pf6_search_no_results">Geen overeenkomstige instellingen</string>
+    <string name="pf6_mic_permission_needed_allow">Een microfoon toestemming nodig. Tik om toe te staan.</string>
+    <string name="pf6_mic_permission_needed_settings">Een microfoon toestemming nodig. Tik om de App-informatie te openen.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Kopieën worden bewaard voor %1$s. Je kunt dit veranderen in instellingen.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopieën worden bewaard totdat u ze verwijdert.</string>
+    <string name="pf6_clipboard_pinned">Vastgezet</string>
+    <string name="voice_status_nothing_heard">Ik heb niets gehoord.</string>
 </resources>

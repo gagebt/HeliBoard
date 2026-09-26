@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Tùy chọn ngôn ngữ %1$s</string>
     <string name="settings_category_voice_input">Nhập giọng nói bằng Parakeet</string>
     <string name="voice_button_hint">Bắt đầu nhập giọng nói</string>
-    <string name="voice_control_auto_hide">Ẩn sau 4 giây</string>
+    <string name="voice_control_auto_hide">Cẩn trốn 4 s sau khi ghi âm bắt đầu</string>
     <string name="voice_control_full">Hiển thị</string>
     <string name="voice_control_mode">Nút Chép lời ngay</string>
     <string name="voice_control_mode_summary">Xử lý đoạn lời nói hiện tại mà không kết thúc ghi âm. Nút Dừng luôn có sẵn.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Có bản sao đã lưu; không thể xác nhận việc chèn</string>
     <string name="voice_clip_label">Đọc chính tả</string>
     <string name="clipboard_empty_guidance">Chưa có mục nào được lưu. Sao chép văn bản để thêm một mục.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Nhập âm thanh, phím, clipboard</string>
+    <string name="pf6_voice_help">Nhấn microphone để chỉ định. Bạn có thể tiếp tục gõ trong khi nói. Giữ biểu tượng giọng nói để xem tên của nó.</string>
+    <string name="pf6_voice_saved_retention">Các mục được lưu theo thời gian lưu trữ lịch sử (nay là %1$s).</string>
+    <string name="pf6_search_no_results">Không có cài đặt phù hợp</string>
+    <string name="pf6_mic_permission_needed_allow">Microphone cần phép. Nhấn để cho phép.</string>
+    <string name="pf6_mic_permission_needed_settings">Microphone cần phép. Nhấp để mở thông tin ứng dụng.</string>
+    <string name="pf6_retention_minutes">%1$d phút</string>
+    <string name="pf6_clipboard_kept_for">Các bản sao được giữ cho số %1$s. Bạn có thể thay đổi điều này trong cài đặt.</string>
+    <string name="pf6_clipboard_kept_no_limit">Các bản sao được giữ cho đến khi bạn xóa chúng.</string>
+    <string name="pf6_clipboard_pinned">Đèn đệm</string>
+    <string name="voice_status_nothing_heard">Không nghe thấy gì cả.</string>
 </resources>

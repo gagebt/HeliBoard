@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Opzioni lingua %1$s</string>
     <string name="settings_category_voice_input">Input vocale Parakeet</string>
     <string name="voice_button_hint">Avvia input vocale</string>
-    <string name="voice_control_auto_hide">Nascondi dopo 4 secondi</string>
+    <string name="voice_control_auto_hide">Nascondere 4 secondi dopo l\'inizio della registrazione</string>
     <string name="voice_control_full">Mostra</string>
     <string name="voice_control_mode">Pulsante Trascrivi ora</string>
     <string name="voice_control_mode_summary">Elabora il segmento vocale attuale senza terminare la registrazione. Interrompi resta sempre disponibile.</string>
@@ -106,4 +106,17 @@
     <string name="voice_status_uncertain">Copia salvata disponibile; impossibile confermare l\'inserimento</string>
     <string name="voice_clip_label">Dettatura</string>
     <string name="clipboard_empty_guidance">Nessun elemento salvato. Copia del testo per aggiungerne uno.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Input vocale, tasti, clipboard</string>
+    <string name="pf6_voice_help">Tocca il microfono per dettare. Puoi continuare a digitare mentre parli. Prendi un\'icona vocale per vedere il nome.</string>
+    <string name="pf6_voice_saved_retention">Le voci salvate seguono il tempo di conservazione di Storia (ora %1$s).</string>
+    <string name="pf6_search_no_results">Nessuna impostazione corrispondente</string>
+    <string name="pf6_mic_permission_needed_allow">Bisogna avere il permesso del microfono. Tocca per consentire.</string>
+    <string name="pf6_mic_permission_needed_settings">Bisogna avere il permesso del microfono. Tocca per aprire le informazioni dell\'app.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Le copie sono conservate per %1$s. Puoi cambiare questo nelle impostazioni.</string>
+    <string name="pf6_clipboard_kept_no_limit">Le copie vengono conservate fino a quando non vengono cancellate.</string>
+    <string name="pf6_clipboard_pinned">Fissato</string>
+    <string name="voice_status_nothing_heard">Non ho sentito niente.</string>
 </resources>

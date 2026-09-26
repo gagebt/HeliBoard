@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s тілі параметрлері</string>
     <string name="settings_category_voice_input">Parakeet дауыспен енгізу</string>
     <string name="voice_button_hint">Дауыспен енгізуді бастау</string>
-    <string name="voice_control_auto_hide">4 секундтан кейін жасыру</string>
+    <string name="voice_control_auto_hide">Жазу басталғаннан кейін 4 с жасырыңыз</string>
     <string name="voice_control_full">Көрсету</string>
     <string name="voice_control_mode">Қазір мәтінге айналдыру түймесі</string>
     <string name="voice_control_mode_summary">Жазуды аяқтамай, сөздің ағымдағы бөлігін өңдеңіз. Тоқтату әрқашан қолжетімді.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Сақталған көшірме бар; енгізу расталмады</string>
     <string name="voice_clip_label">Диктант</string>
     <string name="clipboard_empty_guidance">Сақталған үзінділер жоқ. Біреуін қосу үшін мәтінді көшіріңіз.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Дауыс кірісі, кілттер, клипборд</string>
+    <string name="pf6_voice_help">Микрофонға тигізіңіз. Сөйлеген кезде жаза аласың. Атын көру үшін дауыс таңбасын ұстаңыз.</string>
+    <string name="pf6_voice_saved_retention">Сақталған жазулар Тарих сақтау уақыты (қазіргі %1$s) бойынша.</string>
+    <string name="pf6_search_no_results">Қатысу параметрлері жоқ</string>
+    <string name="pf6_mic_permission_needed_allow">Микрофонға рұқсат қажет. Рұқсат ету үшін қоңырау соғыңыз.</string>
+    <string name="pf6_mic_permission_needed_settings">Микрофонға рұқсат қажет. Қолданба мәліметтерін ашу үшін батырманы басыңыз.</string>
+    <string name="pf6_retention_minutes">%1$d мин</string>
+    <string name="pf6_clipboard_kept_for">Көшірмелері %1$s нөміріне сақталады. Мұны баптауларда өзгерте аласыз.</string>
+    <string name="pf6_clipboard_kept_no_limit">Көшірмелер оларды өшіргенше сақталады.</string>
+    <string name="pf6_clipboard_pinned">Тіркелген</string>
+    <string name="voice_status_nothing_heard">Ешнәрсе естілмеген</string>
 </resources>

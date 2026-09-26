@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s の言語設定</string>
     <string name="settings_category_voice_input">Parakeet 音声入力</string>
     <string name="voice_button_hint">音声入力を開始</string>
-    <string name="voice_control_auto_hide">4秒後に非表示</string>
+    <string name="voice_control_auto_hide">記録開始後4秒を隠す</string>
     <string name="voice_control_full">表示</string>
     <string name="voice_control_mode">今すぐ文字起こしボタン</string>
     <string name="voice_control_mode_summary">録音を終了せずに現在の音声を処理します。停止はいつでも使えます。</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">保存したコピーがあります。挿入を確認できませんでした</string>
     <string name="voice_clip_label">音声入力</string>
     <string name="clipboard_empty_guidance">保存済みのクリップはありません。テキストをコピーすると追加されます。</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">音声入力,キー,クリップボード</string>
+    <string name="pf6_voice_help">マイクにタップして指示する 話している間に タイプし続けられる. 声のアイコンを握って その名前を表示します</string>
+    <string name="pf6_voice_saved_retention">保存されたエントリは,歴史保存時間 (現在 %1$s) に続く.</string>
+    <string name="pf6_search_no_results">一致する設定はありません</string>
+    <string name="pf6_mic_permission_needed_allow">マイクで許可が必要だった 押して許可する</string>
+    <string name="pf6_mic_permission_needed_settings">マイクで許可が必要だった アップ情報を開くにはタップします.</string>
+    <string name="pf6_retention_minutes">%1$d 分</string>
+    <string name="pf6_clipboard_kept_for">%1$s号に保存されている. これは設定で変更できます.</string>
+    <string name="pf6_clipboard_kept_no_limit">コピーは削除するまで保存されます.</string>
+    <string name="pf6_clipboard_pinned">ピン留め済み</string>
+    <string name="voice_status_nothing_heard">何も聞こえなかった</string>
 </resources>

@@ -41,7 +41,7 @@
     <string name="search_subtype_title">Sprogindstillinger for %1$s</string>
     <string name="settings_category_voice_input">Parakeet-stemmeinput</string>
     <string name="voice_button_hint">Start stemmeinput</string>
-    <string name="voice_control_auto_hide">Skjul efter 4 sekunder</string>
+    <string name="voice_control_auto_hide">Skjul 4 sekunder efter optagelsen</string>
     <string name="voice_control_full">Vis</string>
     <string name="voice_control_mode">Knappen Transskriber nu</string>
     <string name="voice_control_mode_summary">Behandl det aktuelle taleafsnit uden at afslutte optagelsen. Stop er altid tilgængelig.</string>
@@ -104,4 +104,17 @@
     <string name="voice_status_uncertain">Gemt kopi tilgængelig; indsættelse kunne ikke bekræftes</string>
     <string name="voice_clip_label">Diktat</string>
     <string name="clipboard_empty_guidance">Ingen gemte elementer. Kopiér tekst for at tilføje et.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Stemningsindgang, tastaturer, clipboard</string>
+    <string name="pf6_voice_help">Tryk på mikrofonen for at diktere. Du kan skrive, mens du taler. Hold et stemme-ikon for at se navnet.</string>
+    <string name="pf6_voice_saved_retention">De gemte indlæg følger tidsrummet for opbevaring af Historie (nu %1$s).</string>
+    <string name="pf6_search_no_results">Ingen matching indstillinger</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofon tilladelse. Tryk for at tillade.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofon tilladelse. Træk for at åbne app-oplysninger.</string>
+    <string name="pf6_retention_minutes">%1$d min.</string>
+    <string name="pf6_clipboard_kept_for">Kopier opbevares til nummer %1$s. Du kan ændre dette i indstillinger.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopier opbevares, indtil du sletter dem.</string>
+    <string name="pf6_clipboard_pinned">Stængt</string>
+    <string name="voice_status_nothing_heard">Jeg hørte ikke noget.</string>
 </resources>

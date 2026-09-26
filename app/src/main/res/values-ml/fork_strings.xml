@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ഭാഷാ ഓപ്ഷനുകൾ</string>
     <string name="settings_category_voice_input">Parakeet ശബ്ദ ഇൻപുട്ട്</string>
     <string name="voice_button_hint">ശബ്ദ ഇൻപുട്ട് തുടങ്ങുക</string>
-    <string name="voice_control_auto_hide">4 സെക്കൻഡിനു ശേഷം മറയ്ക്കുക</string>
+    <string name="voice_control_auto_hide">റെക്കോർഡിംഗ് തുടങ്ങിയതിന് ശേഷം 4 സെക്കന്റ് മറയ്ക്കുക</string>
     <string name="voice_control_full">കാണിക്കുക</string>
     <string name="voice_control_mode">ഇപ്പോൾ പാഠമാക്കാനുള്ള ബട്ടൺ</string>
     <string name="voice_control_mode_summary">റെക്കോർഡിങ് നിർത്താതെ ഇപ്പോഴത്തെ സംസാര ഭാഗം പാഠമാക്കുക. നിർത്താനുള്ള ഓപ്ഷൻ എപ്പോഴും ലഭ്യമാണ്.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">സൂക്ഷിച്ച പകർപ്പ് ലഭ്യമാണ്; പാഠം ചേർത്തെന്ന് ഉറപ്പിക്കാനായില്ല</string>
     <string name="voice_clip_label">സംസാര പാഠം</string>
     <string name="clipboard_empty_guidance">സംരക്ഷിച്ച ക്ലിപ്പുകളില്ല. ഒന്ന് ചേർക്കാൻ ടെക്സ്റ്റ് പകർത്തുക.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">വോയ്സ് ഇൻപുട്ട്, കീകൾ, ക്ലിപ്പ്ബോർഡ്</string>
+    <string name="pf6_voice_help">മൈക്രോഫോണിൽ ടാപ്പുചെയ്ത് പ്രസ്താവിക്കുക. സംസാരിക്കുന്നതിനിടയില് നിങ്ങള് ക്ക് ടൈപ്പ് ചെയ്യാം. ഒരു ശബ്ദ ഐക്കൺ പിടിച്ചുകൊണ്ട് അതിന്റെ പേര് കാണുക.</string>
+    <string name="pf6_voice_saved_retention">സംഭരിച്ചിരിക്കുന്ന രേഖകൾ ചരിത്രം സൂക്ഷിക്കുന്നതിനുള്ള സമയം പിന്തുടരുന്നു (ഇപ്പോൾ %1$s).</string>
+    <string name="pf6_search_no_results">അനുയോജ്യമായ ക്രമീകരണങ്ങൾ ഇല്ല</string>
+    <string name="pf6_mic_permission_needed_allow">മൈക്രോഫോണിന് അനുമതി വേണം. അനുവദിക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="pf6_mic_permission_needed_settings">മൈക്രോഫോണിന് അനുമതി വേണം. ആപ്ലിക്കേഷൻ വിവരങ്ങൾ തുറക്കുന്നതിന് ടാപ്പുചെയ്യുക.</string>
+    <string name="pf6_retention_minutes">%1$d മി.</string>
+    <string name="pf6_clipboard_kept_for">%1$s-ന് പകർപ്പുകൾ സൂക്ഷിക്കുന്നു. നിങ്ങൾക്ക് ഇത് ക്രമീകരണങ്ങളിൽ മാറ്റാം.</string>
+    <string name="pf6_clipboard_kept_no_limit">പകർപ്പുകള് നീക്കം ചെയ്യുന്നതുവരെ സൂക്ഷിക്കുന്നു.</string>
+    <string name="pf6_clipboard_pinned">പിൻഡ്</string>
+    <string name="voice_status_nothing_heard">ഒന്നും കേട്ടില്ല.</string>
 </resources>

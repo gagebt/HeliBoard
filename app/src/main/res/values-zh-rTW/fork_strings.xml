@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s 語言選項</string>
     <string name="settings_category_voice_input">Parakeet 語音輸入</string>
     <string name="voice_button_hint">開始語音輸入</string>
-    <string name="voice_control_auto_hide">4 秒後隱藏</string>
+    <string name="voice_control_auto_hide">在錄音開始後4秒藏身</string>
     <string name="voice_control_full">顯示</string>
     <string name="voice_control_mode">立即轉錄按鈕</string>
     <string name="voice_control_mode_summary">處理目前的語音片段而不結束錄音。停止按鈕隨時可用。</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">已儲存的副本可用；無法確認是否已插入</string>
     <string name="voice_clip_label">語音輸入</string>
     <string name="clipboard_empty_guidance">沒有已儲存的剪貼內容。複製文字即可新增一筆。</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">音訊輸入,鍵,剪輯板</string>
+    <string name="pf6_voice_help">請按下麥克風, 您可以在說話中繼續輸入. 請按一下聲音圖標標記,</string>
+    <string name="pf6_voice_saved_retention">存儲的輸入時間是歷史存儲時間 (現在是%1$s).</string>
+    <string name="pf6_search_no_results">沒有匹配的設定</string>
+    <string name="pf6_mic_permission_needed_allow">需要使用麥克風. 按一下讓我們使用.</string>
+    <string name="pf6_mic_permission_needed_settings">需要使用麥克風. 請按一下打開應用程式資訊.</string>
+    <string name="pf6_retention_minutes">%1$d 分鐘</string>
+    <string name="pf6_clipboard_kept_for">存放為%1$s號碼的副本. 您可以在設定中更改.</string>
+    <string name="pf6_clipboard_kept_no_limit">您將其保存到您將其移除.</string>
+    <string name="pf6_clipboard_pinned">已固定</string>
+    <string name="voice_status_nothing_heard">未聽到聲音</string>
 </resources>

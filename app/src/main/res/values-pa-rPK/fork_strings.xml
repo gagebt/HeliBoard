@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s زبان دے اختیار</string>
     <string name="settings_category_voice_input">Parakeet آواز ان پٹ</string>
     <string name="voice_button_hint">آواز ان پٹ شروع کرو</string>
-    <string name="voice_control_auto_hide">4 سیکنڈ بعد لکا دیو</string>
+    <string name="voice_control_auto_hide">د ثبت له پیل وروسته ۴ ثانیې پټ کړئ</string>
     <string name="voice_control_full">وکھاؤ</string>
     <string name="voice_control_mode">ہن لکھت وچ بدلو دا بٹن</string>
     <string name="voice_control_mode_summary">ریکارڈنگ ختم کیتے بغیر ہن بولیا حصہ پراسیس کرو۔ روکڻ دا اختیار ہمیشہ موجود اے۔</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">محفوظ کاپی موجود اے؛ عبارت درج ہون دی تصدیق نئیں ہو سکی</string>
     <string name="voice_clip_label">بول کے لکھی عبارت</string>
     <string name="clipboard_empty_guidance">کوئی محفوظ کیتے ہوئے کلپ نہیں۔ اک شامل کرن لئی متن کاپی کرو۔</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">د غږ د ننوتلو، تڼیو، کلپ بورډ</string>
+    <string name="pf6_voice_help">مایکروفون ته ټایپ وکړئ ترڅو حکم ورکړئ. تاسو کولی شئ د خبرو پرمهال ټایپ کولو ته دوام ورکړئ. د هغې نوم د لیدلو لپاره د غږ نښه ونیسئ.</string>
+    <string name="pf6_voice_saved_retention">خوندي شوي ننوتنې د تاریخ ساتنې وخت تعقیبوي (اوس %1$s).</string>
+    <string name="pf6_search_no_results">د ټاکلو سره سمون نشته</string>
+    <string name="pf6_mic_permission_needed_allow">د مایکروفون اجازه ته اړتیا ده. د اجازه ورکولو لپاره ټاپ کړئ.</string>
+    <string name="pf6_mic_permission_needed_settings">د مایکروفون اجازه ته اړتیا ده. د اپلیکیشن معلومات پرانیستلو لپاره ټایپ کړئ.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">د %1$s لپاره کاپي ساتل کیږي. تاسو کولی شئ دا په ترتیباتو کې بدل کړئ.</string>
+    <string name="pf6_clipboard_kept_no_limit">کاپيونه تر هغه ساتل کیږي چې تاسو یې حذف کړئ.</string>
+    <string name="pf6_clipboard_pinned">په ټوټه کې</string>
+    <string name="voice_status_nothing_heard">هېڅ څه نه دي اوریدلي</string>
 </resources>

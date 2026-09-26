@@ -32,7 +32,6 @@
     <string name="search_mode_smart">آقیللی</string>
     <string name="settings_category_voice_input">Parakeet سەس گیریشی</string>
     <string name="voice_button_hint">سەس گیریشینی باشلات</string>
-    <string name="voice_control_auto_hide">4 ثانیە سونرا گیزلە</string>
     <string name="voice_control_full">گوستەر</string>
     <string name="voice_control_stop_only">قاپالی</string>
     <string name="voice_seconds_format">%1$.1f ثانیە</string>
@@ -55,4 +54,6 @@
     <string name="voice_status_transcribing">متنە چەویریلیور</string>
     <string name="voice_status_unavailable">سەس گیریشی قوللانیلامیور</string>
     <string name="voice_clip_label">دیکتە</string>
+
+    <string name="voice_control_auto_hide">4 ثانیە سونرا گیزلە</string>
 </resources>

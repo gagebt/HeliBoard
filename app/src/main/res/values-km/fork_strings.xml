@@ -43,7 +43,7 @@
     <string name="search_subtype_title">ជម្រើសភាសា %1$s</string>
     <string name="settings_category_voice_input">ការបញ្ចូលសំឡេង Parakeet</string>
     <string name="voice_button_hint">ចាប់ផ្ដើមបញ្ចូលសំឡេង</string>
-    <string name="voice_control_auto_hide">លាក់ក្រោយ 4 វិនាទី</string>
+    <string name="voice_control_auto_hide">លាក់ 4s បន្ទាប់ ពី ការ ថត ចាប់ផ្តើម</string>
     <string name="voice_control_full">បង្ហាញ</string>
     <string name="voice_control_mode">ប៊ូតុងបម្លែងសំឡេងឥឡូវ</string>
     <string name="voice_control_mode_summary">ដំណើរការផ្នែកសំដីបច្ចុប្បន្នដោយមិនបញ្ចប់ការថត។ ប៊ូតុងបញ្ឈប់នៅតែប្រើបានជានិច្ច។</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">មានច្បាប់ចម្លងដែលបានរក្សាទុក; មិនអាចបញ្ជាក់ការបញ្ចូលអត្ថបទ</string>
     <string name="voice_clip_label">អត្ថបទសំឡេង</string>
     <string name="clipboard_empty_guidance">មិនមានធាតុដែលបានរក្សាទុកទេ។ ចម្លងអត្ថបទដើម្បីបន្ថែមមួយ។</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ការបញ្ចូលសំឡេង, បំពាក់, clipboard</string>
+    <string name="pf6_voice_help">ទុច លើ មីក្រូ ដើម្បី បញ្ជា។ អ្នក អាច បន្ត ការ សរសេរ អក្សរ នៅ ពេល អ្នក និយាយ។ ចូរ កាន់ រូប អក្សរ សំឡេង ដើម្បី មើល ឈ្មោះ របស់ វា។</string>
+    <string name="pf6_voice_saved_retention">ការបញ្ចូលដែលត្រូវបានរក្សាទុកតាមពេលការរក្សាទុកប្រវត្តិ (ឥឡូវនេះ %1$s) ។</string>
+    <string name="pf6_search_no_results">គ្មាន settings ដែលស្របគ្នា</string>
+    <string name="pf6_mic_permission_needed_allow">ត្រូវការ អនុញ្ញាត ពី មីក្រូហ្វូន។ ទាញដើម្បីអនុញ្ញាត.</string>
+    <string name="pf6_mic_permission_needed_settings">ត្រូវការ អនុញ្ញាត ពី មីក្រូហ្វូន។ ទាញដើម្បីបើកព័ត៌មាន App ។</string>
+    <string name="pf6_retention_minutes">%1$d នាទី</string>
+    <string name="pf6_clipboard_kept_for">ក្បាលត្រូវបានរក្សាទុកសម្រាប់ %1$s. អ្នក អាច ប្តូរ នេះ ក្នុង ការកំណត់។</string>
+    <string name="pf6_clipboard_kept_no_limit">កopies ត្រូវ រក្សា ទុក រហូត ដល់ អ្នក លុប ចោល ។</string>
+    <string name="pf6_clipboard_pinned">សំបក</string>
+    <string name="voice_status_nothing_heard">គ្មាន អ្វី ដែល ឮ ទេ</string>
 </resources>

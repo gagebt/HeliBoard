@@ -31,7 +31,6 @@
     <string name="search_mode_smart">הושמנד</string>
     <string name="settings_category_voice_input">ורודי צותי Parakeet</string>
     <string name="voice_button_hint">אגאז ורודי צותי</string>
-    <string name="voice_control_auto_hide">פס אז 4 סאניה פנהאן כּן</string>
     <string name="voice_control_full">נמאיש בדה</string>
     <string name="voice_control_stop_only">כֿאמוש</string>
     <string name="voice_seconds_format">%1$.1f סאניה</string>
@@ -48,4 +47,6 @@
     <string name="voice_status_transcribing">דר חאל תבדיל בה מתן</string>
     <string name="voice_status_unavailable">ורודי צותי דר דסתרס ניסת</string>
     <string name="voice_clip_label">אמרלא</string>
+
+    <string name="voice_control_auto_hide">פס אז 4 סאניה פנהאן כּן</string>
 </resources>

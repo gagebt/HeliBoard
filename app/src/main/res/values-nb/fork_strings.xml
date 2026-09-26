@@ -41,7 +41,7 @@
     <string name="search_subtype_title">Språkvalg for %1$s</string>
     <string name="settings_category_voice_input">Parakeet-taleinndata</string>
     <string name="voice_button_hint">Start taleinndata</string>
-    <string name="voice_control_auto_hide">Skjul etter 4 sekunder</string>
+    <string name="voice_control_auto_hide">Skjul 4 sekunder etter at opptaket er startet</string>
     <string name="voice_control_full">Vis</string>
     <string name="voice_control_mode">Knappen Transkriber nå</string>
     <string name="voice_control_mode_summary">Behandle den gjeldende talebiten uten å avslutte opptaket. Stopp er alltid tilgjengelig.</string>
@@ -104,4 +104,17 @@
     <string name="voice_status_uncertain">Lagret kopi tilgjengelig; innsetting kunne ikke bekreftes</string>
     <string name="voice_clip_label">Diktat</string>
     <string name="clipboard_empty_guidance">Ingen lagrede elementer. Kopier tekst for å legge til et.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Stemningsinnspill, tastaturer, klippertavl</string>
+    <string name="pf6_voice_help">Trykk på mikrofonen for å diktere. Du kan fortsette å skrive mens du snakker. Hold et stemme-ikon for å se navnet.</string>
+    <string name="pf6_voice_saved_retention">Lagrede innlegg følger lagringstiden for Historie (nå %1$s).</string>
+    <string name="pf6_search_no_results">Ingen matching-innstillinger</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofon tillatelse trengs. Trykk for å tillate.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofon tillatelse trengs. Trykk for å åpne App info.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Kopier holdes for %1$s. Du kan endre dette i innstillinger.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopier holdes inntil du sletter dem.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Ingenting hørt</string>
 </resources>

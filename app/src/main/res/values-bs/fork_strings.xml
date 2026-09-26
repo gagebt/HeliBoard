@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Opcije za jezik %1$s</string>
     <string name="settings_category_voice_input">Glasovni unos Parakeet</string>
     <string name="voice_button_hint">Pokreni glasovni unos</string>
-    <string name="voice_control_auto_hide">Sakrij nakon 4 sekunde</string>
+    <string name="voice_control_auto_hide">Sakrij 4 sekunde nakon početka snimanja</string>
     <string name="voice_control_full">Prikaži</string>
     <string name="voice_control_mode">Gumb „Transkribiraj sada“</string>
     <string name="voice_control_mode_summary">Obradite trenutni dio govora bez završetka snimanja. Gumb za zaustavljanje uvijek je dostupan.</string>
@@ -106,4 +106,17 @@
     <string name="voice_status_uncertain">Sačuvana kopija je dostupna; umetanje nije bilo moguće potvrditi</string>
     <string name="voice_clip_label">Diktirani tekst</string>
     <string name="clipboard_empty_guidance">Nema sačuvanih stavki. Kopirajte tekst da dodate jednu.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Glasni ulaz, ključevi, ploča</string>
+    <string name="pf6_voice_help">Tiskni mikrofon da diktiraš. Možeš da nastaviš da tipiraš dok pričaš. Drži ikonu glasa da vidiš njeno ime.</string>
+    <string name="pf6_voice_saved_retention">Sačuvani podaci slijede vrijeme čuvanja Historije (sada %1$s).</string>
+    <string name="pf6_search_no_results">Nema odgovarajućih podešavanja</string>
+    <string name="pf6_mic_permission_needed_allow">Potrebno je dozvolu za mikrofon. Tlaknite da dozvolite.</string>
+    <string name="pf6_mic_permission_needed_settings">Potrebno je dozvolu za mikrofon. Kliknite da otvorite informacije o aplikaciji.</string>
+    <string name="pf6_retention_minutes">%1$d min.</string>
+    <string name="pf6_clipboard_kept_for">Kopije se čuvaju za %1$s. Možete da promenite ovo u postavkama.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopije se čuvaju dok ih ne izbrišete.</string>
+    <string name="pf6_clipboard_pinned">Ugrađene</string>
+    <string name="voice_status_nothing_heard">Ništa se nije čulo.</string>
 </resources>

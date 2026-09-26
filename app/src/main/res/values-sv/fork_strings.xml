@@ -41,7 +41,7 @@
     <string name="search_subtype_title">Språkalternativ för %1$s</string>
     <string name="settings_category_voice_input">Parakeet-röstinmatning</string>
     <string name="voice_button_hint">Starta röstinmatning</string>
-    <string name="voice_control_auto_hide">Dölj efter 4 sekunder</string>
+    <string name="voice_control_auto_hide">Hybla 4 sekunder efter inspelning</string>
     <string name="voice_control_full">Visa</string>
     <string name="voice_control_mode">Knappen Transkribera nu</string>
     <string name="voice_control_mode_summary">Bearbeta det aktuella talavsnittet utan att avsluta inspelningen. Stoppa är alltid tillgängligt.</string>
@@ -104,4 +104,17 @@
     <string name="voice_status_uncertain">Sparad kopia finns; infogningen kunde inte bekräftas</string>
     <string name="voice_clip_label">Diktering</string>
     <string name="clipboard_empty_guidance">Inga sparade objekt. Kopiera text för att lägga till ett.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Våstinmatning, tangent, klipptavla</string>
+    <string name="pf6_voice_help">Tryck på mikrofonen för att diktera. Du kan skriva medan du pratar. Håll en röst ikon för att se namnet.</string>
+    <string name="pf6_voice_saved_retention">Sparas uppgifter följer lagringstiden för historia (nu %1$s).</string>
+    <string name="pf6_search_no_results">Inga motsvarande inställningar</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofon behövs. Tryck på för att tillåta.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofon behövs. Tryck på för att öppna App information.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Kopior hålls för nummer %1$s. Du kan ändra detta i inställningar.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopior lagras tills du raderar dem.</string>
+    <string name="pf6_clipboard_pinned">Pinnade</string>
+    <string name="voice_status_nothing_heard">Inget hörts.</string>
 </resources>

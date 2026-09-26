@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s hizkuntzaren aukerak</string>
     <string name="settings_category_voice_input">Parakeet ahots-sarrera</string>
     <string name="voice_button_hint">Hasi ahots-sarrera</string>
-    <string name="voice_control_auto_hide">Ezkutatu 4 segundo igaro ondoren</string>
+    <string name="voice_control_auto_hide">Grabaketa hasi eta lau segundo geroago ezkutatu.</string>
     <string name="voice_control_full">Erakutsi</string>
     <string name="voice_control_mode">Transkribatu orain botoia</string>
     <string name="voice_control_mode_summary">Prozesatu uneko hizketa zatia grabazioa amaitu gabe. Gelditzeko aukera beti dago erabilgarri.</string>
@@ -106,4 +106,17 @@
     <string name="voice_status_uncertain">Gordetako kopia erabilgarri dago; ezin izan da txertatzea baieztatu</string>
     <string name="voice_clip_label">Diktaketa</string>
     <string name="clipboard_empty_guidance">Ez dago gordetako zatirik. Kopiatu testua bat gehitzeko.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Ahotsaren sarrera, teklatuak, fitxategiak</string>
+    <string name="pf6_voice_help">Sakatu mikrofonoa diktaketa egiteko. Idazten jarraitu dezakezu hitz egiten duzun bitartean. Eutsi ahots ikonoari bere izena ikusteko.</string>
+    <string name="pf6_voice_saved_retention">Aurrezten diren sarrerek Historia gordetzeko denbora jarraitzen dute (orain %1$s).</string>
+    <string name="pf6_search_no_results">Ez dago bat datozen ezarpenik</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofonoaren baimena behar da. Sakatu baimena emateko.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofonoaren baimena behar da. Sakatu aplikazioaren informazioa irekitzeko.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">%1$s zenbakian gordetzen dira. Hau konfigurazioetan alda dezakezu.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopia horiek gorde egiten dira ezabatzen dituzun arte.</string>
+    <string name="pf6_clipboard_pinned">Ezta pentsatu ere</string>
+    <string name="voice_status_nothing_heard">Ez dut ezer entzun.</string>
 </resources>

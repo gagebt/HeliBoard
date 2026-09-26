@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s भाषा के विकल्प</string>
     <string name="settings_category_voice_input">Parakeet वॉइस इनपुट</string>
     <string name="voice_button_hint">वॉइस इनपुट शुरू करें</string>
-    <string name="voice_control_auto_hide">4 सेकंड बाद छिपाएँ</string>
+    <string name="voice_control_auto_hide">रिकॉर्डिंग शुरू होने के 4 सेकंड बाद छिपाएं</string>
     <string name="voice_control_full">दिखाएँ</string>
     <string name="voice_control_mode">अभी लिप्यंतरण करें बटन</string>
     <string name="voice_control_mode_summary">रिकॉर्डिंग समाप्त किए बिना बोले गए वर्तमान भाग को संसाधित करें। रोकने का विकल्प हमेशा उपलब्ध है।</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">सहेजी गई कॉपी उपलब्ध है; पाठ डाले जाने की पुष्टि नहीं हो सकी</string>
     <string name="voice_clip_label">श्रुतलेख</string>
     <string name="clipboard_empty_guidance">कोई सहेजा हुआ क्लिप नहीं है। एक जोड़ने के लिए टेक्स्ट कॉपी करें।</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">आवाज इनपुट, कुंजी, क्लिपबोर्ड</string>
+    <string name="pf6_voice_help">डायक्ट करने के लिए माइक्रो पर टैप करें। आप बात करते समय टाइप कर सकते हैं। इसके नाम को देखने के लिए आवाज आइकन को पकड़ो।</string>
+    <string name="pf6_voice_saved_retention">सहेजे गए प्रविष्टियों का पालन इतिहास भंडारण समय (अब %1$s) ।</string>
+    <string name="pf6_search_no_results">कोई मिलान सेटिंग्स नहीं</string>
+    <string name="pf6_mic_permission_needed_allow">माइक्रोफोन की अनुमति की आवश्यकता है। अनुमति देने के लिए टैप करें।</string>
+    <string name="pf6_mic_permission_needed_settings">माइक्रोफोन की अनुमति की आवश्यकता है। ऐप की जानकारी खोलने के लिए टैप करें।</string>
+    <string name="pf6_retention_minutes">%1$d मि॰</string>
+    <string name="pf6_clipboard_kept_for">प्रतियां %1$s के लिए रखी जाती हैं। आप सेटिंग्स में इसे बदल सकते हैं।</string>
+    <string name="pf6_clipboard_kept_no_limit">प्रतियां तब तक रखी जाती हैं जब तक आप उन्हें हटा नहीं देते।</string>
+    <string name="pf6_clipboard_pinned">पिन किया गया</string>
+    <string name="voice_status_nothing_heard">कुछ नहीं सुना</string>
 </resources>

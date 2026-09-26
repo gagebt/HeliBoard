@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Kalbos %1$s parinktys</string>
     <string name="settings_category_voice_input">Parakeet balso įvestis</string>
     <string name="voice_button_hint">Pradėti balso įvestį</string>
-    <string name="voice_control_auto_hide">Slėpti po 4 sekundžių</string>
+    <string name="voice_control_auto_hide">Paslėpti 4 sekundes po įrašymo pradžios</string>
     <string name="voice_control_full">Rodyti</string>
     <string name="voice_control_mode">Mygtukas Transkribuoti dabar</string>
     <string name="voice_control_mode_summary">Apdoroti dabartinę kalbos dalį neužbaigiant įrašymo. Sustabdymas visada pasiekiamas.</string>
@@ -106,4 +106,17 @@
     <string name="voice_status_uncertain">Išsaugota kopija pasiekiama; įterpimo patvirtinti nepavyko</string>
     <string name="voice_clip_label">Diktavimas</string>
     <string name="clipboard_empty_guidance">Nėra išsaugotų įrašų. Nukopijuokite tekstą, kad pridėtumėte įrašą.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Garsčio įvedimas, klavišai, klipo plokštelė</string>
+    <string name="pf6_voice_help">Paspauskite mikrofoną, kad diktuotume. Gali rašyti kalbant. Laikykite balso ikoną, kad pamatytumėte jos vardą.</string>
+    <string name="pf6_voice_saved_retention">Įrašai, išsaugoti, laikomi istorijos išsaugojimo laiko (dabar %1$s).</string>
+    <string name="pf6_search_no_results">Nėra atitinkamų nustatymų</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofono leidimas. Patikrinkite, kad būtų galima.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofono leidimas. Paspauskite, kad atidarytumėte programos informaciją.</string>
+    <string name="pf6_retention_minutes">%1$d min.</string>
+    <string name="pf6_clipboard_kept_for">Išskyrus %1$s numeris. Galite tai pakeisti nustatymuose.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopijos laikomos, kol jas ištrinsite.</string>
+    <string name="pf6_clipboard_pinned">Įpinti</string>
+    <string name="voice_status_nothing_heard">Nieko negirdėjau.</string>
 </resources>

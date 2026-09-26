@@ -36,7 +36,6 @@
     <string name="search_mode_smart">Fur</string>
     <string name="settings_category_voice_input">Ynworrans lev Parakeet</string>
     <string name="voice_button_hint">Dalleth ynworrans lev</string>
-    <string name="voice_control_auto_hide">Kudha wosa 4 eylennow</string>
     <string name="voice_control_full">Diskwedhes</string>
     <string name="voice_control_mode">Boton Trawskrivya lemmyn</string>
     <string name="voice_control_stop_only">Deweythys</string>
@@ -71,4 +70,6 @@
     <string name="voice_status_unavailable">Nyns yw ynworrans lev kavadow</string>
     <string name="voice_clip_label">Lavarsa</string>
     <string name="clipboard_empty_guidance">Nyns eus tammow gwithys. Kopia tekst rag keworra unn.</string>
+
+    <string name="voice_control_auto_hide">Kudha wosa 4 eylennow</string>
 </resources>

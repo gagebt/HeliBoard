@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Opsiynau iaith %1$s</string>
     <string name="settings_category_voice_input">Mewnbwn llais Parakeet</string>
     <string name="voice_button_hint">Dechrau mewnbwn llais</string>
-    <string name="voice_control_auto_hide">Cuddio ar ôl 4 eiliad</string>
+    <string name="voice_control_auto_hide">Cadwch 4 s ar ôl i\'r recordio ddechrau</string>
     <string name="voice_control_full">Dangos</string>
     <string name="voice_control_mode">Botwm Trawsgrifio nawr</string>
     <string name="voice_control_mode_summary">Prosesu\'r darn lleferydd presennol heb orffen recordio. Mae Stopio ar gael bob amser.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Mae copi a gadwyd ar gael; ni ellid cadarnhau\'r mewnosodiad</string>
     <string name="voice_clip_label">Arddywediad</string>
     <string name="clipboard_empty_guidance">Dim eitemau wedi\'u cadw. Copïwch destun i ychwanegu un.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Ystyr geiriau, tasgau, clipboard</string>
+    <string name="pf6_voice_help">Tapwch y micro i ddigtu. Gallwch barhau i ysgrifennu tra byddwch yn siarad. Cadwch eicon llais i weld ei enw.</string>
+    <string name="pf6_voice_saved_retention">Mae\'r gofnodion a gofnodwyd yn dilyn amser cadw hanes (yn awr %1$s).</string>
+    <string name="pf6_search_no_results">Dim setiau cyfateb</string>
+    <string name="pf6_mic_permission_needed_allow">Mae angen caniatâd micro. Tap i ganiatáu.</string>
+    <string name="pf6_mic_permission_needed_settings">Mae angen caniatâd micro. Tap i agor gwybodaeth App.</string>
+    <string name="pf6_retention_minutes">%1$d mun</string>
+    <string name="pf6_clipboard_kept_for">Mae copi\'n cael eu cadw ar gyfer %1$s. Gallwch newid hyn mewn lleoliadau.</string>
+    <string name="pf6_clipboard_kept_no_limit">Mae copi\'n cael eu cadw nes eich bod yn eu dileu.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Nid oes unrhyw glywed</string>
 </resources>

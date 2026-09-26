@@ -42,7 +42,7 @@
     <string name="search_subtype_title">Pilihan bahasa %1$s</string>
     <string name="settings_category_voice_input">Input suara Parakeet</string>
     <string name="voice_button_hint">Mulakan input suara</string>
-    <string name="voice_control_auto_hide">Sembunyikan selepas 4 saat</string>
+    <string name="voice_control_auto_hide">Sembunyikan 4 s selepas rakaman bermula</string>
     <string name="voice_control_full">Tunjukkan</string>
     <string name="voice_control_mode">Butang Transkripsikan sekarang</string>
     <string name="voice_control_mode_summary">Proses bahagian pertuturan semasa tanpa menamatkan rakaman. Henti sentiasa tersedia.</string>
@@ -106,4 +106,17 @@
     <string name="voice_status_uncertain">Salinan yang disimpan tersedia; pemasukan tidak dapat disahkan</string>
     <string name="voice_clip_label">Imlak</string>
     <string name="clipboard_empty_guidance">Tiada keratan yang disimpan. Salin teks untuk menambah satu.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Masukan suara, kekunci, papan klip</string>
+    <string name="pf6_voice_help">Ketuk mikrofon untuk mendikte. Anda boleh terus menaip semasa anda bercakap. pegang ikon suara untuk melihat namanya.</string>
+    <string name="pf6_voice_saved_retention">Entri yang disimpan mengikut masa penyimpanan Sejarah (kini %1$s).</string>
+    <string name="pf6_search_no_results">Tiada tetapan yang sesuai</string>
+    <string name="pf6_mic_permission_needed_allow">Permohonan mikrofon diperlukan. Ketuk untuk membenarkan.</string>
+    <string name="pf6_mic_permission_needed_settings">Permohonan mikrofon diperlukan. Ketuk untuk membuka maklumat aplikasi.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Salinan disimpan untuk %1$s. Anda boleh menukar ini dalam tetapan.</string>
+    <string name="pf6_clipboard_kept_no_limit">Salinan disimpan sehingga anda memadamkannya.</string>
+    <string name="pf6_clipboard_pinned">Dipinda</string>
+    <string name="voice_status_nothing_heard">Tiada apa yang didengar.</string>
 </resources>

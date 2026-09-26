@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="pf6_mic_permission_needed_allow">Нужно разрешение на микрофон. Нажмите, чтобы разрешить.</string>
-    <string name="pf6_mic_permission_needed_settings">Нужно разрешение на микрофон. Нажмите, чтобы открыть сведения о приложении.</string>
-    <string name="pf6_retention_minutes">%1$d мин.</string>
-    <string name="pf6_clipboard_kept_for">Копии хранятся %1$s. Это можно изменить в настройках.</string>
-    <string name="pf6_clipboard_kept_no_limit">Копии хранятся, пока вы их не удалите.</string>
-    <string name="pf6_clipboard_pinned">Закреплено</string>
-</resources>

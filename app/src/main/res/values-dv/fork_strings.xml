@@ -27,7 +27,6 @@
     <string name="search_enable_first">ބޭނުންވަނީ: %1$s</string>
     <string name="search_mode_normal">އާންމު</string>
     <string name="search_mode_smart">ސްމާޓް</string>
-    <string name="voice_control_auto_hide">4 ސިކުންތު ފަހުން ފޮރުވުން</string>
     <string name="voice_control_full">ދެއްކުން</string>
     <string name="voice_control_stop_only">ނިވާލާފައި</string>
     <string name="voice_seconds_format">%1$.1f ސިކުންތު</string>
@@ -40,4 +39,6 @@
     <string name="voice_status_unavailable">އަޑުން ލިޔުން ލިބެން ނެތް</string>
     <string name="voice_clip_label">އަޑުން ލިޔުން</string>
     <string name="clipboard_empty_guidance">ސޭވްކޮށްފައިވާ ކްލިޕްތައް ނެތް. އެއް އިތުރުކުރުމަށް ލިޔުން ކޮޕީކުރޭ.</string>
+
+    <string name="voice_control_auto_hide">4 ސިކުންތު ފަހުން ފޮރުވުން</string>
 </resources>

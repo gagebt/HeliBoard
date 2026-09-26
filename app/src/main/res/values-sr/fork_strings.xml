@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Опције за језик %1$s</string>
     <string name="settings_category_voice_input">Гласовни унос Parakeet</string>
     <string name="voice_button_hint">Покрени гласовни унос</string>
-    <string name="voice_control_auto_hide">Сакриј после 4 секунде</string>
+    <string name="voice_control_auto_hide">Скријте се 4 секунди након почетка снимања</string>
     <string name="voice_control_full">Прикажи</string>
     <string name="voice_control_mode">Дугме „Транскрибуј сада“</string>
     <string name="voice_control_mode_summary">Обради тренутни део говора без завршетка снимања. Дугме за заустављање је увек доступно.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Сачувана копија је доступна; уметање није могло да се потврди</string>
     <string name="voice_clip_label">Диктирани текст</string>
     <string name="clipboard_empty_guidance">Нема сачуваних ставки. Копирајте текст да додате једну.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Улаз гласа, кључеви, клипборд</string>
+    <string name="pf6_voice_help">Натискајте микрофон да диктујете. Можеш да пишеш док говориш. Држите икону гласа да бисте видели његово име.</string>
+    <string name="pf6_voice_saved_retention">Сачувани упис следи време задржавања историје ( сада %1$s).</string>
+    <string name="pf6_search_no_results">Нема одговарајућих подешавања</string>
+    <string name="pf6_mic_permission_needed_allow">Микрофон је потребан. Дозволите.</string>
+    <string name="pf6_mic_permission_needed_settings">Микрофон је потребан. Натицајте да бисте отворили информације о апликацији.</string>
+    <string name="pf6_retention_minutes">%1$d мин</string>
+    <string name="pf6_clipboard_kept_for">Копије се чувају за %1$s. Можете да промените ово у подесима.</string>
+    <string name="pf6_clipboard_kept_no_limit">Копије се чувају док их не избришете.</string>
+    <string name="pf6_clipboard_pinned">Пинне</string>
+    <string name="voice_status_nothing_heard">Ништа није чуто.</string>
 </resources>

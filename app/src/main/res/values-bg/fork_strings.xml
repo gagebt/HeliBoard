@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Опции за езика %1$s</string>
     <string name="settings_category_voice_input">Гласово въвеждане Parakeet</string>
     <string name="voice_button_hint">Стартиране на гласово въвеждане</string>
-    <string name="voice_control_auto_hide">Скриване след 4 секунди</string>
+    <string name="voice_control_auto_hide">Скрийте се 4 секунди след започване на записването</string>
     <string name="voice_control_full">Показване</string>
     <string name="voice_control_mode">Бутон „Транскрибиране сега“</string>
     <string name="voice_control_mode_summary">Обработване на текущия откъс от речта без спиране на записа. Бутонът за спиране е винаги достъпен.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Има запазено копие; вмъкването не можа да се потвърди</string>
     <string name="voice_clip_label">Диктовка</string>
     <string name="clipboard_empty_guidance">Няма запазени елементи. Копирайте текст, за да добавите такъв.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Вход на глас, клавиши, клипборд</string>
+    <string name="pf6_voice_help">Натисни микрофона, за да диктуваш. Можеш да пишеш, докато говориш. Дръжте гласовата икона, за да видите името й.</string>
+    <string name="pf6_voice_saved_retention">Запазените записи следват времето за запазване на историята (сега %1$s).</string>
+    <string name="pf6_search_no_results">Няма съвместими настройки</string>
+    <string name="pf6_mic_permission_needed_allow">Нужно е разрешение за микрофон. Натиснете, за да позволите.</string>
+    <string name="pf6_mic_permission_needed_settings">Нужно е разрешение за микрофон. Натиснете, за да отворите информацията за приложението.</string>
+    <string name="pf6_retention_minutes">%1$d мин</string>
+    <string name="pf6_clipboard_kept_for">Копиите се съхраняват за %1$s. Можете да промените това в настройките.</string>
+    <string name="pf6_clipboard_kept_no_limit">Копиите се съхраняват, докато ги изтриете.</string>
+    <string name="pf6_clipboard_pinned">Вградено</string>
+    <string name="voice_status_nothing_heard">Нищо не чух.</string>
 </resources>

@@ -41,7 +41,7 @@
     <string name="search_subtype_title">Opsi bahasa %1$s</string>
     <string name="settings_category_voice_input">Input suara Parakeet</string>
     <string name="voice_button_hint">Mulai input suara</string>
-    <string name="voice_control_auto_hide">Sembunyikan setelah 4 detik</string>
+    <string name="voice_control_auto_hide">Sembunyikan 4 s setelah rekaman dimulai</string>
     <string name="voice_control_full">Tampilkan</string>
     <string name="voice_control_mode">Tombol Transkripsikan sekarang</string>
     <string name="voice_control_mode_summary">Proses bagian ucapan saat ini tanpa mengakhiri perekaman. Tombol Hentikan selalu tersedia.</string>
@@ -105,4 +105,17 @@
     <string name="voice_status_uncertain">Salinan tersimpan tersedia; penyisipan tidak dapat dikonfirmasi</string>
     <string name="voice_clip_label">Dikte</string>
     <string name="clipboard_empty_guidance">Belum ada item tersimpan. Salin teks untuk menambahkan satu.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Masukan suara, tombol, papan klip</string>
+    <string name="pf6_voice_help">Tekan mikrofon untuk mendikte. Kau bisa terus mengetik saat kau berbicara. Tetap memegang ikon suara untuk melihat namanya.</string>
+    <string name="pf6_voice_saved_retention">Entri yang disimpan mengikuti waktu retensi Sejarah (sekarang %1$s).</string>
+    <string name="pf6_search_no_results">Tidak ada pengaturan yang cocok</string>
+    <string name="pf6_mic_permission_needed_allow">Permisi mikrofon diperlukan. Ketuk untuk memungkinkan.</string>
+    <string name="pf6_mic_permission_needed_settings">Permisi mikrofon diperlukan. Ketuk untuk membuka informasi aplikasi.</string>
+    <string name="pf6_retention_minutes">%1$d mnt</string>
+    <string name="pf6_clipboard_kept_for">Salinan disimpan untuk %1$s. Anda bisa mengubah ini dalam pengaturan.</string>
+    <string name="pf6_clipboard_kept_no_limit">Salinan disimpan sampai Anda menghapus mereka.</string>
+    <string name="pf6_clipboard_pinned">Dipin</string>
+    <string name="voice_status_nothing_heard">Tidak ada yang terdengar.</string>
 </resources>

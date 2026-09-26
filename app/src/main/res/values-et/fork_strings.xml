@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Keele %1$s valikud</string>
     <string name="settings_category_voice_input">Parakeeti häälsisestus</string>
     <string name="voice_button_hint">Alusta häälsisestust</string>
-    <string name="voice_control_auto_hide">Peida 4 sekundi pärast</string>
+    <string name="voice_control_auto_hide">Peitke 4 sekundit pärast salvestamist</string>
     <string name="voice_control_full">Näita</string>
     <string name="voice_control_mode">Nupp Transkribeeri kohe</string>
     <string name="voice_control_mode_summary">Töötle praegune kõneosa salvestamist lõpetamata. Peatamine on alati saadaval.</string>
@@ -106,4 +106,17 @@
     <string name="voice_status_uncertain">Salvestatud koopia on saadaval; sisestamist ei saanud kinnitada</string>
     <string name="voice_clip_label">Dikteering</string>
     <string name="clipboard_empty_guidance">Salvestatud lõike pole. Kopeeri tekst, et see lisada.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Kõne sisselaske, võtmed, kliimapord</string>
+    <string name="pf6_voice_help">Püüa mikrofonil dikteerida. Sa võid kirjutada, kui sa räägid. Hoia häälikon, et näha selle nimi.</string>
+    <string name="pf6_voice_saved_retention">Salvestatud sisendid järgivad ajalugu säilitamise aega (nüüd %1$s).</string>
+    <string name="pf6_search_no_results">Ei sobivaid seadmeid</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofonil on vaja luba. Püüa lubada.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofonil on vaja luba. Tapke, et avada rakenduse infot.</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
+    <string name="pf6_clipboard_kept_for">Koopiaid hoitakse numbriks %1$s. Võite seda seadetes muuta.</string>
+    <string name="pf6_clipboard_kept_no_limit">Koopiad hoitakse kuni need kustutatakse.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Ma ei kuulnud midagi.</string>
 </resources>

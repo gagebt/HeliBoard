@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s լեզվի ընտրանքներ</string>
     <string name="settings_category_voice_input">Parakeet ձայնային մուտք</string>
     <string name="voice_button_hint">Սկսել ձայնային մուտքը</string>
-    <string name="voice_control_auto_hide">Թաքցնել 4 վայրկյանից</string>
+    <string name="voice_control_auto_hide">Գնացեք 4 վայրկյան ձայնագրման սկսվելուց հետո</string>
     <string name="voice_control_full">Ցուցադրել</string>
     <string name="voice_control_mode">Հիմա վերածել տեքստի կոճակ</string>
     <string name="voice_control_mode_summary">Մշակել խոսքի ընթացիկ հատվածը՝ առանց ձայնագրությունն ավարտելու։ Դադարեցնել կոճակը միշտ հասանելի է։</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Պահպանված պատճենը հասանելի է․ տեղադրումը չհաջողվեց հաստատել</string>
     <string name="voice_clip_label">Թելադրություն</string>
     <string name="clipboard_empty_guidance">Պահված հատվածներ չկան։ Մեկը ավելացնելու համար պատճենեք տեքստ։</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Ձայնային մուտքագրություն, կոճակներ, կլիմբորդ</string>
+    <string name="pf6_voice_help">Սեղմեք միկրոֆոնը dictate. Դուք կարող եք շարունակել տիպել, մինչ խոսում եք: Հեռացրեք ձայնային պատկերակը, որպեսզի տեսնեք դրա անունը:</string>
+    <string name="pf6_voice_saved_retention">Փրկված մուտքերը հետեւում են պատմության պահպանման ժամանակին (այժմ %1$s).</string>
+    <string name="pf6_search_no_results">Ոչ մի համընկնում</string>
+    <string name="pf6_mic_permission_needed_allow">Միկրոֆոնի թույլտվություն է պահանջվում: Տեղարկեք թույլ տալու համար:</string>
+    <string name="pf6_mic_permission_needed_settings">Միկրոֆոնի թույլտվություն է պահանջվում: Կտտացրեք, որպեսզի բացեք հավելվածի տեղեկատվությունը:</string>
+    <string name="pf6_retention_minutes">%1$d ր</string>
+    <string name="pf6_clipboard_kept_for">Կոպիաները պահվում են %1$s համարի համար: Դուք կարող եք փոխել այս կարգավորումները.</string>
+    <string name="pf6_clipboard_kept_no_limit">Կոպիաները պահվում են, մինչեւ դրանք չփակես:</string>
+    <string name="pf6_clipboard_pinned">Պինված</string>
+    <string name="voice_status_nothing_heard">Ոչ մի բան չի լսվել</string>
 </resources>

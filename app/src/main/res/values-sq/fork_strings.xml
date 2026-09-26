@@ -42,7 +42,7 @@
     <string name="search_subtype_title">Opsionet e gjuhës %1$s</string>
     <string name="settings_category_voice_input">Hyrja zanore Parakeet</string>
     <string name="voice_button_hint">Fillo hyrjen zanore</string>
-    <string name="voice_control_auto_hide">Fshihe pas 4 sekondash</string>
+    <string name="voice_control_auto_hide">Mbani 4 sekonda pas fillimit të regjistrimit</string>
     <string name="voice_control_full">Shfaq</string>
     <string name="voice_control_mode">Butoni Transkripto tani</string>
     <string name="voice_control_mode_summary">Përpuno pjesën aktuale të të folurit pa e përfunduar regjistrimin. Ndalo është gjithmonë i disponueshëm.</string>
@@ -105,4 +105,17 @@
     <string name="voice_status_uncertain">Kopja e ruajtur është e disponueshme; futja nuk u konfirmua</string>
     <string name="voice_clip_label">Diktim</string>
     <string name="clipboard_empty_guidance">Nuk ka fragmente të ruajtura. Kopjo tekst për të shtuar një.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Gjuha e zërave, çelësat, klipboard</string>
+    <string name="pf6_voice_help">Pushoni mikrofonin për të diktuar. Mund të vazhdosh të shkruash ndërsa flet. Mbajeni një ikonë zëri për të parë emrin e saj.</string>
+    <string name="pf6_voice_saved_retention">Të dhënat e ruajtura ndjekin kohën e ruajtjes së Historisë (tani %1$s).</string>
+    <string name="pf6_search_no_results">Nuk ka rregullime të përshtatshme</string>
+    <string name="pf6_mic_permission_needed_allow">Duhet leje për mikrofon. Shtyp për të lejuar.</string>
+    <string name="pf6_mic_permission_needed_settings">Duhet leje për mikrofon. Klikoni për të hapur informacionin e aplikacionit.</string>
+    <string name="pf6_retention_minutes">%1$d min.</string>
+    <string name="pf6_clipboard_kept_for">Kopjat mbahen për numrin %1$s. Mund ta ndryshoni këtë në cilësimet.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopjat mbahen derisa t\'i fshiheni.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Asgjë nuk dëgjohet.</string>
 </resources>

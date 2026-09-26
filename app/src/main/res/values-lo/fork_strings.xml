@@ -43,7 +43,7 @@
     <string name="search_subtype_title">ຕົວເລືອກພາສາ %1$s</string>
     <string name="settings_category_voice_input">ການປ້ອນສຽງ Parakeet</string>
     <string name="voice_button_hint">ເລີ່ມປ້ອນສຽງ</string>
-    <string name="voice_control_auto_hide">ເຊື່ອງຫຼັງ 4 ວິນາທີ</string>
+    <string name="voice_control_auto_hide">ເຊື່ອງ 4 s ຫຼັງຈາກການບັນທຶກເລີ່ມຕົ້ນ</string>
     <string name="voice_control_full">ສະແດງ</string>
     <string name="voice_control_mode">ປຸ່ມຖອດສຽງຕອນນີ້</string>
     <string name="voice_control_mode_summary">ປະມວນຜົນຄຳເວົ້າສ່ວນນີ້ໂດຍບໍ່ຢຸດບັນທຶກສຽງ. ປຸ່ມຢຸດຍັງໃຊ້ໄດ້ສະເໝີ.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">ມີສຳເນົາທີ່ເກັບໄວ້; ຢືນຢັນການໃສ່ຂໍ້ຄວາມບໍ່ໄດ້</string>
     <string name="voice_clip_label">ຂໍ້ຄວາມຈາກສຽງ</string>
     <string name="clipboard_empty_guidance">ບໍ່ມີລາຍການທີ່ບັນທຶກໄວ້. ຄັດລອກຂໍ້ຄວາມເພື່ອເພີ່ມລາຍການ.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ການເຂົ້າສຽງ, ປຸ່ມປຸ່ມ, ກະດານກະດານ</string>
+    <string name="pf6_voice_help">ແຕະໄມໂຄຣ໌ເພື່ອສັ່ງໃຫ້. ທ່ານສາມາດສືບຕໍ່ພິມໃນຂະນະທີ່ທ່ານເວົ້າ. ຈັບຮູບສັນຍາລັກສຽງເພື່ອເບິ່ງຊື່ຂອງມັນ.</string>
+    <string name="pf6_voice_saved_retention">ການບັນທຶກທີ່ຖືກເກັບໄວ້ຕາມເວລາເກັບຮັກສາປະຫວັດສາດ (ປະຈຸບັນ %1$s).</string>
+    <string name="pf6_search_no_results">ບໍ່ມີການຕັ້ງຄ່າທີ່ກົງກັນຂ້າມ</string>
+    <string name="pf6_mic_permission_needed_allow">ຕ້ອງການອະນຸຍາດຈາກໄມໂຄຣໂຟນ. ແຕະເພື່ອອະນຸຍາດ.</string>
+    <string name="pf6_mic_permission_needed_settings">ຕ້ອງການອະນຸຍາດຈາກໄມໂຄຣໂຟນ. ກົດເພື່ອເປີດຂໍ້ມູນ App.</string>
+    <string name="pf6_retention_minutes">%1$d ນທ</string>
+    <string name="pf6_clipboard_kept_for">ສໍາ ເນົາຖືກຮັກສາໄວ້ ສໍາ ລັບ %1$s. ທ່ານສາມາດປ່ຽນມັນໃນການຕັ້ງຄ່າ.</string>
+    <string name="pf6_clipboard_kept_no_limit">ສໍາ ເນົາຈະຖືກຮັກສາໄວ້ຈົນກວ່າທ່ານຈະລຶບມັນ.</string>
+    <string name="pf6_clipboard_pinned">ປິດ</string>
+    <string name="voice_status_nothing_heard">ບໍ່ ໄດ້ຍິນຫຍັງເລີຍ</string>
 </resources>

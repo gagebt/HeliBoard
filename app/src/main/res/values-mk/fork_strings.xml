@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Опции за јазикот %1$s</string>
     <string name="settings_category_voice_input">Гласовен внес Parakeet</string>
     <string name="voice_button_hint">Започни гласовен внес</string>
-    <string name="voice_control_auto_hide">Сокриј по 4 секунди</string>
+    <string name="voice_control_auto_hide">Скријте се 4 секунди откако ќе започне снимањето</string>
     <string name="voice_control_full">Прикажи</string>
     <string name="voice_control_mode">Копче „Транскрибирај сега“</string>
     <string name="voice_control_mode_summary">Обработи го тековниот дел од говорот без да го завршиш снимањето. Копчето за запирање е секогаш достапно.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Зачуваната копија е достапна; вметнувањето не може да се потврди</string>
     <string name="voice_clip_label">Диктиран текст</string>
     <string name="clipboard_empty_guidance">Нема зачувани ставки. Копирајте текст за да додадете една.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Гласни влез, клучеви, клипборд</string>
+    <string name="pf6_voice_help">Држи го микрофонот за да диктираш. Можеш да пишуваш додека зборуваш. Држи ја гласовата икона да го видиш нејзиното име.</string>
+    <string name="pf6_voice_saved_retention">Зачуваните записи следат времето за чување на историјата (сега %1$s).</string>
+    <string name="pf6_search_no_results">Нема соодветни поставки</string>
+    <string name="pf6_mic_permission_needed_allow">Потребно е дозвола за микрофон. Натисни да дозволиш.</string>
+    <string name="pf6_mic_permission_needed_settings">Потребно е дозвола за микрофон. Натискајте за да отворите информации за апликацијата.</string>
+    <string name="pf6_retention_minutes">%1$d мин.</string>
+    <string name="pf6_clipboard_kept_for">Копиите се чуваат за %1$s. Можете да го промените ова во поставките.</string>
+    <string name="pf6_clipboard_kept_no_limit">Копиите се чуваат додека не ги избришете.</string>
+    <string name="pf6_clipboard_pinned">Пиндирани</string>
+    <string name="voice_status_nothing_heard">Не слушнав ништо.</string>
 </resources>

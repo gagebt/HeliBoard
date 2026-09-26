@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s хэлний тохиргоо</string>
     <string name="settings_category_voice_input">Parakeet дуу хоолойгоор оруулах</string>
     <string name="voice_button_hint">Дуу хоолойгоор оруулж эхлэх</string>
-    <string name="voice_control_auto_hide">4 секундын дараа нуух</string>
+    <string name="voice_control_auto_hide">Тоглооллын эхлэлээс хойш 4 секундээр нууцлаарай</string>
     <string name="voice_control_full">Харуулах</string>
     <string name="voice_control_mode">Одоо бичвэр болгох товч</string>
     <string name="voice_control_mode_summary">Бичлэгийг дуусгалгүйгээр ярианы одоогийн хэсгийг боловсруулна. Зогсоох товч үргэлж боломжтой.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">Хадгалсан хуулбар байна; оруулсныг баталж чадсангүй</string>
     <string name="voice_clip_label">Ярианы бичвэр</string>
     <string name="clipboard_empty_guidance">Хадгалсан зүйл алга. Нэгийг нэмэхийн тулд текст хуулна уу.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Дуусны дуудлага, түлхүүр, клипборд</string>
+    <string name="pf6_voice_help">Микрофон дээр дасан зохионо. Та яриад байх хугацаандаа хэвлэж болно. Тавшааны дүрэм хараад нэрийг нь хараарай.</string>
+    <string name="pf6_voice_saved_retention">Хяналт тавих бүртгэл нь Тарих хадгалах хугацааны дараа байдаг (%1$s одоо).</string>
+    <string name="pf6_search_no_results">Үүнд тохируулалтын тохируулалт байхгүй</string>
+    <string name="pf6_mic_permission_needed_allow">Микрофон дээр зөвшөөрөл хэрэгтэй. Тавиад зөвшөөрөө.</string>
+    <string name="pf6_mic_permission_needed_settings">Микрофон дээр зөвшөөрөл хэрэгтэй. Хэрэглэлийн мэдээллийг нээхийн тулд татах.</string>
+    <string name="pf6_retention_minutes">%1$d мин</string>
+    <string name="pf6_clipboard_kept_for">%1$s дугаарт хувилбарыг хадгалж байна. Та үүнийг тохируулалтаар өөрчилж болно.</string>
+    <string name="pf6_clipboard_kept_no_limit">Та тэдгээрийг устгах хүртэл хувилбарыг хадгалж байна.</string>
+    <string name="pf6_clipboard_pinned">Хөгжүүлэг</string>
+    <string name="voice_status_nothing_heard">Үүнээс юу ч сонссонгүй.</string>
 </resources>

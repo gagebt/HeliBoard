@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s भाषेचे पर्याय</string>
     <string name="settings_category_voice_input">Parakeet व्हॉइस इनपुट</string>
     <string name="voice_button_hint">व्हॉइस इनपुट सुरू करा</string>
-    <string name="voice_control_auto_hide">4 सेकंदांनी लपवा</string>
+    <string name="voice_control_auto_hide">रेकॉर्डिंग सुरू झाल्यानंतर ४ सेकंद लपवा</string>
     <string name="voice_control_full">दाखवा</string>
     <string name="voice_control_mode">आता लिप्यंतर करा बटण</string>
     <string name="voice_control_mode_summary">रेकॉर्डिंग न थांबवता सध्या बोललेला भाग प्रक्रिया करा. थांबवण्याचा पर्याय नेहमी उपलब्ध आहे.</string>
@@ -107,4 +107,17 @@
     <string name="voice_status_uncertain">जतन केलेली प्रत उपलब्ध आहे; मजकूर घातल्याची खात्री करता आली नाही</string>
     <string name="voice_clip_label">बोलून लिहिलेला मजकूर</string>
     <string name="clipboard_empty_guidance">जतन केलेल्या क्लिप नाहीत. एक जोडण्यासाठी मजकूर कॉपी करा.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">आवाज इनपुट, की, क्लिपबोर्ड</string>
+    <string name="pf6_voice_help">मायक्रोफोनवर टॅप करा. तुम्ही बोलत असताना टाइप करू शकता. त्याचे नाव पाहण्यासाठी आवाज चिन्ह धरून ठेवा.</string>
+    <string name="pf6_voice_saved_retention">जतन केलेल्या नोंदी इतिहास साठवण वेळेचे अनुसरण करतात (आता %1$s).</string>
+    <string name="pf6_search_no_results">जुळणारे सेटिंग्ज नाहीत</string>
+    <string name="pf6_mic_permission_needed_allow">मायक्रोफोन परवानगी आवश्यक आहे. परवानगी देण्यासाठी दाबा.</string>
+    <string name="pf6_mic_permission_needed_settings">मायक्रोफोन परवानगी आवश्यक आहे. अॅप माहिती उघडण्यासाठी टॅप करा.</string>
+    <string name="pf6_retention_minutes">%1$d मिनि</string>
+    <string name="pf6_clipboard_kept_for">%1$s या क्रमांकावर कॉपी ठेवली जातात. तुम्ही हे सेटिंग्जमध्ये बदलू शकता.</string>
+    <string name="pf6_clipboard_kept_no_limit">आपण ते हटवत नाही तोपर्यंत कॉपी ठेवली जातात.</string>
+    <string name="pf6_clipboard_pinned">पिन केले</string>
+    <string name="voice_status_nothing_heard">काहीच ऐकले नाही</string>
 </resources>
