@@ -1004,22 +1004,28 @@ class InputLogicTest {
     // always need to handle messages for proper simulation
     private fun handleMessages() {
         while (messages.isNotEmpty()) {
-            latinIME.mHandler.handleMessage(messages.first())
+            handleLatinImeMessage(messages.first())
             messages.removeAt(0)
         }
         while (delayedMessages.isNotEmpty()) {
             val msg = delayedMessages.first()
             if (msg.what != 2) // MSG_UPDATE_SUGGESTION_STRIP, we want to ignore it because it's irrelevant and has a 500 ms timeout
-                latinIME.mHandler.handleMessage(delayedMessages.first())
+                handleLatinImeMessage(delayedMessages.first())
             delayedMessages.removeAt(0)
             // delayed messages may post further messages, handle before next delayed message
             while (messages.isNotEmpty()) {
-                latinIME.mHandler.handleMessage(messages.first())
+                handleLatinImeMessage(messages.first())
                 messages.removeAt(0)
             }
         }
         assertEquals(0, messages.size)
         assertEquals(0, delayedMessages.size)
+    }
+
+    // Messages of other handlers (such as the InputLogicHandler worker) are captured too; their "what" codes mean
+    // something else to the LatinIME handler, so they are not delivered there.
+    private fun handleLatinImeMessage(msg: Message) {
+        if (msg.target === latinIME.mHandler) latinIME.mHandler.handleMessage(msg)
     }
 
 }
