@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pf6_preferences_summary">Голосовой ввод, клавиши, буфер обмена</string>
+    <string name="pf6_voice_help">Нажмите на микрофон, чтобы диктовать. Во время речи можно продолжать печатать. Удерживайте значок голосового ввода, чтобы увидеть его название.</string>
+    <string name="pf6_voice_saved_retention">Сохранённые записи хранятся столько, сколько задано в «Время хранения журнала буфера обмена» (сейчас %1$s).</string>
+    <string name="pf6_search_no_results">Нет подходящих настроек</string>
+</resources>

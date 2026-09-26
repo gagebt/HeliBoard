@@ -59,13 +59,32 @@ class SubtypeTest {
         SubtypeSettings.addEnabledSubtype(prefs, from)
         val to = from.toSettingsSubtype().withLayout(LayoutType.SYMBOLS, "symbols_arabic")
         SubtypeUtilsAdditional.changeAdditionalSubtype(from.toSettingsSubtype(), to, latinIME)
-        assertEquals(to, SubtypeSettings.getEnabledSubtypes(false).single().toSettingsSubtype())
+        // the default subtype stays enabled beside the added one, so look at the edited locale only
+        fun enabledSpanish() = SubtypeSettings.getEnabledSubtypes(false).map { it.toSettingsSubtype() }
+            .filter { it.locale == from.toSettingsSubtype().locale }
+        assertEquals(to, enabledSpanish().single())
 
         // change the new subtype to effectively be the same as original resource subtype
         val toNew = to.withoutLayout(LayoutType.SYMBOLS)
         assertEquals(from.toSettingsSubtype(), toNew)
         SubtypeUtilsAdditional.changeAdditionalSubtype(to, toNew, latinIME)
         assertEquals(emptyList(), SubtypeSettings.getAdditionalSubtypes().map { it.toSettingsSubtype() })
-        assertEquals(from.toSettingsSubtype(), SubtypeSettings.getEnabledSubtypes(false).single().toSettingsSubtype())
+        assertEquals(from.toSettingsSubtype(), enabledSpanish().single())
+    }
+
+    @Test fun addingFirstSubtypeKeepsTheDefaultEnabled() {
+        // fresh install: nothing stored, the keyboard runs on the default subtype
+        val prefs = latinIME.prefs()
+        prefs.edit().putString(Settings.PREF_ENABLED_SUBTYPES, "").commit() // other tests share the stored list
+        SubtypeSettings.reloadEnabledSubtypes(latinIME)
+        assertTrue(SubtypeSettings.getEnabledSubtypes(false).isEmpty())
+        val defaults = SubtypeSettings.getEnabledSubtypes(true).map { it.toSettingsSubtype() }
+        assertTrue(defaults.isNotEmpty())
+        val russian = SubtypeSettings.getResourceSubtypesForLocale("ru".constructLocale()).first()
+        SubtypeSettings.addEnabledSubtype(prefs, russian)
+        val expected = (defaults + russian.toSettingsSubtype()).toSet()
+        assertEquals(expected, SubtypeSettings.getEnabledSubtypes(false).map { it.toSettingsSubtype() }.toSet())
+        assertEquals(expected, SubtypeSettings.createSettingsSubtypes(
+            prefs.getString(Settings.PREF_ENABLED_SUBTYPES, "")!!).toSet())
     }
 }
