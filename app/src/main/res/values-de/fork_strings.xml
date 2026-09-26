@@ -116,5 +116,5 @@
     <string name="pf6_retention_minutes">%1$d Minuten</string>
     <string name="pf6_clipboard_kept_for">Kopien werden für %1$s aufbewahrt. Sie können das in Einstellungen ändern.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopien werden bewahrt, bis Sie sie löschen.</string>
-    <string name="pf6_clipboard_pinned">Verpflanzt</string>
+    <string name="pf6_clipboard_pinned">Angeheftet</string>
 </resources>

@@ -118,5 +118,5 @@
     <string name="pf6_retention_minutes">%1$d دقيقة</string>
     <string name="pf6_clipboard_kept_for">يتم الاحتفاظ بنسخة %1$s. يمكنك تغيير هذا في الإعدادات.</string>
     <string name="pf6_clipboard_kept_no_limit">يتم الاحتفاظ بنسخ حتى تقوم بحذفها</string>
-    <string name="pf6_clipboard_pinned">المضخة</string>
+    <string name="pf6_clipboard_pinned">مثبّت</string>
 </resources>
