@@ -8,10 +8,10 @@ import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.content.edit
 import androidx.core.view.forEach
 import helium314.keyboard.event.HapticEvent
+import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
@@ -62,7 +62,9 @@ private fun setToolbarButtonActivatedState(button: ImageButton) {
     }
 }
 
-fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomToolbarKeyCode(key) ?: when (key) {
+fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomToolbarKeyCode(key) ?: defaultCodeForToolbarKey(key)
+
+fun defaultCodeForToolbarKey(key: ToolbarKey) = when (key) {
     VOICE -> KeyCode.VOICE_INPUT
     CLIPBOARD -> KeyCode.CLIPBOARD
     NUMPAD -> KeyCode.NUMPAD
@@ -98,7 +100,9 @@ fun getCodeForToolbarKey(key: ToolbarKey) = Settings.getInstance().getCustomTool
     BACKGROUND_GATHERING -> KeyCode.BACKGROUND_GATHERING
 }
 
-fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getCustomToolbarLongpressCode(key) ?: when (key) {
+fun getCodeForToolbarKeyLongClick(key: ToolbarKey) = Settings.getInstance().getCustomToolbarLongpressCode(key) ?: defaultCodeForToolbarKeyLongClick(key)
+
+fun defaultCodeForToolbarKeyLongClick(key: ToolbarKey) = when (key) {
     CLIPBOARD -> KeyCode.CLIPBOARD_PASTE
     UNDO -> KeyCode.REDO
     REDO -> KeyCode.UNDO
@@ -263,14 +267,33 @@ fun onLongClickToolbarKey(view: View, onCodeInput: (Int, Boolean) -> Unit) {
     AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, view, HapticEvent.KEY_LONG_PRESS)
     val longClickCode = getCodeForToolbarKeyLongClick(view.tag as ToolbarKey)
     if (longClickCode == KeyCode.KEY_REPEAT) {
+        showToolbarHint(view.contentDescription, TOOLBAR_ACTION_HINT_MILLIS)
         onClickToolbarKey(view) { onCodeInput(it, false) }
         repeatToolbarKey(view) { onClickToolbarKey(view) { onCodeInput(it, true) } }
     } else if (longClickCode != KeyCode.UNSPECIFIED) {
         onCodeInput(longClickCode, false)
+        // the held key did something other than its icon says, so name what it did
+        showToolbarHint(toolbarActionName(view.context, longClickCode), TOOLBAR_ACTION_HINT_MILLIS)
     } else {
-        Toast.makeText(view.context, view.contentDescription, Toast.LENGTH_SHORT).show()
+        showToolbarHint(view.contentDescription)
     }
 }
+
+const val TOOLBAR_ACTION_HINT_MILLIS = 1500
+
+/** Shows a key hint inside the keyboard view; Android 13+ suppresses system toasts from a keyboard. */
+fun showToolbarHint(text: CharSequence?, millis: Int = 2000) {
+    if (text.isNullOrEmpty()) return
+    KeyboardSwitcher.getInstance().showToast(text.toString(), millis)
+}
+
+/** The toolbar key whose tap does [code] by default, or null if no key does. */
+fun toolbarKeyForCode(code: Int): ToolbarKey? =
+    ToolbarKey.entries.firstOrNull { it != CLOSE_HISTORY && defaultCodeForToolbarKey(it) == code }
+
+/** The label of the toolbar action that sends [code], or null if no toolbar key has that action. */
+fun toolbarActionName(context: Context, code: Int): String? =
+    toolbarKeyForCode(code)?.let { it.name.lowercase().getStringResourceOrName("", context) }
 
 private fun repeatToolbarKey(view: View, onClick: (view: View) -> Unit) {
     view.handler.postDelayed({
