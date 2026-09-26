@@ -4,10 +4,10 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
-#include <cstring>
 #include <fstream>
 #include <string>
 #include <unordered_map>
@@ -95,6 +95,18 @@ int lower(int cp) {
     return cp;
 }
 
+std::string lower_text(const std::string &text) {
+    std::string out;
+    const char *p = text.data();
+    const char *end = p + text.size();
+    while (p < end) {
+        int cp;
+        p = decode_utf8(p, end, cp);
+        encode_utf8(lower(cp), out);
+    }
+    return out;
+}
+
 bool known_letter(int cp) {
     cp = lower(cp);
     if (cp == 0x00B4 || cp == 0x2018 || cp == 0x2019) return false;
@@ -161,14 +173,17 @@ public:
 
     bool contains(const std::string &word) const { return word_node(word) != 0; }
 
-    // The written forms of the path a word is swiped along, most frequent first; empty when the path has only
-    // its key-letter spelling or is no word.
-    std::vector<std::string> forms(const std::string &word) {
+    // The written forms of the path a word is swiped along, most frequent first, down to max_drop below the most
+    // frequent one; empty when the path has only its key-letter spelling or is no word.
+    std::vector<std::string> forms(const std::string &word, float max_drop = HUGE_VALF) {
         std::vector<std::string> out;
         const TrieId node = word_node(word);
         if (!node || !(nodes_[node].flags & kForms)) return out;
         const auto range = form_range(node);
-        for (auto form = range.first; form != range.second; ++form) out.push_back(form_text(*form));
+        for (auto form = range.first; form != range.second; ++form) {
+            if (form->frequency < range.first->frequency - max_drop) break;
+            out.push_back(form_text(*form));
+        }
         return out;
     }
 
@@ -278,33 +293,54 @@ private:
         }
     }
 
-    // Groups forms by node, most frequent first (the plain spelling first on a tie), without repeats.
+    // Groups forms by node, most frequent first (the plain spelling first on a tie), without repeats. Capitals are
+    // not a written form of their own when the same letters exist in lower case (States/states, It's/it's): the
+    // keyboard sets the case, so the capitalised entry only lends its frequency to the lower-case one. A path left
+    // with only its key-letter spelling has no forms.
     void finish_forms() {
-        std::stable_sort(forms_.begin(), forms_.end(), [](const Form &a, const Form &b) {
+        const auto by_node_then_frequency = [](const Form &a, const Form &b) {
             if (a.node != b.node) return a.node < b.node;
             if (a.frequency != b.frequency) return a.frequency > b.frequency;
             return a.text == kPlainText && b.text != kPlainText;
-        });
-        std::vector<Form> unique;
-        unique.reserve(forms_.size());
-        for (const Form &form : forms_) {
-            bool repeated = false;
-            for (auto it = unique.rbegin(); it != unique.rend() && it->node == form.node; ++it) {
-                if (same_text(*it, form)) {
-                    repeated = true;
-                    break;
-                }
+        };
+        std::stable_sort(forms_.begin(), forms_.end(), by_node_then_frequency);
+        std::vector<Form> kept;
+        kept.reserve(forms_.size());
+        std::vector<std::string> texts;
+        for (size_t begin = 0, end; begin < forms_.size(); begin = end) {
+            for (end = begin; end < forms_.size() && forms_[end].node == forms_[begin].node; ++end) {}
+            std::vector<Form> group;
+            texts.clear();
+            for (size_t i = begin; i < end; ++i) {
+                const std::string text = form_text(forms_[i]);
+                if (std::find(texts.begin(), texts.end(), text) != texts.end()) continue;
+                group.push_back(forms_[i]);
+                texts.push_back(text);
             }
-            if (!repeated) unique.push_back(form);
+            std::vector<bool> dropped(group.size(), false);
+            for (size_t i = 0; i < group.size(); ++i) {
+                const std::string lowered = lower_text(texts[i]);
+                if (lowered == texts[i]) continue;
+                const auto same = std::find(texts.begin(), texts.end(), lowered);
+                if (same == texts.end()) continue;
+                Form &lower_form = group[same - texts.begin()];
+                lower_form.frequency = std::max(lower_form.frequency, group[i].frequency);
+                dropped[i] = true;
+            }
+            std::vector<Form> left;
+            for (size_t i = 0; i < group.size(); ++i) {
+                if (!dropped[i]) left.push_back(group[i]);
+            }
+            std::stable_sort(left.begin(), left.end(), by_node_then_frequency);
+            if (left.size() == 1 && left[0].text == kPlainText) {
+                nodes_[left[0].node].flags &= static_cast<uint8_t>(~kForms);
+                continue;
+            }
+            kept.insert(kept.end(), left.begin(), left.end());
         }
-        forms_ = std::move(unique);
+        forms_ = std::move(kept);
         forms_.shrink_to_fit();
         form_pool_.shrink_to_fit();
-    }
-
-    bool same_text(const Form &a, const Form &b) const {
-        if (a.text == kPlainText || b.text == kPlainText) return a.text == b.text;
-        return std::strcmp(form_pool_.c_str() + a.text, form_pool_.c_str() + b.text) == 0;
     }
 
     std::pair<std::vector<Form>::const_iterator, std::vector<Form>::const_iterator> form_range(TrieId id) const {
@@ -440,6 +476,34 @@ int main(int argc, char **argv) {
     delete english;
     {
         std::ofstream output(path);
+        output << "word=States,f=151\nword=states,f=148\nword=Monday,f=111\nword=It's,f=100\nword=it's,f=162\n"
+                  "word=its,f=158\nword=were,f=186\nword=we're,f=106\nword=work,f=164\nword=Work,f=120\n"
+                  "word=works,f=152\nword=work's,f=84\n";
+    }
+    CombinedTrie *cased = load_trie(path, "qwertyuiopasdfghjklzxcvbnm");
+    assert(cased && cased->forms("states").empty() && cased->forms("Monday") == Forms({"Monday"}));
+    assert(cased->forms("its") == Forms({"it's", "its"}) && cased->forms("its", 30) == Forms({"it's", "its"}));
+    assert(cased->forms("were") == Forms({"were", "we're"}) && cased->forms("were", 30) == Forms({"were"}));
+    assert(cased->forms("work").empty());
+    assert(cased->forms("works") == Forms({"works", "work's"}) && cased->forms("works", 30) == Forms({"works"}));
+    {
+        const ITrieVTable *vt = cased->interface()->vtable;
+        void *ud = cased->interface()->userdata;
+        TrieId node = 0;
+        for (char c : std::string("states")) {
+            for (uint32_t i = 0, n = vt->get_child_count(ud, node); i < n; ++i) {
+                const TrieId next = vt->get_child(ud, node, i);
+                if (vt->get_char_idx(ud, next) == static_cast<int>(std::string("qwertyuiopasdfghjklzxcvbnm").find(c))) {
+                    node = next;
+                    break;
+                }
+            }
+        }
+        assert(std::string(vt->get_word(ud, node)) == "states" && vt->get_log_frequency(ud, node) == 151);
+    }
+    delete cased;
+    {
+        std::ofstream output(path);
         output << "word=Привет,f=8\nword=ёлка,f=7\nword=hello,f=1\nword=все,f=168\nword=всё,f=153\n"
                   "word=объяснить,f=120\nword=из-за,f=157\nword=изза,f=20\n";
     }
@@ -473,7 +537,7 @@ Java_helium314_keyboard_latin_futo_FutoTrie_load(
 }
 
 extern "C" JNIEXPORT jobjectArray JNICALL
-Java_helium314_keyboard_latin_futo_FutoTrie_forms(JNIEnv *env, jobject, jlong handle, jstring word) {
+Java_helium314_keyboard_latin_futo_FutoTrie_forms(JNIEnv *env, jobject, jlong handle, jstring word, jfloat max_drop) {
     jclass string_class = env->FindClass("java/lang/String");
     if (!string_class) return nullptr;
     std::vector<std::string> forms;
@@ -481,7 +545,7 @@ Java_helium314_keyboard_latin_futo_FutoTrie_forms(JNIEnv *env, jobject, jlong ha
         const char *word_chars = env->GetStringUTFChars(word, nullptr);
         if (!word_chars) return nullptr;
         auto *interface = reinterpret_cast<ITrie *>(handle);
-        forms = static_cast<CombinedTrie *>(interface->userdata)->forms(word_chars);
+        forms = static_cast<CombinedTrie *>(interface->userdata)->forms(word_chars, max_drop);
         env->ReleaseStringUTFChars(word, word_chars);
     }
     // Forms hold only Basic Multilingual Plane letters, apostrophes and hyphens, so they are valid modified UTF-8.

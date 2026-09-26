@@ -211,7 +211,9 @@ private class AarFutoSwipeBackend : FutoSwipeBackend {
             null,
         ).map { FutoSwipeWord(it.word, it.score, it.ctcScore, it.lmScore) }
         val timing = active.lastTiming()
-        val strip = withWrittenForms(words) { word -> tries.flatMap { FutoTrie.forms(it, word).orEmpty().asList() } }
+        val strip = withWrittenForms(words) { word, maxDrop ->
+            tries.flatMap { FutoTrie.forms(it, word, maxDrop).orEmpty().asList() }
+        }
         return strip to FutoSwipeTiming(
             timing.resampleUs,
             timing.encoderUs,
@@ -242,23 +244,46 @@ private object FutoTrie {
     }
 
     external fun load(path: String, letters: String): Long
-    /** The written forms of word's swipe path, most frequent first; empty when it has only its key letters. */
-    external fun forms(handle: Long, word: String): Array<String>?
+    /**
+     * The written forms of word's swipe path, most frequent first, down to maxDrop frequency points below the most
+     * frequent one; empty when the path has only its key letters.
+     */
+    external fun forms(handle: Long, word: String, maxDrop: Float): Array<String>?
     external fun close(handle: Long)
 }
 
 /**
- * Each decoded word followed by the other written forms of its swipe path (`it's` then `its`, `еще` then `ещё`), so
- * that they show in the strip. The decoder returns one word per path: the most frequent written form.
+ * Frequency points (the vocabulary's 0-255 scale) within which another written form follows its word in the strip.
+ * The ё and contraction pairs sit 4-26 points below their main form (`ещё`, `всё`, `its`), possessives such as
+ * `work's` 50-80 points below.
  */
-internal fun withWrittenForms(words: List<FutoSwipeWord>, formsOf: (String) -> List<String>): List<FutoSwipeWord> {
+internal const val NEAR_FORM_DROP = 30f
+
+/**
+ * Each decoded word followed by the other written forms of its swipe path that are nearly as frequent (`it's` then
+ * `its`, `еще` then `ещё`), so that they show in the strip; rarer forms (`we're` for `were`) go after all decoded
+ * words, where they stay reachable without pushing the decoder's own candidates out of the strip. The decoder
+ * returns one word per path: the most frequent written form.
+ */
+internal fun withWrittenForms(
+    words: List<FutoSwipeWord>,
+    formsOf: (word: String, maxDrop: Float) -> List<String>,
+): List<FutoSwipeWord> {
     val seen = HashSet<String>()
     val out = ArrayList<FutoSwipeWord>(words.size)
+    val rare = ArrayList<FutoSwipeWord>()
     for (word in words) {
         if (seen.add(word.word)) out.add(word)
-        for (form in formsOf(word.word)) {
+        val near = formsOf(word.word, NEAR_FORM_DROP)
+        for (form in near) {
             if (seen.add(form)) out.add(word.copy(word = form))
         }
+        for (form in formsOf(word.word, Float.POSITIVE_INFINITY)) {
+            if (form !in near) rare.add(word.copy(word = form))
+        }
+    }
+    for (form in rare) {
+        if (seen.add(form.word)) out.add(form)
     }
     return out
 }
