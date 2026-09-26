@@ -143,6 +143,51 @@ public class DeferredVoiceDeliveryTest {
         assertFalse(host.state.canCopy);
     }
 
+    @Test public void lockScreenReturnDeliversAlthoughTheFieldWasUnreadableWhenLeft() throws Exception {
+        // Emulator order (lock and Home): at onFinishInputView the app's connection is already
+        // inactive and reads return null; then onFinishInput clears the editor record.
+        FakeEditor editor = new FakeEditor("Note: ");
+        FakeHost host = new FakeHost(editor);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        EditorRecord record = host.editor;
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
+
+        editor.readable = false;
+        voice.onInputViewFinished();
+        host.connection = null;
+        host.editor = null;
+        assertTrue(voice.onTranscriptPiece(SESSION, 1, "And eggs.", 4f));
+        voice.onDictationComplete(SESSION, 0, "Buy milk. And eggs.", "");
+
+        editor.readable = true;
+        host.switchTo(editor, record);          // unlock: the same note, unchanged
+        voice.onEditorStarted(false);
+        assertEquals("note: buy milk. and eggs. ", editor.text.toString().toLowerCase());
+        assertFalse(host.state.canCopy);
+
+        // Opposite: the note changed while away, so the words go to Copy instead.
+        FakeEditor other = new FakeEditor("Note: ");
+        FakeHost host2 = new FakeHost(other);
+        host2.ready = true;
+        RustInputMethodService voice2 = recording(host2, other, SESSION + 1);
+        EditorRecord record2 = host2.editor;
+        assertTrue(voice2.onTranscriptPiece(SESSION + 1, 0, "Buy milk.", 0));
+        other.readable = false;
+        voice2.onInputViewFinished();
+        host2.connection = null;
+        host2.editor = null;
+        assertTrue(voice2.onTranscriptPiece(SESSION + 1, 1, "And eggs.", 4f));
+        voice2.onDictationComplete(SESSION + 1, 0, "Buy milk. And eggs.", "");
+        other.readable = true;
+        other.text.append("typed elsewhere");
+        other.cursor = other.text.length();
+        host2.switchTo(other, record2);
+        voice2.onEditorStarted(false);
+        assertFalse(other.text.toString().toLowerCase().contains("eggs"));
+        assertTrue(host2.state.canCopy);
+    }
+
     @Test public void wordsAfterTheFieldIsLostKeepTheirFullStopInCopy() throws Exception {
         FakeEditor editor = new FakeEditor("Note: ");
         FakeHost host = new FakeHost(editor);

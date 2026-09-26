@@ -996,6 +996,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         String before = readBefore(connection, session.destination);
         String after = readAfter(connection, session.destination);
         EditorSnapshot snapshot = readSnapshot(connection, session.destination);
+        if (before == null && after == null && snapshot == null) {
+            // Nothing readable (the app's connection is already inactive when the keyboard
+            // view finishes): keep the last known context so the same document is recognised.
+            return false;
+        }
         boolean changed = SessionDraftPolicy.contextChanged(
                 expectedBefore, expectedAfter, expectedSelectionStart, expectedSelectionEnd,
                 before, after, selectionStart(snapshot), selectionEnd(snapshot));
