@@ -36,6 +36,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,6 +57,7 @@ import helium314.keyboard.latin.utils.BackButton
 import helium314.keyboard.latin.utils.CloseIcon
 import helium314.keyboard.latin.utils.SearchIcon
 import helium314.keyboard.latin.utils.HintIconButton
+import helium314.keyboard.latin.utils.getActivity
 import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.settings.preferences.PreferenceCategory
 
@@ -66,8 +68,11 @@ fun SearchSettingsScreen(
     settings: List<Any?>,
     content: @Composable (ColumnScope.() -> Unit)? = null // overrides settings if not null
 ) {
-    val prefs = LocalContext.current.prefs()
+    val ctx = LocalContext.current
+    val prefs = ctx.prefs()
     var smart by remember { mutableStateOf(prefs.getBoolean("settings_smart_search", true)) }
+    // re-evaluate the results when a switch changes, so a "Needs" line goes away once its parent is on
+    val prefChanged = (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()?.value
     SearchScreen(
         onClickBack = onClickBack,
         title = { Text(title) },
@@ -112,9 +117,26 @@ fun SearchSettingsScreen(
                 }
             }
         },
-        filteredItems = { if (smart) SettingsActivity.settingsContainer.smartFilter(it)
-                          else SettingsActivity.settingsContainer.filter(it) },
-        itemContent = { it.Preference() },
+        filteredItems = { term ->
+            prefChanged
+            val results = if (smart) SettingsActivity.settingsContainer.smartFilter(term)
+                          else SettingsActivity.settingsContainer.filter(term)
+            withPrerequisites(results.map { it.key }) { prefs.getBoolean(it, searchParentDefaults[it] ?: false) }
+        },
+        itemContent = { row ->
+            when (row) {
+                is SearchRow.Result -> SettingsActivity.settingsContainer[row.key]?.Preference()
+                is SearchRow.Needs -> {
+                    val parent = SettingsActivity.settingsContainer[row.parentKey]
+                    Text(stringResource(R.string.search_enable_first, parent?.title.orEmpty()),
+                        modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 8.dp),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.secondary)
+                    parent?.Preference()
+                }
+            }
+        },
+        emptyText = stringResource(R.string.pf6_search_no_results),
         searchModeToggle = {
             TextButton(onClick = {
                 smart = !smart
@@ -135,6 +157,7 @@ fun <T: Any?> SearchScreen(
     menu: List<Pair<String, () -> Unit>>? = null,
     content: @Composable (ColumnScope.() -> Unit)? = null,
     searchModeToggle: @Composable (() -> Unit)? = null,
+    emptyText: String? = null, // shown when a search finds nothing
 ) {
     // searchText and showSearch should have the same remember or rememberSaveable
     // saveable survives orientation changes and switching between screens, but shows the
@@ -219,6 +242,8 @@ fun <T: Any?> SearchScreen(
                         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
                     ) { innerPadding ->
                         LazyColumn(contentPadding = innerPadding) {
+                            if (items.isEmpty() && emptyText != null && searchText.text.isNotBlank())
+                                item { Text(emptyText, Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) }
                             items(items) {
                                 itemContent(it)
                             }
