@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">אין הגדרות מתאימות</string>
     <string name="pf6_mic_permission_needed_allow">מיקרופון רשות נדרשת. תלחץ כדי לאפשר.</string>
     <string name="pf6_mic_permission_needed_settings">מיקרופון רשות נדרשת. לחץ כדי לפתוח מידע אפליקציה.</string>
-    <string name="pf6_retention_minutes">%1$d דקות</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">עותקים נשמרים עבור %1$s. אתה יכול לשנות את זה בהגדרות.</string>
     <string name="pf6_clipboard_kept_no_limit">עותקים נשמרים עד שתמחק אותם.</string>
     <string name="pf6_clipboard_pinned">תוספת</string>

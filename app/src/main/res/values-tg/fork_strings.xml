@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Ҳеҷ гуна танзимоти мувофиқ</string>
     <string name="pf6_mic_permission_needed_allow">Барои микрофон иҷозатнома лозим аст. Барои иҷозат додан ба даст оваред.</string>
     <string name="pf6_mic_permission_needed_settings">Барои микрофон иҷозатнома лозим аст. Барои кушодани маълумоти барнома такс кунед.</string>
-    <string name="pf6_retention_minutes">%1$d дақиқа</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Нусхаҳо барои %1$s нигоҳ дошта мешаванд. Шумо метавонед инро дар танзимотҳо иваз кунед.</string>
     <string name="pf6_clipboard_kept_no_limit">Нусхаҳо то он даме, ки онҳоро нест кунед, нигоҳ дошта мешаванд.</string>
     <string name="pf6_clipboard_pinned">Бандкардашуда</string>

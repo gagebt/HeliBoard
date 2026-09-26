@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Walang katugma sa mga setting</string>
     <string name="pf6_mic_permission_needed_allow">Kailangan ng pahintulot sa mikropono. I-tap upang pahintulutan.</string>
     <string name="pf6_mic_permission_needed_settings">Kailangan ng pahintulot sa mikropono. I-tap upang buksan ang impormasyon ng App.</string>
-    <string name="pf6_retention_minutes">%1$d minuto</string>
+    <string name="pf6_retention_minutes">%1$d min.</string>
     <string name="pf6_clipboard_kept_for">Ang mga kopya ay tinatago para sa %1$s. Maaari mong baguhin ito sa mga setting.</string>
     <string name="pf6_clipboard_kept_no_limit">Ang mga kopya ay iniingatan hanggang sa tanggalin mo sila.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>

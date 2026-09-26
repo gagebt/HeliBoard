@@ -112,7 +112,7 @@
     <string name="pf6_search_no_results">Ingen matchande innstillingar</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofonen treng tillating. Trykk på for å tillata.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofonen treng tillating. Trykk på for å opna app info.</string>
-    <string name="pf6_retention_minutes">%1$d minuttar</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Kopiar blir gointe for %1$s. Du kan endra dette i innstillingar.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopiar vert halde til du sleppar dei.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>

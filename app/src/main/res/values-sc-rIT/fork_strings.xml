@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">No matching settings</string>
     <string name="pf6_mic_permission_needed_allow">Bisòngiat permissu pro su microfone. Tocca pro permìtere.</string>
     <string name="pf6_mic_permission_needed_settings">Bisòngiat permissu pro su microfone. Tocat pro aberire sas informatziones de s\'App.</string>
-    <string name="pf6_retention_minutes">%1$d minutos</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Sas còpias sunt tenidas pro %1$s. Podes cambiare custu in sas imposturas.</string>
     <string name="pf6_clipboard_kept_no_limit">Sas còpias sunt conservadas finas a cando las cancelladas.</string>
     <string name="pf6_clipboard_pinned">Iscuridu</string>

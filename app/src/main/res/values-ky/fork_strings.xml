@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Жашыруун орнотуулар жок</string>
     <string name="pf6_mic_permission_needed_allow">Микрофондун уруксаты керек. Уруксат берүү үчүн бас.</string>
     <string name="pf6_mic_permission_needed_settings">Микрофондун уруксаты керек. Колдонмонун маалыматтарын ачуу үчүн баскычты бас.</string>
-    <string name="pf6_retention_minutes">%1$d мүнөт</string>
+    <string name="pf6_retention_minutes">%1$d мүн</string>
     <string name="pf6_clipboard_kept_for">Көчүрмөсү %1$s деген номерге сакталат. Муну орнотууларда өзгөртө аласыз.</string>
     <string name="pf6_clipboard_kept_no_limit">Көчөлөрдү жок кылганга чейин сактайбыз.</string>
     <string name="pf6_clipboard_pinned">Капталган</string>

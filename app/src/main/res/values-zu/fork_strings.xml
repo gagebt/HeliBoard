@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Azikho izilungiselelo ezihambisanayo</string>
     <string name="pf6_mic_permission_needed_allow">Kwakudingeka imvume ye-microphone. Thinta ukuze uvumele.</string>
     <string name="pf6_mic_permission_needed_settings">Kwakudingeka imvume ye-microphone. Chofoza ukuze uvule ulwazi lwe-App.</string>
-    <string name="pf6_retention_minutes">%1$d imizuzu</string>
+    <string name="pf6_retention_minutes">%1$d iminithi</string>
     <string name="pf6_clipboard_kept_for">Amakhophi agcinwa ku-%1$s. Ungashintsha lokhu kuzilungiselelo.</string>
     <string name="pf6_clipboard_kept_no_limit">Amakhophi agcinwa uze uwacime.</string>
     <string name="pf6_clipboard_pinned">Ukufakwa</string>

@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">ගැලපෙන සැකසුම් නෑ</string>
     <string name="pf6_mic_permission_needed_allow">මයික් රොෆෝන් අවසරය අවශ් යයි. ඉඩ දෙන්න කියලා තට්ටු කරන්න.</string>
     <string name="pf6_mic_permission_needed_settings">මයික් රොෆෝන් අවසරය අවශ් යයි. App තොරතුරු විවෘත කරන්න.</string>
-    <string name="pf6_retention_minutes">මිනිත්තු %1$d</string>
+    <string name="pf6_retention_minutes">මිනි %1$d</string>
     <string name="pf6_clipboard_kept_for">පිටපත් %1$s නමින් තබා ඇත. ඔයාට මේක සැකසුම් වලින් වෙනස් කරන්න පුළුවන්.</string>
     <string name="pf6_clipboard_kept_no_limit">පිටපත් ඔබ ඒවා මකාදැමිය යුතු තෙක් තබා ගනී.</string>
     <string name="pf6_clipboard_pinned">ඇඹරීම</string>

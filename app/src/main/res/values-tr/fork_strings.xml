@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Eşleşen ayarlar yok</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofona izin lazım. İzin vermek için dokun.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofona izin lazım. Uygulama bilgilerini açmak için dokunun.</string>
-    <string name="pf6_retention_minutes">%1$d dakika</string>
+    <string name="pf6_retention_minutes">%1$d dk.</string>
     <string name="pf6_clipboard_kept_for">Kopyalar %1$s için saklanır. Bunu ayarlarda değiştirebilirsiniz.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopyalar silene kadar saklanır.</string>
     <string name="pf6_clipboard_pinned">Sabitlenmiş</string>

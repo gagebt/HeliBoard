@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">没有匹配设置</string>
     <string name="pf6_mic_permission_needed_allow">麦克风需要许可. 按一下允许.</string>
     <string name="pf6_mic_permission_needed_settings">麦克风需要许可. 打开应用程序信息.</string>
-    <string name="pf6_retention_minutes">%1$d 分钟</string>
+    <string name="pf6_retention_minutes">%1$d分钟</string>
     <string name="pf6_clipboard_kept_for">这些副本保存为%1$s. 在设置中可以更改.</string>
     <string name="pf6_clipboard_kept_no_limit">在您删除之前保留副本.</string>
     <string name="pf6_clipboard_pinned">已固定</string>

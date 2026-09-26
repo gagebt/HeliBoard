@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Ei yhtäläisiä asetuksia</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofonin luvan tarvittiin. Napsauta sallimaan.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofonin luvan tarvittiin. Napsauta App-tiedot avaamiseen.</string>
-    <string name="pf6_retention_minutes">%1$d minuuttia</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Kopioita säilytetään nimellä %1$s. Voit muuttaa tämän asetuksissa.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopioita säilytetään, kunnes ne poistetaan.</string>
     <string name="pf6_clipboard_pinned">Pinnit</string>

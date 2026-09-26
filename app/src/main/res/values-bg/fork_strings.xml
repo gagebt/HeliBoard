@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Няма съвместими настройки</string>
     <string name="pf6_mic_permission_needed_allow">Нужно е разрешение за микрофон. Натиснете, за да позволите.</string>
     <string name="pf6_mic_permission_needed_settings">Нужно е разрешение за микрофон. Натиснете, за да отворите информацията за приложението.</string>
-    <string name="pf6_retention_minutes">%1$d минути</string>
+    <string name="pf6_retention_minutes">%1$d мин</string>
     <string name="pf6_clipboard_kept_for">Копиите се съхраняват за %1$s. Можете да промените това в настройките.</string>
     <string name="pf6_clipboard_kept_no_limit">Копиите се съхраняват, докато ги изтриете.</string>
     <string name="pf6_clipboard_pinned">Вградено</string>

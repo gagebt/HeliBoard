@@ -113,7 +113,7 @@
     <string name="pf6_search_no_results">Nuk ka rregullime të përshtatshme</string>
     <string name="pf6_mic_permission_needed_allow">Duhet leje për mikrofon. Shtyp për të lejuar.</string>
     <string name="pf6_mic_permission_needed_settings">Duhet leje për mikrofon. Klikoni për të hapur informacionin e aplikacionit.</string>
-    <string name="pf6_retention_minutes">%1$d minuta</string>
+    <string name="pf6_retention_minutes">%1$d min.</string>
     <string name="pf6_clipboard_kept_for">Kopjat mbahen për numrin %1$s. Mund ta ndryshoni këtë në cilësimet.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopjat mbahen derisa t\'i fshiheni.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>

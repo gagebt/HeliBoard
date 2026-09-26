@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Үүнд тохируулалтын тохируулалт байхгүй</string>
     <string name="pf6_mic_permission_needed_allow">Микрофон дээр зөвшөөрөл хэрэгтэй. Тавиад зөвшөөрөө.</string>
     <string name="pf6_mic_permission_needed_settings">Микрофон дээр зөвшөөрөл хэрэгтэй. Хэрэглэлийн мэдээллийг нээхийн тулд татах.</string>
-    <string name="pf6_retention_minutes">%1$d минут</string>
+    <string name="pf6_retention_minutes">%1$d мин</string>
     <string name="pf6_clipboard_kept_for">%1$s дугаарт хувилбарыг хадгалж байна. Та үүнийг тохируулалтаар өөрчилж болно.</string>
     <string name="pf6_clipboard_kept_no_limit">Та тэдгээрийг устгах хүртэл хувилбарыг хадгалж байна.</string>
     <string name="pf6_clipboard_pinned">Хөгжүүлэг</string>

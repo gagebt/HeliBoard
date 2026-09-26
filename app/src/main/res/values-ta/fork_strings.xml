@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">பொருந்தக்கூடிய அமைப்புகள் இல்லை</string>
     <string name="pf6_mic_permission_needed_allow">மைக்ரோஃபோன் அனுமதி தேவை. அனுமதிக்க தட்டவும்.</string>
     <string name="pf6_mic_permission_needed_settings">மைக்ரோஃபோன் அனுமதி தேவை. பயன்பாட்டு தகவலைத் திறக்க தட்டவும்.</string>
-    <string name="pf6_retention_minutes">%1$d நிமிடங்கள்</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">%1$s என்ற எண்ணிக்கையில் பிரதிகள் வைக்கப்பட்டுள்ளன. நீங்கள் அமைப்புகளில் இதை மாற்ற முடியும்.</string>
     <string name="pf6_clipboard_kept_no_limit">நீங்கள் அவற்றை நீக்கும் வரை பிரதிகள் சேமிக்கப்படும்.</string>
     <string name="pf6_clipboard_pinned">தையல்</string>

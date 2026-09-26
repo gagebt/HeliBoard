@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Қатысу параметрлері жоқ</string>
     <string name="pf6_mic_permission_needed_allow">Микрофонға рұқсат қажет. Рұқсат ету үшін қоңырау соғыңыз.</string>
     <string name="pf6_mic_permission_needed_settings">Микрофонға рұқсат қажет. Қолданба мәліметтерін ашу үшін батырманы басыңыз.</string>
-    <string name="pf6_retention_minutes">%1$d минут</string>
+    <string name="pf6_retention_minutes">%1$d мин</string>
     <string name="pf6_clipboard_kept_for">Көшірмелері %1$s нөміріне сақталады. Мұны баптауларда өзгерте аласыз.</string>
     <string name="pf6_clipboard_kept_no_limit">Көшірмелер оларды өшіргенше сақталады.</string>
     <string name="pf6_clipboard_pinned">Тіркелген</string>

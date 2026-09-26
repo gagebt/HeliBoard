@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Ніякіх параметраў адпаведнасці</string>
     <string name="pf6_mic_permission_needed_allow">Патрэбна дазвол на праслухоўванне. Націсніце, каб дазволіць.</string>
     <string name="pf6_mic_permission_needed_settings">Патрэбна дазвол на праслухоўванне. Націсніце, каб адкрыць інфармацыю аб прыкладанні.</string>
-    <string name="pf6_retention_minutes">%1$d хвілін</string>
+    <string name="pf6_retention_minutes">%1$d хв</string>
     <string name="pf6_clipboard_kept_for">Копіі захоўваюцца на %1$s. Вы можаце змяніць гэта ў наладках.</string>
     <string name="pf6_clipboard_kept_no_limit">Копіі захоўваюцца, пакуль вы не выдаліце іх.</string>
     <string name="pf6_clipboard_pinned">Пінчаныя</string>

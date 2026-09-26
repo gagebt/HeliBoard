@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Без відповідних налаштувань</string>
     <string name="pf6_mic_permission_needed_allow">Потрібна дозвола на мікрофон. Натисніть, щоб дозволити.</string>
     <string name="pf6_mic_permission_needed_settings">Потрібна дозвола на мікрофон. Натисніть, щоб відкрити інформацію про додаток.</string>
-    <string name="pf6_retention_minutes">%1$d хвилини</string>
+    <string name="pf6_retention_minutes">%1$d хв</string>
     <string name="pf6_clipboard_kept_for">Копії зберігаються на номер %1$s. Ви можете змінити це в налаштуваннях.</string>
     <string name="pf6_clipboard_kept_no_limit">Копії зберігаються, поки ви не видалите їх.</string>
     <string name="pf6_clipboard_pinned">Закріплено</string>
