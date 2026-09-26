@@ -211,7 +211,8 @@ private class AarFutoSwipeBackend : FutoSwipeBackend {
             null,
         ).map { FutoSwipeWord(it.word, it.score, it.ctcScore, it.lmScore) }
         val timing = active.lastTiming()
-        return words to FutoSwipeTiming(
+        val strip = withWrittenForms(words) { word -> tries.flatMap { FutoTrie.forms(it, word).orEmpty().asList() } }
+        return strip to FutoSwipeTiming(
             timing.resampleUs,
             timing.encoderUs,
             timing.decoderUs,
@@ -241,7 +242,25 @@ private object FutoTrie {
     }
 
     external fun load(path: String, letters: String): Long
+    /** The written forms of word's swipe path, most frequent first; empty when it has only its key letters. */
+    external fun forms(handle: Long, word: String): Array<String>?
     external fun close(handle: Long)
+}
+
+/**
+ * Each decoded word followed by the other written forms of its swipe path (`it's` then `its`, `еще` then `ещё`), so
+ * that they show in the strip. The decoder returns one word per path: the most frequent written form.
+ */
+internal fun withWrittenForms(words: List<FutoSwipeWord>, formsOf: (String) -> List<String>): List<FutoSwipeWord> {
+    val seen = HashSet<String>()
+    val out = ArrayList<FutoSwipeWord>(words.size)
+    for (word in words) {
+        if (seen.add(word.word)) out.add(word)
+        for (form in formsOf(word.word)) {
+            if (seen.add(form)) out.add(word.copy(word = form))
+        }
+    }
+    return out
 }
 
 private fun FutoSwipeModels.paths(): List<String> = listOfNotNull(
