@@ -42,12 +42,14 @@ public final class EditorRecord {
 
     /**
      * A terminal: any TYPE_NULL field, or Termux in its "Enforce char based input" mode,
-     * which reports a visible-password text field instead of TYPE_NULL.
+     * which reports the visible-password variation instead of TYPE_NULL (observed
+     * 0x80090: that variation and no-suggestions, without a class).
      */
     static boolean isTerminal(String packageName, int inputType) {
         if (inputType == InputType.TYPE_NULL) return true;
+        int cls = inputType & InputType.TYPE_MASK_CLASS;
         return "com.termux".equals(packageName)
-                && (inputType & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_TEXT
+                && (cls == 0 || cls == InputType.TYPE_CLASS_TEXT)
                 && (inputType & InputType.TYPE_MASK_VARIATION)
                         == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
     }

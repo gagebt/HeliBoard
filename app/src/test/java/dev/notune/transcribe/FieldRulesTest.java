@@ -25,13 +25,16 @@ public class FieldRulesTest {
     }
 
     @Test public void termuxCharModeIsAnUnreadableTerminalNotASecret() {
-        int visiblePassword = TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        EditorRecord termux = new EditorRecord("com.termux", 2131231121, visiblePassword,
+        // Observed on the emulator with enforce-char-based-input=true: 0x80090.
+        EditorRecord termux = new EditorRecord("com.termux", 2131231121, 0x80090,
                 0x2000000, false);
         assertEquals(FieldKind.PROSE, termux.kind);
         assertFalse(termux.readBackKnown);
         assertFalse(termux.privateField);
+        int visiblePassword = TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+        assertFalse(new EditorRecord("com.termux", 2131231121, visiblePassword, 0, false)
+                .privateField);
         // Opposite: the same type in any other app is a password field.
         EditorRecord other = new EditorRecord("bank.app", 7, visiblePassword, 0, false);
         assertEquals(FieldKind.PASSWORD, other.kind);
