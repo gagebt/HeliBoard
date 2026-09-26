@@ -140,8 +140,9 @@ fun SubtypeScreen(
         } },
         title = { Text(currentSubtype.toAdditionalSubtype().displayName()) },
         itemContent = { },
-        filteredItems = { emptyList<String>() }
-    ) {
+        filteredItems = { emptyList<String>() },
+        // by name: a trailing lambda would bind to the last parameter (searchModeToggle) and leave the page empty
+        content = {
         Scaffold(
             contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom)
         ) { innerPadding ->
@@ -350,7 +351,7 @@ fun SubtypeScreen(
                 onItemSelected = { setCurrentSubtype(currentSubtype.with(ExtraValue.MORE_POPUPS, it)) }
             )
         }
-    }
+    })
 }
 
 
