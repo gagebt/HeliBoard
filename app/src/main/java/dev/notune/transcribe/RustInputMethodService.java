@@ -1115,13 +1115,15 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     /**
      * Keeps the one draft file equal to the text that would be lost by a crash now: the
-     * current recording's words while any of them wait to be written, else the newest
+     * current recording's words while staged or known undelivered, else the newest
      * undelivered result. Text from a private field is never written; it lives in memory
      * only, bound to its field.
      */
     private boolean persist() {
         PendingDictationDraft wanted = null;
-        if (session != null && !session.privateOrigin() && hasStagedText()) {
+        if (session != null && !session.privateOrigin()
+                && (hasStagedText() || session != settledSession
+                && session.state == VoiceInterval.State.UNDELIVERED)) {
             String text = session.text + joiner.pendingTail();
             if (SessionDraftPolicy.hasLetterOrDigit(text)) {
                 wanted = new PendingDictationDraft(session.sessionId, nextPieceSequence,

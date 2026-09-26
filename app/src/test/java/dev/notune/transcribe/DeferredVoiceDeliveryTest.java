@@ -46,6 +46,36 @@ public class DeferredVoiceDeliveryTest {
         new File(base.getPath() + ".new").delete();
     }
 
+    @Test public void acknowledgedLateWordsSurviveRestartBeforeCompletion() throws Exception {
+        FakeEditor first = new FakeEditor("");
+        FakeHost host = new FakeHost(first);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, first, SESSION);
+        host.switchTo(new FakeEditor(""), new EditorRecord("other.app", 9, TEXT, 0, false));
+        voice.onEditorStarted(false);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Words after leaving.", 0));
+        FakeHost reopened = new FakeHost(new FakeEditor(""));
+        RustInputMethodService restored = new RustInputMethodService(context, reopened);
+        assertTrue(reopened.state.canCopy);
+        assertTrue(restored.copyDraft());
+        assertEquals("Words after leaving.", clip());
+    }
+
+    @Test public void refusedCommitSurvivesRestartBeforeCompletion() throws Exception {
+        FakeEditor first = new FakeEditor("");
+        first.accepts = false;
+        FakeHost host = new FakeHost(first);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, first, SESSION);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Refused words.", 0));
+        FakeHost reopened = new FakeHost(new FakeEditor(""));
+        RustInputMethodService restored = new RustInputMethodService(context, reopened);
+        assertTrue(reopened.state.canCopy);
+        assertTrue(restored.copyDraft());
+        assertEquals("Refused words.", clip().trim());
+        assertFalse(draftPath().exists());
+    }
+
     @Test public void swipeBeforeFirstVoicePieceUsesNewCursorAndKeepsFinalMark() throws Exception {
         FakeEditor editor = new FakeEditor("");
         FakeHost host = new FakeHost(editor);
@@ -203,6 +233,11 @@ public class DeferredVoiceDeliveryTest {
         assertTrue(voice.copyDraft());
         // Opposite (seen on the emulator before the fix): "buy milkAnd eggs."
         assertEquals("buy milk. and eggs.", clip().trim().toLowerCase());
+        voice.resumePendingDelivery();
+        assertFalse(draftPath().exists());
+        FakeHost reopened = new FakeHost(new FakeEditor(""));
+        new RustInputMethodService(context, reopened);
+        assertFalse(reopened.state.canCopy);
     }
 
     @Test public void anotherDocumentWithTheSameWidgetIdDoesNotReceiveTheWords() throws Exception {
