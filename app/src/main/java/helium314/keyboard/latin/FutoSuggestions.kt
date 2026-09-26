@@ -265,9 +265,11 @@ object FutoSuggestions {
  * A message or stack trace can carry typed or dictated text, so neither is written.
  */
 internal class FutoFailureLog(private val sink: (String) -> Unit) {
-    // pf5 behaviour: every failure, with its message and stack; the X12 commit changes this
+    private val seen = ConcurrentHashMap.newKeySet<String>()
+
     fun report(phase: String, failure: Throwable) {
-        sink("FUTO $phase failed\n${failure.stackTraceToString()}")
+        val cause = "phase=$phase class=${failure.javaClass.name}"
+        if (seen.add(cause)) sink("FUTO failure: $cause")
     }
 }
 
