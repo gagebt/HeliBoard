@@ -118,5 +118,5 @@
     <string name="pf6_retention_minutes">%1$d분</string>
     <string name="pf6_clipboard_kept_for">%1$s번 번호로 복사본이 보관됩니다. 설정에서 변경할 수 있습니다.</string>
     <string name="pf6_clipboard_kept_no_limit">복사본은 삭제할 때까지 보관됩니다.</string>
-    <string name="pf6_clipboard_pinned"></string>
+    <string name="pf6_clipboard_pinned">고정됨</string>
 </resources>
