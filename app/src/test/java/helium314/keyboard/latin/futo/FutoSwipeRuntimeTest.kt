@@ -62,6 +62,7 @@ class FutoSwipeRuntimeTest {
         val engines = mutableListOf<FakeEngine>()
         val tries = mutableListOf<FakeTrie>()
         @Volatile var trieGate: CountDownLatch? = null
+        @Volatile var gatedTriePath: String? = null
         @Volatile var trieEntered = CountDownLatch(1)
         @Volatile var gate: CountDownLatch? = null
         @Volatile var loadEntered = CountDownLatch(1)
@@ -81,7 +82,7 @@ class FutoSwipeRuntimeTest {
 
         override fun loadTrie(path: String, letters: String): FutoSwipeTrie {
             trieEntered.countDown()
-            trieGate?.await(5, TimeUnit.SECONDS)
+            if (gatedTriePath == null || gatedTriePath == path) trieGate?.await(5, TimeUnit.SECONDS)
             require(!path.startsWith("missing")) { "missing raw .combined vocabulary" }
             return FakeTrie(path).also { synchronized(tries) { tries.add(it) } }
         }
@@ -95,8 +96,9 @@ class FutoSwipeRuntimeTest {
         val runtime = FutoSwipeRuntime(backend)
         assertNotNull(runtime.preload(mode(0, personal = "p1")))
         val engine = backend.last
-        assertEquals("p1", engine.personal?.path)
+        assertNull(engine.personal, "preload must not change the selected decoder")
         assertTrue(runtime.configure(mode(1, personal = "p1")))
+        assertEquals("p1", engine.personal?.path)
 
         assertFalse(runtime.configure(mode(2, personal = "p2")), "configure never loads a personal trie")
         assertEquals("p1", engine.personal?.path)
@@ -148,6 +150,38 @@ class FutoSwipeRuntimeTest {
         } finally {
             gate.countDown()
             pool.shutdownNow()
+        }
+    }
+
+    @Test
+    fun latePersonalLoadCannotRestoreWithdrawnWords() = latePersonalLoadKeepsSelectedWords(null)
+
+    @Test
+    fun latePersonalLoadCannotReplaceNewerWords() = latePersonalLoadKeepsSelectedWords("new")
+
+    private fun latePersonalLoadKeepsSelectedWords(selected: String?) {
+        val backend = FakeBackend()
+        val runtime = FutoSwipeRuntime(backend)
+        val pool = Executors.newSingleThreadExecutor()
+        val gate = CountDownLatch(1)
+        try {
+            runtime.preload(mode(0))
+            runtime.configure(mode(1))
+            backend.trieGate = gate
+            backend.gatedTriePath = "old"
+            val loading = pool.submit<FutoSwipeLoad?> { runtime.preload(mode(0, personal = "old")) }
+            assertTrue(backend.trieEntered.await(2, TimeUnit.SECONDS))
+            if (selected != null) runtime.preload(mode(0, personal = selected))
+            assertTrue(runtime.configure(mode(2, personal = selected)))
+            gate.countDown()
+            loading.get(2, TimeUnit.SECONDS)
+            runtime.preload(mode(0, personal = selected))
+            assertEquals(selected, backend.last.personal?.path)
+            runtime.recognize(input(2))
+        } finally {
+            gate.countDown()
+            pool.shutdownNow()
+            runtime.close()
         }
     }
 

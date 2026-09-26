@@ -82,7 +82,7 @@ data class FutoSwipeLoad(val loadMs: Long, val warmMs: Long)
  * models. It runs on the calling thread without holding the runtime lock, so a load never stalls recognition or
  * prediction of the active engine. The loaded engine is swapped in under the lock. A change of key geometry only
  * re-sets the layout of the loaded engine. At most [maxLoaded] engines stay loaded (the two most recently used).
- * The personal trie of a mode is also loaded outside the lock and swapped in under it; removing it is immediate.
+ * The personal trie is loaded outside the lock; only configure selects it. Removing it is immediate.
  * A personal trie that fails to load is reported to [personalFailure] and swiping goes on without it.
  */
 class FutoSwipeRuntime internal constructor(
@@ -98,6 +98,7 @@ class FutoSwipeRuntime internal constructor(
     private val layouts = java.util.IdentityHashMap<FutoSwipeEngine, FutoSwipeLayout>()
     // The personal file each engine was given (also when it failed to load); absent means none.
     private val personals = java.util.IdentityHashMap<FutoSwipeEngine, String>()
+    private val personalLoads = java.util.IdentityHashMap<FutoSwipeEngine, Pair<String, FutoSwipeTrie?>>()
     private var active: FutoSwipeEngine? = null
     private var generation: Long? = null
     private var nextWordEnabled = false
@@ -121,9 +122,10 @@ class FutoSwipeRuntime internal constructor(
     }
 
     private fun loadPersonal(spec: Spec, path: String) {
-        synchronized(lock) {
-            val engine = loaded[spec.key] ?: return
-            if (personals[engine] == path) return
+        val engine = synchronized(lock) {
+            val current = loaded[spec.key] ?: return
+            if (personals[current] == path || personalLoads[current]?.first == path) return
+            current
         }
         val trie = try {
             backend.loadTrie(path, spec.layout.letters)
@@ -132,20 +134,13 @@ class FutoSwipeRuntime internal constructor(
             null
         }
         synchronized(lock) {
-            val engine = loaded[spec.key]
-            if (closed || engine == null || personals[engine] == path) {
+            if (closed || loaded[spec.key] !== engine || personals[engine] == path
+                || personalLoads[engine]?.first == path) {
                 trie?.close()
                 return
             }
-            try {
-                engine.setPersonal(trie)
-            } catch (failure: Throwable) {
-                trie?.close()
-                engine.setPersonal(null)
-                personalFailure(failure)
-            }
-            // Marked also after a failure, so that configure does not ask for this file again.
-            personals[engine] = path
+            // A completed preload never changes the active decoder. Only configure owns that choice.
+            personalLoads.put(engine, path to trie)?.second?.close()
         }
     }
 
@@ -220,9 +215,20 @@ class FutoSwipeRuntime internal constructor(
             }
             val engine = loaded[spec.key] ?: return false
             if (personals[engine] != mode.personal) {
-                if (mode.personal != null) return false
-                engine.setPersonal(null)
-                personals.remove(engine)
+                val ready = personalLoads[engine]
+                if (mode.personal != null && ready?.first != mode.personal) return false
+                personalLoads.remove(engine)
+                val trie = if (mode.personal != null) ready?.second else null
+                if (trie == null) ready?.second?.close()
+                try {
+                    engine.setPersonal(trie)
+                } catch (failure: Throwable) {
+                    trie?.close()
+                    engine.setPersonal(null)
+                    personalFailure(failure)
+                }
+                if (mode.personal == null) personals.remove(engine)
+                else personals[engine] = mode.personal
             }
             if (!layouts[engine].sameAs(spec.layout)) {
                 engine.setLayout(spec.layout)
@@ -268,6 +274,8 @@ class FutoSwipeRuntime internal constructor(
         loaded.clear()
         layouts.clear()
         personals.clear()
+        personalLoads.values.forEach { it.second?.close() }
+        personalLoads.clear()
         active = null
     }
 
@@ -279,6 +287,7 @@ class FutoSwipeRuntime internal constructor(
             iterator.remove()
             layouts.remove(eldest.value)
             personals.remove(eldest.value)
+            personalLoads.remove(eldest.value)?.second?.close()
             eldest.value.close()
         }
     }
