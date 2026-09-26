@@ -592,7 +592,11 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
  * Returns [results] without the words the user removed.
  */
 internal fun withoutRemovedWords(results: SuggestionResults?, isRemoved: (String) -> Boolean): SuggestionResults? {
-    return results // pf5 behaviour; the X11 commit adds the filter
+    if (results == null || results.none { isRemoved(it.mWord) }) return results
+    val kept = SuggestionResults(results.size.coerceAtLeast(1), results.mIsBeginningOfSentence,
+        results.mFirstSuggestionExceedsConfidenceThreshold)
+    results.filterNotTo(kept) { isRemoved(it.mWord) }
+    return kept
 }
 
 internal fun mergeNextWordPredictions(
