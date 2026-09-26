@@ -19,10 +19,16 @@ class FutoSwipeRuntimeTest {
         var setLayoutCount = 0
         var predictCount = 0
         var closed = false
+        var personal: FakeTrie? = null
 
         override fun setLayout(layout: FutoSwipeLayout) {
             currentLayout = layout
             setLayoutCount++
+        }
+
+        override fun setPersonal(trie: FutoSwipeTrie?) {
+            personal?.close()
+            personal = trie as FakeTrie?
         }
 
         override fun recognize(input: FutoSwipeInput): Pair<List<FutoSwipeWord>, FutoSwipeTiming> {
@@ -45,8 +51,18 @@ class FutoSwipeRuntimeTest {
         }
     }
 
+    private class FakeTrie(val path: String) : FutoSwipeTrie {
+        var closed = false
+        override fun close() {
+            closed = true
+        }
+    }
+
     private class FakeBackend : FutoSwipeBackend {
         val engines = mutableListOf<FakeEngine>()
+        val tries = mutableListOf<FakeTrie>()
+        @Volatile var trieGate: CountDownLatch? = null
+        @Volatile var trieEntered = CountDownLatch(1)
         @Volatile var gate: CountDownLatch? = null
         @Volatile var loadEntered = CountDownLatch(1)
 
@@ -63,7 +79,76 @@ class FutoSwipeRuntimeTest {
             }
         }
 
+        override fun loadTrie(path: String, letters: String): FutoSwipeTrie {
+            trieEntered.countDown()
+            trieGate?.await(5, TimeUnit.SECONDS)
+            require(!path.startsWith("missing")) { "missing raw .combined vocabulary" }
+            return FakeTrie(path).also { synchronized(tries) { tries.add(it) } }
+        }
+
         val last get() = synchronized(engines) { engines.last() }
+    }
+
+    @Test
+    fun personalWordsSwapWithoutAFullLoadAndGoAtOnce() {
+        val backend = FakeBackend()
+        val runtime = FutoSwipeRuntime(backend)
+        assertNotNull(runtime.preload(mode(0, personal = "p1")))
+        val engine = backend.last
+        assertEquals("p1", engine.personal?.path)
+        assertTrue(runtime.configure(mode(1, personal = "p1")))
+
+        assertFalse(runtime.configure(mode(2, personal = "p2")), "configure never loads a personal trie")
+        assertEquals("p1", engine.personal?.path)
+        assertNull(runtime.preload(mode(0, personal = "p2")), "a new personal list is not a full load")
+        assertTrue(runtime.configure(mode(2, personal = "p2")))
+        assertEquals("p2", engine.personal?.path)
+        assertTrue(backend.tries[0].closed, "the replaced list is closed")
+
+        assertTrue(runtime.configure(mode(3)), "withdrawn words need no load")
+        assertNull(engine.personal)
+        assertTrue(backend.tries[1].closed)
+        runtime.recognize(input(3))
+        assertEquals(1, runtime.loadCount)
+        assertEquals(1, backend.engines.size)
+    }
+
+    @Test
+    fun aPersonalListThatFailsToLoadLeavesSwipeWorking() {
+        val backend = FakeBackend()
+        val failures = mutableListOf<Throwable>()
+        val runtime = FutoSwipeRuntime(backend, personalFailure = { failures.add(it) })
+        runtime.preload(mode(0, personal = "p1"))
+        runtime.preload(mode(0, personal = "missing"))
+
+        assertEquals(1, failures.size)
+        assertTrue(runtime.configure(mode(1, personal = "missing")), "a failed list is not asked for again")
+        assertNull(backend.last.personal)
+        assertTrue(backend.tries[0].closed)
+        assertEquals("hello", runtime.recognize(input(1)).words.first().word)
+    }
+
+    @Test
+    fun personalLoadDoesNotHoldTheRuntimeLock() {
+        val backend = FakeBackend()
+        val runtime = FutoSwipeRuntime(backend)
+        runtime.preload(mode(0))
+        runtime.configure(mode(1))
+        val gate = CountDownLatch(1)
+        backend.trieGate = gate
+        val pool = Executors.newSingleThreadExecutor()
+        try {
+            val loading = pool.submit<FutoSwipeLoad?> { runtime.preload(mode(0, personal = "p1")) }
+            assertTrue(backend.trieEntered.await(2, TimeUnit.SECONDS))
+            assertEquals("hello", runtime.recognize(input(1)).words.first().word)
+            gate.countDown()
+            loading.get(2, TimeUnit.SECONDS)
+            assertTrue(runtime.configure(mode(2, personal = "p1")))
+            assertEquals("p1", backend.last.personal?.path)
+        } finally {
+            gate.countDown()
+            pool.shutdownNow()
+        }
     }
 
     @Test
@@ -284,12 +369,14 @@ class FutoSwipeRuntimeTest {
         layout: FutoSwipeLayout = layout("abc"),
         languageTag: String = "en-US",
         vocabulary: String = "dictionary",
+        personal: String? = null,
     ) = FutoSwipeMode(
         generation = generation,
         languageTag = languageTag,
         layout = layout,
         models = FutoSwipeModels("encoder", "decoder", "lm", "lm-vocab"),
         vocabularies = listOf(FutoSwipeVocabulary(vocabulary)),
+        personal = personal,
     )
 
     private fun layout(letters: String): FutoSwipeLayout {

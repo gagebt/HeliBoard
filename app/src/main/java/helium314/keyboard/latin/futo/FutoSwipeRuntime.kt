@@ -21,12 +21,17 @@ data class FutoSwipeModels(
 
 data class FutoSwipeVocabulary(val path: String, val weight: Float = 1f)
 
+/**
+ * [personal] is a small raw .combined file of the owner's personal-dictionary words. It is not part of the loaded
+ * language: changing it only swaps a second trie into the loaded engine.
+ */
 data class FutoSwipeMode(
     val generation: Long,
     val languageTag: String,
     val layout: FutoSwipeLayout,
     val models: FutoSwipeModels,
     val vocabularies: List<FutoSwipeVocabulary>,
+    val personal: String? = null,
 )
 
 data class FutoSwipeInput(
@@ -77,17 +82,22 @@ data class FutoSwipeLoad(val loadMs: Long, val warmMs: Long)
  * models. It runs on the calling thread without holding the runtime lock, so a load never stalls recognition or
  * prediction of the active engine. The loaded engine is swapped in under the lock. A change of key geometry only
  * re-sets the layout of the loaded engine. At most [maxLoaded] engines stay loaded (the two most recently used).
+ * The personal trie of a mode is also loaded outside the lock and swapped in under it; removing it is immediate.
+ * A personal trie that fails to load is reported to [personalFailure] and swiping goes on without it.
  */
 class FutoSwipeRuntime internal constructor(
     private val backend: FutoSwipeBackend,
     private val maxLoaded: Int = 2,
+    private val personalFailure: (Throwable) -> Unit = {},
 ) : AutoCloseable {
-    constructor() : this(AarFutoSwipeBackend())
+    constructor(personalFailure: (Throwable) -> Unit = {}) : this(AarFutoSwipeBackend(), personalFailure = personalFailure)
 
     private val lock = Any()
     private val loaded = LinkedHashMap<LoadKey, FutoSwipeEngine>(4, 0.75f, true)
     private val pending = HashMap<LoadKey, CompletableFuture<Unit>>()
     private val layouts = java.util.IdentityHashMap<FutoSwipeEngine, FutoSwipeLayout>()
+    // The personal file each engine was given (also when it failed to load); absent means none.
+    private val personals = java.util.IdentityHashMap<FutoSwipeEngine, String>()
     private var active: FutoSwipeEngine? = null
     private var generation: Long? = null
     private var nextWordEnabled = false
@@ -98,12 +108,48 @@ class FutoSwipeRuntime internal constructor(
     val loadCount: Int get() = synchronized(lock) { fullLoads }
 
     /**
-     * Loads the mode's engine unless it is loaded; waits if another thread is loading it.
-     * Returns the load that this call did, or null when nothing was loaded here.
+     * Loads the mode's engine unless it is loaded; waits if another thread is loading it. Then gives the engine the
+     * mode's personal trie unless it has it.
+     * Returns the full load that this call did, or null when no full load was done here.
      * [warmUp] runs one throw-away next-word prediction on the new engine before other threads can use it.
      */
     fun preload(mode: FutoSwipeMode, warmUp: Boolean = false): FutoSwipeLoad? {
         val spec = resolve(mode)
+        val load = loadEngine(spec, mode, warmUp)
+        if (mode.personal != null) loadPersonal(spec, mode.personal)
+        return load
+    }
+
+    private fun loadPersonal(spec: Spec, path: String) {
+        synchronized(lock) {
+            val engine = loaded[spec.key] ?: return
+            if (personals[engine] == path) return
+        }
+        val trie = try {
+            backend.loadTrie(path, spec.layout.letters)
+        } catch (failure: Throwable) {
+            personalFailure(failure)
+            null
+        }
+        synchronized(lock) {
+            val engine = loaded[spec.key]
+            if (closed || engine == null || personals[engine] == path) {
+                trie?.close()
+                return
+            }
+            try {
+                engine.setPersonal(trie)
+            } catch (failure: Throwable) {
+                trie?.close()
+                engine.setPersonal(null)
+                personalFailure(failure)
+            }
+            // Marked also after a failure, so that configure does not ask for this file again.
+            personals[engine] = path
+        }
+    }
+
+    private fun loadEngine(spec: Spec, mode: FutoSwipeMode, warmUp: Boolean): FutoSwipeLoad? {
         while (true) {
             val waitFor: CompletableFuture<Unit>?
             val mine: CompletableFuture<Unit>
@@ -160,8 +206,9 @@ class FutoSwipeRuntime internal constructor(
     }
 
     /**
-     * Makes [mode] current. It never loads: returns false when the mode's engine is not loaded, so that the caller
-     * can [preload] it outside any lock and try again.
+     * Makes [mode] current. It never loads: returns false when the mode's engine or personal trie is not loaded, so
+     * that the caller can [preload] it outside any lock and try again. A mode without a personal file removes the
+     * engine's personal trie at once.
      */
     fun configure(mode: FutoSwipeMode): Boolean {
         val spec = resolve(mode)
@@ -172,6 +219,11 @@ class FutoSwipeRuntime internal constructor(
                 "stale layout generation ${mode.generation}; current is $current"
             }
             val engine = loaded[spec.key] ?: return false
+            if (personals[engine] != mode.personal) {
+                if (mode.personal != null) return false
+                engine.setPersonal(null)
+                personals.remove(engine)
+            }
             if (!layouts[engine].sameAs(spec.layout)) {
                 engine.setLayout(spec.layout)
                 layouts[engine] = spec.layout
@@ -215,6 +267,7 @@ class FutoSwipeRuntime internal constructor(
         loaded.values.forEach(FutoSwipeEngine::close)
         loaded.clear()
         layouts.clear()
+        personals.clear()
         active = null
     }
 
@@ -225,6 +278,7 @@ class FutoSwipeRuntime internal constructor(
             if (eldest.value === active) continue
             iterator.remove()
             layouts.remove(eldest.value)
+            personals.remove(eldest.value)
             eldest.value.close()
         }
     }
@@ -266,12 +320,18 @@ class FutoSwipeRuntime internal constructor(
 /** Builds engines. [load] is slow and shares no state with loaded engines, so it may run on any thread. */
 internal interface FutoSwipeBackend {
     fun load(layout: FutoSwipeLayout, models: FutoSwipeModels, vocabularies: List<FutoSwipeVocabulary>): FutoSwipeEngine
+    /** Loads one more raw .combined vocabulary for the letters of a loaded engine. */
+    fun loadTrie(path: String, letters: String): FutoSwipeTrie
 }
+
+internal interface FutoSwipeTrie : AutoCloseable
 
 /** One loaded language. Not thread-safe; [FutoSwipeRuntime] serializes its use. */
 internal interface FutoSwipeEngine : AutoCloseable {
     /** Cheap: the same tries and models with other key positions. */
     fun setLayout(layout: FutoSwipeLayout)
+    /** Cheap: decodes with [trie] beside the language's own tries (none when null); closes the previous one. */
+    fun setPersonal(trie: FutoSwipeTrie?)
     fun recognize(input: FutoSwipeInput): Pair<List<FutoSwipeWord>, FutoSwipeTiming>
     fun predictNext(contextWords: List<String>, topK: Int): List<FutoSwipeWord>
 }
@@ -305,9 +365,24 @@ private class AarFutoSwipeBackend : FutoSwipeBackend {
             throw failure
         }
     }
+
+    override fun loadTrie(path: String, letters: String): FutoSwipeTrie {
+        require(File(path).isFile) { "missing raw .combined vocabulary: $path" }
+        val handle = FutoTrie.load(path, letters)
+        check(handle != 0L) { "failed to load raw .combined vocabulary: $path" }
+        return AarTrie(handle)
+    }
 }
 
-private class AarFutoSwipeEngine(private val decoder: SwipeDecoder, private val tries: LongArray) : FutoSwipeEngine {
+private class AarTrie(val handle: Long) : FutoSwipeTrie {
+    override fun close() = FutoTrie.close(handle)
+}
+
+private class AarFutoSwipeEngine(private val decoder: SwipeDecoder, private val own: LongArray) : FutoSwipeEngine {
+    private var layout: FutoSwipeLayout? = null
+    private var personal: AarTrie? = null
+    private var tries = own
+
     override fun setLayout(layout: FutoSwipeLayout) {
         check(decoder.setMode(
             letters = layout.letters,
@@ -315,6 +390,22 @@ private class AarFutoSwipeEngine(private val decoder: SwipeDecoder, private val 
             cy = layout.centerY,
             tries = tries,
         )) { "FUTO rejected the layout or vocabulary mode" }
+        this.layout = layout
+    }
+
+    override fun setPersonal(trie: FutoSwipeTrie?) {
+        val old = personal
+        personal = trie as AarTrie?
+        tries = if (trie == null) own else own + trie.handle
+        try {
+            layout?.let(::setLayout)
+        } catch (failure: Throwable) {
+            personal = old
+            tries = if (old == null) own else own + old.handle
+            layout?.let(::setLayout)
+            throw failure
+        }
+        old?.close()
     }
 
     override fun recognize(input: FutoSwipeInput): Pair<List<FutoSwipeWord>, FutoSwipeTiming> {
@@ -348,7 +439,8 @@ private class AarFutoSwipeEngine(private val decoder: SwipeDecoder, private val 
 
     override fun close() {
         decoder.close()
-        tries.forEach(FutoTrie::close)
+        own.forEach(FutoTrie::close)
+        personal?.close()
     }
 }
 

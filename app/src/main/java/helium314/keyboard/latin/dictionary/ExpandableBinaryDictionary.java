@@ -90,7 +90,7 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
     private final AtomicBoolean mIsReloading;
 
     /** Indicates whether the current dictionary needs to be recreated. */
-    private boolean mNeedsToRecreate;
+    private volatile boolean mNeedsToRecreate;
 
     private final ReentrantReadWriteLock mLock;
 
@@ -521,7 +521,11 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
         final File dictFile = mDictFile;
         asyncExecuteTaskWithWriteLock(() -> {
             try {
-                if (!dictFile.exists() || isNeededToRecreate()) {
+                // Cleared before the load, so that a change during the load is not lost: it asks for
+                // another reload below.
+                final boolean recreate = !dictFile.exists() || isNeededToRecreate();
+                clearNeedsToRecreate();
+                if (recreate) {
                     // If the dictionary file does not exist or contents have been updated,
                     // generate a new one.
                     createNewDictionaryLocked();
@@ -538,10 +542,10 @@ abstract public class ExpandableBinaryDictionary extends Dictionary {
                         createNewDictionaryLocked();
                     }
                 }
-                clearNeedsToRecreate();
             } finally {
                 isReloading.set(false);
             }
+            if (isNeededToRecreate()) asyncReloadDictionary();
         });
     }
 

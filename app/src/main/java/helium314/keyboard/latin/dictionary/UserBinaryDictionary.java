@@ -16,11 +16,13 @@ import android.text.TextUtils;
 
 import com.android.inputmethod.latin.BinaryDictionary;
 
+import helium314.keyboard.latin.FutoSuggestions;
 import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -72,10 +74,17 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
         mObserver = new ContentObserver(null) {
             @Override
             public void onChange(final boolean self, final Uri uri) {
+                // FUTO swipe stops offering the old words now; the reload below publishes the new ones.
+                FutoSuggestions.INSTANCE.personalWordsChanged(mLocale);
                 setNeedsToRecreate();
+                reloadDictionaryIfRequired();
             }
         };
         context.getContentResolver().registerContentObserver(Words.CONTENT_URI, true, mObserver);
+        // Read the provider at every start, not the file of the last run: changes made while no keyboard
+        // observed them are then included, and FUTO swipe gets the words.
+        FutoSuggestions.INSTANCE.personalWordsChanged(mLocale);
+        setNeedsToRecreate();
         reloadDictionaryIfRequired();
     }
 
@@ -142,22 +151,26 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
             requestArguments = localeElements;
         }
         final String requestString = request.toString();
+        final long futoToken = FutoSuggestions.INSTANCE.personalWordsToken(mLocale);
+        final HashMap<String, Integer> futoWords = new HashMap<>();
         try {
-            addWordsFromProjectionLocked(PROJECTION_QUERY_WITH_SHORTCUT, requestString, requestArguments);
+            addWordsFromProjectionLocked(PROJECTION_QUERY_WITH_SHORTCUT, requestString, requestArguments, futoWords);
         } catch (IllegalArgumentException e) {
             // This may happen on some non-compliant devices where the declared API is JB+ but
             // the SHORTCUT column is not present for some reason.
-            addWordsFromProjectionLocked(PROJECTION_QUERY_WITHOUT_SHORTCUT, requestString, requestArguments);
+            futoWords.clear();
+            addWordsFromProjectionLocked(PROJECTION_QUERY_WITHOUT_SHORTCUT, requestString, requestArguments, futoWords);
         }
+        FutoSuggestions.INSTANCE.setPersonalWords(mLocale, futoToken, futoWords);
     }
 
-    private void addWordsFromProjectionLocked(final String[] query, String request, final String[] requestArguments)
-            throws IllegalArgumentException {
+    private void addWordsFromProjectionLocked(final String[] query, String request, final String[] requestArguments,
+            final HashMap<String, Integer> futoWords) throws IllegalArgumentException {
         Cursor cursor = null;
         try {
             cursor = mContext.getContentResolver().query(
                     Words.CONTENT_URI, query, request, requestArguments, null);
-            addWordsLocked(cursor);
+            addWordsLocked(cursor, futoWords);
         } catch (final SQLiteException e) {
             Log.e(TAG, "SQLiteException in the remote User dictionary process.", e);
         } finally {
@@ -181,7 +194,8 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
                 / HISTORICAL_DEFAULT_USER_DICTIONARY_FREQUENCY;
     }
 
-    private void addWordsLocked(final Cursor cursor) {
+    /** Adds the words to this dictionary and to [futoWords] (words only, not shortcuts, with the same frequency). */
+    private void addWordsLocked(final Cursor cursor, final HashMap<String, Integer> futoWords) {
         final boolean hasShortcutColumn = true;
         if (cursor == null) return;
         if (cursor.moveToFirst()) {
@@ -200,6 +214,7 @@ public class UserBinaryDictionary extends ExpandableBinaryDictionary {
                             0 /* shortcutFreq */, false /* isNotAWord */,
                             false /* isPossiblyOffensive */,
                             BinaryDictionary.NOT_A_VALID_TIMESTAMP);
+                    futoWords.merge(word, adjustedFrequency, Math::max);
                     if (null != shortcut && shortcut.length() <= MAX_WORD_LENGTH) {
                         runGCIfRequiredLocked(true /* mindsBlockByGC */);
                         addUnigramLocked(shortcut, adjustedFrequency, word,
