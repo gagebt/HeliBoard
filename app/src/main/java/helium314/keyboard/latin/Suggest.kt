@@ -274,12 +274,12 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         settingsValuesForSuggestion: SettingsValuesForSuggestion,
         inputStyle: Int, isCorrectionEnabled: Boolean, sequenceNumber: Int
     ): SuggestedWords {
-        val suggestionResults = FutoSuggestions.recognize(
+        val suggestionResults = withoutRemovedWords(FutoSuggestions.recognize(
             wordComposer.composedDataSnapshot.mInputPointers,
             ngramContext.extractPrevWordsContextArray().filter { it != NgramContext.BEGINNING_OF_SENTENCE_TAG },
             keyboard,
             mDictionaryFacilitator.mainLocale,
-        ) ?: if (JniUtils.sHaveGestureLib) {
+        ), mDictionaryFacilitator::isBlacklisted) ?: if (JniUtils.sHaveGestureLib) {
             mDictionaryFacilitator.getSuggestionResults(
                 wordComposer.composedDataSnapshot, ngramContext, keyboard,
                 settingsValuesForSuggestion, SESSION_ID_GESTURE, inputStyle
@@ -373,7 +373,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         )
         val nativeResults = mDictionaryFacilitator.getSuggestionResults(ComposedData(InputPointers(1),
             false, ""), ngramContext, keyboard, settingsValuesForSuggestion, SESSION_ID_TYPING, inputStyle)
-        val newResults = mergeNextWordPredictions(futoResults, nativeResults)
+        val newResults = mergeNextWordPredictions(withoutRemovedWords(futoResults, mDictionaryFacilitator::isBlacklisted), nativeResults)
         nextWordSuggestionsCache[ngramContext] = newResults
         return newResults
     }
@@ -587,6 +587,18 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
 }
 
 /** Keep HeliBoard's personal predictions visible when FUTO also has next-word results. */
+/**
+ * FUTO lists come from FUTO's own vocabulary, so they skip the removed-word check that HeliBoard's dictionaries apply.
+ * Returns [results] without the words the user removed.
+ */
+internal fun withoutRemovedWords(results: SuggestionResults?, isRemoved: (String) -> Boolean): SuggestionResults? {
+    if (results == null || results.none { isRemoved(it.mWord) }) return results
+    val kept = SuggestionResults(results.size.coerceAtLeast(1), results.mIsBeginningOfSentence,
+        results.mFirstSuggestionExceedsConfidenceThreshold)
+    results.filterNotTo(kept) { isRemoved(it.mWord) }
+    return kept
+}
+
 internal fun mergeNextWordPredictions(
     futoResults: SuggestionResults?,
     nativeResults: SuggestionResults,
