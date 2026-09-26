@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s nyelvi beállításai</string>
     <string name="settings_category_voice_input">Parakeet hangbevitel</string>
     <string name="voice_button_hint">Hangbevitel indítása</string>
-    <string name="voice_control_auto_hide">Elrejtés 4 másodperc után</string>
+    <string name="voice_control_auto_hide">4 másodperc elrejtése a felvétel kezdete után</string>
     <string name="voice_control_full">Megjelenítés</string>
     <string name="voice_control_mode">Átírás most gomb</string>
     <string name="voice_control_mode_summary">Az aktuális beszédrész feldolgozása a felvétel befejezése nélkül. A leállítás mindig elérhető.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Mentett másolat elérhető; a beillesztés nem volt megerősíthető</string>
     <string name="voice_clip_label">Diktálás</string>
     <string name="clipboard_empty_guidance">Nincsenek mentett elemek. Másolj szöveget egy hozzáadásához.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Hívási beadások, kulcsok, pincér</string>
+    <string name="pf6_voice_help">Nyomja meg a mikrofonot, hogy diktálja. Ha beszélsz, írhatsz. Tartsd meg egy hangikonát, hogy lásd a nevét.</string>
+    <string name="pf6_voice_saved_retention">A mentett bejegyzések a Történet megőrzési idejét követik (most %1$s).</string>
+    <string name="pf6_search_no_results">Nem egyeztethető beállítások</string>
+    <string name="pf6_mic_permission_needed_allow">Micropon engedélyre van szükség. Nyomja meg, hogy engedje.</string>
+    <string name="pf6_mic_permission_needed_settings">Micropon engedélyre van szükség. Nyisd meg az alkalmazás adatait.</string>
+    <string name="pf6_retention_minutes">%1$d perc</string>
+    <string name="pf6_clipboard_kept_for">A másolatokat %1$s-re tartják. Ezt a beállításokban módosíthatod.</string>
+    <string name="pf6_clipboard_kept_no_limit">A másolatokat addig tartják meg, amíg azokat nem törli.</string>
+    <string name="pf6_clipboard_pinned">Feltöltött</string>
 </resources>

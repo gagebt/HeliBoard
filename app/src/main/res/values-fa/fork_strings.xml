@@ -43,7 +43,7 @@
     <string name="search_subtype_title">گزینه‌های زبان %1$s</string>
     <string name="settings_category_voice_input">ورودی صوتی Parakeet</string>
     <string name="voice_button_hint">شروع ورودی صوتی</string>
-    <string name="voice_control_auto_hide">پنهان کردن پس از 4 ثانیه</string>
+    <string name="voice_control_auto_hide">4 ثانیه بعد از شروع ضبط پنهان کنید</string>
     <string name="voice_control_full">نمایش</string>
     <string name="voice_control_mode">دکمهٔ تبدیل به متن اکنون</string>
     <string name="voice_control_mode_summary">بخش کنونی گفتار را بدون پایان دادن به ضبط پردازش کنید. توقف همیشه در دسترس است.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">نسخهٔ ذخیره‌شده در دسترس است؛ درج متن تأیید نشد</string>
     <string name="voice_clip_label">گفتار به متن</string>
     <string name="clipboard_empty_guidance">مورد ذخیره‌شده‌ای وجود ندارد. برای افزودن یکی، متنی را کپی کنید.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ورودی صدا، کلید، کلپ بورد</string>
+    <string name="pf6_voice_help">تاپی میکروفون کنید تا حکم کنید. تو ميتوني در حين صحبت ميکني همچنان تايپ کني. یک آیکون صدا را نگه دارید تا نامش را ببینید.</string>
+    <string name="pf6_voice_saved_retention">ورودی های ذخیره شده زمان حفظ تاریخ را دنبال می کنند (در حال حاضر %1$s).</string>
+    <string name="pf6_search_no_results">هیچ تنظیم مشابهی نیست</string>
+    <string name="pf6_mic_permission_needed_allow">اجازه میکروفون لازم بود برای اجازه دادن ضربه بزنید.</string>
+    <string name="pf6_mic_permission_needed_settings">اجازه میکروفون لازم بود برای باز کردن اطلاعات اپلیکیشن ضربه بزنید.</string>
+    <string name="pf6_retention_minutes">%1$d دقیقه</string>
+    <string name="pf6_clipboard_kept_for">کپی ها به شماره %1$s نگهداری می شوند. شما می توانید این را در تنظیمات تغییر دهید.</string>
+    <string name="pf6_clipboard_kept_no_limit">کپي ها تا وقتي که حذفشون کني نگه داريم.</string>
+    <string name="pf6_clipboard_pinned">پینه شده</string>
 </resources>

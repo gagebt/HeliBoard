@@ -42,7 +42,7 @@
     <string name="search_subtype_title">Sprachoptionen für %1$s</string>
     <string name="settings_category_voice_input">Parakeet-Spracheingabe</string>
     <string name="voice_button_hint">Spracheingabe starten</string>
-    <string name="voice_control_auto_hide">Nach 4 Sekunden ausblenden</string>
+    <string name="voice_control_auto_hide">4 Sekunden nach Aufnahmebeginn verstecken</string>
     <string name="voice_control_full">Anzeigen</string>
     <string name="voice_control_mode">Taste „Jetzt transkribieren“</string>
     <string name="voice_control_mode_summary">Aktuellen Sprachabschnitt verarbeiten, ohne die Aufnahme zu beenden. „Stopp“ bleibt immer verfügbar.</string>
@@ -105,4 +105,16 @@
     <string name="voice_status_uncertain">Gespeicherte Kopie verfügbar; Einfügen konnte nicht bestätigt werden</string>
     <string name="voice_clip_label">Diktat</string>
     <string name="clipboard_empty_guidance">Keine gespeicherten Einträge. Kopiere Text, um einen hinzuzufügen.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Stimmeinleitungen, Tasten, Klippbrett</string>
+    <string name="pf6_voice_help">Tippen Sie auf das Mikrofon, um zu diktieren. Du kannst weiterhin tippen, während du redest. Halten Sie ein Sprach-Ikon fest, um seinen Namen zu sehen.</string>
+    <string name="pf6_voice_saved_retention">Die gespeicherten Eintragungen folgen der Aufbewahrungszeit der Geschichte (jetzt %1$s).</string>
+    <string name="pf6_search_no_results">Keine entsprechenden Einstellungen</string>
+    <string name="pf6_mic_permission_needed_allow">Ein Mikrofon benötigt Erlaubnis. Tippen Sie, um zu erlauben.</string>
+    <string name="pf6_mic_permission_needed_settings">Ein Mikrofon benötigt Erlaubnis. Tippen Sie, um App-Informationen zu öffnen.</string>
+    <string name="pf6_retention_minutes">%1$d Minuten</string>
+    <string name="pf6_clipboard_kept_for">Kopien werden für %1$s aufbewahrt. Sie können das in Einstellungen ändern.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopien werden bewahrt, bis Sie sie löschen.</string>
+    <string name="pf6_clipboard_pinned">Verpflanzt</string>
 </resources>

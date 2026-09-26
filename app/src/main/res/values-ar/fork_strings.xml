@@ -43,7 +43,7 @@
     <string name="search_subtype_title">خيارات لغة %1$s</string>
     <string name="settings_category_voice_input">الإدخال الصوتي من Parakeet</string>
     <string name="voice_button_hint">بدء الإدخال الصوتي</string>
-    <string name="voice_control_auto_hide">إخفاء بعد 4 ثوانٍ</string>
+    <string name="voice_control_auto_hide">إخفاء 4 ثانية بعد بدء التسجيل</string>
     <string name="voice_control_full">إظهار</string>
     <string name="voice_control_mode">زر تحويل الكلام إلى نص الآن</string>
     <string name="voice_control_mode_summary">معالجة مقطع الكلام الحالي دون إنهاء التسجيل. يبقى زر الإيقاف متاحًا دائمًا.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">النسخة المحفوظة متاحة؛ تعذّر تأكيد إدراج النص</string>
     <string name="voice_clip_label">إملاء</string>
     <string name="clipboard_empty_guidance">لا توجد عناصر محفوظة. انسخ نصًا لإضافة عنصر.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">المدخلات الصوتية، المفاتيح، لوحة المقاطع</string>
+    <string name="pf6_voice_help">اضغط على الميكروفون لتقرر يمكنك الاستمرار في الكتابة بينما تتحدث أمسك رمز الصوت لرؤية اسمه</string>
+    <string name="pf6_voice_saved_retention">الإدخالات المحفوظة تتبع وقت الاحتفاظ بالتاريخ (الآن %1$s).</string>
+    <string name="pf6_search_no_results">لا توجد إعدادات مطابقة</string>
+    <string name="pf6_mic_permission_needed_allow">الميكروفون مطلوب إذن. اضغط على السماح.</string>
+    <string name="pf6_mic_permission_needed_settings">الميكروفون مطلوب إذن. اضغط لتفتح معلومات التطبيق.</string>
+    <string name="pf6_retention_minutes">%1$d دقيقة</string>
+    <string name="pf6_clipboard_kept_for">يتم الاحتفاظ بنسخة %1$s. يمكنك تغيير هذا في الإعدادات.</string>
+    <string name="pf6_clipboard_kept_no_limit">يتم الاحتفاظ بنسخ حتى تقوم بحذفها</string>
+    <string name="pf6_clipboard_pinned">المضخة</string>
 </resources>

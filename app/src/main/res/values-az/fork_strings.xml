@@ -42,7 +42,7 @@
     <string name="search_subtype_title">%1$s dili üçün seçimlər</string>
     <string name="settings_category_voice_input">Parakeet səs daxiletməsi</string>
     <string name="voice_button_hint">Səs daxiletməsini başlat</string>
-    <string name="voice_control_auto_hide">4 saniyədən sonra gizlət</string>
+    <string name="voice_control_auto_hide">Qəbul başlandıqdan sonra 4 saniyə gizlə</string>
     <string name="voice_control_full">Göstər</string>
     <string name="voice_control_mode">İndi mətnə çevir düyməsi</string>
     <string name="voice_control_mode_summary">Yazmanı bitirmədən nitqin cari hissəsini emal et. Dayandır düyməsi həmişə mövcuddur.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Saxlanmış nüsxə mövcuddur; daxiletmə təsdiqlənə bilmədi</string>
     <string name="voice_clip_label">Diktə</string>
     <string name="clipboard_empty_guidance">Saxlanmış fraqment yoxdur. Əlavə etmək üçün mətni kopyalayın.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Səs girişləri, açarları, klipbord</string>
+    <string name="pf6_voice_help">Mikrofonla diktə et. Söhbət edərkən yazmağa davam edə bilərsiniz. Adını görmək üçün səs simvolu tut.</string>
+    <string name="pf6_voice_saved_retention">Saxlanılan girişlər Tarix saxlama müddətini izləyir (indi %1$s).</string>
+    <string name="pf6_search_no_results">Düzəlmə parametrləri yoxdur</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofon icazəsi lazım idi. İzin vermək üçün vurun.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofon icazəsi lazım idi. Əlavə məlumatları açmaq üçün vurun.</string>
+    <string name="pf6_retention_minutes">%1$d dəqiqə</string>
+    <string name="pf6_clipboard_kept_for">Nüsxələr %1$s-ə saxlanılır. Bunu parametrlərdə dəyişdirə bilərsiniz.</string>
+    <string name="pf6_clipboard_kept_no_limit">Nüsxələr silənə qədər saxlanılır.</string>
+    <string name="pf6_clipboard_pinned">Dərslə</string>
 </resources>

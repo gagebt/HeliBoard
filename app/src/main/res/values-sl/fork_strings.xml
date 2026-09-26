@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Možnosti jezika %1$s</string>
     <string name="settings_category_voice_input">Glasovni vnos Parakeet</string>
     <string name="voice_button_hint">Začni glasovni vnos</string>
-    <string name="voice_control_auto_hide">Skrij po 4 sekundah</string>
+    <string name="voice_control_auto_hide">Skrijte se 4 sekunde po začetku snemanja</string>
     <string name="voice_control_full">Pokaži</string>
     <string name="voice_control_mode">Gumb Prepiši zdaj</string>
     <string name="voice_control_mode_summary">Obdelaj trenutni del govora brez konca snemanja. Ustavitev je vedno na voljo.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Shranjena kopija je na voljo; vstavljanja ni bilo mogoče potrditi</string>
     <string name="voice_clip_label">Narekovanje</string>
     <string name="clipboard_empty_guidance">Ni shranjenih izrezkov. Kopirajte besedilo, da dodate enega.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Glasovni vnos, ključe, plošča za klipe</string>
+    <string name="pf6_voice_help">-Taknite na mikrofon, da napišete. Lahko nadaljuješ z tiskanjem, medtem ko govoriš. Držite glasovno ikono, da vidite njeno ime.</string>
+    <string name="pf6_voice_saved_retention">Prihranjene vnose sledijo času hrambe zgodovine (daj %1$s).</string>
+    <string name="pf6_search_no_results">Brez ustreznih nastavitev</string>
+    <string name="pf6_mic_permission_needed_allow">Potrebujem dovoljenje za mikrofon. -Taknite, da dovolite.</string>
+    <string name="pf6_mic_permission_needed_settings">Potrebujem dovoljenje za mikrofon. Kliknite, da odprete podatke o aplikaciji.</string>
+    <string name="pf6_retention_minutes">%1$d minut</string>
+    <string name="pf6_clipboard_kept_for">Kopije se hranijo za številko %1$s. To lahko spremenite v nastavitvah.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopije se hranijo, dokler jih ne izbrišete.</string>
+    <string name="pf6_clipboard_pinned">Vklopljeno</string>
 </resources>

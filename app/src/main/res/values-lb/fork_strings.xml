@@ -41,7 +41,7 @@
     <string name="search_subtype_title">Sproochoptioune fir %1$s</string>
     <string name="settings_category_voice_input">Parakeet-Sproochagab</string>
     <string name="voice_button_hint">Sproochagab starten</string>
-    <string name="voice_control_auto_hide">No 4 Sekonne verstoppen</string>
+    <string name="voice_control_auto_hide">4 Sekonnen nom Ufank vun der Aufnahme verstoppen</string>
     <string name="voice_control_full">Weisen</string>
     <string name="voice_control_mode">Knäppchen Elo transkribéieren</string>
     <string name="voice_control_mode_summary">Den aktuellen Deel vun der Sprooch verschaffen, ouni d\'Opnam ze beenden. Stoppen ass ëmmer verfügbar.</string>
@@ -104,4 +104,16 @@
     <string name="voice_status_uncertain">Gespäichert Kopie verfügbar; den Asaz konnt net bestätegt ginn</string>
     <string name="voice_clip_label">Diktat</string>
     <string name="clipboard_empty_guidance">Keng gespäichert Elementer. Kopéiert Text, fir een derbäizesetzen.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Stëmm Input, Schlëssel, Clippplatte</string>
+    <string name="pf6_voice_help">Tastéiert de Mikrofon fir ze diktieren. Dir kënnt weider Tippen, während Dir schwätzt. Halt e Stëmmeschild fir säin Numm ze gesinn.</string>
+    <string name="pf6_voice_saved_retention">Gespaart Entrieder folgen der Geschicht Retention Zäit (wéi elo %1$s).</string>
+    <string name="pf6_search_no_results">Kee matpassende Setungen</string>
+    <string name="pf6_mic_permission_needed_allow">De Mikrofon brauch Erlaabnes. Tapp fir ze erlaben.</string>
+    <string name="pf6_mic_permission_needed_settings">De Mikrofon brauch Erlaabnes. Klickt op d\'App Informatioun op.</string>
+    <string name="pf6_retention_minutes">%1$d Minutten</string>
+    <string name="pf6_clipboard_kept_for">Kopien ginn op %1$s gelagert. Dir kënnt dëst an der Astellung änneren.</string>
+    <string name="pf6_clipboard_kept_no_limit">D\'Aschlësselungen ginn net geläscht, bis Dir se läscht.</string>
+    <string name="pf6_clipboard_pinned">Gepinnt</string>
 </resources>

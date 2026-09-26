@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Možnosti jazyka %1$s</string>
     <string name="settings_category_voice_input">Hlasový vstup Parakeet</string>
     <string name="voice_button_hint">Spustiť hlasový vstup</string>
-    <string name="voice_control_auto_hide">Skryť po 4 sekundách</string>
+    <string name="voice_control_auto_hide">Ukryjte 4 sekundy po začatí nahrávania</string>
     <string name="voice_control_full">Zobraziť</string>
     <string name="voice_control_mode">Tlačidlo Prepísať teraz</string>
     <string name="voice_control_mode_summary">Spracovať aktuálnu časť reči bez ukončenia nahrávania. Zastavenie je vždy dostupné.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Uložená kópia je dostupná; vloženie sa nepodarilo potvrdiť</string>
     <string name="voice_clip_label">Diktát</string>
     <string name="clipboard_empty_guidance">Žiadne uložené položky. Skopírujte text a pridajte jednu.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Hlasové vstupy, klávesy, stiahnutie</string>
+    <string name="pf6_voice_help">Tlačte na mikrofón, aby ste diktovali. Môžeš písať, kým hovoríš. Držte ikonu hlasu, aby ste videli jeho meno.</string>
+    <string name="pf6_voice_saved_retention">Uložené záznamy sledujú čas uchovávania histórie (teraz %1$s).</string>
+    <string name="pf6_search_no_results">Žiadne nastavenia</string>
+    <string name="pf6_mic_permission_needed_allow">Potrebujem povolenie na mikrofón. Tlačte na povolenie.</string>
+    <string name="pf6_mic_permission_needed_settings">Potrebujem povolenie na mikrofón. Kliknite na otvorenie informácií o aplikácii.</string>
+    <string name="pf6_retention_minutes">%1$d minút</string>
+    <string name="pf6_clipboard_kept_for">Kopie sú uložené na číslo %1$s. Môžete to zmeniť v nastavení.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopie sa uchovávajú, kým ich nevymažete.</string>
+    <string name="pf6_clipboard_pinned">Vstrekované</string>
 </resources>

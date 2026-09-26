@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Налады мовы %1$s</string>
     <string name="settings_category_voice_input">Галасавы ўвод Parakeet</string>
     <string name="voice_button_hint">Пачаць галасавы ўвод</string>
-    <string name="voice_control_auto_hide">Хаваць праз 4 секунды</string>
+    <string name="voice_control_auto_hide">Схавайце 4 с пасля пачатку запісу</string>
     <string name="voice_control_full">Паказваць</string>
     <string name="voice_control_mode">Кнопка «Распазнаць зараз»</string>
     <string name="voice_control_mode_summary">Апрацаваць бягучы фрагмент маўлення, не спыняючы запіс. Кнопка спынення заўсёды даступная.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">Захаваная копія даступная; устаўку не ўдалося пацвердзіць</string>
     <string name="voice_clip_label">Дыктоўка</string>
     <string name="clipboard_empty_guidance">Няма захаваных фрагментаў. Скапіруйце тэкст, каб дадаць адзін.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Гласны ўклад, клавішы, падпісчык</string>
+    <string name="pf6_voice_help">Націсніце на мікрафон, каб дыктаваць. Вы можаце працягваць друкаваць, пакуль вы кажаце. Падтрымлівайце ікону голасу, каб убачыць яе імя.</string>
+    <string name="pf6_voice_saved_retention">Захаваныя паведамленні прытрымліваюцца часу захоўвання гісторыі (цяпер %1$s).</string>
+    <string name="pf6_search_no_results">Ніякіх параметраў адпаведнасці</string>
+    <string name="pf6_mic_permission_needed_allow">Патрэбна дазвол на праслухоўванне. Націсніце, каб дазволіць.</string>
+    <string name="pf6_mic_permission_needed_settings">Патрэбна дазвол на праслухоўванне. Націсніце, каб адкрыць інфармацыю аб прыкладанні.</string>
+    <string name="pf6_retention_minutes">%1$d хвілін</string>
+    <string name="pf6_clipboard_kept_for">Копіі захоўваюцца на %1$s. Вы можаце змяніць гэта ў наладках.</string>
+    <string name="pf6_clipboard_kept_no_limit">Копіі захоўваюцца, пакуль вы не выдаліце іх.</string>
+    <string name="pf6_clipboard_pinned">Пінчаныя</string>
 </resources>

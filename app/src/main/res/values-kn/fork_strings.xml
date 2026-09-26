@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ಭಾಷೆಯ ಆಯ್ಕೆಗಳು</string>
     <string name="settings_category_voice_input">Parakeet ಧ್ವನಿ ಇನ್‌ಪುಟ್</string>
     <string name="voice_button_hint">ಧ್ವನಿ ಇನ್‌ಪುಟ್ ಪ್ರಾರಂಭಿಸಿ</string>
-    <string name="voice_control_auto_hide">4 ಸೆಕೆಂಡುಗಳ ನಂತರ ಮರೆಮಾಡಿ</string>
+    <string name="voice_control_auto_hide">ರೆಕಾರ್ಡಿಂಗ್ ಪ್ರಾರಂಭವಾದ 4 ಸೆಕೆಂಡುಗಳ ನಂತರ ಮರೆಮಾಡಿ</string>
     <string name="voice_control_full">ತೋರಿಸಿ</string>
     <string name="voice_control_mode">ಈಗ ಪಠ್ಯಕ್ಕೆ ಪರಿವರ್ತಿಸುವ ಬಟನ್</string>
     <string name="voice_control_mode_summary">ರೆಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲಿಸದೆ ಪ್ರಸ್ತುತ ಮಾತಿನ ಭಾಗವನ್ನು ಪಠ್ಯಕ್ಕೆ ಪರಿವರ್ತಿಸಿ. ನಿಲ್ಲಿಸುವ ಆಯ್ಕೆ ಯಾವಾಗಲೂ ಲಭ್ಯ.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">ಉಳಿಸಿದ ನಕಲು ಲಭ್ಯ; ಸೇರಿಸಿರುವುದು ದೃಢಪಡಿಸಲಾಗಲಿಲ್ಲ</string>
     <string name="voice_clip_label">ಮಾತಿನ ಪಠ್ಯ</string>
     <string name="clipboard_empty_guidance">ಉಳಿಸಿದ ಕ್ಲಿಪ್‌ಗಳಿಲ್ಲ. ಒಂದನ್ನು ಸೇರಿಸಲು ಪಠ್ಯವನ್ನು ನಕಲಿಸಿ.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ಧ್ವನಿ ಇನ್ಪುಟ್, ಕೀಲಿಗಳು, ಕ್ಲಿಪ್ಬೋರ್ಡ್</string>
+    <string name="pf6_voice_help">ಮೈಕ್ರೊಫೋನ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ನೀವು ಮಾತನಾಡುವಾಗ ನೀವು ಟೈಪ್ ಮಾಡುವುದನ್ನು ಮುಂದುವರಿಸಬಹುದು. ಅದರ ಹೆಸರನ್ನು ನೋಡಲು ಧ್ವನಿ ಐಕಾನ್ ಅನ್ನು ಹಿಡಿದುಕೊಳ್ಳಿ.</string>
+    <string name="pf6_voice_saved_retention">ಉಳಿಸಿದ ನಮೂದುಗಳು ಇತಿಹಾಸ ಉಳಿತಾಯ ಸಮಯವನ್ನು ಅನುಸರಿಸುತ್ತವೆ (ಈಗ %1$s).</string>
+    <string name="pf6_search_no_results">ಹೊಂದಾಣಿಕೆಯ ಸೆಟ್ಟಿಂಗ್ಗಳಿಲ್ಲ</string>
+    <string name="pf6_mic_permission_needed_allow">ಮೈಕ್ರೊಫೋನ್ ಅನುಮತಿ ಅಗತ್ಯವಿದೆ. ಅನುಮತಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="pf6_mic_permission_needed_settings">ಮೈಕ್ರೊಫೋನ್ ಅನುಮತಿ ಅಗತ್ಯವಿದೆ. ಅಪ್ಲಿಕೇಶನ್ ಮಾಹಿತಿಯನ್ನು ತೆರೆಯಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="pf6_retention_minutes">%1$d ನಿಮಿಷಗಳು</string>
+    <string name="pf6_clipboard_kept_for">%1$sಕ್ಕೆ ನಕಲುಗಳನ್ನು ಇಡಲಾಗಿದೆ. ನೀವು ಸೆಟ್ಟಿಂಗ್ಗಳಲ್ಲಿ ಇದನ್ನು ಬದಲಾಯಿಸಬಹುದು.</string>
+    <string name="pf6_clipboard_kept_no_limit">ನೀವು ಅವುಗಳನ್ನು ಅಳಿಸುವವರೆಗೆ ನಕಲುಗಳನ್ನು ಇರಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="pf6_clipboard_pinned">ಪೈಪ್ಡ್</string>
 </resources>

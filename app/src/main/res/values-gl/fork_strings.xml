@@ -42,7 +42,7 @@
     <string name="search_subtype_title">Opcións do idioma %1$s</string>
     <string name="settings_category_voice_input">Entrada de voz Parakeet</string>
     <string name="voice_button_hint">Iniciar a entrada de voz</string>
-    <string name="voice_control_auto_hide">Agochar despois de 4 segundos</string>
+    <string name="voice_control_auto_hide">Esconde 4 segundos despois do inicio da grabación</string>
     <string name="voice_control_full">Mostrar</string>
     <string name="voice_control_mode">Botón Transcribir agora</string>
     <string name="voice_control_mode_summary">Procesar o fragmento de voz actual sen rematar a gravación. Deter está sempre dispoñible.</string>
@@ -105,4 +105,16 @@
     <string name="voice_status_uncertain">Hai unha copia gardada; non se puido confirmar a inserción</string>
     <string name="voice_clip_label">Ditado</string>
     <string name="clipboard_empty_guidance">Non hai fragmentos gardados. Copia texto para engadir un.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Entrada de voz, teclas, guión</string>
+    <string name="pf6_voice_help">Toca o microfone para dicter. Podes escribir mentres falas. Agarre un icono de voz para ver o seu nome.</string>
+    <string name="pf6_voice_saved_retention">As entradas guardadas seguen o tempo de retención de Historia (agora %1$s).</string>
+    <string name="pf6_search_no_results">Non hai configuración de correspondencia</string>
+    <string name="pf6_mic_permission_needed_allow">Necesitamos permiso de micrófono. Toca para permitir.</string>
+    <string name="pf6_mic_permission_needed_settings">Necesitamos permiso de micrófono. Toca para abrir información da aplicación.</string>
+    <string name="pf6_retention_minutes">%1$d minutos</string>
+    <string name="pf6_clipboard_kept_for">As copias son conservadas para %1$s. Podes cambiar isto nas configuracións.</string>
+    <string name="pf6_clipboard_kept_no_limit">As copias quedan conservadas ata que as elimines.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
 </resources>

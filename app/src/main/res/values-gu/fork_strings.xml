@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ભાષાના વિકલ્પો</string>
     <string name="settings_category_voice_input">Parakeet વૉઇસ ઇનપુટ</string>
     <string name="voice_button_hint">વૉઇસ ઇનપુટ શરૂ કરો</string>
-    <string name="voice_control_auto_hide">4 સેકન્ડ પછી છુપાવો</string>
+    <string name="voice_control_auto_hide">રેકોર્ડિંગ શરૂ થયા પછી 4 સેકન્ડ છુપાવો</string>
     <string name="voice_control_full">બતાવો</string>
     <string name="voice_control_mode">હમણાં લખાણમાં ફેરવો બટન</string>
     <string name="voice_control_mode_summary">રેકોર્ડિંગ બંધ કર્યા વિના હાલ બોલેલો ભાગ પ્રક્રિયા કરો. બંધ કરવાનો વિકલ્પ હંમેશા ઉપલબ્ધ છે.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">સાચવેલી કૉપિ ઉપલબ્ધ છે; લખાણ દાખલ થયું હોવાની ખાતરી ન થઈ શકી</string>
     <string name="voice_clip_label">બોલેલું લખાણ</string>
     <string name="clipboard_empty_guidance">કોઈ સાચવેલી ક્લિપ નથી. એક ઉમેરવા માટે લખાણ કૉપિ કરો.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">અવાજ ઇનપુટ, કીઓ, ક્લિપબોર્ડ</string>
+    <string name="pf6_voice_help">નિર્દેશ કરવા માટે માઇક્રોફોન પર ટેપ કરો. તમે વાત કરતી વખતે ટાઈપ કરવાનું ચાલુ રાખી શકો છો. તેનું નામ જોવા માટે અવાજ ચિહ્ન પકડી રાખો.</string>
+    <string name="pf6_voice_saved_retention">સાચવેલ એન્ટ્રીઓ ઇતિહાસ સંગ્રહ સમય (હવે %1$s) અનુસરે છે.</string>
+    <string name="pf6_search_no_results">કોઈ મેચિંગ સેટિંગ્સ</string>
+    <string name="pf6_mic_permission_needed_allow">માઇક્રોફોન પરમિટની જરૂર છે. પરવાનગી આપવા માટે ટેપ કરો.</string>
+    <string name="pf6_mic_permission_needed_settings">માઇક્રોફોન પરમિટની જરૂર છે. એપ્લિકેશન માહિતી ખોલવા માટે ટેપ કરો.</string>
+    <string name="pf6_retention_minutes">%1$d મિનિટ</string>
+    <string name="pf6_clipboard_kept_for">નકલો %1$s માટે રાખવામાં આવે છે. તમે સેટિંગ્સમાં આ બદલી શકો છો.</string>
+    <string name="pf6_clipboard_kept_no_limit">નકલો તમે તેમને કાઢી નાંખો ત્યાં સુધી રાખવામાં આવે છે.</string>
+    <string name="pf6_clipboard_pinned">પિન</string>
 </resources>

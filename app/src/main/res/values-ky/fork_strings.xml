@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s тилинин тандоолору</string>
     <string name="settings_category_voice_input">Parakeet үн менен киргизүү</string>
     <string name="voice_button_hint">Үн менен киргизүүнү баштоо</string>
-    <string name="voice_control_auto_hide">4 секунддан кийин жашыруу</string>
+    <string name="voice_control_auto_hide">Жазуу башталгандан кийин 4 с жашырыңыз</string>
     <string name="voice_control_full">Көрсөтүү</string>
     <string name="voice_control_mode">Азыр текстке айландыруу баскычы</string>
     <string name="voice_control_mode_summary">Жазууну бүтүрбөй сөздүн учурдагы бөлүгүн иштетиңиз. Токтотуу ар дайым жеткиликтүү.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">Сакталган көчүрмө бар; киргизүү ырасталбады</string>
     <string name="voice_clip_label">Диктовка</string>
     <string name="clipboard_empty_guidance">Сакталган үзүндүлөр жок. Бирин кошуу үчүн текстти көчүрүңүз.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Үн киргизүү, ачкычтар, клипборд</string>
+    <string name="pf6_voice_help">Микрофонду басып, буйрук бер. Сүйлөшүп жатканда тырмак жазып койсоң болот. Атын көрүү үчүн үн сүрөтүн кармаңыз.</string>
+    <string name="pf6_voice_saved_retention">Сактоочу жазуулар Тарыхты сактоо убактысын (азыр %1$s) ээрчийт.</string>
+    <string name="pf6_search_no_results">Жашыруун орнотуулар жок</string>
+    <string name="pf6_mic_permission_needed_allow">Микрофондун уруксаты керек. Уруксат берүү үчүн бас.</string>
+    <string name="pf6_mic_permission_needed_settings">Микрофондун уруксаты керек. Колдонмонун маалыматтарын ачуу үчүн баскычты бас.</string>
+    <string name="pf6_retention_minutes">%1$d мүнөт</string>
+    <string name="pf6_clipboard_kept_for">Көчүрмөсү %1$s деген номерге сакталат. Муну орнотууларда өзгөртө аласыз.</string>
+    <string name="pf6_clipboard_kept_no_limit">Көчөлөрдү жок кылганга чейин сактайбыз.</string>
+    <string name="pf6_clipboard_pinned">Капталган</string>
 </resources>

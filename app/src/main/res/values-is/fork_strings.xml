@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Tungumálavalkostir fyrir %1$s</string>
     <string name="settings_category_voice_input">Parakeet-raddinnsláttur</string>
     <string name="voice_button_hint">Hefja raddinnslátt</string>
-    <string name="voice_control_auto_hide">Fela eftir 4 sekúndur</string>
+    <string name="voice_control_auto_hide">Fylgjast 4 sek. eftir að upptökin hefjast</string>
     <string name="voice_control_full">Sýna</string>
     <string name="voice_control_mode">Hnappurinn Umrita núna</string>
     <string name="voice_control_mode_summary">Vinna úr núverandi talbút án þess að ljúka upptöku. Stöðva er alltaf í boði.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Vistað afrit tiltækt; ekki tókst að staðfesta innsetningu</string>
     <string name="voice_clip_label">Uppskrift</string>
     <string name="clipboard_empty_guidance">Engin vistuð atriði. Afritaðu texta til að bæta einu við.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Hringur, lyklar, klippborð</string>
+    <string name="pf6_voice_help">Tökum á hljóðvélina til að segja. Þú getur haldið áfram að skrifa á meðan þú talar. Haltu á röddaríkunni til að sjá nafn hennar.</string>
+    <string name="pf6_voice_saved_retention">Sparaðar færslur fylgja sögu geymslu tíma (nú %1$s).</string>
+    <string name="pf6_search_no_results">Engar samsvarandi stillingar</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrófón þarf leyfi. Smelltu á að leyfa.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrófón þarf leyfi. Smelltu á til að opna app upplýsingar.</string>
+    <string name="pf6_retention_minutes">%1$d mínútur</string>
+    <string name="pf6_clipboard_kept_for">Afrit eru geymd fyrir %1$s. Þú getur breytt þessu í stillingum.</string>
+    <string name="pf6_clipboard_kept_no_limit">Afrit eru geymd þar til þú eyðir þeim.</string>
+    <string name="pf6_clipboard_pinned">Fylgjandi</string>
 </resources>

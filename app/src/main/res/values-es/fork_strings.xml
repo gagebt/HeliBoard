@@ -42,7 +42,7 @@
     <string name="search_subtype_title">Opciones del idioma %1$s</string>
     <string name="settings_category_voice_input">Entrada de voz Parakeet</string>
     <string name="voice_button_hint">Iniciar entrada de voz</string>
-    <string name="voice_control_auto_hide">Ocultar después de 4 segundos</string>
+    <string name="voice_control_auto_hide">Esconderse 4 segundos después de que comience la grabación</string>
     <string name="voice_control_full">Mostrar</string>
     <string name="voice_control_mode">Botón Transcribir ahora</string>
     <string name="voice_control_mode_summary">Procesar el fragmento de voz actual sin terminar la grabación. Detener siempre está disponible.</string>
@@ -105,4 +105,16 @@
     <string name="voice_status_uncertain">Hay una copia guardada; no se pudo confirmar la inserción</string>
     <string name="voice_clip_label">Dictado</string>
     <string name="clipboard_empty_guidance">No hay fragmentos guardados. Copia texto para añadir uno.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Entradas de voz, teclas, tablillas</string>
+    <string name="pf6_voice_help">Toca el micrófono para dictar. Puedes seguir escribiendo mientras hablas. Mantenga un icono de voz para ver su nombre.</string>
+    <string name="pf6_voice_saved_retention">Las entradas guardadas siguen el tiempo de retención de Historia (ahora %1$s).</string>
+    <string name="pf6_search_no_results">No hay configuración de coincidencia</string>
+    <string name="pf6_mic_permission_needed_allow">Necesitamos permiso para el micrófono. Toca para permitir.</string>
+    <string name="pf6_mic_permission_needed_settings">Necesitamos permiso para el micrófono. Toca para abrir la información de la aplicación.</string>
+    <string name="pf6_retention_minutes">%1$d minutos</string>
+    <string name="pf6_clipboard_kept_for">Las copias se guardan para %1$s. Puedes cambiar esto en la configuración.</string>
+    <string name="pf6_clipboard_kept_no_limit">Las copias se guardan hasta que las elimines.</string>
+    <string name="pf6_clipboard_pinned">Encasillado</string>
 </resources>

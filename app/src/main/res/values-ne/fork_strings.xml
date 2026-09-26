@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s भाषाका विकल्पहरू</string>
     <string name="settings_category_voice_input">Parakeet आवाज इनपुट</string>
     <string name="voice_button_hint">आवाज इनपुट सुरु गर्नुहोस्</string>
-    <string name="voice_control_auto_hide">4 सेकेन्डपछि लुकाउनुहोस्</string>
+    <string name="voice_control_auto_hide">रेकर्डिङ सुरु भएपछि ४ सेकेन्ड लुकाउनुहोस्</string>
     <string name="voice_control_full">देखाउनुहोस्</string>
     <string name="voice_control_mode">अहिले लिप्यन्तरण गर्नुहोस् बटन</string>
     <string name="voice_control_mode_summary">रेकर्डिङ नसकाई हाल बोलेको भाग प्रशोधन गर्नुहोस्। रोक्ने विकल्प सधैँ उपलब्ध छ।</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">सुरक्षित प्रतिलिपि उपलब्ध छ; पाठ राखिएको पुष्टि गर्न सकिएन</string>
     <string name="voice_clip_label">बोलेर लेखिएको पाठ</string>
     <string name="clipboard_empty_guidance">सुरक्षित गरिएका क्लिपहरू छैनन्। एउटा थप्न पाठ प्रतिलिपि गर्नुहोस्।</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">आवाज इनपुट, कुञ्जीहरू, क्लिपबोर्ड</string>
+    <string name="pf6_voice_help">माइक्रोमा ट्याप गर्नुहोस् अनि निर्देशन दिनुहोस्। तपाईं बोल्दा पनि टाइप गर्न सक्नुहुन्छ। यसको नाम हेर्नको लागि आवाज आइकनलाई समात्नुहोस्।</string>
+    <string name="pf6_voice_saved_retention">बचत गरिएका प्रविष्टिहरू इतिहास भण्डारण समय (अब %1$s) पछ्याउँछन्।</string>
+    <string name="pf6_search_no_results">कुनै मिल्दो सेटिंग्स छैन</string>
+    <string name="pf6_mic_permission_needed_allow">माइक्रोफोनको अनुमति चाहिन्छ। अनुमति दिनको लागि ट्याप गर्नुहोस्।</string>
+    <string name="pf6_mic_permission_needed_settings">माइक्रोफोनको अनुमति चाहिन्छ। अनुप्रयोग जानकारी खोल्न ट्याप गर्नुहोस्।</string>
+    <string name="pf6_retention_minutes">%1$d मिनेट</string>
+    <string name="pf6_clipboard_kept_for">प्रतिलिपिहरू %1$s को लागि राखिएका छन्। तपाईँ यसलाई सेटिङमा परिवर्तन गर्न सक्नुहुन्छ।</string>
+    <string name="pf6_clipboard_kept_no_limit">प्रतिलिपिहरू तपाईँले तिनीहरूलाई मेटाउनेसम्म राख्नुहुन्छ।</string>
+    <string name="pf6_clipboard_pinned">पिन गरिएको</string>
 </resources>

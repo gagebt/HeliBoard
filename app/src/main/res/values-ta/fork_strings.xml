@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s மொழி விருப்பங்கள்</string>
     <string name="settings_category_voice_input">Parakeet குரல் உள்ளீடு</string>
     <string name="voice_button_hint">குரல் உள்ளீட்டைத் தொடங்கு</string>
-    <string name="voice_control_auto_hide">4 விநாடிகளுக்குப் பின் மறை</string>
+    <string name="voice_control_auto_hide">பதிவு தொடங்கிய 4 வினாடிகளுக்கு பிறகு மறைக்கவும்</string>
     <string name="voice_control_full">காட்டு</string>
     <string name="voice_control_mode">இப்போது உரையாக்கு பொத்தான்</string>
     <string name="voice_control_mode_summary">பதிவை நிறுத்தாமல் தற்போதைய பேச்சுப் பகுதியை உரையாக்கு. நிறுத்து எப்போதும் கிடைக்கும்.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">சேமித்த நகல் உள்ளது; செருகியதை உறுதிப்படுத்த முடியவில்லை</string>
     <string name="voice_clip_label">குரல் உரை</string>
     <string name="clipboard_empty_guidance">சேமித்த கிளிப்புகள் இல்லை. ஒன்றைச் சேர்க்க உரையை நகலெடுக்கவும்.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">குரல் நுழைவு, விசைகள், கிளிப்போர்டு</string>
+    <string name="pf6_voice_help">ஒலிப்பொறியைத் தட்டுங்கள். நீங்கள் பேசும் போது தொடர்ந்து தட்டச்சு செய்யலாம். அதன் பெயரைக் காண குரல் ஐகானை வைத்திருங்கள்.</string>
+    <string name="pf6_voice_saved_retention">சேமிக்கப்பட்ட உள்ளீடுகள் வரலாறு பராமரிப்பு நேரத்தை பின்பற்றுகின்றன (இப்போது %1$s).</string>
+    <string name="pf6_search_no_results">பொருந்தக்கூடிய அமைப்புகள் இல்லை</string>
+    <string name="pf6_mic_permission_needed_allow">மைக்ரோஃபோன் அனுமதி தேவை. அனுமதிக்க தட்டவும்.</string>
+    <string name="pf6_mic_permission_needed_settings">மைக்ரோஃபோன் அனுமதி தேவை. பயன்பாட்டு தகவலைத் திறக்க தட்டவும்.</string>
+    <string name="pf6_retention_minutes">%1$d நிமிடங்கள்</string>
+    <string name="pf6_clipboard_kept_for">%1$s என்ற எண்ணிக்கையில் பிரதிகள் வைக்கப்பட்டுள்ளன. நீங்கள் அமைப்புகளில் இதை மாற்ற முடியும்.</string>
+    <string name="pf6_clipboard_kept_no_limit">நீங்கள் அவற்றை நீக்கும் வரை பிரதிகள் சேமிக்கப்படும்.</string>
+    <string name="pf6_clipboard_pinned">தையல்</string>
 </resources>

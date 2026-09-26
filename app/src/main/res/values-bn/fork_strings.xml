@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ভাষার বিকল্প</string>
     <string name="settings_category_voice_input">Parakeet ভয়েস ইনপুট</string>
     <string name="voice_button_hint">ভয়েস ইনপুট শুরু করুন</string>
-    <string name="voice_control_auto_hide">4 সেকেন্ড পরে লুকান</string>
+    <string name="voice_control_auto_hide">রেকর্ডিং শুরু হওয়ার পর ৪ সেকেন্ড লুকিয়ে রাখুন</string>
     <string name="voice_control_full">দেখান</string>
     <string name="voice_control_mode">এখন লিখে নিন বোতাম</string>
     <string name="voice_control_mode_summary">রেকর্ডিং শেষ না করে বর্তমানে বলা অংশটি প্রক্রিয়া করুন। বন্ধ করার বিকল্প সব সময় থাকে।</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">সংরক্ষিত কপি আছে; লেখা বসেছে কি না নিশ্চিত করা যায়নি</string>
     <string name="voice_clip_label">শ্রুতিলিখন</string>
     <string name="clipboard_empty_guidance">কোনো সংরক্ষিত ক্লিপ নেই। একটি যোগ করতে লেখা কপি করুন।</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ভয়েস ইনপুট, কী, ক্লিপবোর্ড</string>
+    <string name="pf6_voice_help">মাইক্রোফোন টিপুন এবং নির্দেশ দিন। আপনি কথা বলার সময় টাইপ চালিয়ে যেতে পারেন। একটি ভয়েস আইকন ধরে রাখুন তার নাম দেখতে।</string>
+    <string name="pf6_voice_saved_retention">সংরক্ষিত এন্ট্রিগুলি ইতিহাস সংরক্ষণের সময় অনুসরণ করে (বর্তমান %1$s).</string>
+    <string name="pf6_search_no_results">কোন মিলে যাওয়া সেটিংস</string>
+    <string name="pf6_mic_permission_needed_allow">মাইক্রোফোনের অনুমতি দরকার। অনুমতি দেওয়ার জন্য ট্যাপ করুন।</string>
+    <string name="pf6_mic_permission_needed_settings">মাইক্রোফোনের অনুমতি দরকার। অ্যাপ্লিকেশন তথ্য খুলতে ট্যাপ করুন।</string>
+    <string name="pf6_retention_minutes">%1$d মিনিট</string>
+    <string name="pf6_clipboard_kept_for">%1$s নম্বরে কপি রাখা হয়। আপনি সেটিংস এ এটি পরিবর্তন করতে পারেন.</string>
+    <string name="pf6_clipboard_kept_no_limit">কপিগুলি আপনি মুছে ফেলার আগ পর্যন্ত সংরক্ষণ করা হয়।</string>
+    <string name="pf6_clipboard_pinned">পিন করা</string>
 </resources>

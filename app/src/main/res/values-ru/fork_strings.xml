@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Параметры языка %1$s</string>
     <string name="settings_category_voice_input">Голосовой ввод Parakeet</string>
     <string name="voice_button_hint">Начать голосовой ввод</string>
-    <string name="voice_control_auto_hide">Скрывать через 4 секунды</string>
+    <string name="voice_control_auto_hide">Скрывать через 4 с после начала записи</string>
     <string name="voice_control_full">Показывать</string>
     <string name="voice_control_mode">Кнопка «Распознать сейчас»</string>
     <string name="voice_control_mode_summary">Обработать текущий фрагмент речи, не завершая запись. Кнопка остановки доступна всегда.</string>

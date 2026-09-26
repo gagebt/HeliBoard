@@ -43,7 +43,7 @@
     <string name="search_subtype_title">אפשרויות שפה עבור %1$s</string>
     <string name="settings_category_voice_input">קלט קולי של Parakeet</string>
     <string name="voice_button_hint">הפעלת קלט קולי</string>
-    <string name="voice_control_auto_hide">הסתרה לאחר 4 שניות</string>
+    <string name="voice_control_auto_hide">הסתתר 4 שניות לאחר ההקלטה מתחילה</string>
     <string name="voice_control_full">הצגה</string>
     <string name="voice_control_mode">כפתור תמלול כעת</string>
     <string name="voice_control_mode_summary">עיבוד קטע הדיבור הנוכחי בלי לסיים את ההקלטה. עצירה זמינה תמיד.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">עותק שמור זמין; לא ניתן לאשר הכנסת טקסט</string>
     <string name="voice_clip_label">הכתבה</string>
     <string name="clipboard_empty_guidance">אין פריטים שמורים. יש להעתיק טקסט כדי להוסיף פריט.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">הכניסה לקול, מפתחות, לוח הקליפ</string>
+    <string name="pf6_voice_help">לחץ על המיקרופון כדי לדקוט. אתה יכול להמשיך להקליד בזמן שאתה מדבר. תחזיק את איקון הקול כדי לראות את שמו.</string>
+    <string name="pf6_voice_saved_retention">הכניסה שנשמרה עוקבת אחרי זמן שמירת ההיסטוריה (עכשיו %1$s).</string>
+    <string name="pf6_search_no_results">אין הגדרות מתאימות</string>
+    <string name="pf6_mic_permission_needed_allow">מיקרופון רשות נדרשת. תלחץ כדי לאפשר.</string>
+    <string name="pf6_mic_permission_needed_settings">מיקרופון רשות נדרשת. לחץ כדי לפתוח מידע אפליקציה.</string>
+    <string name="pf6_retention_minutes">%1$d דקות</string>
+    <string name="pf6_clipboard_kept_for">עותקים נשמרים עבור %1$s. אתה יכול לשנות את זה בהגדרות.</string>
+    <string name="pf6_clipboard_kept_no_limit">עותקים נשמרים עד שתמחק אותם.</string>
+    <string name="pf6_clipboard_pinned">תוספת</string>
 </resources>

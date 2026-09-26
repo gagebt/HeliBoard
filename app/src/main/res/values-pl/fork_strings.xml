@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Opcje języka %1$s</string>
     <string name="settings_category_voice_input">Wprowadzanie głosowe Parakeet</string>
     <string name="voice_button_hint">Rozpocznij wprowadzanie głosowe</string>
-    <string name="voice_control_auto_hide">Ukryj po 4 sekundach</string>
+    <string name="voice_control_auto_hide">Ukryj 4 sek. po rozpoczęciu nagrywania</string>
     <string name="voice_control_full">Pokaż</string>
     <string name="voice_control_mode">Przycisk Transkrybuj teraz</string>
     <string name="voice_control_mode_summary">Przetwórz bieżący fragment mowy bez kończenia nagrywania. Zatrzymanie jest zawsze dostępne.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Zapisana kopia jest dostępna; nie można potwierdzić wstawienia</string>
     <string name="voice_clip_label">Dyktowanie</string>
     <string name="clipboard_empty_guidance">Brak zapisanych elementów. Skopiuj tekst, aby dodać element.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Wpływy głosowe, klawisze, tablice</string>
+    <string name="pf6_voice_help">Naciskaj mikrofon, aby dyktować. Możesz dalej pisać, gdy mówisz. Trzymaj ikonę głosową, aby zobaczyć jej nazwę.</string>
+    <string name="pf6_voice_saved_retention">Zapisy zapisane są w czasie zachowania History (obecnie %1$s).</string>
+    <string name="pf6_search_no_results">Nie ma dopasowanych ustawień</string>
+    <string name="pf6_mic_permission_needed_allow">Potrzebne pozwolenie na mikrofon. Naciskaj, aby pozwolić.</string>
+    <string name="pf6_mic_permission_needed_settings">Potrzebne pozwolenie na mikrofon. Kliknij, aby otworzyć informacje o aplikacji.</string>
+    <string name="pf6_retention_minutes">%1$d minuty</string>
+    <string name="pf6_clipboard_kept_for">Kopie są przechowywane na numer %1$s. Możesz to zmienić w ustawieniach.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopie są przechowywane, dopóki ich nie usuniesz.</string>
+    <string name="pf6_clipboard_pinned">Wykręty</string>
 </resources>

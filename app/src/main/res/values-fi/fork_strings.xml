@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Kielen %1$s asetukset</string>
     <string name="settings_category_voice_input">Parakeet-puheensyöttö</string>
     <string name="voice_button_hint">Aloita puheensyöttö</string>
-    <string name="voice_control_auto_hide">Piilota 4 sekunnin kuluttua</string>
+    <string name="voice_control_auto_hide">Piilottaa 4 sekuntia kuvauksen aloittamisen jälkeen</string>
     <string name="voice_control_full">Näytä</string>
     <string name="voice_control_mode">Litteroi nyt -painike</string>
     <string name="voice_control_mode_summary">Käsittele nykyinen puhejakso lopettamatta tallennusta. Lopetuspainike on aina käytettävissä.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Tallennettu kopio on saatavilla; lisäystä ei voitu vahvistaa</string>
     <string name="voice_clip_label">Sanelu</string>
     <string name="clipboard_empty_guidance">Ei tallennettuja leikkeitä. Lisää leike kopioimalla tekstiä.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Äänestä, avaimista, levylauta</string>
+    <string name="pf6_voice_help">Napsauta mikrofonia diktoimaan. Voit kirjoittaa puhutessasi. Pidä ääni ikoni, jotta näet sen nimen.</string>
+    <string name="pf6_voice_saved_retention">Säilytettyjä merkintöjä noudatetaan historian säilytysaikaa (nykyinen %1$s).</string>
+    <string name="pf6_search_no_results">Ei yhtäläisiä asetuksia</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofonin luvan tarvittiin. Napsauta sallimaan.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofonin luvan tarvittiin. Napsauta App-tiedot avaamiseen.</string>
+    <string name="pf6_retention_minutes">%1$d minuuttia</string>
+    <string name="pf6_clipboard_kept_for">Kopioita säilytetään nimellä %1$s. Voit muuttaa tämän asetuksissa.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopioita säilytetään, kunnes ne poistetaan.</string>
+    <string name="pf6_clipboard_pinned">Pinnit</string>
 </resources>

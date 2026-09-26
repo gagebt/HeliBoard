@@ -36,7 +36,7 @@
     <string name="search_mode_smart">Ameẓyan</string>
     <string name="settings_category_voice_input">Anekcam n taɣect n Parakeet</string>
     <string name="voice_button_hint">Bdu anekcam n taɣect</string>
-    <string name="voice_control_auto_hide">Ffer seld 4 n tisinin</string>
+    <string name="voice_control_auto_hide">Ɣef 4 s mi yebda ttargit</string>
     <string name="voice_control_full">Sken</string>
     <string name="voice_control_mode">Taqeffalt Susru tura</string>
     <string name="voice_control_stop_only">Yensa</string>
@@ -71,4 +71,16 @@
     <string name="voice_status_unavailable">Anekcam n taɣect ur yelli ara</string>
     <string name="voice_clip_label">Asusru</string>
     <string name="clipboard_empty_guidance">Ulac iḥricen yettwasekelsen. Nɣel aḍris i wakken ad ternuḍ yiwen.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Taɣawsa n taɣect, tkeyyiwin, tcluppa</string>
+    <string name="pf6_voice_help">Tṣebḥeḍ ɣef mic akken ad d-teḍreḍ. Tzemreḍ ad teṭṭfeḍ akken tettmeslayeḍ. Ḥekmeḍ taẓuri n taɣect akken ad twaliḍ isem-is.</string>
+    <string name="pf6_voice_saved_retention">Isebtaren yettwaḥebsen ttwalin azday n umezruy (tagi %1$s).</string>
+    <string name="pf6_search_no_results">Ulac tiɣriwin n umennuɣ</string>
+    <string name="pf6_mic_permission_needed_allow">Ilaq-as yiwen n uselmed n usemmiḍ. Ɛebbaḍ akken ad t-id-yeǧǧ.</string>
+    <string name="pf6_mic_permission_needed_settings">Ilaq-as yiwen n uselmed n usemmiḍ. Ttεessemt akken ad teldiḍ isallen n App.</string>
+    <string name="pf6_retention_minutes">%1$d ddqayeq</string>
+    <string name="pf6_clipboard_kept_for">Isebtaren i sɛan azday ɣer %1$s. Tzemreḍ ad tbeddleḍ aya deg isebtaren.</string>
+    <string name="pf6_clipboard_kept_no_limit">Tettwaḥrez-d tikkunin alamma tettfeǧǧeḍ-tent.</string>
+    <string name="pf6_clipboard_pinned">Yettwaṭṭef</string>
 </resources>

@@ -41,7 +41,7 @@
     <string name="search_subtype_title">Språkval for %1$s</string>
     <string name="settings_category_voice_input">Parakeet-taleinndata</string>
     <string name="voice_button_hint">Start taleinndata</string>
-    <string name="voice_control_auto_hide">Gøym etter 4 sekund</string>
+    <string name="voice_control_auto_hide">Skjul 4 s etter at opptaket startar</string>
     <string name="voice_control_full">Vis</string>
     <string name="voice_control_mode">Knappen Transkriber no</string>
     <string name="voice_control_mode_summary">Handsama denne talebiten utan å avslutte opptaket. Stopp er alltid tilgjengeleg.</string>
@@ -104,4 +104,16 @@
     <string name="voice_status_uncertain">Lagra kopi tilgjengeleg; innsetjing kunne ikkje stadfestast</string>
     <string name="voice_clip_label">Diktat</string>
     <string name="clipboard_empty_guidance">Ingen lagra element. Kopier tekst for å leggje til eitt.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Stemningsinnlegg, tastingar, klippbrett</string>
+    <string name="pf6_voice_help">Trykk på mikrofonen for å diktera. Du kan fortsette å skriva medan du snakkar. Ta ein stemme-ikon for å sjå namnet.</string>
+    <string name="pf6_voice_saved_retention">Dei lagre innføringane følgjer historietid (no %1$s).</string>
+    <string name="pf6_search_no_results">Ingen matchande innstillingar</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofonen treng tillating. Trykk på for å tillata.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofonen treng tillating. Trykk på for å opna app info.</string>
+    <string name="pf6_retention_minutes">%1$d minuttar</string>
+    <string name="pf6_clipboard_kept_for">Kopiar blir gointe for %1$s. Du kan endra dette i innstillingar.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopiar vert halde til du sleppar dei.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
 </resources>

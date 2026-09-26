@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s 语言选项</string>
     <string name="settings_category_voice_input">Parakeet 语音输入</string>
     <string name="voice_button_hint">开始语音输入</string>
-    <string name="voice_control_auto_hide">4 秒后隐藏</string>
+    <string name="voice_control_auto_hide">在录音开始后4秒藏</string>
     <string name="voice_control_full">显示</string>
     <string name="voice_control_mode">立即转写按钮</string>
     <string name="voice_control_mode_summary">处理当前语音片段而不结束录音。停止按钮始终可用。</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">已保存的副本可用；无法确认是否已插入</string>
     <string name="voice_clip_label">语音输入</string>
     <string name="clipboard_empty_guidance">没有已保存的剪贴内容。复制文本即可添加一条。</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">语音输入,键,剪辑板</string>
+    <string name="pf6_voice_help">按下麦克风来决定. 你可以在说话的时候继续打字. 拿一个声音图标来看它的名字.</string>
+    <string name="pf6_voice_saved_retention">保存的输入遵循历史保存时间 (现在是%1$s).</string>
+    <string name="pf6_search_no_results">没有匹配设置</string>
+    <string name="pf6_mic_permission_needed_allow">麦克风需要许可. 按一下允许.</string>
+    <string name="pf6_mic_permission_needed_settings">麦克风需要许可. 打开应用程序信息.</string>
+    <string name="pf6_retention_minutes">%1$d 分钟</string>
+    <string name="pf6_clipboard_kept_for">这些副本保存为%1$s. 在设置中可以更改.</string>
+    <string name="pf6_clipboard_kept_no_limit">在您删除之前保留副本.</string>
+    <string name="pf6_clipboard_pinned">头</string>
 </resources>

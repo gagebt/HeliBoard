@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Επιλογές γλώσσας %1$s</string>
     <string name="settings_category_voice_input">Φωνητική εισαγωγή Parakeet</string>
     <string name="voice_button_hint">Έναρξη φωνητικής εισαγωγής</string>
-    <string name="voice_control_auto_hide">Απόκρυψη μετά από 4 δευτερόλεπτα</string>
+    <string name="voice_control_auto_hide">Κρύψετε 4 δευτερόλεπτα μετά την έναρξη της ηχογράφησης</string>
     <string name="voice_control_full">Εμφάνιση</string>
     <string name="voice_control_mode">Κουμπί Απομαγνητοφώνηση τώρα</string>
     <string name="voice_control_mode_summary">Επεξεργασία του τρέχοντος τμήματος ομιλίας χωρίς τερματισμό της εγγραφής. Η διακοπή είναι πάντα διαθέσιμη.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">Το αποθηκευμένο αντίγραφο είναι διαθέσιμο· η εισαγωγή δεν επιβεβαιώθηκε</string>
     <string name="voice_clip_label">Υπαγόρευση</string>
     <string name="clipboard_empty_guidance">Δεν υπάρχουν αποθηκευμένα αποσπάσματα. Αντιγράψτε κείμενο για να προσθέσετε ένα.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Εισαγωγή φωνής, κλειδιά, κλιπ</string>
+    <string name="pf6_voice_help">Χτυπήστε το μικρόφωνο για να υπαγορεύσετε. Μπορείς να συνεχίσεις να πληκτρολογείς ενώ μιλάς. Κρατήστε ένα εικονίδιο φωνής για να δείτε το όνομά του.</string>
+    <string name="pf6_voice_saved_retention">Οι αποθηκευμένες καταχωρίσεις ακολουθούν τον χρόνο διατήρησης Ιστορίας (τώρα %1$s).</string>
+    <string name="pf6_search_no_results">Χωρίς παρόμοιες ρυθμίσεις</string>
+    <string name="pf6_mic_permission_needed_allow">Χρειαζόταν άδεια για μικρόφωνο. Χτυπήστε για να επιτρέψετε.</string>
+    <string name="pf6_mic_permission_needed_settings">Χρειαζόταν άδεια για μικρόφωνο. Χτυπήστε για να ανοίξετε πληροφορίες για την εφαρμογή.</string>
+    <string name="pf6_retention_minutes">%1$d λεπτά</string>
+    <string name="pf6_clipboard_kept_for">Τα αντίγραφα φυλάσσονται για %1$s. Μπορείς να το αλλάξεις σε ρυθμίσεις.</string>
+    <string name="pf6_clipboard_kept_no_limit">Τα αντίγραφα διατηρούνται μέχρι να τα διαγράψετε.</string>
+    <string name="pf6_clipboard_pinned">Πινέζ</string>
 </resources>

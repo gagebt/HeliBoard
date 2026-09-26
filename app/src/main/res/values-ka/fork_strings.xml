@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ენის პარამეტრები</string>
     <string name="settings_category_voice_input">Parakeet ხმოვანი შეყვანა</string>
     <string name="voice_button_hint">ხმოვანი შეყვანის დაწყება</string>
-    <string name="voice_control_auto_hide">დამალვა 4 წამის შემდეგ</string>
+    <string name="voice_control_auto_hide">დაიმალეთ 4 სთ ჩანაწერის დაწყების შემდეგ</string>
     <string name="voice_control_full">ჩვენება</string>
     <string name="voice_control_mode">ახლავე ტექსტად ქცევის ღილაკი</string>
     <string name="voice_control_mode_summary">ჩაწერის დასრულების გარეშე დაამუშავეთ მეტყველების მიმდინარე ნაწილი. შეჩერება ყოველთვის ხელმისაწვდომია.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">შენახული ასლი ხელმისაწვდომია; ჩასმის დადასტურება ვერ მოხერხდა</string>
     <string name="voice_clip_label">კარნახი</string>
     <string name="clipboard_empty_guidance">შენახული ფრაგმენტები არ არის. ერთის დასამატებლად დააკოპირეთ ტექსტი.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ხმოვანი შეყვანა, გასაღები, გადამწყვეტი დაფა</string>
+    <string name="pf6_voice_help">ჟრანთ ჟრანთ ჟრანთ. მჲზვქ ეა დჲგჲპთვქ, ფვ დჲგჲპთ. ჟჲბჲჟკა ჟჲბჲჟკა ეა გთეთთ მის გმვნ.</string>
+    <string name="pf6_voice_saved_retention">შენახული ჩანაწერები მოყვება ისტორიის შენახვის დროს (ახლა %1$s).</string>
+    <string name="pf6_search_no_results">შედარებითი პარამეტრები არ არსებობს</string>
+    <string name="pf6_mic_permission_needed_allow">ჟრანთფჲპჲნჲ ოჲეაპვრთრთრთ. ბწევეთ, რათა დაუშვათ.</string>
+    <string name="pf6_mic_permission_needed_settings">ჟრანთფჲპჲნჲ ოჲეაპვრთრთრთ. ღილაკზე დააჭირეთ, რომ გახსნათ აპლიკაციის ინფორმაცია.</string>
+    <string name="pf6_retention_minutes">%1$d წუთი</string>
+    <string name="pf6_clipboard_kept_for">ასლები ინახება %1$s-ზე. შეგიძლიათ შეცვალოთ ეს პარამეტრებში.</string>
+    <string name="pf6_clipboard_kept_no_limit">ასლები ინახება, სანამ არ წაშალებთ.</string>
+    <string name="pf6_clipboard_pinned">დახურული</string>
 </resources>

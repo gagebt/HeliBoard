@@ -42,7 +42,7 @@
     <string name="search_subtype_title">Opcions de l\'idioma %1$s</string>
     <string name="settings_category_voice_input">Entrada de veu Parakeet</string>
     <string name="voice_button_hint">Inicia l\'entrada de veu</string>
-    <string name="voice_control_auto_hide">Amaga després de 4 segons</string>
+    <string name="voice_control_auto_hide">Escondeix 4 s després de començar l\'enregistrament</string>
     <string name="voice_control_full">Mostra</string>
     <string name="voice_control_mode">Botó Transcriu ara</string>
     <string name="voice_control_mode_summary">Processa el fragment de veu actual sense acabar l\'enregistrament. Atura sempre està disponible.</string>
@@ -105,4 +105,16 @@
     <string name="voice_status_uncertain">Hi ha una còpia desada; no s\'ha pogut confirmar la inserció</string>
     <string name="voice_clip_label">Dictat</string>
     <string name="clipboard_empty_guidance">No hi ha fragments desats. Copieu text per afegir-ne un.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Entrada de veu, tecles, tablilla</string>
+    <string name="pf6_voice_help">Tinc el micròfon per dictar. Pots seguir escrivint mentre parles. Tinc un icon de veu per veure el seu nom.</string>
+    <string name="pf6_voice_saved_retention">Les entrades guardades seguint el temps de conservació de l\'història (ara %1$s).</string>
+    <string name="pf6_search_no_results">No hi ha configuració de coincidència</string>
+    <string name="pf6_mic_permission_needed_allow">Necessitava permís de micròfon. Toca per permetre.</string>
+    <string name="pf6_mic_permission_needed_settings">Necessitava permís de micròfon. Tinc per obrir la informació de l\'aplicació.</string>
+    <string name="pf6_retention_minutes">%1$d minuts</string>
+    <string name="pf6_clipboard_kept_for">Les còpies es conserven per %1$s. Pots canviar això en configuracions.</string>
+    <string name="pf6_clipboard_kept_no_limit">Les còpies es conserven fins que les elimines.</string>
+    <string name="pf6_clipboard_pinned">Pinsats</string>
 </resources>

@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Taalopsies vir %1$s</string>
     <string name="settings_category_voice_input">Parakeet-steminvoer</string>
     <string name="voice_button_hint">Begin steminvoer</string>
-    <string name="voice_control_auto_hide">Versteek ná 4 sekondes</string>
+    <string name="voice_control_auto_hide">Verberg 4 sekondes nadat die opname begin het</string>
     <string name="voice_control_full">Wys</string>
     <string name="voice_control_mode">Transkribeer nou-knoppie</string>
     <string name="voice_control_mode_summary">Verwerk die huidige spraakdeel sonder om die opname te beëindig. Stop is altyd beskikbaar.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Gestoorde kopie beskikbaar; invoeging kon nie bevestig word nie</string>
     <string name="voice_clip_label">Diktaat</string>
     <string name="clipboard_empty_guidance">Geen gestoorde items nie. Kopieer teks om een by te voeg.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Stem-invoer, sleutels, clipboard</string>
+    <string name="pf6_voice_help">Tik op die mikrofoon om te dikteer. Jy kan voortgaan om te tik terwyl jy praat. Hou \'n stemikoon om die naam te sien.</string>
+    <string name="pf6_voice_saved_retention">Gestoor inskrywings volg die geskiedenis bewaring tyd (nou %1$s).</string>
+    <string name="pf6_search_no_results">Geen ooreenstemmende instellings</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofoon toestemming nodig. Tik om te toelaat.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofoon toestemming nodig. Tik om inligting App oop te maak.</string>
+    <string name="pf6_retention_minutes">%1$d minute</string>
+    <string name="pf6_clipboard_kept_for">Kopieë word vir %1$s gehou. Jy kan dit verander in instellings.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopies word gehou totdat jy dit uitvee.</string>
+    <string name="pf6_clipboard_pinned">Gesteek</string>
 </resources>

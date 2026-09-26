@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Mga opsyon sa wikang %1$s</string>
     <string name="settings_category_voice_input">Pag-input gamit ang boses ng Parakeet</string>
     <string name="voice_button_hint">Simulan ang pag-input gamit ang boses</string>
-    <string name="voice_control_auto_hide">Itago pagkatapos ng 4 na segundo</string>
+    <string name="voice_control_auto_hide">Magtago 4 s pagkatapos magsimula ang pag-record</string>
     <string name="voice_control_full">Ipakita</string>
     <string name="voice_control_mode">Button na I-transcribe ngayon</string>
     <string name="voice_control_mode_summary">Iproseso ang kasalukuyang bahagi ng pananalita nang hindi tinatapos ang pagre-record. Laging magagamit ang Ihinto.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">May naka-save na kopya; hindi makumpirma ang pagpasok</string>
     <string name="voice_clip_label">Diniktang teksto</string>
     <string name="clipboard_empty_guidance">Walang naka-save na kopya. Kumopya ng teksto para magdagdag ng isa.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Input ng boses, mga susi, clipboard</string>
+    <string name="pf6_voice_help">I-tap ang mic upang idikta. Maaari kang magpatuloy sa pag-type habang nagsasalita ka. I-hold ang isang voice icon upang makita ang pangalan nito.</string>
+    <string name="pf6_voice_saved_retention">Ang mga naka-save na entry ay sumusunod sa oras ng pagpapanatili ng History (s ngayon %1$s).</string>
+    <string name="pf6_search_no_results">Walang katugma sa mga setting</string>
+    <string name="pf6_mic_permission_needed_allow">Kailangan ng pahintulot sa mikropono. I-tap upang pahintulutan.</string>
+    <string name="pf6_mic_permission_needed_settings">Kailangan ng pahintulot sa mikropono. I-tap upang buksan ang impormasyon ng App.</string>
+    <string name="pf6_retention_minutes">%1$d minuto</string>
+    <string name="pf6_clipboard_kept_for">Ang mga kopya ay tinatago para sa %1$s. Maaari mong baguhin ito sa mga setting.</string>
+    <string name="pf6_clipboard_kept_no_limit">Ang mga kopya ay iniingatan hanggang sa tanggalin mo sila.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
 </resources>

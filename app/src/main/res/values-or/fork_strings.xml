@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ଭାଷା ବିକଳ୍ପ</string>
     <string name="settings_category_voice_input">Parakeet ଭଏସ୍ ଇନପୁଟ୍</string>
     <string name="voice_button_hint">ଭଏସ୍ ଇନପୁଟ୍ ଆରମ୍ଭ କରନ୍ତୁ</string>
-    <string name="voice_control_auto_hide">4 ସେକେଣ୍ଡ ପରେ ଲୁଚାନ୍ତୁ</string>
+    <string name="voice_control_auto_hide">ରେକର୍ଡିଂ ଆରମ୍ଭ ହେବାର ୪ ସେକେଣ୍ଡ ପରେ ଲୁଚାନ୍ତୁ</string>
     <string name="voice_control_full">ଦେଖାନ୍ତୁ</string>
     <string name="voice_control_mode">ଏବେ ଲିପ୍ୟନ୍ତର କରନ୍ତୁ ବଟନ୍</string>
     <string name="voice_control_mode_summary">ରେକର୍ଡିଂ ଶେଷ ନକରି ବର୍ତ୍ତମାନର କଥା ଅଂଶ ପ୍ରକ୍ରିୟା କରନ୍ତୁ। ବନ୍ଦ ବଟନ୍ ସବୁବେଳେ ଉପଲବ୍ଧ।</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">ସଞ୍ଚିତ କପି ଉପଲବ୍ଧ; ଭର୍ତ୍ତି ନିଶ୍ଚିତ ହୋଇପାରିଲା ନାହିଁ</string>
     <string name="voice_clip_label">ଶ୍ରୁତଲିଖନ</string>
     <string name="clipboard_empty_guidance">କୌଣସି ସଞ୍ଚିତ କ୍ଲିପ୍ ନାହିଁ। ଗୋଟିଏ ଯୋଡ଼ିବାକୁ ପାଠ୍ୟ କପି କରନ୍ତୁ।</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ସ୍ବର ଇନପୁଟ୍, କୀ, କ୍ଲିପବୋର୍ଡ</string>
+    <string name="pf6_voice_help">ମାଇକ୍ରୋଫୋନକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ ଏବଂ ନିର୍ଦ୍ଦେଶ ଦିଅନ୍ତୁ । ଆପଣ କଥା କହୁଥିବା ସମୟରେ ଟାଇପ୍ କରି ପାରିବେ । ଏହାର ନାମ ଦେଖିବା ପାଇଁ ଏକ ସ୍ବର ଆଇକନ୍ ଧରନ୍ତୁ ।</string>
+    <string name="pf6_voice_saved_retention">ସଂରକ୍ଷିତ ଏଣ୍ଟ୍ରିଗୁଡିକ ଇତିହାସ ସଂରକ୍ଷଣ ସମୟ (ବର୍ତ୍ତମାନ %1$s) କୁ ଅନୁସରଣ କରେ ।</string>
+    <string name="pf6_search_no_results">କୌଣସି ମେଳ ଖାଉଥିବା ସେଟିଙ୍ଗ୍ ନାହିଁ</string>
+    <string name="pf6_mic_permission_needed_allow">ମାଇକ୍ରୋଫୋନ ପାଇଁ ଅନୁମତି ଆବଶ୍ୟକ । ଅନୁମତି ଦେବା ପାଇଁ ଟ୍ୟାପ୍ କରନ୍ତୁ ।</string>
+    <string name="pf6_mic_permission_needed_settings">ମାଇକ୍ରୋଫୋନ ପାଇଁ ଅନୁମତି ଆବଶ୍ୟକ । ଆପ୍ ସୂଚନା ଖୋଲିବା ପାଇଁ ଟ୍ୟାପ୍ କରନ୍ତୁ.</string>
+    <string name="pf6_retention_minutes">%1$d ମିନିଟ୍</string>
+    <string name="pf6_clipboard_kept_for">%1$s ପାଇଁ କପି ରଖାଯାଇଛି । ଆପଣ ଏହାକୁ ସେଟିଙ୍ଗରେ ବଦଳାଇ ପାରିବେ ।</string>
+    <string name="pf6_clipboard_kept_no_limit">ଆପଣ ଏହାକୁ ଲିଭାଇବା ପର୍ଯ୍ୟନ୍ତ ନକଲ ରଖାଯାଏ ।</string>
+    <string name="pf6_clipboard_pinned">ପିନ</string>
 </resources>

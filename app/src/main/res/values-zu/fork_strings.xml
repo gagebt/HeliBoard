@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Izinketho zolimi lwesi-%1$s</string>
     <string name="settings_category_voice_input">Ukufaka ngezwi kwe-Parakeet</string>
     <string name="voice_button_hint">Qala ukufaka ngezwi</string>
-    <string name="voice_control_auto_hide">Fihla ngemva kwemizuzwana emi-4</string>
+    <string name="voice_control_auto_hide">Fihla imizuzwana emi-4 ngemuva kokuqala kokurekhoda</string>
     <string name="voice_control_full">Bonisa</string>
     <string name="voice_control_mode">Inkinobho yokuguqula ube umbhalo manje</string>
     <string name="voice_control_mode_summary">Cubungula inkulumo yamanje ngaphandle kokuqeda ukuqopha. Inkinobho ethi Misa ihlala itholakala.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Ikhophi egciniwe iyatholakala; akukwazekanga ukuqinisekisa ukuthi umbhalo ufakiwe</string>
     <string name="voice_clip_label">Umbhalo wezwi</string>
     <string name="clipboard_empty_guidance">Azikho izinto ezigciniwe. Kopisha umbhalo ukuze ungeze eyodwa.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Ukufakwa kwezwi, izinkinobho, i-clipboard</string>
+    <string name="pf6_voice_help">Thinta imakrofoni ukuze ufunde. Ungaqhubeka uthayipha ngenkathi ukhuluma. Bamba isithonjana sezwi ukuze ubone igama laso.</string>
+    <string name="pf6_voice_saved_retention">Ukufakwa okulondoloziwe kulandela isikhathi sokugcina umlando (manje %1$s).</string>
+    <string name="pf6_search_no_results">Azikho izilungiselelo ezihambisanayo</string>
+    <string name="pf6_mic_permission_needed_allow">Kwakudingeka imvume ye-microphone. Thinta ukuze uvumele.</string>
+    <string name="pf6_mic_permission_needed_settings">Kwakudingeka imvume ye-microphone. Chofoza ukuze uvule ulwazi lwe-App.</string>
+    <string name="pf6_retention_minutes">%1$d imizuzu</string>
+    <string name="pf6_clipboard_kept_for">Amakhophi agcinwa ku-%1$s. Ungashintsha lokhu kuzilungiselelo.</string>
+    <string name="pf6_clipboard_kept_no_limit">Amakhophi agcinwa uze uwacime.</string>
+    <string name="pf6_clipboard_pinned">Ukufakwa</string>
 </resources>

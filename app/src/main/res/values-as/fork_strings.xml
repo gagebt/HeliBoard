@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s ভাষাৰ বিকল্প</string>
     <string name="settings_category_voice_input">Parakeet কণ্ঠ ইনপুট</string>
     <string name="voice_button_hint">কণ্ঠ ইনপুট আৰম্ভ কৰক</string>
-    <string name="voice_control_auto_hide">4 ছেকেণ্ডৰ পিছত লুকুৱাওক</string>
+    <string name="voice_control_auto_hide">ৰেকৰ্ডিং আৰম্ভ হোৱাৰ ৪ ছেকেণ্ড পিছত লুকুৱাওক</string>
     <string name="voice_control_full">দেখুৱাওক</string>
     <string name="voice_control_mode">এতিয়াই লিখিত ৰূপ দিয়ক বুটাম</string>
     <string name="voice_control_mode_summary">ৰেকৰ্ডিং শেষ নকৰাকৈ বৰ্তমান কোৱা অংশ প্ৰক্ৰিয়াকৰণ কৰক। বন্ধ কৰাৰ বিকল্প সদায় থাকে।</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">সাঁচি থোৱা কপি আছে; পাঠ সন্নিৱিষ্ট হোৱা নিশ্চিত কৰিব পৰা নগ\'ল</string>
     <string name="voice_clip_label">শ্ৰুতলিপি</string>
     <string name="clipboard_empty_guidance">সংৰক্ষিত ক্লিপ নাই। এটা যোগ কৰিবলৈ পাঠ কপি কৰক।</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">ভয়েচ ইনপুট, চাবি, ক্লিপবোর্ড</string>
+    <string name="pf6_voice_help">মাইকটো টিপ দি dictate কৰক। তুমি কথা কওঁতে টাইপ কৰি থাকিব পাৰা। এটা কণ্ঠ আইকন দখল কৰি তাৰ নামটো চাওক।</string>
+    <string name="pf6_voice_saved_retention">সংৰক্ষিত প্ৰবন্ধসমূহ ইতিহাস সংৰক্ষণৰ সময় (এতিয়া %1$s) অনুসৰণ কৰে।</string>
+    <string name="pf6_search_no_results">কোনো সমন্বয়যোগ্য ছেটিং নাই</string>
+    <string name="pf6_mic_permission_needed_allow">মাইক্ৰ\'ফোনৰ অনুমতিৰ প্ৰয়োজন। অনুমতি দিবলৈ ট্যাপ কৰক।</string>
+    <string name="pf6_mic_permission_needed_settings">মাইক্ৰ\'ফোনৰ অনুমতিৰ প্ৰয়োজন। এপ্লিকেশ্বনৰ তথ্য খোলাৰ বাবে ক্লিক কৰক।</string>
+    <string name="pf6_retention_minutes">%1$d মিনিট</string>
+    <string name="pf6_clipboard_kept_for">%1$s নম্বৰত কপি ৰখা হৈছে। আপুনি ইয়াক ছেটিংছত সলনি কৰিব পাৰে।</string>
+    <string name="pf6_clipboard_kept_no_limit">প্ৰতিলিপিসমূহ আপুনি বিলোপ নকৰালৈকে ৰখা হয়।</string>
+    <string name="pf6_clipboard_pinned">পিন কৰা</string>
 </resources>

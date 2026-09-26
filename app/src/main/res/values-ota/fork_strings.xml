@@ -32,7 +32,7 @@
     <string name="search_mode_smart">آقیللی</string>
     <string name="settings_category_voice_input">Parakeet سەس گیریشی</string>
     <string name="voice_button_hint">سەس گیریشینی باشلات</string>
-    <string name="voice_control_auto_hide">4 ثانیە سونرا گیزلە</string>
+    <string name="voice_control_auto_hide">Kayıt başladıktan 4 saniye sonra saklan</string>
     <string name="voice_control_full">گوستەر</string>
     <string name="voice_control_stop_only">قاپالی</string>
     <string name="voice_seconds_format">%1$.1f ثانیە</string>
@@ -55,4 +55,16 @@
     <string name="voice_status_transcribing">متنە چەویریلیور</string>
     <string name="voice_status_unavailable">سەس گیریشی قوللانیلامیور</string>
     <string name="voice_clip_label">دیکتە</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Ses girişleri, tuşlar, çubuğu</string>
+    <string name="pf6_voice_help">Mikrofona dokunup dikte et. Konuşurken yazmaya devam edebilirsin. Adını görmek için ses simgesini tut.</string>
+    <string name="pf6_voice_saved_retention">Kaydedilen girişler Tarih saklama süresini takip eder (şimdi %1$s).</string>
+    <string name="pf6_search_no_results">Eşleşen ayarlar yok</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofona izin lazım. İzin vermek için dokun.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofona izin lazım. Uygulama bilgilerini açmak için dokunun.</string>
+    <string name="pf6_retention_minutes">%1$d dakika</string>
+    <string name="pf6_clipboard_kept_for">Kopyalar %1$s için saklanır. Bunu ayarlarda değiştirebilirsiniz.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopyalar silene kadar saklanır.</string>
+    <string name="pf6_clipboard_pinned">Dökülmüş</string>
 </resources>

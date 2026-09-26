@@ -43,7 +43,7 @@
     <string name="search_subtype_title">ตัวเลือกภาษา %1$s</string>
     <string name="settings_category_voice_input">การป้อนข้อมูลด้วยเสียง Parakeet</string>
     <string name="voice_button_hint">เริ่มป้อนข้อมูลด้วยเสียง</string>
-    <string name="voice_control_auto_hide">ซ่อนหลังจาก 4 วินาที</string>
+    <string name="voice_control_auto_hide">ลับ 4 วินาทีหลังจากเริ่มบันทึก</string>
     <string name="voice_control_full">แสดง</string>
     <string name="voice_control_mode">ปุ่มถอดเสียงตอนนี้</string>
     <string name="voice_control_mode_summary">ประมวลผลคำพูดช่วงปัจจุบันโดยไม่หยุดบันทึกเสียง ปุ่มหยุดพร้อมใช้งานเสมอ</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">มีสำเนาที่บันทึกไว้ แต่ยืนยันการแทรกข้อความไม่ได้</string>
     <string name="voice_clip_label">ข้อความจากเสียง</string>
     <string name="clipboard_empty_guidance">ไม่มีรายการที่บันทึกไว้ คัดลอกข้อความเพื่อเพิ่มรายการ</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">การเข้าเสียง, คีย์, คลิปบอร์ด</string>
+    <string name="pf6_voice_help">กดไมโครโครฟนเพื่อสั่ง คุณสามารถติดต่อการพูดขณะที่คุณพูด จับไอคอนเสียงเพื่อดูชื่อ</string>
+    <string name="pf6_voice_saved_retention">การบันทึกข้อมูลตามเวลาเก็บประวัติศาสตร์ (ปัจจุบัน %1$s)</string>
+    <string name="pf6_search_no_results">ไม่มีการตั้งค่าที่ตรงกัน</string>
+    <string name="pf6_mic_permission_needed_allow">ต้องมีอนุญาตจากไมโครโฟน แท็กเพื่ออนุญาต</string>
+    <string name="pf6_mic_permission_needed_settings">ต้องมีอนุญาตจากไมโครโฟน กดเพื่อเปิดข้อมูลแอพ</string>
+    <string name="pf6_retention_minutes">%1$d นาที</string>
+    <string name="pf6_clipboard_kept_for">สําเนาถูกเก็บไว้สําหรับ %1$s. คุณสามารถเปลี่ยนมันได้ในการตั้งค่า</string>
+    <string name="pf6_clipboard_kept_no_limit">สําเนาจะเก็บไว้จนกว่าคุณจะลบมัน</string>
+    <string name="pf6_clipboard_pinned">ปิด</string>
 </resources>

@@ -42,7 +42,7 @@
     <string name="search_subtype_title">%1$s dil seçenekleri</string>
     <string name="settings_category_voice_input">Parakeet sesli giriş</string>
     <string name="voice_button_hint">Sesli girişi başlat</string>
-    <string name="voice_control_auto_hide">4 saniye sonra gizle</string>
+    <string name="voice_control_auto_hide">Kayıt başladıktan 4 saniye sonra saklan</string>
     <string name="voice_control_full">Göster</string>
     <string name="voice_control_mode">Şimdi yazıya dök düğmesi</string>
     <string name="voice_control_mode_summary">Kaydı bitirmeden konuşmanın mevcut bölümünü işle. Durdur düğmesi her zaman kullanılabilir.</string>
@@ -106,4 +106,16 @@
     <string name="voice_status_uncertain">Kaydedilmiş kopya mevcut; ekleme doğrulanamadı</string>
     <string name="voice_clip_label">Dikte</string>
     <string name="clipboard_empty_guidance">Kaydedilmiş öğe yok. Bir tane eklemek için metin kopyalayın.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Ses girişleri, tuşlar, çubuğu</string>
+    <string name="pf6_voice_help">Mikrofona dokunup dikte et. Konuşurken yazmaya devam edebilirsin. Adını görmek için ses simgesini tut.</string>
+    <string name="pf6_voice_saved_retention">Kaydedilen girişler Tarih saklama süresini takip eder (şimdi %1$s).</string>
+    <string name="pf6_search_no_results">Eşleşen ayarlar yok</string>
+    <string name="pf6_mic_permission_needed_allow">Mikrofona izin lazım. İzin vermek için dokun.</string>
+    <string name="pf6_mic_permission_needed_settings">Mikrofona izin lazım. Uygulama bilgilerini açmak için dokunun.</string>
+    <string name="pf6_retention_minutes">%1$d dakika</string>
+    <string name="pf6_clipboard_kept_for">Kopyalar %1$s için saklanır. Bunu ayarlarda değiştirebilirsiniz.</string>
+    <string name="pf6_clipboard_kept_no_limit">Kopyalar silene kadar saklanır.</string>
+    <string name="pf6_clipboard_pinned">Dökülmüş</string>
 </resources>

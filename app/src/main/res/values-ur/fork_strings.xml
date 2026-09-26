@@ -43,7 +43,7 @@
     <string name="search_subtype_title">%1$s زبان کے اختیارات</string>
     <string name="settings_category_voice_input">Parakeet صوتی اندراج</string>
     <string name="voice_button_hint">صوتی اندراج شروع کریں</string>
-    <string name="voice_control_auto_hide">4 سیکنڈ بعد چھپائیں</string>
+    <string name="voice_control_auto_hide">ریکارڈنگ شروع ہونے کے 4 سیکنڈ بعد چھپائیں</string>
     <string name="voice_control_full">دکھائیں</string>
     <string name="voice_control_mode">اب متن بنائیں کا بٹن</string>
     <string name="voice_control_mode_summary">ریکارڈنگ ختم کیے بغیر موجودہ بولے گئے حصے پر عمل کریں۔ روکنے کا اختیار ہمیشہ دستیاب ہے۔</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">محفوظ شدہ نقل دستیاب ہے؛ متن درج ہونے کی تصدیق نہیں ہو سکی</string>
     <string name="voice_clip_label">املا</string>
     <string name="clipboard_empty_guidance">کوئی محفوظ شدہ تراشے نہیں ہیں۔ ایک شامل کرنے کے لیے متن کاپی کریں۔</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">صوتی ان پٹ، چابیاں، کلپ بورڈ</string>
+    <string name="pf6_voice_help">مائیکروفون پر ٹیپ کریں تاکہ حکم دیا جائے۔ آپ بات کرتے ہوئے ٹائپ کر سکتے ہیں. اس کا نام دیکھنے کے لئے ایک آواز آئیکن پکڑو.</string>
+    <string name="pf6_voice_saved_retention">محفوظ شدہ اندراجات تاریخ کی بحالی کا وقت (اب %1$s) کے بعد ہیں۔</string>
+    <string name="pf6_search_no_results">کوئی مماثل ترتیبات نہیں</string>
+    <string name="pf6_mic_permission_needed_allow">مائیکروفون کی اجازت کی ضرورت ہے. اجازت دینے کے لیے ٹیپ کریں۔</string>
+    <string name="pf6_mic_permission_needed_settings">مائیکروفون کی اجازت کی ضرورت ہے. ایپ کی معلومات کھولنے کے لئے ٹیپ کریں۔</string>
+    <string name="pf6_retention_minutes">%1$d منٹ</string>
+    <string name="pf6_clipboard_kept_for">%1$s کے لئے کاپیاں رکھی جاتی ہیں۔ آپ ترتیبات میں اس کو تبدیل کر سکتے ہیں.</string>
+    <string name="pf6_clipboard_kept_no_limit">کاپیاں اس وقت تک محفوظ رکھی جاتی ہیں جب تک آپ انہیں حذف نہیں کرتے ہیں۔</string>
+    <string name="pf6_clipboard_pinned">پنڈ</string>
 </resources>

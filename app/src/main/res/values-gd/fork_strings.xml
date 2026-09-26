@@ -43,7 +43,7 @@
     <string name="search_subtype_title">Roghainnean cànain airson %1$s</string>
     <string name="settings_category_voice_input">Ion-chur gutha Parakeet</string>
     <string name="voice_button_hint">Tòisich ion-chur gutha</string>
-    <string name="voice_control_auto_hide">Falaich an dèidh 4 diogan</string>
+    <string name="voice_control_auto_hide">Còmhdach 4 s às deidh tòiseachadh clàraidh</string>
     <string name="voice_control_full">Seall</string>
     <string name="voice_control_mode">Putan Tar-sgrìobh an-dràsta</string>
     <string name="voice_control_mode_summary">Pròiseasaich am pìos cainnte làithreach gun stad a chur air a\' chlàradh. Tha Stad ri fhaighinn an-còmhnaidh.</string>
@@ -107,4 +107,16 @@
     <string name="voice_status_uncertain">Tha lethbhreac a chaidh a shàbhaladh ri fhaighinn; cha b\' urrainnear an cur a-steach a dhearbhadh</string>
     <string name="voice_clip_label">Deachdadh</string>
     <string name="clipboard_empty_guidance">Chan eil criomagan air an sàbhaladh. Dèan lethbhreac de theacsa gus fear a chur ris.</string>
+
+    <!-- pf6 machine translation draft -->
+    <string name="pf6_preferences_summary">Taobh-lìon guth, iuchair, clìobord</string>
+    <string name="pf6_voice_help">Tapadh air a \'chraobh-bog gus a bhith a\' dealachadh. Faodaidh tu cumail a \'teip fhad\' s a tha thu a \'bruidhinn. Dèan grèim air ìomhaigh guth gus an t-ainm fhaicinn.</string>
+    <string name="pf6_voice_saved_retention">Tha clàran a chaidh a shàbhaladh a \'leantainn ùine glèidhidh eachdraidh (a-nis %1$s).</string>
+    <string name="pf6_search_no_results">Chan eil suidheachadh co-chòrdail</string>
+    <string name="pf6_mic_permission_needed_allow">Feumaidh tu cead mic-fòn. Tap gus cead a thoirt.</string>
+    <string name="pf6_mic_permission_needed_settings">Feumaidh tu cead mic-fòn. Tap gus fiosrachadh App fhosgladh.</string>
+    <string name="pf6_retention_minutes">%1$d mionaid</string>
+    <string name="pf6_clipboard_kept_for">Tha lethbhreacan air an cumail airson %1$s. Faodaidh tu seo atharrachadh ann an suidheachadh.</string>
+    <string name="pf6_clipboard_kept_no_limit">Tha lethbhreacan air an cumail gus an cuir thu iad às.</string>
+    <string name="pf6_clipboard_pinned">A \'pinned</string>
 </resources>
