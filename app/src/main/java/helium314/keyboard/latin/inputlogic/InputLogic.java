@@ -656,6 +656,11 @@ public final class InputLogic {
                 || !mPendingTailBatchSequenceNumbers.isEmpty();
     }
 
+    /** A swipe word was committed and HeliBoard owes the space before the next word. */
+    public boolean isPhantomSpacePending() {
+        return mSpaceState == SpaceState.PHANTOM;
+    }
+
     private void retirePendingGesturesForExplicitEdit() {
         if (!isGesturePending()) return;
         mPendingTailBatchSequenceNumbers.clear();

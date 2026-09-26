@@ -229,6 +229,23 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         return sPointerTrackerQueue.isAnyInDraggingFinger();
     }
 
+    private static Runnable sOnAllPointersUp;
+
+    /** True from touch-down until up or cancel, before any gesture is recognised. */
+    public static boolean isAnyPointerDown() {
+        return sPointerTrackerQueue.size() > 0;
+    }
+
+    /** Runs each time the last tracked finger leaves the keyboard. */
+    public static void setOnAllPointersUp(final Runnable action) {
+        sOnAllPointersUp = action;
+    }
+
+    private static void notifyIfAllPointersUp() {
+        final Runnable action = sOnAllPointersUp;
+        if (action != null && sPointerTrackerQueue.size() == 0) action.run();
+    }
+
     public static void cancelAllPointerTrackers() {
         sPointerTrackerQueue.cancelAllPointerTrackers();
     }
@@ -1050,6 +1067,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         }
         onUpEventInternal(x, y, eventTime);
         sPointerTrackerQueue.remove(this);
+        notifyIfAllPointersUp();
     }
 
     // Let this pointer tracker know that one of newer-than-this pointer trackers got an up event.
@@ -1205,6 +1223,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         cancelTrackingForAction();
         setReleasedKeyGraphics(mCurrentKey, true);
         sPointerTrackerQueue.remove(this);
+        notifyIfAllPointersUp();
     }
 
     private void onCancelEvent(final int x, final int y, final long eventTime) {
@@ -1216,6 +1235,7 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         cancelAllPointerTrackers();
         sPointerTrackerQueue.releaseAllPointers(eventTime);
         onCancelEventInternal();
+        notifyIfAllPointersUp();
     }
 
     private void onCancelEventInternal() {
