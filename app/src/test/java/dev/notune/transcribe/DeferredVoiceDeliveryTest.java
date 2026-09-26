@@ -202,6 +202,33 @@ public class DeferredVoiceDeliveryTest {
         assertEquals("First sentence. Second sentence. ", editor.text.toString());
     }
 
+    @Test public void wordsDuringTheRotationWindowGoIntoTheRecreatedFieldOnce() throws Exception {
+        // Emulator order (Markor, user_rotation 1 then 0): the activity is recreated, and a
+        // commit sent between the two onStartInput calls was lost (read-back mismatch).
+        FakeEditor editor = new FakeEditor("Start. ");
+        FakeHost host = new FakeHost(editor);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Hi Sam, I will be late.", 0));
+        host.ready = false; // HeliBoard's rotation window is open
+        voice.onEditorStarted(true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 1, "We can meet at the gate.", 4f));
+        FakeEditor recreated = new FakeEditor(editor.text.toString());
+        host.switchTo(recreated, new EditorRecord("test.app", 7, TEXT, 0, false));
+        voice.onEditorStarted(true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 2, "Thanks.", 4f));
+        voice.onDictationComplete(SESSION, 0, "", "");
+        assertEquals(0, recreated.commits);
+        // The window ends.
+        host.ready = true;
+        voice.resumePendingDelivery();
+        assertEquals("Start. Hi Sam, I will be late. We can meet at the gate. Thanks. ",
+                recreated.text.toString());
+        assertEquals(1, editor.commits);
+        assertFalse(host.state.canCopy);
+        assertEquals(RustInputMethodService.Phase.IDLE, host.state.phase);
+    }
+
     @Test public void terminalCallbackWaitsForTwoRawPiecesThenFinishesOnce() throws Exception {
         FakeEditor editor = new FakeEditor("");
         FakeHost host = new FakeHost(editor);

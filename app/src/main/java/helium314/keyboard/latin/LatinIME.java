@@ -273,6 +273,12 @@ public class LatinIME extends InputMethodService implements
                 return;
             }
             switch (msg.what) {
+                case MSG_PENDING_IMS_CALLBACK:
+                    // The rotation window ended: voice text held during it can go in now.
+                    if (latinIme.mVoiceController != null) {
+                        latinIme.mVoiceController.resumePendingDelivery();
+                    }
+                    break;
                 case MSG_UPDATE_SUGGESTION_STRIP:
                     cancelUpdateSuggestionStrip();
                     latinIme.mInputLogic.performUpdateSuggestionStripSync(
@@ -465,6 +471,11 @@ public class LatinIME extends InputMethodService implements
             return mIsOrientationChanging || hasMessages(MSG_PENDING_IMS_CALLBACK);
         }
 
+        /** True for a bounded time after a rotation, while the editor may be recreated. */
+        public boolean isRotationSettling() {
+            return hasMessages(MSG_PENDING_IMS_CALLBACK);
+        }
+
         public void startOrientationChanging() {
             removeMessages(MSG_PENDING_IMS_CALLBACK);
             resetPendingImsCallback();
@@ -625,9 +636,11 @@ public class LatinIME extends InputMethodService implements
             }
             @Override public boolean voiceCommitReady() {
                 // One gate from touch-down until the swipe word reaches the editor: a finger
-                // on the keyboard, a batch in progress, or a queued swipe tail.
+                // on the keyboard, a batch in progress, or a queued swipe tail. Also closed
+                // while a rotation may recreate the editor (bounded; reopens by itself).
                 return !mInputLogic.isGesturePending()
-                        && !(isInputViewShown() && PointerTracker.isAnyPointerDown());
+                        && !(isInputViewShown() && PointerTracker.isAnyPointerDown())
+                        && !mHandler.isRotationSettling();
             }
             @Override public boolean spacePendingBeforeVoice() {
                 // HeliBoard's own record of what it wrote since the last voice text: a

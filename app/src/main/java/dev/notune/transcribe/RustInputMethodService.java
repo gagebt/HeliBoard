@@ -742,7 +742,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (connection == null) return; // The field is away; wait for it or for its loss.
 
         if (!host.voiceCommitReady()) {
-            Log.i(TAG, "Voice delivery deferred for active touch or gesture");
+            Log.i(TAG, "Voice delivery deferred for touch, gesture or rotation");
             return;
         }
         final boolean leadSpace = !session.destination.readBackKnown
