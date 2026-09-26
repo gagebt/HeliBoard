@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">የሚዛመዱ ቅንብሮች የሉም</string>
     <string name="pf6_mic_permission_needed_allow">ማይክሮፎን ፈቃድ ያስፈልጋል። ለመፍቀድ መታ አድርግ።</string>
     <string name="pf6_mic_permission_needed_settings">ማይክሮፎን ፈቃድ ያስፈልጋል። መተግበሪያ መረጃ ለመክፈት መታ.</string>
-    <string name="pf6_retention_minutes">%1$d ደቂቃዎች</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">ቅጂዎች ለ %1$s ይቆያሉ። በቅንብሮች ውስጥ ይህን መቀየር ይችላሉ.</string>
     <string name="pf6_clipboard_kept_no_limit">ቅጂዎቹ እስኪሰረዙ ድረስ ይቀመጣሉ።</string>
     <string name="pf6_clipboard_pinned">የተጣራ</string>

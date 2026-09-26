@@ -113,7 +113,7 @@
     <string name="pf6_search_no_results">Nu există setări corespunzătoare</string>
     <string name="pf6_mic_permission_needed_allow">A fost nevoie de permisiunea de microphone. Tapează să permită.</string>
     <string name="pf6_mic_permission_needed_settings">A fost nevoie de permisiunea de microphone. Aplicaţi pentru a deschide informaţiile aplicaţiei.</string>
-    <string name="pf6_retention_minutes">%1$d minute</string>
+    <string name="pf6_retention_minutes">%1$d min.</string>
     <string name="pf6_clipboard_kept_for">Copiile sunt păstrate pentru %1$s. Puteţi schimba asta în setări.</string>
     <string name="pf6_clipboard_kept_no_limit">Copiile sunt păstrate până când le ștergeți.</string>
     <string name="pf6_clipboard_pinned">Piniți</string>

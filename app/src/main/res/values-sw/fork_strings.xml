@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Hakuna mipangilio inayofanana</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofoni inahitaji ruhusa. Bonyeza ili kuruhusu.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofoni inahitaji ruhusa. Bonyeza ili kufungua habari App.</string>
-    <string name="pf6_retention_minutes">%1$d dakika</string>
+    <string name="pf6_retention_minutes">dakika %1$d</string>
     <string name="pf6_clipboard_kept_for">Nakala huhifadhiwa kwa %1$s. Unaweza kubadilisha hii katika mazingira.</string>
     <string name="pf6_clipboard_kept_no_limit">Nakala huhifadhiwa mpaka zifutwe.</string>
     <string name="pf6_clipboard_pinned">Kinyunyizia</string>

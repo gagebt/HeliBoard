@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Ei sobivaid seadmeid</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofonil on vaja luba. Püüa lubada.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofonil on vaja luba. Tapke, et avada rakenduse infot.</string>
-    <string name="pf6_retention_minutes">%1$d minutit</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Koopiaid hoitakse numbriks %1$s. Võite seda seadetes muuta.</string>
     <string name="pf6_clipboard_kept_no_limit">Koopiad hoitakse kuni need kustutatakse.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>

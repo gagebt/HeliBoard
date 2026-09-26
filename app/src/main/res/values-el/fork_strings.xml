@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Χωρίς παρόμοιες ρυθμίσεις</string>
     <string name="pf6_mic_permission_needed_allow">Χρειαζόταν άδεια για μικρόφωνο. Χτυπήστε για να επιτρέψετε.</string>
     <string name="pf6_mic_permission_needed_settings">Χρειαζόταν άδεια για μικρόφωνο. Χτυπήστε για να ανοίξετε πληροφορίες για την εφαρμογή.</string>
-    <string name="pf6_retention_minutes">%1$d λεπτά</string>
+    <string name="pf6_retention_minutes">%1$d λ.</string>
     <string name="pf6_clipboard_kept_for">Τα αντίγραφα φυλάσσονται για %1$s. Μπορείς να το αλλάξεις σε ρυθμίσεις.</string>
     <string name="pf6_clipboard_kept_no_limit">Τα αντίγραφα διατηρούνται μέχρι να τα διαγράψετε.</string>
     <string name="pf6_clipboard_pinned">Πινέζ</string>

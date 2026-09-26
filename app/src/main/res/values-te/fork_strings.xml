@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">సరిపోలే సెట్టింగులు లేవు</string>
     <string name="pf6_mic_permission_needed_allow">మైక్రోఫోన్ అనుమతి అవసరం. అనుమతించడానికి నొక్కండి.</string>
     <string name="pf6_mic_permission_needed_settings">మైక్రోఫోన్ అనుమతి అవసరం. యాప్ సమాచారాన్ని తెరవడానికి నొక్కండి.</string>
-    <string name="pf6_retention_minutes">%1$d నిమిషాలు</string>
+    <string name="pf6_retention_minutes">%1$d నిమి.</string>
     <string name="pf6_clipboard_kept_for">కాపీలు %1$sకు భద్రపరచబడ్డాయి. మీరు సెట్టింగులలో ఈ మార్చవచ్చు.</string>
     <string name="pf6_clipboard_kept_no_limit">మీరు వాటిని తొలగించే వరకు కాపీలు ఉంటాయి.</string>
     <string name="pf6_clipboard_pinned">పిన్డ్</string>

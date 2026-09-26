@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Düzəlmə parametrləri yoxdur</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofon icazəsi lazım idi. İzin vermək üçün vurun.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofon icazəsi lazım idi. Əlavə məlumatları açmaq üçün vurun.</string>
-    <string name="pf6_retention_minutes">%1$d dəqiqə</string>
+    <string name="pf6_retention_minutes">%1$d dəq</string>
     <string name="pf6_clipboard_kept_for">Nüsxələr %1$s-ə saxlanılır. Bunu parametrlərdə dəyişdirə bilərsiniz.</string>
     <string name="pf6_clipboard_kept_no_limit">Nüsxələr silənə qədər saxlanılır.</string>
     <string name="pf6_clipboard_pinned">Dərslə</string>

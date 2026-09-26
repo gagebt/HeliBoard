@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">لا توجد إعدادات مطابقة</string>
     <string name="pf6_mic_permission_needed_allow">الميكروفون مطلوب إذن. اضغط على السماح.</string>
     <string name="pf6_mic_permission_needed_settings">الميكروفون مطلوب إذن. اضغط لتفتح معلومات التطبيق.</string>
-    <string name="pf6_retention_minutes">%1$d دقيقة</string>
+    <string name="pf6_retention_minutes">%1$d د</string>
     <string name="pf6_clipboard_kept_for">يتم الاحتفاظ بنسخة %1$s. يمكنك تغيير هذا في الإعدادات.</string>
     <string name="pf6_clipboard_kept_no_limit">يتم الاحتفاظ بنسخ حتى تقوم بحذفها</string>
     <string name="pf6_clipboard_pinned">مثبّت</string>

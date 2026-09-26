@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Tiada tetapan yang sesuai</string>
     <string name="pf6_mic_permission_needed_allow">Permohonan mikrofon diperlukan. Ketuk untuk membenarkan.</string>
     <string name="pf6_mic_permission_needed_settings">Permohonan mikrofon diperlukan. Ketuk untuk membuka maklumat aplikasi.</string>
-    <string name="pf6_retention_minutes">%1$d minit</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Salinan disimpan untuk %1$s. Anda boleh menukar ini dalam tetapan.</string>
     <string name="pf6_clipboard_kept_no_limit">Salinan disimpan sehingga anda memadamkannya.</string>
     <string name="pf6_clipboard_pinned">Dipinda</string>

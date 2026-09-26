@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">कोई मिलान सेटिंग्स नहीं</string>
     <string name="pf6_mic_permission_needed_allow">माइक्रोफोन की अनुमति की आवश्यकता है। अनुमति देने के लिए टैप करें।</string>
     <string name="pf6_mic_permission_needed_settings">माइक्रोफोन की अनुमति की आवश्यकता है। ऐप की जानकारी खोलने के लिए टैप करें।</string>
-    <string name="pf6_retention_minutes">%1$d मिनट</string>
+    <string name="pf6_retention_minutes">%1$d मि॰</string>
     <string name="pf6_clipboard_kept_for">प्रतियां %1$s के लिए रखी जाती हैं। आप सेटिंग्स में इसे बदल सकते हैं।</string>
     <string name="pf6_clipboard_kept_no_limit">प्रतियां तब तक रखी जाती हैं जब तक आप उन्हें हटा नहीं देते।</string>
     <string name="pf6_clipboard_pinned">पिन किया गया</string>

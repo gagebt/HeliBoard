@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Chan eil suidheachadh co-chòrdail</string>
     <string name="pf6_mic_permission_needed_allow">Feumaidh tu cead mic-fòn. Tap gus cead a thoirt.</string>
     <string name="pf6_mic_permission_needed_settings">Feumaidh tu cead mic-fòn. Tap gus fiosrachadh App fhosgladh.</string>
-    <string name="pf6_retention_minutes">%1$d mionaid</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Tha lethbhreacan air an cumail airson %1$s. Faodaidh tu seo atharrachadh ann an suidheachadh.</string>
     <string name="pf6_clipboard_kept_no_limit">Tha lethbhreacan air an cumail gus an cuir thu iad às.</string>
     <string name="pf6_clipboard_pinned">A \'pinned</string>

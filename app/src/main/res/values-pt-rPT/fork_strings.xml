@@ -113,7 +113,7 @@
     <string name="pf6_search_no_results">Não há configurações correspondentes</string>
     <string name="pf6_mic_permission_needed_allow">É preciso uma autorização para o microfone. Toque para permitir.</string>
     <string name="pf6_mic_permission_needed_settings">É preciso uma autorização para o microfone. Toque para abrir informações do aplicativo.</string>
-    <string name="pf6_retention_minutes">%1$d minutos</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">As cópias são mantidas para %1$s. Você pode alterar isso em configurações.</string>
     <string name="pf6_clipboard_kept_no_limit">As cópias são mantidas até que você as elimine.</string>
     <string name="pf6_clipboard_pinned">Fixado</string>

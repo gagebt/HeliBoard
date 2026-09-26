@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Nema odgovarajućih postavki</string>
     <string name="pf6_mic_permission_needed_allow">Potrebno je dozvolu za mikrofon. Tlaknite da dozvolite.</string>
     <string name="pf6_mic_permission_needed_settings">Potrebno je dozvolu za mikrofon. Kliknite da otvorite informacije o aplikaciji.</string>
-    <string name="pf6_retention_minutes">%1$d minuta</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Kopije se čuvaju za broj %1$s. Možete promijeniti ovo u postavkama.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopije se čuvaju dok ih ne izbrišete.</string>
     <string name="pf6_clipboard_pinned">Ugrađene</string>

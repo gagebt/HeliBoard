@@ -112,7 +112,7 @@
     <string name="pf6_search_no_results">Inga motsvarande inställningar</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofon behövs. Tryck på för att tillåta.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofon behövs. Tryck på för att öppna App information.</string>
-    <string name="pf6_retention_minutes">%1$d minuter</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Kopior hålls för nummer %1$s. Du kan ändra detta i inställningar.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopior lagras tills du raderar dem.</string>
     <string name="pf6_clipboard_pinned">Pinnade</string>

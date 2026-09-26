@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">न संयोगेषु संयोगेषु</string>
     <string name="pf6_mic_permission_needed_allow">माइक्रोफोन अनुज्ञाः आवश्यकः। अनुमतिं दद्यात् ।</string>
     <string name="pf6_mic_permission_needed_settings">माइक्रोफोन अनुज्ञाः आवश्यकः। एप सूचनां खुल्तुं टॅप करा.</string>
-    <string name="pf6_retention_minutes">%1$d मिनिट</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">प्रतिलिपिः %1$s इति प्रतिलिपिः । इदम् सेटिंग्स् मध्ये परिवर्तनं कर्तुम् शक्नोति ।</string>
     <string name="pf6_clipboard_kept_no_limit">प्रतिलिपिः यदा तु तेषां लोपः न करिष्ये तादृशमेव भवति।</string>
     <string name="pf6_clipboard_pinned">पिनः</string>

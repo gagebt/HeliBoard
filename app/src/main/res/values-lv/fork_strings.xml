@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Neatbilstības iestatījumi</string>
     <string name="pf6_mic_permission_needed_allow">Vajag mikrofona atļauju. Pieļaut.</string>
     <string name="pf6_mic_permission_needed_settings">Vajag mikrofona atļauju. Atklājiet, lai atvērtu aplikācijas informāciju.</string>
-    <string name="pf6_retention_minutes">%1$d minūtēs</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Kopijas glabājas numuram %1$s. Jūs varat mainīt to iestatījumos.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopijas glabājas, līdz jūs to izdzēsiet.</string>
     <string name="pf6_clipboard_pinned">Saldētas</string>

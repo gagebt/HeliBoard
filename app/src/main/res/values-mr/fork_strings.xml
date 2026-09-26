@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">जुळणारे सेटिंग्ज नाहीत</string>
     <string name="pf6_mic_permission_needed_allow">मायक्रोफोन परवानगी आवश्यक आहे. परवानगी देण्यासाठी दाबा.</string>
     <string name="pf6_mic_permission_needed_settings">मायक्रोफोन परवानगी आवश्यक आहे. अॅप माहिती उघडण्यासाठी टॅप करा.</string>
-    <string name="pf6_retention_minutes">%1$d मिनिटे</string>
+    <string name="pf6_retention_minutes">%1$d मिनि</string>
     <string name="pf6_clipboard_kept_for">%1$s या क्रमांकावर कॉपी ठेवली जातात. तुम्ही हे सेटिंग्जमध्ये बदलू शकता.</string>
     <string name="pf6_clipboard_kept_no_limit">आपण ते हटवत नाही तोपर्यंत कॉपी ठेवली जातात.</string>
     <string name="pf6_clipboard_pinned">पिन केले</string>

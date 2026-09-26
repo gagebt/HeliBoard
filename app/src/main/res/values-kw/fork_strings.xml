@@ -79,7 +79,7 @@
     <string name="pf6_search_no_results">Dim setiau cyfateb</string>
     <string name="pf6_mic_permission_needed_allow">Mae angen caniatâd micro. Tap i ganiatáu.</string>
     <string name="pf6_mic_permission_needed_settings">Mae angen caniatâd micro. Tap i agor gwybodaeth App.</string>
-    <string name="pf6_retention_minutes">%1$d munud</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Mae copi\'n cael eu cadw ar gyfer %1$s. Gallwch newid hyn mewn lleoliadau.</string>
     <string name="pf6_clipboard_kept_no_limit">Mae copi\'n cael eu cadw nes eich bod yn eu dileu.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>

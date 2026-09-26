@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Nem egyeztethető beállítások</string>
     <string name="pf6_mic_permission_needed_allow">Micropon engedélyre van szükség. Nyomja meg, hogy engedje.</string>
     <string name="pf6_mic_permission_needed_settings">Micropon engedélyre van szükség. Nyisd meg az alkalmazás adatait.</string>
-    <string name="pf6_retention_minutes">%1$d perc</string>
+    <string name="pf6_retention_minutes">%1$d p</string>
     <string name="pf6_clipboard_kept_for">A másolatokat %1$s-re tartják. Ezt a beállításokban módosíthatod.</string>
     <string name="pf6_clipboard_kept_no_limit">A másolatokat addig tartják meg, amíg azokat nem törli.</string>
     <string name="pf6_clipboard_pinned">Feltöltött</string>

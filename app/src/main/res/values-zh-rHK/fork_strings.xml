@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">沒有匹配設定</string>
     <string name="pf6_mic_permission_needed_allow">需要麥克風許可 按一下,可以.</string>
     <string name="pf6_mic_permission_needed_settings">需要麥克風許可 點擊開啟App資訊</string>
-    <string name="pf6_retention_minutes">%1$d分鐘</string>
+    <string name="pf6_retention_minutes">%1$d 分鐘</string>
     <string name="pf6_clipboard_kept_for">複製數量為%1$s. 你可以喺設定中改變</string>
     <string name="pf6_clipboard_kept_no_limit">你將複製保存到你去除之前</string>
     <string name="pf6_clipboard_pinned">已固定</string>

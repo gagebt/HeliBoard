@@ -79,7 +79,7 @@
     <string name="pf6_search_no_results">Ulac tiɣriwin n umennuɣ</string>
     <string name="pf6_mic_permission_needed_allow">Ilaq-as yiwen n uselmed n usemmiḍ. Ɛebbaḍ akken ad t-id-yeǧǧ.</string>
     <string name="pf6_mic_permission_needed_settings">Ilaq-as yiwen n uselmed n usemmiḍ. Ttεessemt akken ad teldiḍ isallen n App.</string>
-    <string name="pf6_retention_minutes">%1$d ddqayeq</string>
+    <string name="pf6_retention_minutes">%1$d tsd</string>
     <string name="pf6_clipboard_kept_for">Isebtaren i sɛan azday ɣer %1$s. Tzemreḍ ad tbeddleḍ aya deg isebtaren.</string>
     <string name="pf6_clipboard_kept_no_limit">Tettwaḥrez-d tikkunin alamma tettfeǧǧeḍ-tent.</string>
     <string name="pf6_clipboard_pinned">Yettwaṭṭef</string>

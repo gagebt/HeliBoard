@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Toʻgʻrilash parametrlari yoʻq</string>
     <string name="pf6_mic_permission_needed_allow">Mikrofon uchun ruxsat kerak. Ruxsat berish uchun bosing.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrofon uchun ruxsat kerak. Ilova ma\'lumotlarini ochish uchun bosing.</string>
-    <string name="pf6_retention_minutes">%1$d daqiqa</string>
+    <string name="pf6_retention_minutes">%1$d daq.</string>
     <string name="pf6_clipboard_kept_for">Ko\'pchilik %1$s raqamiga saqlanadi. Buni sozlamalarda o\'zgartirishingiz mumkin.</string>
     <string name="pf6_clipboard_kept_no_limit">Nishonchalar siz ularni o\'chirganga qadar saqlanadi.</string>
     <string name="pf6_clipboard_pinned">Tushirilgan</string>

@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">അനുയോജ്യമായ ക്രമീകരണങ്ങൾ ഇല്ല</string>
     <string name="pf6_mic_permission_needed_allow">മൈക്രോഫോണിന് അനുമതി വേണം. അനുവദിക്കാൻ ടാപ്പ് ചെയ്യുക.</string>
     <string name="pf6_mic_permission_needed_settings">മൈക്രോഫോണിന് അനുമതി വേണം. ആപ്ലിക്കേഷൻ വിവരങ്ങൾ തുറക്കുന്നതിന് ടാപ്പുചെയ്യുക.</string>
-    <string name="pf6_retention_minutes">%1$d മിനിറ്റ്</string>
+    <string name="pf6_retention_minutes">%1$d മി.</string>
     <string name="pf6_clipboard_kept_for">%1$s-ന് പകർപ്പുകൾ സൂക്ഷിക്കുന്നു. നിങ്ങൾക്ക് ഇത് ക്രമീകരണങ്ങളിൽ മാറ്റാം.</string>
     <string name="pf6_clipboard_kept_no_limit">പകർപ്പുകള് നീക്കം ചെയ്യുന്നതുവരെ സൂക്ഷിക്കുന്നു.</string>
     <string name="pf6_clipboard_pinned">പിൻഡ്</string>

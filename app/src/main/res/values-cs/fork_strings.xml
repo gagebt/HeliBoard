@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Žádné shodné nastavení</string>
     <string name="pf6_mic_permission_needed_allow">Potřebuju povolení na mikrofon. Klepněte, aby to bylo možné.</string>
     <string name="pf6_mic_permission_needed_settings">Potřebuju povolení na mikrofon. Klepněte, abyste otevřeli informace o aplikaci.</string>
-    <string name="pf6_retention_minutes">%1$d minut</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Kopie jsou uchovávány na čísle %1$s. Můžete to změnit v nastavení.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopie se uchovávají, dokud je nevymažete.</string>
     <string name="pf6_clipboard_pinned">Vkládání</string>

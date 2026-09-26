@@ -113,7 +113,7 @@
     <string name="pf6_search_no_results">Ninguna configuración de coincidencia</string>
     <string name="pf6_mic_permission_needed_allow">Ye necesariu un permisu de micrófono. Tapear pa permitir.</string>
     <string name="pf6_mic_permission_needed_settings">Ye necesariu un permisu de micrófono. Tape pa abrir la información de la aplicación.</string>
-    <string name="pf6_retention_minutes">%1$d minutos</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">Les copies son conserváes pa %1$s. Puede cambiar esto en configuraciones.</string>
     <string name="pf6_clipboard_kept_no_limit">Les copies se guardan hasta que les elimines.</string>
     <string name="pf6_clipboard_pinned">Encañáu</string>

@@ -114,7 +114,7 @@
     <string name="pf6_search_no_results">Engar samsvarandi stillingar</string>
     <string name="pf6_mic_permission_needed_allow">Mikrófón þarf leyfi. Smelltu á að leyfa.</string>
     <string name="pf6_mic_permission_needed_settings">Mikrófón þarf leyfi. Smelltu á til að opna app upplýsingar.</string>
-    <string name="pf6_retention_minutes">%1$d mínútur</string>
+    <string name="pf6_retention_minutes">%1$d mín.</string>
     <string name="pf6_clipboard_kept_for">Afrit eru geymd fyrir %1$s. Þú getur breytt þessu í stillingum.</string>
     <string name="pf6_clipboard_kept_no_limit">Afrit eru geymd þar til þú eyðir þeim.</string>
     <string name="pf6_clipboard_pinned">Fylgjandi</string>

@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">د ټاکلو سره سمون نشته</string>
     <string name="pf6_mic_permission_needed_allow">د مایکروفون اجازه ته اړتیا ده. د اجازه ورکولو لپاره ټاپ کړئ.</string>
     <string name="pf6_mic_permission_needed_settings">د مایکروفون اجازه ته اړتیا ده. د اپلیکیشن معلومات پرانیستلو لپاره ټایپ کړئ.</string>
-    <string name="pf6_retention_minutes">%1$d دقیقې</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">د %1$s لپاره کاپي ساتل کیږي. تاسو کولی شئ دا په ترتیباتو کې بدل کړئ.</string>
     <string name="pf6_clipboard_kept_no_limit">کاپيونه تر هغه ساتل کیږي چې تاسو یې حذف کړئ.</string>
     <string name="pf6_clipboard_pinned">په ټوټه کې</string>

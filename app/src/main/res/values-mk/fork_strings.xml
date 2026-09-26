@@ -115,7 +115,7 @@
     <string name="pf6_search_no_results">Нема соодветни поставки</string>
     <string name="pf6_mic_permission_needed_allow">Потребно е дозвола за микрофон. Натисни да дозволиш.</string>
     <string name="pf6_mic_permission_needed_settings">Потребно е дозвола за микрофон. Натискајте за да отворите информации за апликацијата.</string>
-    <string name="pf6_retention_minutes">%1$d минути</string>
+    <string name="pf6_retention_minutes">%1$d мин.</string>
     <string name="pf6_clipboard_kept_for">Копиите се чуваат за %1$s. Можете да го промените ова во поставките.</string>
     <string name="pf6_clipboard_kept_no_limit">Копиите се чуваат додека не ги избришете.</string>
     <string name="pf6_clipboard_pinned">Пиндирани</string>

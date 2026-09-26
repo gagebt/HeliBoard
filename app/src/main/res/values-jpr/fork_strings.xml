@@ -56,7 +56,7 @@
     <string name="pf6_search_no_results">هیچ تنظیم مشابهی نیست</string>
     <string name="pf6_mic_permission_needed_allow">اجازه میکروفون لازم بود برای اجازه دادن ضربه بزنید.</string>
     <string name="pf6_mic_permission_needed_settings">اجازه میکروفون لازم بود برای باز کردن اطلاعات اپلیکیشن ضربه بزنید.</string>
-    <string name="pf6_retention_minutes">%1$d دقیقه</string>
+    <string name="pf6_retention_minutes">%1$d min</string>
     <string name="pf6_clipboard_kept_for">کپی ها به شماره %1$s نگهداری می شوند. شما می توانید این را در تنظیمات تغییر دهید.</string>
     <string name="pf6_clipboard_kept_no_limit">کپي ها تا وقتي که حذفشون کني نگه داريم.</string>
     <string name="pf6_clipboard_pinned">پینه شده</string>
