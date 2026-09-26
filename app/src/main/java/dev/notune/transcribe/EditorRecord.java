@@ -24,6 +24,11 @@ public final class EditorRecord {
     public final boolean readBackKnown;
     /** Password, no-learning or incognito: no draft file, no Copy, no history. */
     public final boolean privateField;
+    /**
+     * A window without a text field, such as the launcher after Home (observed: type 0,
+     * options 0, field id 0). It neither ends a dictation's binding nor receives its words.
+     */
+    public final boolean noField;
 
     EditorRecord(String packageName, int fieldId, int inputType, int imeOptions,
                  boolean incognito) {
@@ -31,6 +36,7 @@ public final class EditorRecord {
         this.fieldId = fieldId;
         this.inputType = inputType;
         this.imeOptions = imeOptions;
+        this.noField = inputType == InputType.TYPE_NULL && (fieldId == 0 || fieldId == -1);
         boolean terminal = isTerminal(packageName, inputType);
         this.kind = terminal ? TextFitter.FieldKind.PROSE : FieldKinds.of(inputType, imeOptions);
         this.readBackKnown = !terminal;
@@ -72,6 +78,7 @@ public final class EditorRecord {
     @Override public String toString() {
         return "EditorRecord[" + packageName + " id=" + fieldId + " type=0x"
                 + Integer.toHexString(inputType) + " " + kind
-                + (readBackKnown ? "" : " unreadable") + (privateField ? " private" : "") + "]";
+                + (readBackKnown ? "" : " unreadable") + (privateField ? " private" : "")
+                + (noField ? " no-field" : "") + "]";
     }
 }

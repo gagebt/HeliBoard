@@ -120,6 +120,46 @@ public class DeferredVoiceDeliveryTest {
         assertFalse(draftPath().exists());
     }
 
+    @Test public void homeShowsTheLauncherAndTheSameDocumentStillReceivesTheWords() throws Exception {
+        FakeEditor editor = new FakeEditor("Note: ");
+        FakeHost host = new FakeHost(editor);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        EditorRecord record = host.editor;
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
+
+        voice.onInputViewFinished();
+        FakeEditor launcher = new FakeEditor("");
+        // Observed after Home: the launcher starts input with type 0, options 0, id 0.
+        host.switchTo(launcher, new EditorRecord("launcher", 0, InputType.TYPE_NULL, 0, false));
+        voice.onEditorStarted(false);
+        assertTrue(voice.onTranscriptPiece(SESSION, 1, "And eggs.", 4f));
+        voice.onDictationComplete(SESSION, 0, "Buy milk. And eggs.", "");
+        assertEquals("", launcher.text.toString());
+
+        host.switchTo(editor, record);          // the same note comes back unchanged
+        voice.onEditorStarted(false);
+        assertEquals("note: buy milk. and eggs. ", editor.text.toString().toLowerCase());
+        assertFalse(host.state.canCopy);
+    }
+
+    @Test public void wordsAfterTheFieldIsLostKeepTheirFullStopInCopy() throws Exception {
+        FakeEditor editor = new FakeEditor("Note: ");
+        FakeHost host = new FakeHost(editor);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
+        voice.onInputViewFinished();
+        host.switchTo(new FakeEditor(""), new EditorRecord("other.app", 9, TEXT, 0, false));
+        voice.onEditorStarted(false);
+        assertTrue(voice.onTranscriptPiece(SESSION, 1, "And eggs.", 4f));
+        voice.onDictationComplete(SESSION, 0, "Buy milk. And eggs.", "");
+        assertTrue(host.state.canCopy);
+        assertTrue(voice.copyDraft());
+        // Opposite (seen on the emulator before the fix): "buy milkAnd eggs."
+        assertEquals("buy milk. and eggs.", clip().trim().toLowerCase());
+    }
+
     @Test public void anotherDocumentWithTheSameWidgetIdDoesNotReceiveTheWords() throws Exception {
         FakeEditor editor = new FakeEditor("Note: ");
         FakeHost host = new FakeHost(editor);
@@ -213,6 +253,7 @@ public class DeferredVoiceDeliveryTest {
         assertTrue(host.state.canCopy);
         editor.replaceSelection("x");
         voice.onUserEdit();
+        voice.resumePendingDelivery();         // the key's finger-up follows the edit
         assertFalse(host.state.canCopy);
 
         // Opposite: words the editor refused were never delivered, so an edit keeps them.

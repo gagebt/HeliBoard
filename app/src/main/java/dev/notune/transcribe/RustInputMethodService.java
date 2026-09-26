@@ -173,6 +173,8 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         }
     }
     private final ArrayList<DeferredPiece> deferredPieces = new ArrayList<>();
+    /** The finished session already moved (or not) into the Copy list. */
+    private VoiceInterval settledSession;
     private int deferredCopyStart = -1;
     private boolean completionDeferred;
     private int deferredOutcome;
@@ -391,6 +393,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     public void onEditorStarted(boolean rotating) {
         if (!host.isMainThread()) return;
         EditorRecord current = host.currentEditor();
+        if (current != null && current.noField) {
+            // Home shows the launcher, which has no field: wait for the next real field.
+            publishState();
+            return;
+        }
         boolean continues = false;
         if (session != null && !targetLost && current != null) {
             InputConnection connection = host.currentInputConnection();
@@ -544,6 +551,23 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         final String raw = text.trim();
         final String previousRaw = sessionRawText;
         sessionRawText = joinWords(sessionRawText, raw);
+        if (targetLost) {
+            // The field is gone: the words go to Copy as spoken, not formatted against a
+            // field that is not there.
+            String previousCopy = session.text;
+            session.text = joinWords(session.text, raw);
+            if (!persist()) {
+                session.text = previousCopy;
+                sessionRawText = previousRaw;
+                message = getString(R.string.voice_status_save_text_failed);
+                stateError = true;
+                publishState();
+                return false;
+            }
+            nextPieceSequence = pieceSequence + 1;
+            publishState();
+            return true;
+        }
         if (!host.voiceCommitReady() || !deferredPieces.isEmpty()
                 || currentTargetConnection() == null && autoDeliveryOpen && !targetLost) {
             // A finger on the keyboard, or the field is away: keep the raw words durable
@@ -868,6 +892,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     /** The target field is gone for good: stop listening and keep every word for Copy. */
     private void loseTarget() {
+        keepHeldTail();
         targetLost = true;
         autoDeliveryOpen = false;
         message = getString(R.string.voice_status_field_changed);
@@ -882,6 +907,21 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return;
         }
         settleSession();
+    }
+
+    /**
+     * The joiner holds the last piece's full stop until the next piece decides it. When the
+     * field is lost, that mark belongs to the Copy text, right after the formatted words.
+     */
+    private void keepHeldTail() {
+        String tail = joiner.abandonHeldTail();
+        if (tail.isEmpty()) return;
+        if (deferredPieces.isEmpty() || deferredCopyStart < 0) {
+            session.text += tail;
+        } else if (deferredCopyStart <= session.text.length()) {
+            session.text = session.text.substring(0, deferredCopyStart) + tail.trim()
+                    + session.text.substring(deferredCopyStart);
+        }
     }
 
     /** A finished recording whose words still wait for their field becomes a Copy item. */
@@ -899,6 +939,12 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             persist();
             return;
         }
+        if (session == settledSession) {
+            // Already decided; a Copy the user's edit or a copy removed stays removed.
+            persist();
+            return;
+        }
+        settledSession = session;
         boolean needsRecovery = session.state == VoiceInterval.State.UNCONFIRMED
                 || session.state == VoiceInterval.State.UNDELIVERED;
         if (needsRecovery && SessionDraftPolicy.hasLetterOrDigit(session.text)
@@ -920,8 +966,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     }
 
     private InputConnection currentTargetConnection() {
+        EditorRecord current = host.currentEditor();
         if (session == null || targetLost || !autoDeliveryOpen
-                || session.binding != bindingGeneration || host.currentEditor() == null) {
+                || session.binding != bindingGeneration || current == null || current.noField) {
             return null;
         }
         return host.currentInputConnection();
