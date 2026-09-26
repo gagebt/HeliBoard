@@ -207,9 +207,11 @@ public final class TimerHandler extends LeakGuardHandlerWrapper<DrawingProxy>
         if (mGestureRecognitionUpdateTime <= 0) {
             return;
         }
-        removeMessages(MSG_UPDATE_BATCH_INPUT, tracker);
-        sendMessageDelayed(obtainMessage(MSG_UPDATE_BATCH_INPUT, tracker),
-                mGestureRecognitionUpdateTime);
+        // Continuous movement must not postpone preview work until the finger stops.
+        if (!hasMessages(MSG_UPDATE_BATCH_INPUT, tracker)) {
+            sendMessageDelayed(obtainMessage(MSG_UPDATE_BATCH_INPUT, tracker),
+                    mGestureRecognitionUpdateTime);
+        }
     }
 
     @Override
