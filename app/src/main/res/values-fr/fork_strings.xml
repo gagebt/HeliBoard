@@ -112,5 +112,5 @@
     <string name="pf6_retention_minutes">%1$d minutes</string>
     <string name="pf6_clipboard_kept_for">Des copies sont conservées pour %1$s. Vous pouvez le changer dans les paramètres.</string>
     <string name="pf6_clipboard_kept_no_limit">Les copies sont conservées jusqu\'à ce que vous les supprimiez.</string>
-    <string name="pf6_clipboard_pinned">Pinsés</string>
+    <string name="pf6_clipboard_pinned">Épinglé</string>
 </resources>

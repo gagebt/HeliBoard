@@ -118,5 +118,5 @@
     <string name="pf6_retention_minutes">%1$d 分钟</string>
     <string name="pf6_clipboard_kept_for">这些副本保存为%1$s. 在设置中可以更改.</string>
     <string name="pf6_clipboard_kept_no_limit">在您删除之前保留副本.</string>
-    <string name="pf6_clipboard_pinned">头</string>
+    <string name="pf6_clipboard_pinned">已固定</string>
 </resources>
