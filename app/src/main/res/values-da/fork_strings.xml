@@ -116,4 +116,5 @@
     <string name="pf6_clipboard_kept_for">Kopier opbevares til nummer %1$s. Du kan ændre dette i indstillinger.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopier opbevares, indtil du sletter dem.</string>
     <string name="pf6_clipboard_pinned">Stængt</string>
+    <string name="voice_status_nothing_heard">Jeg hørte ikke noget.</string>
 </resources>

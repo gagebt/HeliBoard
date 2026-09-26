@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">%1$s zenbakian gordetzen dira. Hau konfigurazioetan alda dezakezu.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopia horiek gorde egiten dira ezabatzen dituzun arte.</string>
     <string name="pf6_clipboard_pinned">Ezta pentsatu ere</string>
+    <string name="voice_status_nothing_heard">Ez dut ezer entzun.</string>
 </resources>

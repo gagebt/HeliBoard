@@ -117,4 +117,5 @@
     <string name="pf6_clipboard_kept_for">Kopjat mbahen për numrin %1$s. Mund ta ndryshoni këtë në cilësimet.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopjat mbahen derisa t\'i fshiheni.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Asgjë nuk dëgjohet.</string>
 </resources>

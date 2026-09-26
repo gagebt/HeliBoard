@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Kopioita säilytetään nimellä %1$s. Voit muuttaa tämän asetuksissa.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopioita säilytetään, kunnes ne poistetaan.</string>
     <string name="pf6_clipboard_pinned">Pinnit</string>
+    <string name="voice_status_nothing_heard">Ei kuultu mitään .</string>
 </resources>

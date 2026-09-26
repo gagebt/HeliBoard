@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Копії зберігаються на номер %1$s. Ви можете змінити це в налаштуваннях.</string>
     <string name="pf6_clipboard_kept_no_limit">Копії зберігаються, поки ви не видалите їх.</string>
     <string name="pf6_clipboard_pinned">Закріплено</string>
+    <string name="voice_status_nothing_heard">Нічого не чули.</string>
 </resources>

@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">નકલો %1$s માટે રાખવામાં આવે છે. તમે સેટિંગ્સમાં આ બદલી શકો છો.</string>
     <string name="pf6_clipboard_kept_no_limit">નકલો તમે તેમને કાઢી નાંખો ત્યાં સુધી રાખવામાં આવે છે.</string>
     <string name="pf6_clipboard_pinned">પિન</string>
+    <string name="voice_status_nothing_heard">કંઈ સાંભળ્યું ન હતું</string>
 </resources>

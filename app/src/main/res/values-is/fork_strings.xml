@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Afrit eru geymd fyrir %1$s. Þú getur breytt þessu í stillingum.</string>
     <string name="pf6_clipboard_kept_no_limit">Afrit eru geymd þar til þú eyðir þeim.</string>
     <string name="pf6_clipboard_pinned">Fylgjandi</string>
+    <string name="voice_status_nothing_heard">Ég heyrđi ekkert.</string>
 </resources>

@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">प्रतियां %1$s के लिए रखी जाती हैं। आप सेटिंग्स में इसे बदल सकते हैं।</string>
     <string name="pf6_clipboard_kept_no_limit">प्रतियां तब तक रखी जाती हैं जब तक आप उन्हें हटा नहीं देते।</string>
     <string name="pf6_clipboard_pinned">पिन किया गया</string>
+    <string name="voice_status_nothing_heard">कुछ नहीं सुना</string>
 </resources>

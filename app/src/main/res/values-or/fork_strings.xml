@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">%1$s ପାଇଁ କପି ରଖାଯାଇଛି । ଆପଣ ଏହାକୁ ସେଟିଙ୍ଗରେ ବଦଳାଇ ପାରିବେ ।</string>
     <string name="pf6_clipboard_kept_no_limit">ଆପଣ ଏହାକୁ ଲିଭାଇବା ପର୍ଯ୍ୟନ୍ତ ନକଲ ରଖାଯାଏ ।</string>
     <string name="pf6_clipboard_pinned">ପିନ</string>
+    <string name="voice_status_nothing_heard">ମୁଁ କିଛି ଶୁଣିନାହିଁ ।</string>
 </resources>

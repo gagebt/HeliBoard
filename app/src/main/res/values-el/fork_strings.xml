@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Τα αντίγραφα φυλάσσονται για %1$s. Μπορείς να το αλλάξεις σε ρυθμίσεις.</string>
     <string name="pf6_clipboard_kept_no_limit">Τα αντίγραφα διατηρούνται μέχρι να τα διαγράψετε.</string>
     <string name="pf6_clipboard_pinned">Πινέζ</string>
+    <string name="voice_status_nothing_heard">Δεν άκουσα τίποτα.</string>
 </resources>

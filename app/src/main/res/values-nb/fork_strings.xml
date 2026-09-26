@@ -116,4 +116,5 @@
     <string name="pf6_clipboard_kept_for">Kopier holdes for %1$s. Du kan endre dette i innstillinger.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopier holdes inntil du sletter dem.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Ingenting hørt</string>
 </resources>

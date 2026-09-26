@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Amakhophi agcinwa ku-%1$s. Ungashintsha lokhu kuzilungiselelo.</string>
     <string name="pf6_clipboard_kept_no_limit">Amakhophi agcinwa uze uwacime.</string>
     <string name="pf6_clipboard_pinned">Ukufakwa</string>
+    <string name="voice_status_nothing_heard">Akukho okuzwakalayo</string>
 </resources>

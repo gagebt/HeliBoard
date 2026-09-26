@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">ቅጂዎች ለ %1$s ይቆያሉ። በቅንብሮች ውስጥ ይህን መቀየር ይችላሉ.</string>
     <string name="pf6_clipboard_kept_no_limit">ቅጂዎቹ እስኪሰረዙ ድረስ ይቀመጣሉ።</string>
     <string name="pf6_clipboard_pinned">የተጣራ</string>
+    <string name="voice_status_nothing_heard">ምንም አልሰማሁም</string>
 </resources>

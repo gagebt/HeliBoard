@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">د %1$s لپاره کاپي ساتل کیږي. تاسو کولی شئ دا په ترتیباتو کې بدل کړئ.</string>
     <string name="pf6_clipboard_kept_no_limit">کاپيونه تر هغه ساتل کیږي چې تاسو یې حذف کړئ.</string>
     <string name="pf6_clipboard_pinned">په ټوټه کې</string>
+    <string name="voice_status_nothing_heard">هېڅ څه نه دي اوریدلي</string>
 </resources>

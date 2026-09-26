@@ -116,4 +116,5 @@
     <string name="pf6_clipboard_kept_for">Kopior hålls för nummer %1$s. Du kan ändra detta i inställningar.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopior lagras tills du raderar dem.</string>
     <string name="pf6_clipboard_pinned">Pinnade</string>
+    <string name="voice_status_nothing_heard">Inget hörts.</string>
 </resources>

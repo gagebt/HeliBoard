@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">สําเนาถูกเก็บไว้สําหรับ %1$s. คุณสามารถเปลี่ยนมันได้ในการตั้งค่า</string>
     <string name="pf6_clipboard_kept_no_limit">สําเนาจะเก็บไว้จนกว่าคุณจะลบมัน</string>
     <string name="pf6_clipboard_pinned">ปิด</string>
+    <string name="voice_status_nothing_heard">ไม่มีอะไรได้ยิน</string>
 </resources>

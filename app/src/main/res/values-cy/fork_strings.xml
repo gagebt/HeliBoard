@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Mae copi\'n cael eu cadw ar gyfer %1$s. Gallwch newid hyn mewn lleoliadau.</string>
     <string name="pf6_clipboard_kept_no_limit">Mae copi\'n cael eu cadw nes eich bod yn eu dileu.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Nid oes unrhyw glywed</string>
 </resources>

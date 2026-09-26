@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Kopijas glabājas numuram %1$s. Jūs varat mainīt to iestatījumos.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopijas glabājas, līdz jūs to izdzēsiet.</string>
     <string name="pf6_clipboard_pinned">Saldētas</string>
+    <string name="voice_status_nothing_heard">Nē, neko nesaprotu.</string>
 </resources>

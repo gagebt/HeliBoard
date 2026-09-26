@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">%1$s या क्रमांकावर कॉपी ठेवली जातात. तुम्ही हे सेटिंग्जमध्ये बदलू शकता.</string>
     <string name="pf6_clipboard_kept_no_limit">आपण ते हटवत नाही तोपर्यंत कॉपी ठेवली जातात.</string>
     <string name="pf6_clipboard_pinned">पिन केले</string>
+    <string name="voice_status_nothing_heard">काहीच ऐकले नाही</string>
 </resources>

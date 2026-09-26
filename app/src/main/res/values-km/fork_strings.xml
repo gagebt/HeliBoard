@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">ក្បាលត្រូវបានរក្សាទុកសម្រាប់ %1$s. អ្នក អាច ប្តូរ នេះ ក្នុង ការកំណត់។</string>
     <string name="pf6_clipboard_kept_no_limit">កopies ត្រូវ រក្សា ទុក រហូត ដល់ អ្នក លុប ចោល ។</string>
     <string name="pf6_clipboard_pinned">សំបក</string>
+    <string name="voice_status_nothing_heard">គ្មាន អ្វី ដែល ឮ ទេ</string>
 </resources>

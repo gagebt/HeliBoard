@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Ang mga kopya ay tinatago para sa %1$s. Maaari mong baguhin ito sa mga setting.</string>
     <string name="pf6_clipboard_kept_no_limit">Ang mga kopya ay iniingatan hanggang sa tanggalin mo sila.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Walang narinig</string>
 </resources>

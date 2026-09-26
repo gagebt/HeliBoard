@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Koopiaid hoitakse numbriks %1$s. Võite seda seadetes muuta.</string>
     <string name="pf6_clipboard_kept_no_limit">Koopiad hoitakse kuni need kustutatakse.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Ma ei kuulnud midagi.</string>
 </resources>

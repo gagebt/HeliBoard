@@ -116,4 +116,5 @@
     <string name="pf6_clipboard_kept_for">Kopiar blir gointe for %1$s. Du kan endra dette i innstillingar.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopiar vert halde til du sleppar dei.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
+    <string name="voice_status_nothing_heard">Ikkje noko høyrde</string>
 </resources>

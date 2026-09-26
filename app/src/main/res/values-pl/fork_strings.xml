@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Kopie są przechowywane na numer %1$s. Możesz to zmienić w ustawieniach.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopie są przechowywane, dopóki ich nie usuniesz.</string>
     <string name="pf6_clipboard_pinned">Wykręty</string>
+    <string name="voice_status_nothing_heard">Nic nie słyszałem.</string>
 </resources>

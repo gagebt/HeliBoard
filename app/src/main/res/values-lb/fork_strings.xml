@@ -116,4 +116,5 @@
     <string name="pf6_clipboard_kept_for">Kopien ginn op %1$s gelagert. Dir kënnt dëst an der Astellung änneren.</string>
     <string name="pf6_clipboard_kept_no_limit">D\'Aschlësselungen ginn net geläscht, bis Dir se läscht.</string>
     <string name="pf6_clipboard_pinned">Gepinnt</string>
+    <string name="voice_status_nothing_heard">Et gouf näischt héieren.</string>
 </resources>
