@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- pf6 part U: keyboard hints, microphone permission line, clipboard view texts -->
+<resources>
+    <string name="pf6_mic_permission_needed_allow">Microphone permission needed. Tap to allow.</string>
+    <string name="pf6_mic_permission_needed_settings">Microphone permission needed. Tap to open App info.</string>
+    <string name="pf6_retention_minutes">%1$d minutes</string>
+    <string name="pf6_clipboard_kept_for">Copies are kept for %1$s. You can change this in settings.</string>
+    <string name="pf6_clipboard_kept_no_limit">Copies are kept until you delete them.</string>
+    <string name="pf6_clipboard_pinned">Pinned</string>
+</resources>
