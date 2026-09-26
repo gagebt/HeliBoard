@@ -328,9 +328,14 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         return accepted;
     }
 
-    /** Queues the current audio piece while this recording and its microphone stay active. */
-    public boolean transcribeNow() {
-        if (terminal || !recording || !host.isMainThread()) return false;
+    /**
+     * Queues the current audio piece while this recording and its microphone stay active.
+     * Returns the audio boundary of this cut: every {@link #onTranscriptPiece} for audio before
+     * the cut has a lower pieceSequence, every later one this value or a higher one, also when
+     * the cut held no audio. -1 when nothing was cut.
+     */
+    public long transcribeNow() {
+        if (terminal || !recording || !host.isMainThread()) return -1;
         try {
             return transcribeNowRecording(activeSessionId);
         } catch (Throwable error) {
@@ -338,7 +343,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             message = getString(R.string.voice_status_transcribe_failed);
             stateError = true;
             publishState();
-            return false;
+            return -1;
         }
     }
 
@@ -1173,7 +1178,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private native void cleanupNative();
     private native boolean startRecording(long sessionId);
     private native boolean stopRecording(long sessionId);
-    private native boolean transcribeNowRecording(long sessionId);
+    private native long transcribeNowRecording(long sessionId);
     private native boolean cancelRecording(long sessionId);
     private native boolean retryRecording(long sessionId);
 }
