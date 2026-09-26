@@ -29,9 +29,11 @@ import helium314.keyboard.latin.R
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.database.ClipboardDao
+import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.ResourceUtils
 import helium314.keyboard.latin.utils.ToolbarKey
+import helium314.keyboard.latin.utils.clipboardEmptyRetentionText
 import helium314.keyboard.latin.utils.createToolbarKey
 import helium314.keyboard.latin.utils.getEnabledClipboardToolbarKeys
 import helium314.keyboard.latin.utils.onClickToolbarKey
@@ -161,6 +163,11 @@ class ClipboardHistoryView @JvmOverloads constructor(
         setupBottomRowKeyboard(editorInfo, keyboardActionListener)
 
         placeholderView.apply {
+            // say how long copies stay, so an emptied history is not a surprise
+            val retention = context.prefs().getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
+                Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME)
+            text = context.getString(R.string.clipboard_empty_guidance) + "\n" +
+                clipboardEmptyRetentionText(context, retention)
             KeyboardTypeface.applyToTextView(this)
             setTextColor(params.mTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, params.mLabelSize.toFloat())

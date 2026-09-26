@@ -27,7 +27,6 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.isVisible
 import helium314.keyboard.event.HapticEvent
@@ -57,6 +56,7 @@ import helium314.keyboard.latin.utils.prefs
 import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
+import helium314.keyboard.latin.utils.showToolbarHint
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs
 import kotlin.math.min
@@ -295,6 +295,17 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateVoiceKey()
     }
 
+    /** One line beside the pinned keys that says why voice input did not start; null removes it. */
+    fun setVoiceNoticeView(view: View?) {
+        pinnedKeys.findViewWithTag<View>(VOICE_NOTICE_TAG)?.let(pinnedKeys::removeView)
+        if (view == null) return
+        view.tag = VOICE_NOTICE_TAG
+        val voice = pinnedKeys.findViewWithTag<View>(ToolbarKey.VOICE)
+        val index = if (voice == null) pinnedKeys.childCount else pinnedKeys.indexOfChild(voice)
+        pinnedKeys.addView(view, index, LinearLayout.LayoutParams(
+            LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
+    }
+
     fun setMoreSuggestionsHeight(remainingHeight: Int) {
         layoutHelper.setMoreSuggestionsHeight(remainingHeight)
     }
@@ -387,7 +398,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             if (helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick(tag) == KeyCode.UNSPECIFIED) {
                 val hint = if (tag == ToolbarKey.VOICE) context.getString(R.string.voice_button_hint)
                     else view.contentDescription
-                Toast.makeText(context, hint, Toast.LENGTH_SHORT).show()
+                showToolbarHint(hint)
             } else {
                 onLongClickToolbarKey(view) { code, isRepeat -> listener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, isRepeat) }
             }
@@ -578,6 +589,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     companion object {
         private const val VOICE_RECOVERY_TAG = "voice_recovery"
+        private const val VOICE_NOTICE_TAG = "voice_notice"
         @JvmField
         var DEBUG_SUGGESTIONS = false
         private const val DEBUG_INFO_TEXT_SIZE_IN_DIP = 6.5f

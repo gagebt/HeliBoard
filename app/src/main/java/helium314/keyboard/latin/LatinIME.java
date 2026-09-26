@@ -1554,11 +1554,10 @@ public class LatinIME extends InputMethodService implements
     }
 
     private void toggleVoiceInput() {
+        if (mSuggestionStripView != null) mSuggestionStripView.setVoiceNoticeView(null);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED) {
-            final Intent permission = new Intent(this, VoicePermissionActivity.class);
-            permission.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(permission);
+            VoicePermissionActivity.request(this, this::onVoicePermissionResult);
             return;
         }
         if (mVoiceController == null) return;
@@ -1572,6 +1571,54 @@ public class LatinIME extends InputMethodService implements
                 }
             }
         }
+    }
+
+    private void onVoicePermissionResult(final int result) {
+        if (result == VoicePermissionActivity.GRANTED) {
+            startVoiceWhenEditorReturns(20);
+        } else {
+            showMicPermissionNotice(result == VoicePermissionActivity.DENIED_PERMANENTLY);
+        }
+    }
+
+    // The permission screen covers the editor. Start once the editor has the keyboard again,
+    // so the user does not need a second tap after "Allow".
+    private void startVoiceWhenEditorReturns(final int attemptsLeft) {
+        mHandler.postDelayed(() -> {
+            final EditorInfo editor = getCurrentInputEditorInfo();
+            final boolean editorBack = isInputViewShown() && editor != null
+                    && !getPackageName().equals(editor.packageName);
+            if (editorBack) {
+                if (mVoiceState == null || mVoiceState.phase == RustInputMethodService.Phase.IDLE)
+                    toggleVoiceInput();
+            } else if (attemptsLeft > 1) {
+                startVoiceWhenEditorReturns(attemptsLeft - 1);
+            }
+        }, 150);
+    }
+
+    private void showMicPermissionNotice(final boolean permanent) {
+        if (mSuggestionStripView == null) return;
+        final TextView line = new TextView(this);
+        line.setSingleLine(true);
+        line.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        line.setGravity(Gravity.CENTER_VERTICAL);
+        line.setText(permanent ? R.string.pf6_mic_permission_needed_settings
+                : R.string.pf6_mic_permission_needed_allow);
+        line.setOnClickListener(ignored -> {
+            mSuggestionStripView.setVoiceNoticeView(null);
+            if (permanent) {
+                final Intent appInfo = new Intent(
+                        android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        android.net.Uri.fromParts("package", getPackageName(), null));
+                appInfo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(appInfo);
+            } else {
+                toggleVoiceInput();
+            }
+        });
+        mSuggestionStripView.setToolbarVisibility(false);
+        mSuggestionStripView.setVoiceNoticeView(line);
     }
 
     private void syncVoiceSettings() {
@@ -1704,7 +1751,13 @@ public class LatinIME extends InputMethodService implements
         button.setImageResource(icon);
         button.setScaleType(ImageView.ScaleType.CENTER);
         button.setContentDescription(getString(label));
-        button.setTooltipText(getString(label));
+        // A held button still acts (a held Stop stops) and names itself inside the keyboard.
+        button.setOnLongClickListener(ignored -> {
+            action.run();
+            mKeyboardSwitcher.showToast(getString(label),
+                    helium314.keyboard.latin.utils.ToolbarUtilsKt.TOOLBAR_ACTION_HINT_MILLIS);
+            return true;
+        });
         mSettings.getCurrent().mColors.setColor(button, ColorType.TOOL_BAR_KEY);
         mSettings.getCurrent().mColors.setBackground(button, ColorType.STRIP_BACKGROUND);
         button.setOnClickListener(ignored -> action.run());
