@@ -555,9 +555,13 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             // The field is gone: the words go to Copy as spoken, not formatted against a
             // field that is not there.
             String previousCopy = session.text;
+            VoiceInterval.State previousState = session.state;
             session.text = joinWords(session.text, raw);
+            // These words never reached a field.
+            session.markUndelivered();
             if (!persist()) {
                 session.text = previousCopy;
+                session.state = previousState;
                 sessionRawText = previousRaw;
                 message = getString(R.string.voice_status_save_text_failed);
                 stateError = true;
