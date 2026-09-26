@@ -117,6 +117,8 @@ private fun createSearchDestinations(context: Context): List<Setting> = buildLis
                 onClick = { SettingsDestination.navigateTo(destination) }) { NextScreenIcon() }
         })
     }
+    page("nav_preferences", R.string.settings_screen_preferences,
+        R.string.pf6_preferences_summary, SettingsDestination.Preferences)
     page("nav_languages", R.string.language_and_layouts_title,
         R.string.search_languages_summary, SettingsDestination.Languages)
     page("nav_dictionaries", R.string.dictionary_settings_category,

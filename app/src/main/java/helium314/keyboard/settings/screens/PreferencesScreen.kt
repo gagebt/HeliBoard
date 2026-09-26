@@ -3,12 +3,17 @@ package helium314.keyboard.settings.screens
 
 import android.content.Context
 import android.media.AudioManager
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import helium314.keyboard.keyboard.KeyboardLayoutSet
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
@@ -44,6 +49,7 @@ fun PreferencesScreen(
     val clipboardHistoryEnabled = prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, Defaults.PREF_ENABLE_CLIPBOARD_HISTORY)
     val items = listOf(
         R.string.settings_category_voice_input,
+        VOICE_HELP,
         Settings.PREF_VOICE_CONTROL_MODE,
         Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
         Settings.PREF_VOICE_PAUSE_SECONDS,
@@ -98,6 +104,25 @@ fun PreferencesScreen(
     )
 }
 
+private const val VOICE_HELP = "voice_help"
+
+private val retentionChoices = listOf(
+    1 to R.string.retention_1_minute, 5 to R.string.retention_5_minutes,
+    10 to R.string.retention_10_minutes, 30 to R.string.retention_30_minutes,
+    60 to R.string.retention_1_hour, 120 to R.string.retention_2_hours,
+    360 to R.string.retention_6_hours, 720 to R.string.retention_12_hours,
+    1440 to R.string.retention_1_day, 4320 to R.string.retention_3_days,
+    10080 to R.string.retention_7_days, 20160 to R.string.retention_14_days,
+    43200 to R.string.retention_30_days, 129600 to R.string.retention_90_days,
+    259200 to R.string.retention_180_days, 525600 to R.string.retention_365_days,
+    -1 to R.string.settings_no_limit
+)
+
+/** The clipboard retention time in [minutes] as the retention setting names it. */
+fun clipboardRetentionLabel(context: Context, minutes: Int): String =
+    retentionChoices.firstOrNull { it.first == minutes }?.let { context.getString(it.second) }
+        ?: context.getString(R.string.retention_custom_minutes, minutes)
+
 fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_VOICE_CONTROL_MODE, R.string.voice_control_mode,
         R.string.voice_control_mode_summary) { setting ->
@@ -107,9 +132,23 @@ fun createPreferencesSettings(context: Context) = listOf(
             stringResource(R.string.voice_control_stop_only) to "stop_only"
         ), Defaults.PREF_VOICE_CONTROL_MODE)
     },
+    Setting(context, VOICE_HELP, R.string.pf6_voice_help) {
+        Text(it.title, Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    },
     Setting(context, Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
-        R.string.voice_save_dictations_to_history, R.string.voice_save_dictations_to_history_summary) {
-        SwitchPreference(it, Defaults.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY)
+        R.string.voice_save_dictations_to_history, R.string.voice_save_dictations_to_history_summary) { setting ->
+        val ctx = LocalContext.current
+        // saved dictations expire with the clipboard history, so name the current retention time here
+        (ctx.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()?.value
+        val minutes = ctx.prefs().getInt(Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME)
+        SwitchPreference(
+            name = setting.title,
+            key = setting.key,
+            default = Defaults.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
+            description = setting.description + " " +
+                stringResource(R.string.pf6_voice_saved_retention, clipboardRetentionLabel(ctx, minutes))
+        )
     },
     Setting(context, Settings.PREF_VOICE_PAUSE_SECONDS, R.string.voice_pause_seconds,
         R.string.voice_pause_seconds_summary) { setting ->
@@ -233,17 +272,7 @@ fun createPreferencesSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_CLIPBOARD_HISTORY_RETENTION_TIME,
         R.string.clipboard_history_retention_time, R.string.clipboard_retention_summary) { setting ->
         val ctx = LocalContext.current
-        val choices = listOf(
-            1 to R.string.retention_1_minute, 5 to R.string.retention_5_minutes,
-            10 to R.string.retention_10_minutes, 30 to R.string.retention_30_minutes,
-            60 to R.string.retention_1_hour, 120 to R.string.retention_2_hours,
-            360 to R.string.retention_6_hours, 720 to R.string.retention_12_hours,
-            1440 to R.string.retention_1_day, 4320 to R.string.retention_3_days,
-            10080 to R.string.retention_7_days, 20160 to R.string.retention_14_days,
-            43200 to R.string.retention_30_days, 129600 to R.string.retention_90_days,
-            259200 to R.string.retention_180_days, 525600 to R.string.retention_365_days,
-            -1 to R.string.settings_no_limit
-        ).map { stringResource(it.second) to it.first }.toMutableList()
+        val choices = retentionChoices.map { stringResource(it.second) to it.first }.toMutableList()
         val saved = ctx.prefs().getInt(setting.key, Defaults.PREF_CLIPBOARD_HISTORY_RETENTION_TIME)
         if (choices.none { it.second == saved })
             choices.add(0, stringResource(R.string.retention_custom_minutes, saved) to saved)

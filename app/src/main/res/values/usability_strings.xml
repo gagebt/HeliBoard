@@ -3,7 +3,7 @@
     <string name="voice_control_mode">Transcribe now button</string>
     <string name="voice_control_mode_summary">Process the current speech piece without ending the recording. Stop is always available.</string>
     <string name="voice_control_full">Show</string>
-    <string name="voice_control_auto_hide">Hide after 4 seconds</string>
+    <string name="voice_control_auto_hide">Hide 4 s after recording starts</string>
     <string name="voice_control_stop_only">Off</string>
     <string name="voice_save_dictations_to_history">Save dictations to clipboard history</string>
     <string name="voice_save_dictations_to_history_summary">Save one complete text entry per recording when clipboard history is on. Excludes passwords, incognito and fields that forbid learning. Does not replace the system clipboard.</string>

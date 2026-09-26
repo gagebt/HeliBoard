@@ -60,7 +60,8 @@ fun LanguageScreen(
     val b = (LocalContext.current.getActivity() as? SettingsActivity)?.prefChanged?.collectAsState()
     if ((b?.value ?: 0) < 0)
         Log.v("irrelevant", "stupid way to trigger recomposition on preference change")
-    val enabledSubtypes = SubtypeSettings.getEnabledSubtypes()
+    // with fallback: while nothing is stored, the default subtypes are the ones in use and show as on
+    val enabledSubtypes = SubtypeSettings.getEnabledSubtypes(true)
     SearchScreen(
         onClickBack = onClickBack,
         title = {

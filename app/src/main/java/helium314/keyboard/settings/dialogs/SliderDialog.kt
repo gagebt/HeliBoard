@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.dialogs
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
@@ -62,6 +65,11 @@ fun SliderDialog(
                             valueRange = range,
                             steps = intermediateSteps
                         )
+                    // range ends, formatted like the current value, so the range is visible without dragging
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(positionString(range.start), style = MaterialTheme.typography.bodySmall)
+                        Text(positionString(range.endInclusive), style = MaterialTheme.typography.bodySmall)
+                    }
                     Text(positionString(sliderPosition))
                 }
             }
