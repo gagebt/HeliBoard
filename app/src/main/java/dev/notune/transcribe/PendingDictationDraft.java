@@ -24,20 +24,6 @@ final class PendingDictationDraft {
         this.text = text == null ? "" : text;
     }
 
-    PendingDictationDraft with(String newState, String newText, long newNextSequence) {
-        return new PendingDictationDraft(sessionId, newNextSequence, newState, newText);
-    }
-
-    boolean mayAlreadyBeDelivered() {
-        return ATTEMPTED.equals(state) || UNCERTAIN.equals(state);
-    }
-
-    /** A later piece or terminal result cannot erase an unresolved editor write. */
-    PendingDictationDraft preservingDeliveryRisk(
-            String requestedState, String newText, long newNextSequence) {
-        return with(mayAlreadyBeDelivered() ? state : requestedState, newText, newNextSequence);
-    }
-
     byte[] encode() {
         String body = "NOTUNE1\n" + sessionId + "\n" + nextSequence + "\n" + state + "\n"
                 + Base64.getEncoder().encodeToString(text.getBytes(StandardCharsets.UTF_8));

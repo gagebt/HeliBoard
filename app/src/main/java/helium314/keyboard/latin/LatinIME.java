@@ -48,6 +48,8 @@ import android.widget.TextView;
 
 import dev.notune.transcribe.RustInputMethodService;
 import dev.notune.transcribe.AudioFocusPauser;
+import dev.notune.transcribe.EditorRecord;
+import helium314.keyboard.keyboard.PointerTracker;
 
 import helium314.keyboard.accessibility.AccessibilityUtils;
 import helium314.keyboard.compat.ConfigurationCompatKt;
@@ -92,7 +94,6 @@ import helium314.keyboard.latin.utils.FoldableUtils;
 import helium314.keyboard.latin.utils.GestureDataGatheringKt;
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings;
 import helium314.keyboard.latin.utils.InlineAutofillUtils;
-import helium314.keyboard.latin.utils.InputTypeUtils;
 import helium314.keyboard.latin.utils.InputMethodPickerKt;
 import helium314.keyboard.latin.utils.JniUtils;
 import helium314.keyboard.latin.utils.KtxKt;
@@ -164,7 +165,7 @@ public class LatinIME extends InputMethodService implements
     private RustInputMethodService mVoiceController;
     private final AudioFocusPauser mVoiceAudioPauser = new AudioFocusPauser();
     private RustInputMethodService.VoiceState mVoiceState;
-    private long mVoiceEditorGeneration;
+    private EditorRecord mVoiceEditor;
     private boolean mVoiceRestoreToolbar;
     private boolean mVoiceOptionalHidden;
     private Runnable mVoiceHideOptional;
@@ -272,6 +273,12 @@ public class LatinIME extends InputMethodService implements
                 return;
             }
             switch (msg.what) {
+                case MSG_PENDING_IMS_CALLBACK:
+                    // The rotation window ended: voice text held during it can go in now.
+                    if (latinIme.mVoiceController != null) {
+                        latinIme.mVoiceController.resumePendingDelivery();
+                    }
+                    break;
                 case MSG_UPDATE_SUGGESTION_STRIP:
                     cancelUpdateSuggestionStrip();
                     latinIme.mInputLogic.performUpdateSuggestionStripSync(
@@ -310,6 +317,7 @@ public class LatinIME extends InputMethodService implements
                     latinIme.onTailBatchInputResultShown(suggestedWords);
                     latinIme.mInputLogic.onTailBatchInputResultDelivered(suggestedWords);
                     if (latinIme.mVoiceController != null) {
+                        latinIme.mVoiceController.onUserEdit();
                         latinIme.mVoiceController.resumePendingDelivery();
                     }
                     break;
@@ -458,6 +466,16 @@ public class LatinIME extends InputMethodService implements
         private boolean mHasPendingFinishInput;
         private EditorInfo mAppliedEditorInfo;
 
+        /** True from a rotation until its deferred input callbacks have settled. */
+        public boolean isOrientationChanging() {
+            return mIsOrientationChanging || hasMessages(MSG_PENDING_IMS_CALLBACK);
+        }
+
+        /** True for a bounded time after a rotation, while the editor may be recreated. */
+        public boolean isRotationSettling() {
+            return hasMessages(MSG_PENDING_IMS_CALLBACK);
+        }
+
         public void startOrientationChanging() {
             removeMessages(MSG_PENDING_IMS_CALLBACK);
             resetPendingImsCallback();
@@ -599,11 +617,8 @@ public class LatinIME extends InputMethodService implements
             @Override public EditorInfo currentEditorInfo() {
                 return getCurrentInputEditorInfo();
             }
-            @Override public Object currentEditorIdentity() {
-                return Long.valueOf(mVoiceEditorGeneration);
-            }
-            @Override public boolean inputActive() {
-                return getCurrentInputConnection() != null && getCurrentInputEditorInfo() != null;
+            @Override public EditorRecord currentEditor() {
+                return mVoiceEditor;
             }
             @Override public boolean isMainThread() {
                 return Looper.myLooper() == Looper.getMainLooper();
@@ -611,13 +626,28 @@ public class LatinIME extends InputMethodService implements
             @Override public void postToMain(final Runnable action) {
                 mHandler.post(action);
             }
+            @Override public void postToMainDelayed(final Runnable action, final long delayMillis) {
+                mHandler.postDelayed(action, delayMillis);
+            }
             @Override public boolean prepareForVoiceCommit() {
-                if (mInputLogic.isGesturePending()) return false;
+                if (!voiceCommitReady()) return false;
                 mInputLogic.finishInput();
                 return true;
             }
             @Override public boolean voiceCommitReady() {
-                return !mInputLogic.isGesturePending();
+                // One gate from touch-down until the swipe word reaches the editor: a finger
+                // on the keyboard, a batch in progress, or a queued swipe tail. Also closed
+                // while a rotation may recreate the editor (bounded; reopens by itself).
+                return !mInputLogic.isGesturePending()
+                        && !(isInputViewShown() && PointerTracker.isAnyPointerDown())
+                        && !mHandler.isRotationSettling();
+            }
+            @Override public boolean spacePendingBeforeVoice() {
+                // HeliBoard's own record of what it wrote since the last voice text: a
+                // swipe's owed space, or a typed word that ends in a letter or digit.
+                if (mInputLogic.isPhantomSpacePending()) return true;
+                final int last = mInputLogic.mConnection.getCodePointBeforeCursor();
+                return last != Constants.NOT_A_CODE && Character.isLetterOrDigit(last);
             }
             @Override public void finishVoiceCommit() {
                 final InputConnection connection = getCurrentInputConnection();
@@ -637,13 +667,13 @@ public class LatinIME extends InputMethodService implements
             @Override public void postVoiceState(final RustInputMethodService.VoiceState state) {
                 mHandler.post(() -> renderVoiceState(state));
             }
-            @Override public boolean maySaveDictation(final EditorInfo info) {
+            @Override public boolean maySaveDictation(final EditorRecord editor) {
+                // Optional history: the two history settings plus the shared field-privacy
+                // fact (EditorRecord.privateField). Draft, Copy and insertion do not use this.
                 final SharedPreferences prefs = KtxKt.prefs(LatinIME.this);
                 return prefs.getBoolean(Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY, false)
                         && prefs.getBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, true)
-                        && !mSettings.getCurrent().mIncognitoModeEnabled
-                        && !InputTypeUtils.isAnyPasswordInputType(info.inputType)
-                        && (info.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) == 0;
+                        && editor != null && !editor.privateField;
             }
             @Override public boolean saveDictation(final long sessionId, final String text) {
                 final SharedPreferences prefs = KtxKt.prefs(LatinIME.this);
@@ -663,6 +693,10 @@ public class LatinIME extends InputMethodService implements
                 }
             }
         });
+        // Voice text held while a finger was on the keyboard goes in after the last finger lifts.
+        PointerTracker.setOnAllPointersUp(() -> mHandler.post(() -> {
+            if (mVoiceController != null) mVoiceController.resumePendingDelivery();
+        }));
 
         loadSettings();
         mClipboardHistoryManager.onCreate();
@@ -812,6 +846,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onDestroy() {
+        PointerTracker.setOnAllPointersUp(null);
         if (mVoiceController != null) {
             mVoiceController.close();
             mVoiceController = null;
@@ -907,8 +942,11 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onStartInput(final EditorInfo editorInfo, final boolean restarting) {
-        mVoiceEditorGeneration++;
+        // Read before the handler clears its rotation state.
+        final boolean rotating = mHandler.isOrientationChanging();
+        mVoiceEditor = EditorRecord.of(editorInfo, mSettings.getCurrent().mIncognitoModeEnabled);
         mHandler.onStartInput(editorInfo, restarting);
+        if (mVoiceController != null) mVoiceController.onEditorStarted(rotating);
     }
 
     @Override
@@ -928,7 +966,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onFinishInput() {
-        mVoiceEditorGeneration++;
+        mVoiceEditor = null;
         mHandler.onFinishInput();
         BackgroundGatheringCache.saveOrClear(this);
     }
@@ -1166,6 +1204,8 @@ public class LatinIME extends InputMethodService implements
         super.onFinishInputView(finishingInput);
         Log.i(TAG, "onFinishInputView");
         cleanupInternalStateForFinishInput();
+        // Leaving the app or field stops the microphone; rotation defers this callback.
+        if (mVoiceController != null) mVoiceController.onInputViewFinished();
     }
 
     private void cleanupInternalStateForFinishInput() {
@@ -1689,14 +1729,14 @@ public class LatinIME extends InputMethodService implements
                 if (mVoiceRestoreToolbar) mSuggestionStripView.setToolbarVisibility(true);
                 mHandler.postResumeSuggestions(false);
             }
-            if (state == null || (!state.canCopy && !state.error)) {
+            if (state == null || (!state.canCopy && !state.error && !state.notice)) {
                 mSuggestionStripView.setVoiceRecoveryView(null);
                 return;
             }
             final LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setGravity(Gravity.CENTER_VERTICAL);
-            if (state.error) {
+            if (state.error || state.notice) {
                 final TextView status = new TextView(this);
                 status.setSingleLine(true);
                 status.setText(state.message);
@@ -1984,6 +2024,7 @@ public class LatinIME extends InputMethodService implements
         }
         if (inputTransaction.didAffectContents()) {
             mSubtypeState.setCurrentSubtypeHasBeenUsed();
+            if (mVoiceController != null) mVoiceController.onUserEdit();
         }
     }
 
