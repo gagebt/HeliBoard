@@ -283,6 +283,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     /** Adds compact recovery actions beside normal suggestions and pinned toolbar keys. */
+    fun getVoiceRecoveryView(): View? = pinnedKeys.findViewWithTag(VOICE_RECOVERY_TAG)
+
     fun setVoiceRecoveryView(view: View?) {
         pinnedKeys.findViewWithTag<View>(VOICE_RECOVERY_TAG)?.let(pinnedKeys::removeView)
         if (view != null) {

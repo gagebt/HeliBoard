@@ -82,6 +82,37 @@ class InputLogicTest {
         ShadowLog.stream = System.out
     }
 
+
+    @Test fun recordingUpdateKeepsPressedVoiceControl() {
+        val strip = Mockito.mock(helium314.keyboard.latin.suggestions.SuggestionStripView::class.java)
+        var shown: android.view.View? = null
+        Mockito.doAnswer { shown = it.getArgument<android.view.View?>(0); null }
+            .`when`(strip).setVoiceRecoveryView(Mockito.any())
+        Mockito.`when`(strip.getVoiceRecoveryView()).thenAnswer { shown }
+        LatinIME::class.java.getDeclaredField("mSuggestionStripView")
+            .apply { isAccessible = true }.set(latinIME, strip)
+        LatinIME::class.java.getDeclaredField("mVoiceState")
+            .apply { isAccessible = true }.set(latinIME, null)
+        val ctor = dev.notune.transcribe.RustInputMethodService.VoiceState::class.java
+            .declaredConstructors.single().apply { isAccessible = true }
+        fun render(phase: dev.notune.transcribe.RustInputMethodService.Phase, level: Float) {
+            val state = ctor.newInstance(phase, "Listening", level, false, false, false)
+            LatinIME::class.java.getDeclaredMethod("renderVoiceState",
+                dev.notune.transcribe.RustInputMethodService.VoiceState::class.java)
+                .apply { isAccessible = true }.invoke(latinIME, state)
+        }
+        render(dev.notune.transcribe.RustInputMethodService.Phase.RECORDING, 0f)
+        val first = shown as android.widget.LinearLayout
+        val stop = first.getChildAt(first.childCount - 1)
+        stop.isPressed = true
+        render(dev.notune.transcribe.RustInputMethodService.Phase.RECORDING, 0.5f)
+        kotlin.test.assertSame(first, shown, "A recording update replaces the pressed controls")
+        kotlin.test.assertSame(stop, (shown as android.widget.LinearLayout).getChildAt(first.childCount - 1))
+        kotlin.test.assertTrue(stop.isPressed)
+        render(dev.notune.transcribe.RustInputMethodService.Phase.IDLE, 0f)
+        kotlin.test.assertNull(shown, "Completed recording must retire the controls")
+    }
+
     @Test fun staleTailResultCannotClearPendingGesture() {
         inputLogic.onEndBatchInput(InputPointers(1))
         assertEquals(false, inputLogic.isGesturePending)

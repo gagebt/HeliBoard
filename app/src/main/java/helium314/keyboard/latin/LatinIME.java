@@ -1768,12 +1768,21 @@ public class LatinIME extends InputMethodService implements
             };
             mHandler.postDelayed(mVoiceHideOptional, 4000);
         }
+        final boolean transcribeVisible = showTranscribeNow
+                && !("auto_hide".equals(controlMode) && mVoiceOptionalHidden);
+        final View currentControls = mSuggestionStripView.getVoiceRecoveryView();
+        if (isRecording && wasRecording && currentControls instanceof LinearLayout
+                && ((LinearLayout) currentControls).getChildCount() == (transcribeVisible ? 2 : 1)) {
+            // A status update must not replace a button while a finger is pressing it.
+            currentControls.setContentDescription(state.message + ". "
+                    + getString(R.string.dictation_stop));
+            return;
+        }
         final LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
         if (state.phase == RustInputMethodService.Phase.RECORDING) {
-            if (showTranscribeNow && !"stop_only".equals(controlMode)
-                    && !("auto_hide".equals(controlMode) && mVoiceOptionalHidden))
+            if (transcribeVisible)
                 addVoiceButton(row, R.string.dictation_transcribe_now,
                         R.drawable.ic_voice_draft, () -> mVoiceController.transcribeNow());
             addVoiceButton(row, R.string.dictation_stop, R.drawable.ic_voice_stop,
