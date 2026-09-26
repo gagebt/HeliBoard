@@ -16,9 +16,17 @@ import helium314.keyboard.latin.utils.Log
 import helium314.keyboard.latin.utils.SuggestionResults
 import java.io.File
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.Executors
 import kotlin.math.min
 
-/** Thin HeliBoard adapter around the serialized FUTO runtime. */
+/**
+ * Thin HeliBoard adapter around the FUTO runtime.
+ *
+ * Vocabulary and model loads never run while this object's monitor is held: they run on the "FutoSwipeLoader" thread
+ * (language switch, keyboard start) or, when a gesture arrives before its language is loaded, on the gesture's thread
+ * while it waits outside the monitor. A change of key geometry only re-sets the layout of the loaded language.
+ */
 object FutoSuggestions {
     private const val TAG = "FutoSuggestions"
     private const val ENCODER = "futo-swipe/honorable_sturgeon/model_fp32.pte"
@@ -31,121 +39,205 @@ object FutoSuggestions {
     private const val EN_VOCAB = "futo-vocab/main_en_US.combined"
     private const val RU_VOCAB = "futo-vocab/main_ru.combined"
 
-    private var context: Context? = null
-    private var runtime: FutoSwipeRuntime? = null
-    private var signature: String? = null
+    @Volatile private var context: Context? = null
+    @Volatile private var runtime: FutoSwipeRuntime? = null
+    // guarded by this object's monitor
+    private var geometry: String? = null
     private var generation = 0L
+
+    private val loader = Executors.newSingleThreadExecutor { task ->
+        Thread(task, "FutoSwipeLoader").apply { isDaemon = true }
+    }
+    private val assetLock = Any()
+    private val materialized = ConcurrentHashMap<String, File>()
+    private val failures = FutoFailureLog { Log.w(TAG, it) }
 
     @Synchronized
     fun init(context: Context) {
         this.context = context.applicationContext
+        if (runtime == null) runtime = FutoSwipeRuntime()
     }
 
     @Synchronized
     fun close() {
         runtime?.close()
         runtime = null
-        signature = null
+        geometry = null
     }
 
-    @Synchronized
+    /** Loads the vocabulary and models of [locale] on the loader thread, then warms the next-word model. */
+    fun preload(keyboard: Keyboard, locale: Locale) {
+        val shape = Shape.of(keyboard, locale) ?: return
+        loader.execute {
+            val active = runtime ?: return@execute
+            val appContext = context ?: return@execute
+            try {
+                active.preload(shape.mode(appContext, 0), warmUp = true)?.let { logLoad(shape, it.loadMs, it.warmMs, active) }
+            } catch (failure: Throwable) {
+                if (runtime === active) failures.report("preload", failure)
+            }
+        }
+    }
+
     fun recognize(
         pointers: InputPointers,
         contextWords: List<String>,
         keyboard: Keyboard,
         locale: Locale,
-    ): SuggestionResults? = try {
-        val active = configure(keyboard, locale) ?: return null
-        val count = pointers.pointerSize
-        if (count == 0) return null
-        val width = keyboard.mOccupiedWidth.toFloat()
-        val height = keyboard.mOccupiedHeight.toFloat()
-        val x = pointers.xCoordinates.copyOf(count).map { normalizedGestureCoordinate(it, width) }.toFloatArray()
-        val y = pointers.yCoordinates.copyOf(count)
-            .map { normalizedGestureCoordinate(it, height, 4f / 3f) }.toFloatArray()
-        val t = pointers.times.copyOf(count).map(Int::toFloat).toFloatArray()
-        val result = active.recognize(FutoSwipeInput(generation, x, y, t, contextWords, topK = 8))
-        result.words.toSuggestionResults(false, SuggestedWordInfo.KIND_CORRECTION)
-    } catch (failure: Throwable) {
-        Log.e(TAG, "FUTO swipe failed; dropping this gesture", failure)
-        SuggestionResults(1, false, false)
+    ): SuggestionResults? {
+        var phase = "prepare"
+        return try {
+            val active = runtime ?: return null
+            val appContext = context ?: return null
+            val shape = Shape.of(keyboard, locale) ?: return null
+            val count = pointers.pointerSize
+            if (count == 0) return null
+            val width = keyboard.mOccupiedWidth.toFloat()
+            val height = keyboard.mOccupiedHeight.toFloat()
+            val x = pointers.xCoordinates.copyOf(count).map { normalizedGestureCoordinate(it, width) }.toFloatArray()
+            val y = pointers.yCoordinates.copyOf(count)
+                .map { normalizedGestureCoordinate(it, height, 4f / 3f) }.toFloatArray()
+            val t = pointers.times.copyOf(count).map(Int::toFloat).toFloatArray()
+            phase = "load"
+            var waitMs = 0L
+            repeat(3) {
+                waitMs += ensureLoaded(active, shape, appContext)
+                phase = "configure"
+                val words = synchronized(this) {
+                    val current = activate(active, shape, appContext) ?: return@synchronized null
+                    phase = "recognize"
+                    active.recognize(FutoSwipeInput(current, x, y, t, contextWords, topK = 8)).words
+                } ?: return@repeat
+                if (waitMs > 0) Log.i(TAG, "futo gesture waited for load: points=$count waitMs=$waitMs")
+                return words.toSuggestionResults(false, SuggestedWordInfo.KIND_CORRECTION)
+            }
+            error("FUTO swipe language was unloaded three times while waiting")
+        } catch (failure: Throwable) {
+            failures.report(phase, failure)
+            SuggestionResults(1, false, false)
+        }
     }
 
-    @Synchronized
+    /**
+     * FUTO next-word prediction for English. Returns null (HeliBoard's own predictions remain) while the language is
+     * still loading: a prediction never waits for a load, so it cannot hold the worker that also runs gestures.
+     */
     fun predictNext(keyboard: Keyboard, locale: Locale, contextWords: List<String>): SuggestionResults? {
         if (locale.language != Locale.ENGLISH.language || contextWords.isEmpty()) return null
+        var phase = "prepare"
         return try {
-            val active = configure(keyboard, locale) ?: return null
-            val result = active.predictNext(generation, contextWords, topK = 8)
-            if (result.words.isEmpty()) null
-            else result.words.toSuggestionResults(false, SuggestedWordInfo.KIND_PREDICTION)
+            val active = runtime ?: return null
+            val appContext = context ?: return null
+            val shape = Shape.of(keyboard, locale) ?: return null
+            val mode = shape.mode(appContext, 0)
+            if (!active.isLoaded(mode)) {
+                preload(keyboard, locale)
+                return null
+            }
+            phase = "configure"
+            val words = synchronized(this) {
+                val current = activate(active, shape, appContext) ?: return null
+                phase = "predict"
+                active.predictNext(current, contextWords, topK = 8).words
+            }
+            if (words.isEmpty()) null else words.toSuggestionResults(false, SuggestedWordInfo.KIND_PREDICTION)
         } catch (failure: Throwable) {
-            Log.e(TAG, "FUTO next-word prediction failed; retaining HeliBoard fallback", failure)
+            failures.report(phase, failure)
             null
         }
     }
 
-    @Synchronized
-    fun warmUp(keyboard: Keyboard, locale: Locale) {
-        try {
-            configure(keyboard, locale)
-        } catch (failure: Throwable) {
-            Log.e(TAG, "FUTO swipe warm-up failed", failure)
-        }
+    /** Loads the shape's language unless loaded; returns the milliseconds spent waiting or loading here. */
+    private fun ensureLoaded(active: FutoSwipeRuntime, shape: Shape, appContext: Context): Long {
+        val started = System.nanoTime()
+        val load = active.preload(shape.mode(appContext, 0))
+        if (load != null) logLoad(shape, load.loadMs, load.warmMs, active)
+        return (System.nanoTime() - started) / 1_000_000
     }
 
-    private fun configure(keyboard: Keyboard, locale: Locale): FutoSwipeRuntime? {
-        val appContext = context ?: return null
-        val vocabAsset = when (locale.language) {
-            Locale.ENGLISH.language -> EN_VOCAB
-            "ru" -> RU_VOCAB
-            else -> return null
-        }
-        val keys = keyboard.sortedKeys
-            .filter { Character.isLetter(it.code) }
-        if (keys.isEmpty()) return null
-        val letters = String(keys.map { Character.toLowerCase(it.code) }.toIntArray(), 0, keys.size)
-        val width = keyboard.mOccupiedWidth.toFloat()
-        val height = keyboard.mOccupiedHeight.toFloat()
-        val centerX = keys.map { (it.x + it.width / 2f) / width }.toFloatArray()
-        val centerY = keys.map { min(1f, (it.y + it.height / 2f) / height * (4f / 3f)) }.toFloatArray()
-        val newSignature = "$vocabAsset|${keyboard.mOccupiedWidth}x${keyboard.mOccupiedHeight}|$letters|${centerX.contentHashCode()}|${centerY.contentHashCode()}"
-        val active = runtime ?: FutoSwipeRuntime().also { runtime = it }
-        if (signature == newSignature) return active
-
+    /** Makes the shape current; returns its generation, or null when its language is not loaded. Needs the monitor. */
+    private fun activate(active: FutoSwipeRuntime, shape: Shape, appContext: Context): Long? {
+        if (geometry == shape.signature) return generation
+        if (!active.configure(shape.mode(appContext, generation + 1))) return null
         generation++
-        val english = locale.language == Locale.ENGLISH.language
-        materialize(appContext, ENCODER_METADATA)
-        if (english) {
-            materialize(appContext, DECODER_METADATA)
-            materialize(appContext, CONTEXT_LM_METADATA)
+        geometry = shape.signature
+        return generation
+    }
+
+    private fun logLoad(shape: Shape, loadMs: Long, warmMs: Long, active: FutoSwipeRuntime) {
+        Log.i(TAG, "futo full load: lang=${shape.languageTag} ms=$loadMs warmMs=$warmMs " +
+            "thread=${Thread.currentThread().name} loads=${active.loadCount}")
+    }
+
+    private class Shape(
+        val languageTag: String,
+        val english: Boolean,
+        val vocabAsset: String,
+        val letters: String,
+        val centerX: FloatArray,
+        val centerY: FloatArray,
+        val signature: String,
+    ) {
+        fun mode(context: Context, generation: Long): FutoSwipeMode {
+            materialize(context, ENCODER_METADATA)
+            if (english) {
+                materialize(context, DECODER_METADATA)
+                materialize(context, CONTEXT_LM_METADATA)
+            }
+            return FutoSwipeMode(
+                generation = generation,
+                languageTag = languageTag,
+                layout = FutoSwipeLayout(letters, centerX, centerY),
+                models = FutoSwipeModels(
+                    encoderPath = materialize(context, ENCODER).path,
+                    decoderPath = if (english) materialize(context, DECODER).path else null,
+                    contextLmPath = if (english) materialize(context, CONTEXT_LM).path else null,
+                    contextLmVocabPath = if (english) materialize(context, CONTEXT_VOCAB).path else null,
+                ),
+                vocabularies = listOf(FutoSwipeVocabulary(materialize(context, vocabAsset).path)),
+            )
         }
-        active.configure(FutoSwipeMode(
-            generation = generation,
-            languageTag = locale.toLanguageTag(),
-            layout = FutoSwipeLayout(letters, centerX, centerY),
-            models = FutoSwipeModels(
-                encoderPath = materialize(appContext, ENCODER).path,
-                decoderPath = if (english) materialize(appContext, DECODER).path else null,
-                contextLmPath = if (english) materialize(appContext, CONTEXT_LM).path else null,
-                contextLmVocabPath = if (english) materialize(appContext, CONTEXT_VOCAB).path else null,
-            ),
-            vocabularies = listOf(FutoSwipeVocabulary(materialize(appContext, vocabAsset).path)),
-        ))
-        signature = newSignature
-        return active
+
+        companion object {
+            fun of(keyboard: Keyboard, locale: Locale): Shape? {
+                val (vocabAsset, script) = when (locale.language) {
+                    Locale.ENGLISH.language -> EN_VOCAB to Character.UnicodeScript.LATIN
+                    "ru" -> RU_VOCAB to Character.UnicodeScript.CYRILLIC
+                    else -> return null
+                }
+                val keys = keyboard.sortedKeys.filter { Character.isLetter(it.code) }
+                if (keys.isEmpty()) return null
+                // A keyboard of another language (not yet reloaded after a switch) must not load this vocabulary.
+                if (keys.any { Character.UnicodeScript.of(it.code) != script }) return null
+                val letters = String(keys.map { Character.toLowerCase(it.code) }.toIntArray(), 0, keys.size)
+                val width = keyboard.mOccupiedWidth.toFloat()
+                val height = keyboard.mOccupiedHeight.toFloat()
+                val centerX = keys.map { (it.x + it.width / 2f) / width }.toFloatArray()
+                val centerY = keys.map { min(1f, (it.y + it.height / 2f) / height * (4f / 3f)) }.toFloatArray()
+                val signature = "$vocabAsset|${keyboard.mOccupiedWidth}x${keyboard.mOccupiedHeight}|$letters|" +
+                    "${centerX.contentHashCode()}|${centerY.contentHashCode()}"
+                return Shape(locale.toLanguageTag(), locale.language == Locale.ENGLISH.language, vocabAsset,
+                    letters, centerX, centerY, signature)
+            }
+        }
     }
 
     private fun materialize(context: Context, asset: String): File {
-        val target = File(context.filesDir, "futo/$asset")
-        val expected = context.assets.open(asset).use { it.available().toLong() }
-        if (target.isFile && target.length() == expected) return target
-        target.parentFile?.mkdirs()
-        context.assets.open(asset).use { input ->
-            target.outputStream().use(input::copyTo)
+        materialized[asset]?.let { return it }
+        synchronized(assetLock) {
+            materialized[asset]?.let { return it }
+            val target = File(context.filesDir, "futo/$asset")
+            val expected = context.assets.open(asset).use { it.available().toLong() }
+            if (!target.isFile || target.length() != expected) {
+                target.parentFile?.mkdirs()
+                context.assets.open(asset).use { input ->
+                    target.outputStream().use(input::copyTo)
+                }
+                check(target.length() == expected) { "Incomplete asset copy for $asset" }
+            }
+            materialized[asset] = target
+            return target
         }
-        check(target.length() == expected) { "Incomplete asset copy for $asset" }
-        return target
     }
 
     private fun List<helium314.keyboard.latin.futo.FutoSwipeWord>.toSuggestionResults(
@@ -165,6 +257,17 @@ object FutoSuggestions {
             ))
         }
         return results
+    }
+}
+
+/**
+ * Reports a FUTO failure with its phase and exception class only, once per distinct (phase, class) cause.
+ * A message or stack trace can carry typed or dictated text, so neither is written.
+ */
+internal class FutoFailureLog(private val sink: (String) -> Unit) {
+    // pf5 behaviour: every failure, with its message and stack; the X12 commit changes this
+    fun report(phase: String, failure: Throwable) {
+        sink("FUTO $phase failed\n${failure.stackTraceToString()}")
     }
 }
 

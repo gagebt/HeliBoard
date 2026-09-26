@@ -954,6 +954,8 @@ public class LatinIME extends InputMethodService implements
         mInputLogic.onSubtypeChanged(SubtypeLocaleUtils.getCombiningRulesExtraValue(subtype),
                 mSettings.getCurrent());
         loadKeyboard();
+        // Load the new language's swipe vocabulary now, not at its first gesture.
+        mInputLogic.warmUpSwipe(mKeyboardSwitcher.getKeyboard(), mRichImm.getCurrentSubtypeLocale());
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
         }
@@ -1125,6 +1127,8 @@ public class LatinIME extends InputMethodService implements
                 currentSettingsValues.mGestureInputEnabled,
                 currentSettingsValues.mGestureTrailEnabled,
                 currentSettingsValues.mGestureFloatingPreviewTextEnabled);
+        // Load the swipe vocabulary at keyboard start; a no-op when it is loaded.
+        mInputLogic.warmUpSwipe(switcher.getKeyboard(), mRichImm.getCurrentSubtypeLocale());
 
         if (TRACE) Debug.startMethodTracing("/data/trace/latinime");
     }

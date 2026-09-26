@@ -4,6 +4,7 @@ package helium314.keyboard.latin.futo
 import org.futo.ml.inference.SwipeDecoder
 import java.io.File
 import java.util.Locale
+import java.util.concurrent.CompletableFuture
 
 data class FutoSwipeLayout(
     val letters: String,
@@ -66,29 +67,187 @@ data class FutoNextWordResult(
     val elapsedUs: Long,
 )
 
-/** Serialized owner of the non-thread-safe FUTO swipe decoder. */
-class FutoSwipeRuntime internal constructor(private val backend: FutoSwipeBackend) : AutoCloseable {
+/** What a full load produced: its time, and the time of the next-word warm-up (-1 when none ran). */
+data class FutoSwipeLoad(val loadMs: Long, val warmMs: Long)
+
+/**
+ * Serialized owner of the non-thread-safe FUTO swipe engines.
+ *
+ * A full load (vocabulary tries, encoder, decoder and ContextLM) depends only on the vocabulary, the letters and the
+ * models. It runs on the calling thread without holding the runtime lock, so a load never stalls recognition or
+ * prediction of the active engine. The loaded engine is swapped in under the lock. A change of key geometry only
+ * re-sets the layout of the loaded engine. At most [maxLoaded] engines stay loaded (the two most recently used).
+ */
+class FutoSwipeRuntime internal constructor(
+    private val backend: FutoSwipeBackend,
+    private val maxLoaded: Int = 2,
+) : AutoCloseable {
     constructor() : this(AarFutoSwipeBackend())
 
+    private val lock = Any()
+    private val loaded = LinkedHashMap<LoadKey, FutoSwipeEngine>(4, 0.75f, true)
+    private val pending = HashMap<LoadKey, CompletableFuture<Unit>>()
+    private val layouts = java.util.IdentityHashMap<FutoSwipeEngine, FutoSwipeLayout>()
+    private var active: FutoSwipeEngine? = null
     private var generation: Long? = null
     private var nextWordEnabled = false
     private var closed = false
+    private var fullLoads = 0
 
-    @Synchronized
-    fun configure(mode: FutoSwipeMode) {
-        check(!closed) { "FutoSwipeRuntime has been closed" }
-        val current = generation
-        require(current == null || mode.generation > current) {
-            "stale layout generation ${mode.generation}; current is $current"
+    /** Number of full loads so far; a change of key geometry is not a full load. */
+    val loadCount: Int get() = synchronized(lock) { fullLoads }
+
+    /**
+     * Loads the mode's engine unless it is loaded; waits if another thread is loading it.
+     * Returns the load that this call did, or null when nothing was loaded here.
+     * [warmUp] runs one throw-away next-word prediction on the new engine before other threads can use it.
+     */
+    fun preload(mode: FutoSwipeMode, warmUp: Boolean = false): FutoSwipeLoad? {
+        val spec = resolve(mode)
+        while (true) {
+            val waitFor: CompletableFuture<Unit>?
+            val mine: CompletableFuture<Unit>
+            synchronized(lock) {
+                check(!closed) { "FutoSwipeRuntime has been closed" }
+                if (loaded[spec.key] != null) return null
+                waitFor = pending[spec.key]
+                mine = waitFor ?: CompletableFuture<Unit>().also { pending[spec.key] = it }
+            }
+            if (waitFor != null) {
+                // The other load's failure is its caller's; loop and load here if it left nothing.
+                waitFor.handle { _, _ -> }.join()
+                continue
+            }
+            val started = System.nanoTime()
+            val engine = try {
+                backend.load(spec.layout, spec.models, mode.vocabularies)
+            } catch (failure: Throwable) {
+                synchronized(lock) { pending.remove(spec.key) }
+                mine.completeExceptionally(failure)
+                throw failure
+            }
+            val loadMs = (System.nanoTime() - started) / 1_000_000
+            var warmMs = -1L
+            if (warmUp && spec.nextWord) {
+                val warmStart = System.nanoTime()
+                try {
+                    engine.predictNext(listOf("the"), 1)
+                } catch (_: Throwable) {
+                    // A failed warm-up only leaves the first real prediction cold.
+                }
+                warmMs = (System.nanoTime() - warmStart) / 1_000_000
+            }
+            synchronized(lock) {
+                pending.remove(spec.key)
+                if (closed) {
+                    engine.close()
+                    mine.complete(Unit)
+                    throw IllegalStateException("FutoSwipeRuntime has been closed")
+                }
+                loaded[spec.key] = engine
+                layouts[engine] = spec.layout
+                fullLoads++
+                evictLocked()
+            }
+            mine.complete(Unit)
+            return FutoSwipeLoad(loadMs, warmMs)
         }
+    }
 
+    fun isLoaded(mode: FutoSwipeMode): Boolean {
+        val key = resolve(mode).key
+        return synchronized(lock) { loaded.containsKey(key) }
+    }
+
+    /**
+     * Makes [mode] current. It never loads: returns false when the mode's engine is not loaded, so that the caller
+     * can [preload] it outside any lock and try again.
+     */
+    fun configure(mode: FutoSwipeMode): Boolean {
+        val spec = resolve(mode)
+        synchronized(lock) {
+            check(!closed) { "FutoSwipeRuntime has been closed" }
+            val current = generation
+            require(current == null || mode.generation > current) {
+                "stale layout generation ${mode.generation}; current is $current"
+            }
+            val engine = loaded[spec.key] ?: return false
+            if (!layouts[engine].sameAs(spec.layout)) {
+                engine.setLayout(spec.layout)
+                layouts[engine] = spec.layout
+            }
+            active = engine
+            generation = mode.generation
+            nextWordEnabled = spec.nextWord
+            return true
+        }
+    }
+
+    fun recognize(input: FutoSwipeInput): FutoSwipeResult = synchronized(lock) {
+        check(!closed) { "FutoSwipeRuntime has been closed" }
+        val engine = requireCurrent(input.generation)
+        validatePath(input.x, input.y, input.t)
+        require(input.topK > 0) { "topK must be positive" }
+        require(input.beamWidth > 0) { "beamWidth must be positive" }
+        val start = input.t.first()
+        val decoded = engine.recognize(input.copy(
+            x = input.x.clone(),
+            y = input.y.clone(),
+            t = FloatArray(input.t.size) { input.t[it] - start },
+        ))
+        FutoSwipeResult(input.generation, decoded.first, decoded.second)
+    }
+
+    /** Genuine FUTO ContextLM output. This is separate from HeliBoard dictionary prediction. */
+    fun predictNext(generation: Long, contextWords: List<String>, topK: Int = 10): FutoNextWordResult = synchronized(lock) {
+        check(!closed) { "FutoSwipeRuntime has been closed" }
+        val engine = requireCurrent(generation)
+        require(topK > 0) { "topK must be positive" }
+        if (!nextWordEnabled) return FutoNextWordResult(generation, emptyList(), 0)
+        val start = System.nanoTime()
+        val words = engine.predictNext(contextWords, topK)
+        FutoNextWordResult(generation, words, (System.nanoTime() - start) / 1_000)
+    }
+
+    override fun close() = synchronized(lock) {
+        if (closed) return
+        closed = true
+        loaded.values.forEach(FutoSwipeEngine::close)
+        loaded.clear()
+        layouts.clear()
+        active = null
+    }
+
+    private fun evictLocked() {
+        val iterator = loaded.entries.iterator()
+        while (loaded.size > maxLoaded && iterator.hasNext()) {
+            val eldest = iterator.next()
+            if (eldest.value === active) continue
+            iterator.remove()
+            layouts.remove(eldest.value)
+            eldest.value.close()
+        }
+    }
+
+    private fun requireCurrent(requestGeneration: Long): FutoSwipeEngine {
+        val current = generation ?: error("FutoSwipeRuntime has not been configured")
+        require(requestGeneration == current) {
+            "stale layout generation $requestGeneration; current is $current"
+        }
+        return active ?: error("FutoSwipeRuntime has not been configured")
+    }
+
+    private data class LoadKey(val letters: String, val models: FutoSwipeModels, val vocabularies: List<FutoSwipeVocabulary>)
+
+    private class Spec(val key: LoadKey, val layout: FutoSwipeLayout, val models: FutoSwipeModels, val nextWord: Boolean)
+
+    private fun resolve(mode: FutoSwipeMode): Spec {
         val layout = mode.layout.validated()
         require(mode.vocabularies.isNotEmpty()) { "at least one raw .combined vocabulary is required" }
         mode.vocabularies.forEach {
             require(it.path.isNotBlank()) { "vocabulary path must not be blank" }
             require(it.weight.isFinite() && it.weight > 0f) { "vocabulary weight must be finite and positive" }
         }
-
         val english = Locale.forLanguageTag(mode.languageTag).language == "en"
         val models = when {
             !english -> mode.models.copy(decoderPath = null, contextLmPath = null, contextLmVocabPath = null)
@@ -99,110 +258,68 @@ class FutoSwipeRuntime internal constructor(private val backend: FutoSwipeBacken
         require((models.contextLmPath == null) == (models.contextLmVocabPath == null)) {
             "context LM model and vocabulary paths must be supplied together"
         }
-
-        backend.configure(layout, models, mode.vocabularies)
-        generation = mode.generation
-        nextWordEnabled = english && models.contextLmPath != null
-    }
-
-    @Synchronized
-    fun recognize(input: FutoSwipeInput): FutoSwipeResult {
-        check(!closed) { "FutoSwipeRuntime has been closed" }
-        requireCurrent(input.generation)
-        validatePath(input.x, input.y, input.t)
-        require(input.topK > 0) { "topK must be positive" }
-        require(input.beamWidth > 0) { "beamWidth must be positive" }
-        val start = input.t.first()
-        val decoded = backend.recognize(input.copy(
-            x = input.x.clone(),
-            y = input.y.clone(),
-            t = FloatArray(input.t.size) { input.t[it] - start },
-        ))
-        return FutoSwipeResult(input.generation, decoded.first, decoded.second)
-    }
-
-    /** Genuine FUTO ContextLM output. This is separate from HeliBoard dictionary prediction. */
-    @Synchronized
-    fun predictNext(generation: Long, contextWords: List<String>, topK: Int = 10): FutoNextWordResult {
-        check(!closed) { "FutoSwipeRuntime has been closed" }
-        requireCurrent(generation)
-        require(topK > 0) { "topK must be positive" }
-        if (!nextWordEnabled) return FutoNextWordResult(generation, emptyList(), 0)
-        val start = System.nanoTime()
-        val words = backend.predictNext(contextWords, topK)
-        return FutoNextWordResult(generation, words, (System.nanoTime() - start) / 1_000)
-    }
-
-    @Synchronized
-    override fun close() {
-        if (closed) return
-        backend.close()
-        closed = true
-    }
-
-    private fun requireCurrent(requestGeneration: Long) {
-        val current = generation ?: error("FutoSwipeRuntime has not been configured")
-        require(requestGeneration == current) {
-            "stale layout generation $requestGeneration; current is $current"
-        }
+        return Spec(LoadKey(layout.letters, models, mode.vocabularies), layout, models,
+            english && models.contextLmPath != null)
     }
 }
 
-internal interface FutoSwipeBackend : AutoCloseable {
-    fun configure(layout: FutoSwipeLayout, models: FutoSwipeModels, vocabularies: List<FutoSwipeVocabulary>)
+/** Builds engines. [load] is slow and shares no state with loaded engines, so it may run on any thread. */
+internal interface FutoSwipeBackend {
+    fun load(layout: FutoSwipeLayout, models: FutoSwipeModels, vocabularies: List<FutoSwipeVocabulary>): FutoSwipeEngine
+}
+
+/** One loaded language. Not thread-safe; [FutoSwipeRuntime] serializes its use. */
+internal interface FutoSwipeEngine : AutoCloseable {
+    /** Cheap: the same tries and models with other key positions. */
+    fun setLayout(layout: FutoSwipeLayout)
     fun recognize(input: FutoSwipeInput): Pair<List<FutoSwipeWord>, FutoSwipeTiming>
     fun predictNext(contextWords: List<String>, topK: Int): List<FutoSwipeWord>
 }
 
 private class AarFutoSwipeBackend : FutoSwipeBackend {
-    private var decoder: SwipeDecoder? = null
-    private var tries = LongArray(0)
-
-    override fun configure(
+    override fun load(
         layout: FutoSwipeLayout,
         models: FutoSwipeModels,
         vocabularies: List<FutoSwipeVocabulary>,
-    ) {
+    ): FutoSwipeEngine {
         models.paths().forEach { require(File(it).isFile) { "missing FUTO model file: $it" } }
         vocabularies.forEach { require(File(it.path).isFile) { "missing raw .combined vocabulary: ${it.path}" } }
 
-        val newTries = LongArray(vocabularies.size)
-        var newDecoder: SwipeDecoder? = null
+        val tries = LongArray(vocabularies.size)
+        var decoder: SwipeDecoder? = null
         try {
             vocabularies.forEachIndexed { index, vocabulary ->
-                newTries[index] = FutoTrie.load(vocabulary.path, layout.letters)
-                check(newTries[index] != 0L) { "failed to load raw .combined vocabulary: ${vocabulary.path}" }
+                tries[index] = FutoTrie.load(vocabulary.path, layout.letters)
+                check(tries[index] != 0L) { "failed to load raw .combined vocabulary: ${vocabulary.path}" }
             }
-            newDecoder = SwipeDecoder(
+            decoder = SwipeDecoder(
                 encoderPath = models.encoderPath,
                 decoderPath = models.decoderPath,
                 lmModelPath = models.contextLmPath,
                 lmVocabPath = models.contextLmVocabPath,
             )
-            check(newDecoder.setMode(
-                letters = layout.letters,
-                cx = layout.centerX,
-                cy = layout.centerY,
-                tries = newTries,
-            )) { "FUTO rejected the layout or vocabulary mode" }
+            return AarFutoSwipeEngine(decoder, tries).also { it.setLayout(layout) }
         } catch (failure: Throwable) {
-            newDecoder?.close()
-            newTries.forEach(FutoTrie::close)
+            decoder?.close()
+            tries.forEach { if (it != 0L) FutoTrie.close(it) }
             throw failure
         }
+    }
+}
 
-        val oldDecoder = decoder
-        val oldTries = tries
-        decoder = newDecoder
-        tries = newTries
-        oldDecoder?.close()
-        oldTries.forEach(FutoTrie::close)
+private class AarFutoSwipeEngine(private val decoder: SwipeDecoder, private val tries: LongArray) : FutoSwipeEngine {
+    override fun setLayout(layout: FutoSwipeLayout) {
+        check(decoder.setMode(
+            letters = layout.letters,
+            cx = layout.centerX,
+            cy = layout.centerY,
+            tries = tries,
+        )) { "FUTO rejected the layout or vocabulary mode" }
     }
 
     override fun recognize(input: FutoSwipeInput): Pair<List<FutoSwipeWord>, FutoSwipeTiming> {
-        val active = decoder ?: error("FUTO decoder is not configured")
-        active.setContext(input.contextWords)
-        val words = active.recognize(
+        decoder.setContext(input.contextWords)
+        val words = decoder.recognize(
             input.x,
             input.y,
             input.t,
@@ -210,7 +327,7 @@ private class AarFutoSwipeBackend : FutoSwipeBackend {
             input.beamWidth,
             null,
         ).map { FutoSwipeWord(it.word, it.score, it.ctcScore, it.lmScore) }
-        val timing = active.lastTiming()
+        val timing = decoder.lastTiming()
         return words to FutoSwipeTiming(
             timing.resampleUs,
             timing.encoderUs,
@@ -222,16 +339,13 @@ private class AarFutoSwipeBackend : FutoSwipeBackend {
     }
 
     override fun predictNext(contextWords: List<String>, topK: Int): List<FutoSwipeWord> {
-        val active = decoder ?: error("FUTO decoder is not configured")
-        active.setContext(contextWords)
-        return active.predictNext(topK).map { FutoSwipeWord(it.word, it.score, it.ctcScore, it.lmScore) }
+        decoder.setContext(contextWords)
+        return decoder.predictNext(topK).map { FutoSwipeWord(it.word, it.score, it.ctcScore, it.lmScore) }
     }
 
     override fun close() {
-        decoder?.close()
-        decoder = null
+        decoder.close()
         tries.forEach(FutoTrie::close)
-        tries = LongArray(0)
     }
 }
 
@@ -250,6 +364,9 @@ private fun FutoSwipeModels.paths(): List<String> = listOfNotNull(
     contextLmPath,
     contextLmVocabPath,
 )
+
+private fun FutoSwipeLayout?.sameAs(other: FutoSwipeLayout): Boolean = this != null &&
+    letters == other.letters && centerX.contentEquals(other.centerX) && centerY.contentEquals(other.centerY)
 
 private fun FutoSwipeLayout.validated(): FutoSwipeLayout {
     val codePoints = letters.codePoints().toArray()

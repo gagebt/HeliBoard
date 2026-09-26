@@ -580,7 +580,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         return dictionariesToCheck.any { dictionaryGroup.getDict(it)?.isValidWord(word) == true }
     }
 
-    private fun isBlacklisted(word: String): Boolean = dictionaryGroups.any { it.isBlacklisted(word) }
+    override fun isBlacklisted(word: String): Boolean = dictionaryGroups.any { it.isBlacklisted(word) }
 
     override fun removeWord(word: String) {
         for (dictionaryGroup in dictionaryGroups) {

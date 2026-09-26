@@ -668,7 +668,8 @@ public final class InputLogic {
                 && (locale.getLanguage().equals("en") || locale.getLanguage().equals("ru"))
                 && (settings.mGestureInputEnabled || (locale.getLanguage().equals("en")
                         && settings.mBigramPredictionEnabled && settings.needsToLookupSuggestions()))) {
-            mInputLogicHandler.getSuggestedWords(() -> FutoSuggestions.INSTANCE.warmUp(keyboard, locale));
+            // Loads on FUTO's own loader thread; the suggestion worker stays free for gestures.
+            FutoSuggestions.INSTANCE.preload(keyboard, locale);
         }
     }
 

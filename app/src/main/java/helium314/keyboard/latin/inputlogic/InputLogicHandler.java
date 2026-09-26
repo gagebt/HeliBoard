@@ -9,11 +9,13 @@ package helium314.keyboard.latin.inputlogic;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.os.SystemClock;
 
 import helium314.keyboard.latin.LatinIME;
 import helium314.keyboard.latin.SuggestedWords;
 import helium314.keyboard.latin.WordComposer;
 import helium314.keyboard.latin.common.InputPointers;
+import helium314.keyboard.latin.utils.Log;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,15 +24,20 @@ import java.util.HashSet;
  * A helper to manage deferred tasks for the input logic.
  */
 class InputLogicHandler implements Handler.Callback {
+    private static final String TAG = InputLogicHandler.class.getSimpleName();
     final Handler mNonUIThreadHandler;
     final LatinIME.UIHandler mLatinIMEHandler;
     final InputLogic mInputLogic;
     private final Object mLock = new Object();
     private boolean mInBatchInput; // synchronized using {@link #mLock}.
     private long mBatchGeneration;
+    private long mTimedUpdateGeneration = -1; // synchronized using {@link #mLock}.
     private final HashSet<Long> mCompletedBatchGenerations = new HashSet<>();
 
+    // Gesture work; never dropped by a new gesture.
     private static final int MSG_GET_SUGGESTED_WORDS = 1;
+    // Strip, recorrection and other work; queued jobs that have not started are dropped when a gesture starts.
+    private static final int MSG_DROPPABLE_WORK = 2;
 
     public InputLogicHandler(final LatinIME.UIHandler latinIMEHandler, final InputLogic inputLogic) {
         final HandlerThread handlerThread = new HandlerThread(
@@ -57,7 +64,7 @@ class InputLogicHandler implements Handler.Callback {
     // Called on the Non-UI handler thread by the Handler code.
     @Override
     public boolean handleMessage(final Message msg) {
-        if (msg.what == MSG_GET_SUGGESTED_WORDS)
+        if (msg.what == MSG_GET_SUGGESTED_WORDS || msg.what == MSG_DROPPABLE_WORK)
             ((Runnable)msg.obj).run();
         return true;
     }
@@ -67,6 +74,11 @@ class InputLogicHandler implements Handler.Callback {
         synchronized (mLock) {
             mInBatchInput = true;
             ++mBatchGeneration;
+        }
+        // A queued suggestion-strip or prediction job would only delay the gesture; its result is replaced anyway.
+        if (mNonUIThreadHandler.hasMessages(MSG_DROPPABLE_WORK)) {
+            mNonUIThreadHandler.removeMessages(MSG_DROPPABLE_WORK);
+            Log.i(TAG, "gesture start dropped queued suggestion work");
         }
     }
 
@@ -99,7 +111,11 @@ class InputLogicHandler implements Handler.Callback {
             mInputLogic.mWordComposer.setBatchInputPointers(batchPointers);
             final WordComposer wordComposer = mInputLogic.mWordComposer.copyForBatchInput(batchPointers);
             if (isTailBatchInput) mCompletedBatchGenerations.add(batchGeneration);
-            getSuggestedWords(() -> {
+            final long queuedAt = SystemClock.uptimeMillis();
+            final int points = batchPointers.getPointerSize();
+            final boolean timed = isTailBatchInput || mTimedUpdateGeneration != batchGeneration;
+            if (!isTailBatchInput) mTimedUpdateGeneration = batchGeneration;
+            mNonUIThreadHandler.obtainMessage(MSG_GET_SUGGESTED_WORDS, (Runnable) () -> {
                 synchronized (mLock) {
                     if (isTailBatchInput) {
                         if (!mCompletedBatchGenerations.contains(batchGeneration)) return;
@@ -107,10 +123,20 @@ class InputLogicHandler implements Handler.Callback {
                         return;
                     }
                 }
+                final long startedAt = SystemClock.uptimeMillis();
                 mInputLogic.getSuggestedWords(
                     isTailBatchInput ? SuggestedWords.INPUT_STYLE_TAIL_BATCH : SuggestedWords.INPUT_STYLE_UPDATE_BATCH, sequenceNumber, wordComposer,
-                    suggestedWords -> showGestureSuggestionsWithPreviewVisuals(suggestedWords, isTailBatchInput, batchGeneration, sequenceNumber));
-            });
+                    suggestedWords -> {
+                        if (timed) {
+                            // Numbers only: never the gesture's text.
+                            Log.i(TAG, "gesture " + (isTailBatchInput ? "tail" : "first update") + " timing: points="
+                                    + points + " queueMs=" + (startedAt - queuedAt)
+                                    + " workMs=" + (SystemClock.uptimeMillis() - startedAt)
+                                    + " candidates=" + suggestedWords.size());
+                        }
+                        showGestureSuggestionsWithPreviewVisuals(suggestedWords, isTailBatchInput, batchGeneration, sequenceNumber);
+                    });
+            }).sendToTarget();
         }
     }
 
@@ -197,6 +223,6 @@ class InputLogicHandler implements Handler.Callback {
     }
 
     public void getSuggestedWords(final Runnable callback) {
-        mNonUIThreadHandler.obtainMessage(MSG_GET_SUGGESTED_WORDS, callback).sendToTarget();
+        mNonUIThreadHandler.obtainMessage(MSG_DROPPABLE_WORK, callback).sendToTarget();
     }
 }
