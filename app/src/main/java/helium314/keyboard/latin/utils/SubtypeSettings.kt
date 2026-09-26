@@ -56,15 +56,18 @@ object SubtypeSettings {
 
     fun addEnabledSubtype(prefs: SharedPreferences, newSubtype: InputMethodSubtype) {
         val subtype = newSubtype.toSettingsSubtype()
-        val subtypes = createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!) + subtype
-        val newString = createPrefSubtypes(subtypes)
+        val stored = createSettingsSubtypes(prefs.getString(Settings.PREF_ENABLED_SUBTYPES, Defaults.PREF_ENABLED_SUBTYPES)!!)
+        // An empty list means the keyboard runs on the default (system) subtypes; keep them when the first one is added.
+        val keepDefaults = stored.isEmpty() && enabledSubtypes.isEmpty()
+        val base = if (keepDefaults) getDefaultEnabledSubtypes().map { it.toSettingsSubtype() } else stored
+        val newString = createPrefSubtypes(base + subtype)
         prefs.edit { putString(Settings.PREF_ENABLED_SUBTYPES, newString) }
 
-        if (newSubtype !in enabledSubtypes) {
-            enabledSubtypes.add(newSubtype)
-            enabledSubtypes.sortBy { it.locale().toLanguageTag() } // for consistent order
-            RichInputMethodManager.getInstance().refreshSubtypeCaches()
-        }
+        if (!keepDefaults && newSubtype in enabledSubtypes) return
+        if (keepDefaults) enabledSubtypes.addAll(getDefaultEnabledSubtypes())
+        if (newSubtype !in enabledSubtypes) enabledSubtypes.add(newSubtype)
+        enabledSubtypes.sortBy { it.locale().toLanguageTag() } // for consistent order
+        RichInputMethodManager.getInstance().refreshSubtypeCaches()
     }
 
     /** @return whether subtype was actually removed */
