@@ -62,6 +62,7 @@ fun MainSettingsScreen(
                 ) { NextScreenIcon() }
                 Preference(
                     name = stringResource(R.string.settings_screen_preferences),
+                    description = stringResource(R.string.pf6_preferences_summary),
                     onClick = onClickPreferences,
                     icon = R.drawable.ic_settings_preferences
                 ) { NextScreenIcon() }
