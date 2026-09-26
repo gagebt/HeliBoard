@@ -1,46 +1,58 @@
 package dev.notune.transcribe;
 
-import java.util.Objects;
-
 /** Pure decisions at voice-session boundaries; a saved draft never becomes an auto-replay queue. */
 final class SessionDraftPolicy {
-    enum Delivery { INSERT, SAVE }
-
-    static final class StartResolution {
-        final long sessionId;
-        final boolean retryAvailable;
-        final boolean replaced;
-
-        StartResolution(long sessionId, boolean retryAvailable, boolean replaced) {
-            this.sessionId = sessionId;
-            this.retryAvailable = retryAvailable;
-            this.replaced = replaced;
-        }
-    }
-
     private SessionDraftPolicy() { }
-
-    static Delivery automatic(Object targetEditor, Object currentEditor,
-                              boolean inputActive, boolean deliveryOpen) {
-        return deliveryOpen && inputActive && targetEditor != null
-                && Objects.equals(targetEditor, currentEditor)
-                ? Delivery.INSERT : Delivery.SAVE;
-    }
 
     static boolean deliveryOpenAfterUnconfirmedCommit(boolean accepted) {
         return accepted;
     }
 
-    static StartResolution afterStartAttempt(long currentSessionId, boolean retryAvailable,
-                                             long candidateSessionId, boolean started) {
-        return started
-                ? new StartResolution(candidateSessionId, false, true)
-                : new StartResolution(currentSessionId, retryAvailable, false);
+    /**
+     * True when a field that just started continues the binding voice was writing into.
+     * The field record must match, and then either the keyboard is rotating or the text on
+     * both sides of the cursor and the cursor itself read exactly as voice last left them.
+     * A widget id shared by many documents, or a field that cannot be read, is ambiguous and
+     * never continues a binding.
+     */
+    static boolean continuesBinding(EditorRecord target, EditorRecord current, boolean rotating,
+                                    String expectedBefore, String expectedAfter,
+                                    int expectedSelectionStart, int expectedSelectionEnd,
+                                    String currentBefore, String currentAfter,
+                                    int currentSelectionStart, int currentSelectionEnd) {
+        if (target == null || !target.sameField(current)) return false;
+        if (rotating) return true;
+        if (!current.readBackKnown || expectedBefore == null || expectedAfter == null
+                || currentBefore == null || currentAfter == null) return false;
+        if (expectedSelectionStart >= 0 && currentSelectionStart >= 0
+                && (expectedSelectionStart != currentSelectionStart
+                || expectedSelectionEnd != currentSelectionEnd)) return false;
+        return expectedBefore.equals(currentBefore) && expectedAfter.equals(currentAfter);
     }
 
-    static boolean canDiscard(boolean hasDraft, boolean draftReadError,
-                              boolean retryAvailable) {
-        return hasDraft || draftReadError || retryAvailable;
+    /** Recovery text worth keeping: a lone ". " left by the final mark is not. */
+    static boolean hasLetterOrDigit(String text) {
+        if (text == null) return false;
+        for (int i = 0; i < text.length(); ) {
+            int cp = text.codePointAt(i);
+            if (Character.isLetterOrDigit(cp)) return true;
+            i += Character.charCount(cp);
+        }
+        return false;
+    }
+
+    /**
+     * Copy rule (X3). Unconfirmed text is offered only in the binding it was spoken into.
+     * Undelivered text is offered in that binding, and in any other ordinary field unless
+     * it came from a private field. Never in another private field, never without a letter
+     * or digit. Optional history settings are not an input.
+     */
+    static boolean copyOffered(VoiceInterval interval, EditorRecord current, long currentBinding) {
+        if (interval == null || current == null || !hasLetterOrDigit(interval.text)) return false;
+        boolean own = interval.binding >= 0 && interval.binding == currentBinding;
+        if (interval.state == VoiceInterval.State.UNCONFIRMED) return own;
+        if (interval.state != VoiceInterval.State.UNDELIVERED) return false;
+        return own || !interval.privateOrigin() && !current.privateField;
     }
 
     /** True when the same field no longer has the cursor/text state last owned by voice. */

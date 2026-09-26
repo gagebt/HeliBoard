@@ -26,8 +26,10 @@ public final class TextFitter {
     public enum FieldKind {
         /** Ordinary text: all four steps apply. */
         PROSE,
-        /** Number, phone, date-time, URI, e-mail and filter: no spaces or case change. */
+        /** Phone, date-time and e-mail: no spaces or case change. */
         PLAIN,
+        /** Number: the piece only when all of it is one number; otherwise nothing. */
+        NUMBER,
         /** Search text: word spacing, no case change, and no final full stop. */
         SEARCH,
         /** Masked: the text is inserted exactly as the model produced it. */
@@ -116,6 +118,9 @@ public final class TextFitter {
             if (t.endsWith(".")) t = t.substring(0, t.length() - 1);
             return new Fit("", t, "");
         }
+        if (kind == FieldKind.NUMBER) {
+            return new Fit("", numberText(t), "");
+        }
         if (kind == FieldKind.SEARCH) {
             if (t.endsWith(".")) t = t.substring(0, t.length() - 1);
             String prefix = "";
@@ -178,6 +183,23 @@ public final class TextFitter {
         }
 
         return new Fit(prefix, t, suffix);
+    }
+
+    private static final java.util.regex.Pattern SPOKEN_NUMBER = java.util.regex.Pattern.compile(
+            "([-−]?)(\\d{1,3}(?:,\\d{3})+|\\d+)(?:[.,](\\d+))?");
+
+    /**
+     * The spoken piece as a number, or "" when the whole piece is not one number. Allowed:
+     * one minus sign, digits with optional thousands commas, and one decimal point or
+     * decimal comma; one final full stop is ignored. There is no word parser, so "twelve"
+     * and "1/2" both give "" and the field gets nothing.
+     */
+    static String numberText(String t) {
+        String s = t.endsWith(".") ? t.substring(0, t.length() - 1).trim() : t;
+        java.util.regex.Matcher m = SPOKEN_NUMBER.matcher(s);
+        if (!m.matches()) return "";
+        String number = (m.group(1).isEmpty() ? "" : "-") + m.group(2).replace(",", "");
+        return m.group(3) == null ? number : number + "." + m.group(3);
     }
 
     // -----------------------------------------------------------------------------
