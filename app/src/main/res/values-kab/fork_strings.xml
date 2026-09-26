@@ -83,4 +83,5 @@
     <string name="pf6_clipboard_kept_for">Isebtaren i sɛan azday ɣer %1$s. Tzemreḍ ad tbeddleḍ aya deg isebtaren.</string>
     <string name="pf6_clipboard_kept_no_limit">Tettwaḥrez-d tikkunin alamma tettfeǧǧeḍ-tent.</string>
     <string name="pf6_clipboard_pinned">Yettwaṭṭef</string>
+    <string name="voice_status_nothing_heard">Ulac acu i d-yeslan</string>
 </resources>

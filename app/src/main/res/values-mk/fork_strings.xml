@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Копиите се чуваат за %1$s. Можете да го промените ова во поставките.</string>
     <string name="pf6_clipboard_kept_no_limit">Копиите се чуваат додека не ги избришете.</string>
     <string name="pf6_clipboard_pinned">Пиндирани</string>
+    <string name="voice_status_nothing_heard">Не слушнав ништо.</string>
 </resources>

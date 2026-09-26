@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">ਕਾਪੀਆਂ %1$s ਲਈ ਰੱਖੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਤੁਸੀਂ ਇਸਨੂੰ ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਬਦਲ ਸਕਦੇ ਹੋ.</string>
     <string name="pf6_clipboard_kept_no_limit">ਕਾਪੀਆਂ ਉਦੋਂ ਤੱਕ ਰੱਖੀਆਂ ਜਾਂਦੀਆਂ ਹਨ ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਉਨ੍ਹਾਂ ਨੂੰ ਮਿਟਾ ਨਹੀਂ ਦਿੰਦੇ।</string>
     <string name="pf6_clipboard_pinned">ਪਿੰਨਡ</string>
+    <string name="voice_status_nothing_heard">ਕੁਝ ਨਹੀਂ ਸੁਣਿਆ</string>
 </resources>

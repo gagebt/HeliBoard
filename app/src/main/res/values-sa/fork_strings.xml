@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">प्रतिलिपिः %1$s इति प्रतिलिपिः । इदम् सेटिंग्स् मध्ये परिवर्तनं कर्तुम् शक्नोति ।</string>
     <string name="pf6_clipboard_kept_no_limit">प्रतिलिपिः यदा तु तेषां लोपः न करिष्ये तादृशमेव भवति।</string>
     <string name="pf6_clipboard_pinned">पिनः</string>
+    <string name="voice_status_nothing_heard">न श्रुतम् ।</string>
 </resources>

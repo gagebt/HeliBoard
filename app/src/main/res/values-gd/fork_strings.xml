@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Tha lethbhreacan air an cumail airson %1$s. Faodaidh tu seo atharrachadh ann an suidheachadh.</string>
     <string name="pf6_clipboard_kept_no_limit">Tha lethbhreacan air an cumail gus an cuir thu iad às.</string>
     <string name="pf6_clipboard_pinned">A \'pinned</string>
+    <string name="voice_status_nothing_heard">Cha chuala mi dad</string>
 </resources>

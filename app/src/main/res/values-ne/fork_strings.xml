@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">प्रतिलिपिहरू %1$s को लागि राखिएका छन्। तपाईँ यसलाई सेटिङमा परिवर्तन गर्न सक्नुहुन्छ।</string>
     <string name="pf6_clipboard_kept_no_limit">प्रतिलिपिहरू तपाईँले तिनीहरूलाई मेटाउनेसम्म राख्नुहुन्छ।</string>
     <string name="pf6_clipboard_pinned">पिन गरिएको</string>
+    <string name="voice_status_nothing_heard">मैले केही सुनेको छैन ।</string>
 </resources>

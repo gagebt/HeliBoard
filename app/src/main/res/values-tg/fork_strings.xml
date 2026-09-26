@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Нусхаҳо барои %1$s нигоҳ дошта мешаванд. Шумо метавонед инро дар танзимотҳо иваз кунед.</string>
     <string name="pf6_clipboard_kept_no_limit">Нусхаҳо то он даме, ки онҳоро нест кунед, нигоҳ дошта мешаванд.</string>
     <string name="pf6_clipboard_pinned">Бандкардашуда</string>
+    <string name="voice_status_nothing_heard">Ҳеҷ чиз нашунида шуд</string>
 </resources>

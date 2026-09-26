@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">A másolatokat %1$s-re tartják. Ezt a beállításokban módosíthatod.</string>
     <string name="pf6_clipboard_kept_no_limit">A másolatokat addig tartják meg, amíg azokat nem törli.</string>
     <string name="pf6_clipboard_pinned">Feltöltött</string>
+    <string name="voice_status_nothing_heard">Semmit sem hallottam.</string>
 </resources>

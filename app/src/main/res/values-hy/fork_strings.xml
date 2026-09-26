@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">Կոպիաները պահվում են %1$s համարի համար: Դուք կարող եք փոխել այս կարգավորումները.</string>
     <string name="pf6_clipboard_kept_no_limit">Կոպիաները պահվում են, մինչեւ դրանք չփակես:</string>
     <string name="pf6_clipboard_pinned">Պինված</string>
+    <string name="voice_status_nothing_heard">Ոչ մի բան չի լսվել</string>
 </resources>

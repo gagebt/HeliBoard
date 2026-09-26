@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">కాపీలు %1$sకు భద్రపరచబడ్డాయి. మీరు సెట్టింగులలో ఈ మార్చవచ్చు.</string>
     <string name="pf6_clipboard_kept_no_limit">మీరు వాటిని తొలగించే వరకు కాపీలు ఉంటాయి.</string>
     <string name="pf6_clipboard_pinned">పిన్డ్</string>
+    <string name="voice_status_nothing_heard">ఏమీ వినలేదు</string>
 </resources>

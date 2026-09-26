@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">%1$s дугаарт хувилбарыг хадгалж байна. Та үүнийг тохируулалтаар өөрчилж болно.</string>
     <string name="pf6_clipboard_kept_no_limit">Та тэдгээрийг устгах хүртэл хувилбарыг хадгалж байна.</string>
     <string name="pf6_clipboard_pinned">Хөгжүүлэг</string>
+    <string name="voice_status_nothing_heard">Үүнээс юу ч сонссонгүй.</string>
 </resources>

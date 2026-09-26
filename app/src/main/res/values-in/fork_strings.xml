@@ -117,4 +117,5 @@
     <string name="pf6_clipboard_kept_for">Salinan disimpan untuk %1$s. Anda bisa mengubah ini dalam pengaturan.</string>
     <string name="pf6_clipboard_kept_no_limit">Salinan disimpan sampai Anda menghapus mereka.</string>
     <string name="pf6_clipboard_pinned">Dipin</string>
+    <string name="voice_status_nothing_heard">Tidak ada yang terdengar.</string>
 </resources>

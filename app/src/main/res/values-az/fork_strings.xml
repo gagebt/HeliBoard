@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Nüsxələr %1$s-ə saxlanılır. Bunu parametrlərdə dəyişdirə bilərsiniz.</string>
     <string name="pf6_clipboard_kept_no_limit">Nüsxələr silənə qədər saxlanılır.</string>
     <string name="pf6_clipboard_pinned">Dərslə</string>
+    <string name="voice_status_nothing_heard">Heç nə eşitmədim.</string>
 </resources>

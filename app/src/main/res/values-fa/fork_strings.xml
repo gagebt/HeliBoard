@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">کپی ها به شماره %1$s نگهداری می شوند. شما می توانید این را در تنظیمات تغییر دهید.</string>
     <string name="pf6_clipboard_kept_no_limit">کپي ها تا وقتي که حذفشون کني نگه داريم.</string>
     <string name="pf6_clipboard_pinned">پینه شده</string>
+    <string name="voice_status_nothing_heard">هیچ چیزی نشنیدم</string>
 </resources>

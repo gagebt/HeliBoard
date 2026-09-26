@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">这些副本保存为%1$s. 在设置中可以更改.</string>
     <string name="pf6_clipboard_kept_no_limit">在您删除之前保留副本.</string>
     <string name="pf6_clipboard_pinned">已固定</string>
+    <string name="voice_status_nothing_heard">未听到声音</string>
 </resources>

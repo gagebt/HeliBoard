@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">%1$s အတွက် ကူးယူထားတယ်။ ဒါကို Settings ထဲမှာ ပြောင်းနိုင်ပါတယ်။</string>
     <string name="pf6_clipboard_kept_no_limit">ကိုယ်က ဖျက်တဲ့အထိ ကိုယ်က သိမ်းထားတယ်။</string>
     <string name="pf6_clipboard_pinned">ပိတ်ထားသည်</string>
+    <string name="voice_status_nothing_heard">ဘာမှ မကြားရဘူး။</string>
 </resources>

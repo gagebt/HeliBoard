@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">存放為%1$s號碼的副本. 您可以在設定中更改.</string>
     <string name="pf6_clipboard_kept_no_limit">您將其保存到您將其移除.</string>
     <string name="pf6_clipboard_pinned">已固定</string>
+    <string name="voice_status_nothing_heard">未聽到聲音</string>
 </resources>

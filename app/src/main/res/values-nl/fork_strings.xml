@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Kopieën worden bewaard voor %1$s. Je kunt dit veranderen in instellingen.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopieën worden bewaard totdat u ze verwijdert.</string>
     <string name="pf6_clipboard_pinned">Vastgezet</string>
+    <string name="voice_status_nothing_heard">Ik heb niets gehoord.</string>
 </resources>

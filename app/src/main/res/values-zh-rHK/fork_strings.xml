@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">複製數量為%1$s. 你可以喺設定中改變</string>
     <string name="pf6_clipboard_kept_no_limit">你將複製保存到你去除之前</string>
     <string name="pf6_clipboard_pinned">已固定</string>
+    <string name="voice_status_nothing_heard">未聽到聲音</string>
 </resources>

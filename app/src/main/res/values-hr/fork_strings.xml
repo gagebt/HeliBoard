@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Kopije se čuvaju za broj %1$s. Možete promijeniti ovo u postavkama.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopije se čuvaju dok ih ne izbrišete.</string>
     <string name="pf6_clipboard_pinned">Ugrađene</string>
+    <string name="voice_status_nothing_heard">Ništa nisam čuo.</string>
 </resources>

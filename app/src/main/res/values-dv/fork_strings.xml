@@ -27,7 +27,6 @@
     <string name="search_enable_first">ބޭނުންވަނީ: %1$s</string>
     <string name="search_mode_normal">އާންމު</string>
     <string name="search_mode_smart">ސްމާޓް</string>
-    <string name="voice_control_auto_hide">රූප සටහන් පටන් ගත්තට පස්සේ තත්පර 4ක් හැංගිලා</string>
     <string name="voice_control_full">ދެއްކުން</string>
     <string name="voice_control_stop_only">ނިވާލާފައި</string>
     <string name="voice_seconds_format">%1$.1f ސިކުންތު</string>
@@ -41,15 +40,5 @@
     <string name="voice_clip_label">އަޑުން ލިޔުން</string>
     <string name="clipboard_empty_guidance">ސޭވްކޮށްފައިވާ ކްލިޕްތައް ނެތް. އެއް އިތުރުކުރުމަށް ލިޔުން ކޮޕީކުރޭ.</string>
 
-    <!-- pf6 machine translation draft -->
-    <string name="pf6_preferences_summary">කටහඬ ඇතුල් කිරීම, යතුරු පුවරුව, ක්ලිප්බෝඩ්</string>
-    <string name="pf6_voice_help">මයික් රොෆෝනය මත තට්ටු කරන්න. ඔයාට දිගටම ටයිප් කරන්න පුළුවන්. හඬ අයිකනයක් තියාගෙන නම බලන්න.</string>
-    <string name="pf6_voice_saved_retention">ගබඩා කර ඇති සටහන් ඉතිහාසය රඳවා තබා ගැනීමේ කාලය අනුගමනය කරයි (දැන් %1$s).</string>
-    <string name="pf6_search_no_results">ගැලපෙන සැකසුම් නෑ</string>
-    <string name="pf6_mic_permission_needed_allow">මයික් රොෆෝන් අවසරය අවශ් යයි. ඉඩ දෙන්න කියලා තට්ටු කරන්න.</string>
-    <string name="pf6_mic_permission_needed_settings">මයික් රොෆෝන් අවසරය අවශ් යයි. App තොරතුරු විවෘත කරන්න.</string>
-    <string name="pf6_retention_minutes">%1$d min</string>
-    <string name="pf6_clipboard_kept_for">පිටපත් %1$s නමින් තබා ඇත. ඔයාට මේක සැකසුම් වලින් වෙනස් කරන්න පුළුවන්.</string>
-    <string name="pf6_clipboard_kept_no_limit">පිටපත් ඔබ ඒවා මකාදැමිය යුතු තෙක් තබා ගනී.</string>
-    <string name="pf6_clipboard_pinned">ඇඹරීම</string>
+    <string name="voice_control_auto_hide">4 ސިކުންތު ފަހުން ފޮރުވުން</string>
 </resources>

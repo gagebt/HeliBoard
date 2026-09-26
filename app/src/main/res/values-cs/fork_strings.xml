@@ -118,4 +118,5 @@
     <string name="pf6_clipboard_kept_for">Kopie jsou uchovávány na čísle %1$s. Můžete to změnit v nastavení.</string>
     <string name="pf6_clipboard_kept_no_limit">Kopie se uchovávají, dokud je nevymažete.</string>
     <string name="pf6_clipboard_pinned">Vkládání</string>
+    <string name="voice_status_nothing_heard">Nic jsem neslyšel.</string>
 </resources>

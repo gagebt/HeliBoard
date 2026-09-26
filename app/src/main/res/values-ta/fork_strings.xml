@@ -119,4 +119,5 @@
     <string name="pf6_clipboard_kept_for">%1$s என்ற எண்ணிக்கையில் பிரதிகள் வைக்கப்பட்டுள்ளன. நீங்கள் அமைப்புகளில் இதை மாற்ற முடியும்.</string>
     <string name="pf6_clipboard_kept_no_limit">நீங்கள் அவற்றை நீக்கும் வரை பிரதிகள் சேமிக்கப்படும்.</string>
     <string name="pf6_clipboard_pinned">தையல்</string>
+    <string name="voice_status_nothing_heard">எதுவும் கேட்கவில்லை</string>
 </resources>

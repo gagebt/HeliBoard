@@ -117,4 +117,5 @@
     <string name="pf6_clipboard_kept_for">Las copias se guardan para %1$s. Puedes cambiar esto en la configuración.</string>
     <string name="pf6_clipboard_kept_no_limit">Las copias se guardan hasta que las elimines.</string>
     <string name="pf6_clipboard_pinned">Encasillado</string>
+    <string name="voice_status_nothing_heard">No se escuchó nada.</string>
 </resources>

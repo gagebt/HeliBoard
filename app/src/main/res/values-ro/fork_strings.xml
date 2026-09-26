@@ -117,4 +117,5 @@
     <string name="pf6_clipboard_kept_for">Copiile sunt păstrate pentru %1$s. Puteţi schimba asta în setări.</string>
     <string name="pf6_clipboard_kept_no_limit">Copiile sunt păstrate până când le ștergeți.</string>
     <string name="pf6_clipboard_pinned">Piniți</string>
+    <string name="voice_status_nothing_heard">N-am auzit nimic .</string>
 </resources>

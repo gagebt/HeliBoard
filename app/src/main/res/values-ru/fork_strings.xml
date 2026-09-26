@@ -107,4 +107,5 @@
     <string name="voice_status_uncertain">Сохранённая копия доступна; вставку не удалось подтвердить</string>
     <string name="voice_clip_label">Диктовка</string>
     <string name="clipboard_empty_guidance">Нет сохранённых фрагментов. Скопируйте текст, чтобы добавить один.</string>
+    <string name="voice_status_nothing_heard">Ничего не слышно</string>
 </resources>
