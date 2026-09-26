@@ -402,11 +402,21 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (session != null && !targetLost && current != null) {
             InputConnection connection = host.currentInputConnection();
             EditorSnapshot snapshot = rotating ? null : readSnapshot(connection, current);
+            String before = rotating ? null : readBefore(connection, current);
+            String after = rotating ? null : readAfter(connection, current);
             continues = SessionDraftPolicy.continuesBinding(session.destination, current, rotating,
                     expectedBefore, expectedAfter, expectedSelectionStart, expectedSelectionEnd,
-                    rotating ? null : readBefore(connection, current),
-                    rotating ? null : readAfter(connection, current),
-                    selectionStart(snapshot), selectionEnd(snapshot));
+                    before, after, selectionStart(snapshot), selectionEnd(snapshot));
+            if (!continues) {
+                // Lengths and flags only: the text itself stays out of the log.
+                Log.i(TAG, "Voice binding ends: same field " + session.destination.sameField(current)
+                        + ", before " + length(expectedBefore) + "/" + length(before)
+                        + " equal " + java.util.Objects.equals(expectedBefore, before)
+                        + ", after " + length(expectedAfter) + "/" + length(after)
+                        + " equal " + java.util.Objects.equals(expectedAfter, after)
+                        + ", selection " + expectedSelectionStart + "," + expectedSelectionEnd
+                        + "/" + selectionStart(snapshot) + "," + selectionEnd(snapshot));
+            }
         }
         if (continues) {
             Log.i(TAG, "Voice binding continues in " + current + (rotating ? " (rotation)" : ""));
@@ -447,6 +457,10 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             persist();
             publishState();
         }
+    }
+
+    private static int length(String text) {
+        return text == null ? -1 : text.length();
     }
 
     /** Call when the keyboard view finishes: leaving the app or field stops the microphone. */
