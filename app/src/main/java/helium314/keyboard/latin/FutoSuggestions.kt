@@ -45,6 +45,7 @@ object FutoSuggestions {
     private var geometry: String? = null
     private var generation = 0L
 
+    @Volatile private var latestPreload: Shape? = null
     private val loader = Executors.newSingleThreadExecutor { task ->
         Thread(task, "FutoSwipeLoader").apply { isDaemon = true }
     }
@@ -65,10 +66,15 @@ object FutoSuggestions {
         geometry = null
     }
 
-    /** Loads the vocabulary and models of [locale] on the loader thread, then warms the next-word model. */
+    /**
+     * Loads the vocabulary and models of [locale] on the loader thread, then warms the next-word model.
+     * A request that a newer one replaced before the loader reached it is skipped.
+     */
     fun preload(keyboard: Keyboard, locale: Locale) {
         val shape = Shape.of(keyboard, locale) ?: return
+        latestPreload = shape
         loader.execute {
+            if (latestPreload !== shape) return@execute
             val active = runtime ?: return@execute
             val appContext = context ?: return@execute
             try {
