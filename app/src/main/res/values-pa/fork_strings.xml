@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">ਕਾਪੀਆਂ ਉਦੋਂ ਤੱਕ ਰੱਖੀਆਂ ਜਾਂਦੀਆਂ ਹਨ ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਉਨ੍ਹਾਂ ਨੂੰ ਮਿਟਾ ਨਹੀਂ ਦਿੰਦੇ।</string>
     <string name="pf6_clipboard_pinned">ਪਿੰਨਡ</string>
     <string name="voice_status_nothing_heard">ਕੁਝ ਨਹੀਂ ਸੁਣਿਆ</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">ਕੀਬੋਰਡ ਬੰਦ ਹੋਣ ਤੇ ਬੋਲ ਕੇ ਲਿਖਣਾ ਰੋਕੋ</string>
+    <string name="voice_stop_on_keyboard_close_summary">ਕੀਬੋਰਡ ਲੁਕਿਆ ਹੋਣ ਤੇ ਵੀ ਸੁਣਨਾ ਜਾਰੀ ਰੱਖਣ ਲਈ ਇਹ ਬੰਦ ਕਰੋ। ਲਿਖਤ ਵਾਲੇ ਖੇਤਰ ਤੋਂ ਬਾਹਰ ਜਾਣ ਤੇ ਬੋਲ ਕੇ ਲਿਖਣਾ ਫਿਰ ਵੀ ਰੁਕ ਜਾਂਦਾ ਹੈ।</string>
+    <string name="button_hold_hint">%1$s · ਦਬਾਈ ਰੱਖੋ: %2$s</string>
+    <string name="button_hold_repeat">ਦੁਹਰਾਓ</string>
+    <string name="button_pin">ਟੂਲਬਾਰ ਵਿੱਚ ਪਿੰਨ ਕਰੋ</string>
+    <string name="button_unpin">ਟੂਲਬਾਰ ਤੋਂ ਪਿੰਨ ਹਟਾਓ</string>
+    <string name="button_expand_toolbar">ਟੂਲਬਾਰ ਦਿਖਾਓ</string>
+    <string name="button_collapse_toolbar">ਟੂਲਬਾਰ ਲੁਕਾਓ</string>
+    <string name="button_clear_recents">ਹਾਲੀਆ ਇਮੋਜੀ ਸਾਫ਼ ਕਰੋ</string>
+    <string name="voice_transcribe_now_hint">ਹੁਣ ਲਿਖਤ ਵਿੱਚ ਬਦਲੋ: ਹੁਣ ਤੱਕ ਦੀ ਬੋਲੀ ਸ਼ਾਮਲ ਕਰੋ ਅਤੇ ਸੁਣਨਾ ਜਾਰੀ ਰੱਖੋ</string>
+    <string name="voice_stop_hint">ਰੋਕੋ: ਸੁਣਨਾ ਬੰਦ ਕਰੋ ਅਤੇ ਲਿਖਤ ਸ਼ਾਮਲ ਕਰੋ</string>
+    <string name="button_pause_gesture_gathering">ਜੈਸਚਰ ਡੇਟਾ ਇਕੱਠਾ ਕਰਨਾ 5 ਮਿੰਟ ਲਈ ਰੋਕੋ</string>
 </resources>

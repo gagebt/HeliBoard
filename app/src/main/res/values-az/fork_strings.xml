@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Nüsxələr silənə qədər saxlanılır.</string>
     <string name="pf6_clipboard_pinned">Dərslə</string>
     <string name="voice_status_nothing_heard">Heç nə eşitmədim.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Klaviatura bağlananda diktəni dayandır</string>
+    <string name="voice_stop_on_keyboard_close_summary">Klaviatura gizli olduqda dinləməyə davam etmək üçün söndürün. Mətn sahəsindən çıxmaq yenə də diktəni dayandırır.</string>
+    <string name="button_hold_hint">%1$s · Basılı saxla: %2$s</string>
+    <string name="button_hold_repeat">təkrarla</string>
+    <string name="button_pin">Alətlər panelinə bərkid</string>
+    <string name="button_unpin">Alətlər panelindən ayır</string>
+    <string name="button_expand_toolbar">Alətlər panelini göstər</string>
+    <string name="button_collapse_toolbar">Alətlər panelini gizlət</string>
+    <string name="button_clear_recents">Son emojiləri təmizlə</string>
+    <string name="voice_transcribe_now_hint">İndi mətnə çevir: indiyədək deyiləni daxil et və dinləməyə davam et</string>
+    <string name="voice_stop_hint">Dayandır: dinləməni bitir və mətni daxil et</string>
+    <string name="button_pause_gesture_gathering">Jest məlumatlarının toplanmasını 5 dəqiqə dayandır</string>
 </resources>

@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Nakala huhifadhiwa mpaka zifutwe.</string>
     <string name="pf6_clipboard_pinned">Kinyunyizia</string>
     <string name="voice_status_nothing_heard">Hakuna kusikia</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Simamisha uandishi wa sauti kibodi inapofungwa</string>
+    <string name="voice_stop_on_keyboard_close_summary">Zima ili kuendelea kusikiliza kibodi ikiwa imefichwa. Kuondoka kwenye sehemu ya maandishi bado husimamisha uandishi wa sauti.</string>
+    <string name="button_hold_hint">%1$s · Bonyeza na ushikilie: %2$s</string>
+    <string name="button_hold_repeat">rudia</string>
+    <string name="button_pin">Bandika kwenye upau wa zana</string>
+    <string name="button_unpin">Ondoa kwenye upau wa zana</string>
+    <string name="button_expand_toolbar">Onyesha upau wa zana</string>
+    <string name="button_collapse_toolbar">Ficha upau wa zana</string>
+    <string name="button_clear_recents">Futa emoji za hivi karibuni</string>
+    <string name="voice_transcribe_now_hint">Andika sauti sasa: ingiza yaliyosemwa hadi sasa na uendelee kusikiliza</string>
+    <string name="voice_stop_hint">Simamisha: maliza kusikiliza na ingiza maandishi</string>
+    <string name="button_pause_gesture_gathering">Sitisha ukusanyaji wa data ya ishara kwa dakika 5</string>
 </resources>

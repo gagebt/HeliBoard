@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">Tha lethbhreacan air an cumail gus an cuir thu iad às.</string>
     <string name="pf6_clipboard_pinned">A \'pinned</string>
     <string name="voice_status_nothing_heard">Cha chuala mi dad</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Stad an deachdachadh nuair a dhùineas am meur-chlàr</string>
+    <string name="voice_stop_on_keyboard_close_summary">Cuir dheth gus leantainn air èisteachd leis a’ mheur-chlàr falaichte. Stadaidh an deachdachadh fhathast nuair a dh’fhàgas tu an raon teacsa.</string>
+    <string name="button_hold_hint">%1$s · Cum sìos: %2$s</string>
+    <string name="button_hold_repeat">ath-aithris</string>
+    <string name="button_pin">Prìnich ris a’ bhàr-inneal</string>
+    <string name="button_unpin">Dì-phrìnich on bhàr-inneal</string>
+    <string name="button_expand_toolbar">Seall am bàr-inneal</string>
+    <string name="button_collapse_toolbar">Falaich am bàr-inneal</string>
+    <string name="button_clear_recents">Glan na emoji o chionn ghoirid</string>
+    <string name="voice_transcribe_now_hint">Tar-sgrìobh an-dràsta: cuir a-steach na chaidh a ràdh agus lean air èisteachd</string>
+    <string name="voice_stop_hint">Stad: cuir crìoch air èisteachd agus cuir a-steach an teacsa</string>
+    <string name="button_pause_gesture_gathering">Cuir cruinneachadh dàta ghluasadan air stad fad 5 mionaidean</string>
 </resources>

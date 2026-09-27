@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.core.content.edit
 import androidx.core.view.forEach
+import helium314.keyboard.accessibility.KeyCodeDescriptionMapper
 import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
@@ -30,7 +31,7 @@ fun createToolbarKey(context: Context, key: ToolbarKey): ImageButton {
     val button = ImageButton(context, null, R.attr.suggestionWordStyle)
     button.scaleType = ImageView.ScaleType.CENTER
     button.tag = key
-    button.contentDescription = key.name.lowercase().getStringResourceOrName("", context)
+    button.contentDescription = toolbarKeyName(context, key)
     setToolbarButtonActivatedState(button)
     button.setImageDrawable(KeyboardIconsSet.instance.getNewDrawable(key.name, context))
     return button
@@ -265,26 +266,55 @@ fun onClickToolbarKey(view: View, onCodeInput: (Int) -> Unit) {
 
 fun onLongClickToolbarKey(view: View, onCodeInput: (Int, Boolean) -> Unit) {
     AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, view, HapticEvent.KEY_LONG_PRESS)
-    val longClickCode = getCodeForToolbarKeyLongClick(view.tag as ToolbarKey)
+    val key = view.tag as ToolbarKey
+    val hint = toolbarKeyHint(view.context, key)
+    val longClickCode = getCodeForToolbarKeyLongClick(key)
     if (longClickCode == KeyCode.KEY_REPEAT) {
-        showToolbarHint(view.contentDescription, TOOLBAR_ACTION_HINT_MILLIS)
         onClickToolbarKey(view) { onCodeInput(it, false) }
         repeatToolbarKey(view) { onClickToolbarKey(view) { onCodeInput(it, true) } }
     } else if (longClickCode != KeyCode.UNSPECIFIED) {
         onCodeInput(longClickCode, false)
-        // the held key did something other than its icon says, so name what it did
-        showToolbarHint(toolbarActionName(view.context, longClickCode), TOOLBAR_ACTION_HINT_MILLIS)
-    } else {
-        showToolbarHint(view.contentDescription)
     }
+    showToolbarHint(hint)
+}
+
+fun toolbarKeyName(context: Context, key: ToolbarKey): String {
+    val code = getCodeForToolbarKey(key)
+    return when {
+        code == KeyCode.VOICE_INPUT -> context.getString(R.string.voice_button_hint)
+        code == defaultCodeForToolbarKey(key) -> key.name.lowercase().getStringResourceOrName("", context)
+        else -> toolbarCodeName(context, code)
+    }
+}
+
+/** Both names come from the same effective codes that the buttons dispatch. */
+fun toolbarKeyHint(context: Context, key: ToolbarKey, holdAction: CharSequence? = null): String {
+    val main = toolbarKeyName(context, key)
+    val hold = holdAction ?: when (val code = getCodeForToolbarKeyLongClick(key)) {
+        KeyCode.UNSPECIFIED -> return main
+        KeyCode.KEY_REPEAT -> context.getString(R.string.button_hold_repeat)
+        else -> toolbarCodeName(context, code)
+    }
+    return context.getString(R.string.button_hold_hint, main, hold)
+}
+
+private fun toolbarCodeName(context: Context, code: Int): String = when (code) {
+    KeyCode.UNSPECIFIED -> context.getString(R.string.action_none)
+    KeyCode.VOICE_INPUT -> context.getString(R.string.voice_button_hint)
+    KeyCode.BACKGROUND_GATHERING_TEMP_OFF -> context.getString(R.string.button_pause_gesture_gathering)
+    else -> toolbarActionName(context, code)
+        ?: KeyCodeDescriptionMapper.instance.getDescriptionForCodePoint(context, code)
+        ?: "${context.getString(R.string.key_code)}: $code"
 }
 
 const val TOOLBAR_ACTION_HINT_MILLIS = 1500
 
 /** Shows a key hint inside the keyboard view; Android 13+ suppresses system toasts from a keyboard. */
+@JvmOverloads
 fun showToolbarHint(text: CharSequence?, millis: Int = 2000) {
     if (text.isNullOrEmpty()) return
-    KeyboardSwitcher.getInstance().showToast(text.toString(), millis)
+    val duration = maxOf(millis, (1500 + text.length * 40).coerceAtMost(3500))
+    KeyboardSwitcher.getInstance().showToast(text.toString(), duration)
 }
 
 /** The toolbar key whose tap does [code] by default, or null if no key does. */

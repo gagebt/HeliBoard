@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">प्रतिलिपिः यदा तु तेषां लोपः न करिष्ये तादृशमेव भवति।</string>
     <string name="pf6_clipboard_pinned">पिनः</string>
     <string name="voice_status_nothing_heard">न श्रुतम् ।</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">कुञ्जीपटलस्य पिधाने श्रुतलेखनं विरमतु</string>
+    <string name="voice_stop_on_keyboard_close_summary">कुञ्जीपटले गुप्तेऽपि श्रोतुं विकल्पमिमं निष्क्रियं कुरुत। पाठक्षेत्रात् निर्गमने श्रुतलेखनं तथापि विरमति।</string>
+    <string name="button_hold_hint">%1$s · दीर्घस्पर्शः: %2$s</string>
+    <string name="button_hold_repeat">पुनरावृत्तिः</string>
+    <string name="button_pin">साधनपट्ट्यां स्थिरीकुरुत</string>
+    <string name="button_unpin">साधनपट्ट्याः स्थिरीकरणं निरस्यत</string>
+    <string name="button_expand_toolbar">साधनपट्टीं दर्शयत</string>
+    <string name="button_collapse_toolbar">साधनपट्टीं गोपयत</string>
+    <string name="button_clear_recents">सद्यःप्रयुक्तानि इमोजिचिह्नानि मार्जयत</string>
+    <string name="voice_transcribe_now_hint">अधुना लिप्यन्तरं कुरुत: अद्यावधि उक्तं निवेशयत श्रवणं च अनुवर्तयत</string>
+    <string name="voice_stop_hint">विरमतु: श्रवणं समापयत पाठं च निवेशयत</string>
+    <string name="button_pause_gesture_gathering">पञ्चनिमेषपर्यन्तं चेष्टादत्तांशसंग्रहं विरामयत</string>
 </resources>

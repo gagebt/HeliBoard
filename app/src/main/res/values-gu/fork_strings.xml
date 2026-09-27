@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">નકલો તમે તેમને કાઢી નાંખો ત્યાં સુધી રાખવામાં આવે છે.</string>
     <string name="pf6_clipboard_pinned">પિન</string>
     <string name="voice_status_nothing_heard">કંઈ સાંભળ્યું ન હતું</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">કીબોર્ડ બંધ થાય ત્યારે બોલીને લખવાનું રોકો</string>
+    <string name="voice_stop_on_keyboard_close_summary">કીબોર્ડ છુપાયેલું હોય ત્યારે સાંભળવાનું ચાલુ રાખવા આ બંધ કરો. લખાણના ક્ષેત્રમાંથી બહાર નીકળવાથી બોલીને લખવાનું હજી પણ બંધ થાય છે.</string>
+    <string name="button_hold_hint">%1$s · દબાવી રાખો: %2$s</string>
+    <string name="button_hold_repeat">પુનરાવર્તન</string>
+    <string name="button_pin">ટૂલબારમાં પિન કરો</string>
+    <string name="button_unpin">ટૂલબારમાંથી પિન દૂર કરો</string>
+    <string name="button_expand_toolbar">ટૂલબાર બતાવો</string>
+    <string name="button_collapse_toolbar">ટૂલબાર છુપાવો</string>
+    <string name="button_clear_recents">તાજેતરના ઇમોજી સાફ કરો</string>
+    <string name="voice_transcribe_now_hint">હમણાં લખાણમાં ફેરવો: અત્યાર સુધીની વાણી દાખલ કરો અને સાંભળવાનું ચાલુ રાખો</string>
+    <string name="voice_stop_hint">રોકો: સાંભળવાનું બંધ કરો અને લખાણ દાખલ કરો</string>
+    <string name="button_pause_gesture_gathering">હાવભાવના ડેટાનું સંકલન 5 મિનિટ માટે થોભાવો</string>
 </resources>

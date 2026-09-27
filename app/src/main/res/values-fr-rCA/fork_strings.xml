@@ -114,4 +114,17 @@
     <string name="pf6_clipboard_kept_no_limit">Les copies sont conservées jusqu\'à ce que vous les supprimiez.</string>
     <string name="pf6_clipboard_pinned">Pinsés</string>
     <string name="voice_status_nothing_heard">Je n\'ai rien entendu .</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Arrêter la dictée à la fermeture du clavier</string>
+    <string name="voice_stop_on_keyboard_close_summary">Désactivez pour continuer à écouter lorsque le clavier est masqué. Quitter le champ de texte arrête toujours la dictée.</string>
+    <string name="button_hold_hint">%1$s · Appui long : %2$s</string>
+    <string name="button_hold_repeat">répéter</string>
+    <string name="button_pin">Épingler à la barre d’outils</string>
+    <string name="button_unpin">Détacher de la barre d’outils</string>
+    <string name="button_expand_toolbar">Afficher la barre d’outils</string>
+    <string name="button_collapse_toolbar">Masquer la barre d’outils</string>
+    <string name="button_clear_recents">Effacer les émojis récents</string>
+    <string name="voice_transcribe_now_hint">Transcrire maintenant : insérer les paroles déjà prononcées et continuer à écouter</string>
+    <string name="voice_stop_hint">Arrêter : terminer l’écoute et insérer le texte</string>
+    <string name="button_pause_gesture_gathering">Suspendre la collecte de données de gestes pendant 5 minutes</string>
 </resources>

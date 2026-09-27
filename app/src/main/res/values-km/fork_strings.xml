@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">កopies ត្រូវ រក្សា ទុក រហូត ដល់ អ្នក លុប ចោល ។</string>
     <string name="pf6_clipboard_pinned">សំបក</string>
     <string name="voice_status_nothing_heard">គ្មាន អ្វី ដែល ឮ ទេ</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">បញ្ឈប់ការសរសេរតាមសំឡេងពេលបិទក្តារចុច</string>
+    <string name="voice_stop_on_keyboard_close_summary">បិទជម្រើសនេះដើម្បីបន្តស្តាប់ពេលលាក់ក្តារចុច។ ការចាកចេញពីប្រអប់អត្ថបទនៅតែបញ្ឈប់ការសរសេរតាមសំឡេង។</string>
+    <string name="button_hold_hint">%1$s · ចុចឱ្យជាប់៖ %2$s</string>
+    <string name="button_hold_repeat">ធ្វើម្តងទៀត</string>
+    <string name="button_pin">ខ្ទាស់ទៅរបារឧបករណ៍</string>
+    <string name="button_unpin">ដោះខ្ទាស់ពីរបារឧបករណ៍</string>
+    <string name="button_expand_toolbar">បង្ហាញរបារឧបករណ៍</string>
+    <string name="button_collapse_toolbar">លាក់របារឧបករណ៍</string>
+    <string name="button_clear_recents">សម្អាតរូបអារម្មណ៍ថ្មីៗ</string>
+    <string name="voice_transcribe_now_hint">បម្លែងជាអត្ថបទឥឡូវ៖ បញ្ចូលពាក្យដែលបាននិយាយរួច ហើយបន្តស្តាប់</string>
+    <string name="voice_stop_hint">បញ្ឈប់៖ បញ្ចប់ការស្តាប់ ហើយបញ្ចូលអត្ថបទ</string>
+    <string name="button_pause_gesture_gathering">ផ្អាកការប្រមូលទិន្នន័យកាយវិការរយៈពេល 5 នាទី</string>
 </resources>

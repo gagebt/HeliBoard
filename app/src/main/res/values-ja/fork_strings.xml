@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">コピーは削除するまで保存されます.</string>
     <string name="pf6_clipboard_pinned">ピン留め済み</string>
     <string name="voice_status_nothing_heard">何も聞こえなかった</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">キーボードを閉じたときに音声入力を停止</string>
+    <string name="voice_stop_on_keyboard_close_summary">オフにすると、キーボードを隠しても聞き取りを続けます。テキスト欄を離れると音声入力は停止します。</string>
+    <string name="button_hold_hint">%1$s · 長押し: %2$s</string>
+    <string name="button_hold_repeat">繰り返し</string>
+    <string name="button_pin">ツールバーに固定</string>
+    <string name="button_unpin">ツールバーの固定を解除</string>
+    <string name="button_expand_toolbar">ツールバーを表示</string>
+    <string name="button_collapse_toolbar">ツールバーを非表示</string>
+    <string name="button_clear_recents">最近使った絵文字を消去</string>
+    <string name="voice_transcribe_now_hint">今すぐ文字起こし: ここまでの発話を挿入して聞き取りを続ける</string>
+    <string name="voice_stop_hint">停止: 聞き取りを終了してテキストを挿入</string>
+    <string name="button_pause_gesture_gathering">ジェスチャーデータの収集を5分間一時停止</string>
 </resources>

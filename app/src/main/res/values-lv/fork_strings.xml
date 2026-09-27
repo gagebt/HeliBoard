@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopijas glabājas, līdz jūs to izdzēsiet.</string>
     <string name="pf6_clipboard_pinned">Saldētas</string>
     <string name="voice_status_nothing_heard">Nē, neko nesaprotu.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Apturēt diktēšanu, aizverot tastatūru</string>
+    <string name="voice_stop_on_keyboard_close_summary">Izslēdziet, lai turpinātu klausīšanos ar paslēptu tastatūru. Izejot no teksta lauka, diktēšana joprojām tiek apturēta.</string>
+    <string name="button_hold_hint">%1$s · Turēt nospiestu: %2$s</string>
+    <string name="button_hold_repeat">atkārtot</string>
+    <string name="button_pin">Piespraust rīkjoslai</string>
+    <string name="button_unpin">Atspraust no rīkjoslas</string>
+    <string name="button_expand_toolbar">Rādīt rīkjoslu</string>
+    <string name="button_collapse_toolbar">Paslēpt rīkjoslu</string>
+    <string name="button_clear_recents">Notīrīt nesenās emocijzīmes</string>
+    <string name="voice_transcribe_now_hint">Transkribēt tagad: ievietot līdz šim teikto un turpināt klausīšanos</string>
+    <string name="voice_stop_hint">Apturēt: beigt klausīšanos un ievietot tekstu</string>
+    <string name="button_pause_gesture_gathering">Apturēt žestu datu vākšanu uz 5 minūtēm</string>
 </resources>

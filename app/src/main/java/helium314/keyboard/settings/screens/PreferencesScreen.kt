@@ -1,8 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.settings.screens
 
+import android.Manifest
+import android.os.Build
 import android.content.Context
 import android.media.AudioManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -51,6 +55,7 @@ fun PreferencesScreen(
         R.string.settings_category_voice_input,
         VOICE_HELP,
         Settings.PREF_VOICE_CONTROL_MODE,
+        Settings.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE,
         Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
         Settings.PREF_VOICE_PAUSE_SECONDS,
         Settings.PREF_VOICE_SPLIT_SECONDS,
@@ -124,6 +129,15 @@ fun clipboardRetentionLabel(context: Context, minutes: Int): String =
         ?: context.getString(R.string.retention_custom_minutes, minutes)
 
 fun createPreferencesSettings(context: Context) = listOf(
+    Setting(context, Settings.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE, R.string.voice_stop_on_keyboard_close,
+        R.string.voice_stop_on_keyboard_close_summary) {
+        val notificationPermission = rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission()) { }
+        SwitchPreference(it, Defaults.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE) { stopOnClose ->
+            if (!stopOnClose && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    },
     Setting(context, Settings.PREF_VOICE_CONTROL_MODE, R.string.voice_control_mode,
         R.string.voice_control_mode_summary) { setting ->
         ListPreference(setting, listOf(

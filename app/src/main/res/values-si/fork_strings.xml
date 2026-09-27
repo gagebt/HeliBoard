@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">පිටපත් ඔබ ඒවා මකාදැමිය යුතු තෙක් තබා ගනී.</string>
     <string name="pf6_clipboard_pinned">ඇඹරීම</string>
     <string name="voice_status_nothing_heard">මට මුකුත් ඇහුනේ නෑ.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">යතුරුපුවරුව වැසූ විට හඬින් ලිවීම නවත්වන්න</string>
+    <string name="voice_stop_on_keyboard_close_summary">යතුරුපුවරුව සඟවා තිබියදීත් සවන් දීම දිගටම කරගෙන යාමට මෙය අක්‍රිය කරන්න. පෙළ ක්ෂේත්‍රයෙන් ඉවත් වූ විට හඬින් ලිවීම තවමත් නතර වේ.</string>
+    <string name="button_hold_hint">%1$s · ඔබාගෙන සිටින්න: %2$s</string>
+    <string name="button_hold_repeat">නැවත කරන්න</string>
+    <string name="button_pin">මෙවලම් තීරුවට අමුණන්න</string>
+    <string name="button_unpin">මෙවලම් තීරුවෙන් ගලවන්න</string>
+    <string name="button_expand_toolbar">මෙවලම් තීරුව පෙන්වන්න</string>
+    <string name="button_collapse_toolbar">මෙවලම් තීරුව සඟවන්න</string>
+    <string name="button_clear_recents">මෑත ඉමෝජි ඉවත් කරන්න</string>
+    <string name="voice_transcribe_now_hint">දැන් පෙළට හරවන්න: මෙතෙක් පැවසූ දේ ඇතුළු කර සවන් දීම දිගටම කරන්න</string>
+    <string name="voice_stop_hint">නවත්වන්න: සවන් දීම අවසන් කර පෙළ ඇතුළු කරන්න</string>
+    <string name="button_pause_gesture_gathering">අභිනය දත්ත රැස් කිරීම මිනිත්තු 5කට නවත්වන්න</string>
 </resources>

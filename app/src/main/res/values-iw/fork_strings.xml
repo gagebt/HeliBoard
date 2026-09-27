@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">עותקים נשמרים עד שתמחק אותם.</string>
     <string name="pf6_clipboard_pinned">תוספת</string>
     <string name="voice_status_nothing_heard">לא שמעתי כלום.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">עצירת ההכתבה בסגירת המקלדת</string>
+    <string name="voice_stop_on_keyboard_close_summary">יש לכבות כדי להמשיך להקשיב כשהמקלדת מוסתרת. יציאה משדה הטקסט עדיין עוצרת את ההכתבה.</string>
+    <string name="button_hold_hint">%1$s · לחיצה ארוכה: %2$s</string>
+    <string name="button_hold_repeat">חזרה</string>
+    <string name="button_pin">הצמדה לסרגל הכלים</string>
+    <string name="button_unpin">ביטול הצמדה מסרגל הכלים</string>
+    <string name="button_expand_toolbar">הצגת סרגל הכלים</string>
+    <string name="button_collapse_toolbar">הסתרת סרגל הכלים</string>
+    <string name="button_clear_recents">ניקוי האמוג׳י האחרונים</string>
+    <string name="voice_transcribe_now_hint">תמלול עכשיו: הכנסת הדיבור עד כה והמשך הקשבה</string>
+    <string name="voice_stop_hint">עצירה: סיום ההקשבה והכנסת הטקסט</string>
+    <string name="button_pause_gesture_gathering">השהיית איסוף נתוני מחוות למשך 5 דקות</string>
 </resources>

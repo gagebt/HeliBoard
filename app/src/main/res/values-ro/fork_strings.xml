@@ -118,4 +118,18 @@
     <string name="pf6_clipboard_kept_no_limit">Copiile sunt păstrate până când le ștergeți.</string>
     <string name="pf6_clipboard_pinned">Piniți</string>
     <string name="voice_status_nothing_heard">N-am auzit nimic .</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Oprește dictarea la închiderea tastaturii</string>
+    <string name="voice_stop_on_keyboard_close_summary">Dezactivează pentru a continua ascultarea cu tastatura ascunsă. Părăsirea câmpului de text oprește în continuare dictarea.</string>
+    <string name="button_hold_hint">%1$s · Apăsare lungă: %2$s</string>
+    <string name="button_hold_repeat">repetare</string>
+    <string name="button_pin">Fixează în bara de instrumente</string>
+    <string name="button_unpin">Desprinde din bara de instrumente</string>
+    <string name="button_expand_toolbar">Arată bara de instrumente</string>
+    <string name="button_collapse_toolbar">Ascunde bara de instrumente</string>
+    <string name="button_clear_recents">Șterge emojiurile recente</string>
+    <string name="voice_transcribe_now_hint">Transcrie acum: inserează vorbirea de până acum și continuă ascultarea</string>
+    <string name="voice_stop_hint">Oprește: încheie ascultarea și inserează textul</string>
+    <string name="button_pause_gesture_gathering">Suspendă colectarea datelor despre gesturi timp de 5 minute</string>
 </resources>

@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">प्रतिलिपिहरू तपाईँले तिनीहरूलाई मेटाउनेसम्म राख्नुहुन्छ।</string>
     <string name="pf6_clipboard_pinned">पिन गरिएको</string>
     <string name="voice_status_nothing_heard">मैले केही सुनेको छैन ।</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">किबोर्ड बन्द हुँदा बोलेर लेख्ने काम रोक्नुहोस्</string>
+    <string name="voice_stop_on_keyboard_close_summary">किबोर्ड लुकाइएको बेलामा पनि सुन्न जारी राख्न यो बन्द गर्नुहोस्। पाठ क्षेत्रबाट बाहिर निस्कँदा बोलेर लेख्ने काम अझै रोकिन्छ।</string>
+    <string name="button_hold_hint">%1$s · थिचेर राख्नुहोस्: %2$s</string>
+    <string name="button_hold_repeat">दोहोर्‍याउनुहोस्</string>
+    <string name="button_pin">टुलबारमा पिन गर्नुहोस्</string>
+    <string name="button_unpin">टुलबारबाट पिन हटाउनुहोस्</string>
+    <string name="button_expand_toolbar">टुलबार देखाउनुहोस्</string>
+    <string name="button_collapse_toolbar">टुलबार लुकाउनुहोस्</string>
+    <string name="button_clear_recents">हालका इमोजी हटाउनुहोस्</string>
+    <string name="voice_transcribe_now_hint">अहिले पाठमा बदल्नुहोस्: अहिलेसम्मको बोली घुसाउनुहोस् र सुन्न जारी राख्नुहोस्</string>
+    <string name="voice_stop_hint">रोक्नुहोस्: सुन्न बन्द गर्नुहोस् र पाठ घुसाउनुहोस्</string>
+    <string name="button_pause_gesture_gathering">इसारा डेटा सङ्कलन 5 मिनेटका लागि रोक्नुहोस्</string>
 </resources>

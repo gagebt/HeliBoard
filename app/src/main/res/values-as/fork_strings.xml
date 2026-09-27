@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">প্ৰতিলিপিসমূহ আপুনি বিলোপ নকৰালৈকে ৰখা হয়।</string>
     <string name="pf6_clipboard_pinned">পিন কৰা</string>
     <string name="voice_status_nothing_heard">একো শুনা নাই</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">কীব’ৰ্ড বন্ধ কৰিলে শ্ৰুতলিখন বন্ধ কৰক</string>
+    <string name="voice_stop_on_keyboard_close_summary">কীব’ৰ্ড লুকাই থাকিলেও শুনি থাকিবলৈ বন্ধ কৰক। পাঠ্য ক্ষেত্ৰ এৰিলে শ্ৰুতলিখন তথাপিও বন্ধ হয়।</string>
+    <string name="button_hold_hint">%1$s · ধৰি ৰাখক: %2$s</string>
+    <string name="button_hold_repeat">পুনৰাবৃত্তি</string>
+    <string name="button_pin">সঁজুলি দণ্ডত পিন কৰক</string>
+    <string name="button_unpin">সঁজুলি দণ্ডৰ পৰা পিন আঁতৰাওক</string>
+    <string name="button_expand_toolbar">সঁজুলি দণ্ড দেখুৱাওক</string>
+    <string name="button_collapse_toolbar">সঁজুলি দণ্ড লুকুৱাওক</string>
+    <string name="button_clear_recents">শেহতীয়া ইম’জি মচক</string>
+    <string name="voice_transcribe_now_hint">এতিয়াই প্ৰতিলিপি কৰক: এতিয়ালৈ কোৱা কথা সুমুৱাওক আৰু শুনি থাকক</string>
+    <string name="voice_stop_hint">বন্ধ কৰক: শুনা শেষ কৰক আৰু পাঠ্য সুমুৱাওক</string>
+    <string name="button_pause_gesture_gathering">অংগিভংগীৰ তথ্য সংগ্ৰহ 5 মিনিটৰ বাবে স্থগিত ৰাখক</string>
 </resources>

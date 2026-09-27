@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopioita säilytetään, kunnes ne poistetaan.</string>
     <string name="pf6_clipboard_pinned">Pinnit</string>
     <string name="voice_status_nothing_heard">Ei kuultu mitään .</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Lopeta sanelu, kun näppäimistö suljetaan</string>
+    <string name="voice_stop_on_keyboard_close_summary">Poista käytöstä, jos haluat jatkaa kuuntelua näppäimistön ollessa piilossa. Tekstikentästä poistuminen lopettaa silti sanelun.</string>
+    <string name="button_hold_hint">%1$s · Pidä painettuna: %2$s</string>
+    <string name="button_hold_repeat">toista</string>
+    <string name="button_pin">Kiinnitä työkalupalkkiin</string>
+    <string name="button_unpin">Irrota työkalupalkista</string>
+    <string name="button_expand_toolbar">Näytä työkalupalkki</string>
+    <string name="button_collapse_toolbar">Piilota työkalupalkki</string>
+    <string name="button_clear_recents">Tyhjennä viimeisimmät emojit</string>
+    <string name="voice_transcribe_now_hint">Litteroi nyt: lisää tähänastinen puhe ja jatka kuuntelua</string>
+    <string name="voice_stop_hint">Lopeta: lopeta kuuntelu ja lisää teksti</string>
+    <string name="button_pause_gesture_gathering">Keskeytä eletietojen keruu 5 minuutiksi</string>
 </resources>

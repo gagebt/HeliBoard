@@ -117,4 +117,17 @@
     <string name="pf6_clipboard_kept_no_limit">D\'Aschlësselungen ginn net geläscht, bis Dir se läscht.</string>
     <string name="pf6_clipboard_pinned">Gepinnt</string>
     <string name="voice_status_nothing_heard">Et gouf näischt héieren.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Diktat beim Zoumaache vun der Tastatur stoppen</string>
+    <string name="voice_stop_on_keyboard_close_summary">Ausschalten, fir mat verstoppter Tastatur weider nozelauschteren. D’Verloosse vum Textfeld stoppt d’Diktat nach ëmmer.</string>
+    <string name="button_hold_hint">%1$s · Gedréckt halen: %2$s</string>
+    <string name="button_hold_repeat">widderhuelen</string>
+    <string name="button_pin">Un d’Geschierleescht uspéngelen</string>
+    <string name="button_unpin">Vun der Geschierleescht ofspéngelen</string>
+    <string name="button_expand_toolbar">Geschierleescht weisen</string>
+    <string name="button_collapse_toolbar">Geschierleescht verstoppen</string>
+    <string name="button_clear_recents">Rezent Emojien läschen</string>
+    <string name="voice_transcribe_now_hint">Elo transkribéieren: dat bis elo Gesotent afügen a weider nolauschteren</string>
+    <string name="voice_stop_hint">Stoppen: Nolauschteren ophalen an den Text afügen</string>
+    <string name="button_pause_gesture_gathering">Sammele vu Gestendate fir 5 Minutte pausen</string>
 </resources>

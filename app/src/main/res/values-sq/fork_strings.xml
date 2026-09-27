@@ -118,4 +118,17 @@
     <string name="pf6_clipboard_kept_no_limit">Kopjat mbahen derisa t\'i fshiheni.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
     <string name="voice_status_nothing_heard">Asgjë nuk dëgjohet.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Ndalo diktimin kur mbyllet tastiera</string>
+    <string name="voice_stop_on_keyboard_close_summary">Çaktivizoje për të vazhduar dëgjimin me tastierën të fshehur. Dalja nga fusha e tekstit e ndalon përsëri diktimin.</string>
+    <string name="button_hold_hint">%1$s · Mbaje shtypur: %2$s</string>
+    <string name="button_hold_repeat">përsërit</string>
+    <string name="button_pin">Fikso në shiritin e mjeteve</string>
+    <string name="button_unpin">Hiq nga shiriti i mjeteve</string>
+    <string name="button_expand_toolbar">Shfaq shiritin e mjeteve</string>
+    <string name="button_collapse_toolbar">Fshih shiritin e mjeteve</string>
+    <string name="button_clear_recents">Pastro emoji-t e fundit</string>
+    <string name="voice_transcribe_now_hint">Transkripto tani: fut të folurën deri tani dhe vazhdo dëgjimin</string>
+    <string name="voice_stop_hint">Ndalo: përfundo dëgjimin dhe fut tekstin</string>
+    <string name="button_pause_gesture_gathering">Pezullo mbledhjen e të dhënave të gjesteve për 5 minuta</string>
 </resources>

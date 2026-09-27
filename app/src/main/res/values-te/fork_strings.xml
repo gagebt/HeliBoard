@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">మీరు వాటిని తొలగించే వరకు కాపీలు ఉంటాయి.</string>
     <string name="pf6_clipboard_pinned">పిన్డ్</string>
     <string name="voice_status_nothing_heard">ఏమీ వినలేదు</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">కీబోర్డ్ మూసినప్పుడు వాయిస్ ఇన్‌పుట్‌ను ఆపండి</string>
+    <string name="voice_stop_on_keyboard_close_summary">కీబోర్డ్ దాచినప్పుడు కూడా వినడం కొనసాగించడానికి దీన్ని ఆఫ్ చేయండి. వచన క్షేత్రం నుంచి బయటకు వెళితే వాయిస్ ఇన్‌పుట్‌ ఇప్పటికీ ఆగుతుంది.</string>
+    <string name="button_hold_hint">%1$s · నొక్కి పట్టుకోండి: %2$s</string>
+    <string name="button_hold_repeat">పునరావృతం</string>
+    <string name="button_pin">టూల్‌బార్‌కు పిన్ చేయండి</string>
+    <string name="button_unpin">టూల్‌బార్ నుంచి పిన్ తీసివేయండి</string>
+    <string name="button_expand_toolbar">టూల్‌బార్ చూపండి</string>
+    <string name="button_collapse_toolbar">టూల్‌బార్ దాచండి</string>
+    <string name="button_clear_recents">ఇటీవల వాడిన ఎమోజీలను తొలగించండి</string>
+    <string name="voice_transcribe_now_hint">ఇప్పుడే వచనంగా మార్చండి: ఇప్పటివరకు మాట్లాడినది చేర్చి వినడం కొనసాగించండి</string>
+    <string name="voice_stop_hint">ఆపండి: వినడం ముగించి వచనాన్ని చేర్చండి</string>
+    <string name="button_pause_gesture_gathering">సంజ్ఞల డేటా సేకరణను 5 నిమిషాలు నిలిపివేయండి</string>
 </resources>

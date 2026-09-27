@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">কপিগুলি আপনি মুছে ফেলার আগ পর্যন্ত সংরক্ষণ করা হয়।</string>
     <string name="pf6_clipboard_pinned">পিন করা</string>
     <string name="voice_status_nothing_heard">কিছুই শুনলাম না</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">কীবোর্ড বন্ধ হলে শ্রুতিলিখন থামান</string>
+    <string name="voice_stop_on_keyboard_close_summary">কীবোর্ড লুকানো থাকলেও শুনতে থাকার জন্য বন্ধ করুন। টেক্সট ক্ষেত্র থেকে বের হলে শ্রুতিলিখন তবুও থামে।</string>
+    <string name="button_hold_hint">%1$s · চেপে ধরে রাখুন: %2$s</string>
+    <string name="button_hold_repeat">পুনরাবৃত্তি</string>
+    <string name="button_pin">টুলবারে পিন করুন</string>
+    <string name="button_unpin">টুলবার থেকে পিন সরান</string>
+    <string name="button_expand_toolbar">টুলবার দেখান</string>
+    <string name="button_collapse_toolbar">টুলবার লুকান</string>
+    <string name="button_clear_recents">সাম্প্রতিক ইমোজি মুছুন</string>
+    <string name="voice_transcribe_now_hint">এখন প্রতিলিখন করুন: এ পর্যন্ত বলা কথা ঢোকান এবং শুনতে থাকুন</string>
+    <string name="voice_stop_hint">থামান: শোনা শেষ করুন এবং টেক্সট ঢোকান</string>
+    <string name="button_pause_gesture_gathering">অঙ্গভঙ্গির তথ্য সংগ্রহ 5 মিনিটের জন্য থামান</string>
 </resources>

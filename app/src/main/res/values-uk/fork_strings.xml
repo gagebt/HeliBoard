@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">Копії зберігаються, поки ви не видалите їх.</string>
     <string name="pf6_clipboard_pinned">Закріплено</string>
     <string name="voice_status_nothing_heard">Нічого не чули.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Зупиняти диктування при закритті клавіатури</string>
+    <string name="voice_stop_on_keyboard_close_summary">Вимкніть, щоб слухати далі з прихованою клавіатурою. Вихід із текстового поля все одно зупиняє диктування.</string>
+    <string name="button_hold_hint">%1$s · Утримання: %2$s</string>
+    <string name="button_hold_repeat">повторити</string>
+    <string name="button_pin">Закріпити на панелі інструментів</string>
+    <string name="button_unpin">Відкріпити від панелі інструментів</string>
+    <string name="button_expand_toolbar">Показати панель інструментів</string>
+    <string name="button_collapse_toolbar">Сховати панель інструментів</string>
+    <string name="button_clear_recents">Очистити недавні емодзі</string>
+    <string name="voice_transcribe_now_hint">Розпізнати зараз: вставити вже сказане й слухати далі</string>
+    <string name="voice_stop_hint">Стоп: завершити слухання та вставити текст</string>
+    <string name="button_pause_gesture_gathering">Призупинити збір даних жестів на 5 хвилин</string>
 </resources>

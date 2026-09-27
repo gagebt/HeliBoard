@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopie se uchovávají, dokud je nevymažete.</string>
     <string name="pf6_clipboard_pinned">Vkládání</string>
     <string name="voice_status_nothing_heard">Nic jsem neslyšel.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Zastavit diktování při zavření klávesnice</string>
+    <string name="voice_stop_on_keyboard_close_summary">Vypněte, chcete-li pokračovat v poslechu se skrytou klávesnicí. Opuštění textového pole diktování stále zastaví.</string>
+    <string name="button_hold_hint">%1$s · Podržení: %2$s</string>
+    <string name="button_hold_repeat">opakovat</string>
+    <string name="button_pin">Připnout na panel nástrojů</string>
+    <string name="button_unpin">Odepnout z panelu nástrojů</string>
+    <string name="button_expand_toolbar">Zobrazit panel nástrojů</string>
+    <string name="button_collapse_toolbar">Skrýt panel nástrojů</string>
+    <string name="button_clear_recents">Vymazat nedávné emoji</string>
+    <string name="voice_transcribe_now_hint">Přepsat nyní: vložit dosavadní řeč a pokračovat v poslechu</string>
+    <string name="voice_stop_hint">Zastavit: ukončit poslech a vložit text</string>
+    <string name="button_pause_gesture_gathering">Pozastavit sběr dat gest na 5 minut</string>
 </resources>

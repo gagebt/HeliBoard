@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">A másolatokat addig tartják meg, amíg azokat nem törli.</string>
     <string name="pf6_clipboard_pinned">Feltöltött</string>
     <string name="voice_status_nothing_heard">Semmit sem hallottam.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Diktálás leállítása a billentyűzet bezárásakor</string>
+    <string name="voice_stop_on_keyboard_close_summary">Kapcsold ki, hogy rejtett billentyűzettel is folytatódjon a figyelés. A szövegmező elhagyása továbbra is leállítja a diktálást.</string>
+    <string name="button_hold_hint">%1$s · Nyomva tartás: %2$s</string>
+    <string name="button_hold_repeat">ismétlés</string>
+    <string name="button_pin">Rögzítés az eszköztárra</string>
+    <string name="button_unpin">Levétel az eszköztárról</string>
+    <string name="button_expand_toolbar">Eszköztár megjelenítése</string>
+    <string name="button_collapse_toolbar">Eszköztár elrejtése</string>
+    <string name="button_clear_recents">Legutóbbi emojik törlése</string>
+    <string name="voice_transcribe_now_hint">Átírás most: az eddigi beszéd beillesztése és a figyelés folytatása</string>
+    <string name="voice_stop_hint">Leállítás: figyelés befejezése és a szöveg beillesztése</string>
+    <string name="button_pause_gesture_gathering">Gesztusadatok gyűjtésének szüneteltetése 5 percre</string>
 </resources>

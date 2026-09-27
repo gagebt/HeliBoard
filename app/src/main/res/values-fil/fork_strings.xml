@@ -117,4 +117,17 @@
     <string name="pf6_clipboard_kept_no_limit">Ang mga kopya ay iniingatan hanggang sa tanggalin mo sila.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
     <string name="voice_status_nothing_heard">Walang narinig</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Ihinto ang pagdidikta kapag isinara ang keyboard</string>
+    <string name="voice_stop_on_keyboard_close_summary">I-off upang patuloy na makinig habang nakatago ang keyboard. Hihinto pa rin ang pagdidikta kapag umalis sa text field.</string>
+    <string name="button_hold_hint">%1$s · Pindutin nang matagal: %2$s</string>
+    <string name="button_hold_repeat">ulitin</string>
+    <string name="button_pin">I-pin sa toolbar</string>
+    <string name="button_unpin">Alisin ang pin sa toolbar</string>
+    <string name="button_expand_toolbar">Ipakita ang toolbar</string>
+    <string name="button_collapse_toolbar">Itago ang toolbar</string>
+    <string name="button_clear_recents">Burahin ang mga kamakailang emoji</string>
+    <string name="voice_transcribe_now_hint">I-transcribe ngayon: ipasok ang nasabi na at patuloy na makinig</string>
+    <string name="voice_stop_hint">Ihinto: tapusin ang pakikinig at ipasok ang teksto</string>
+    <string name="button_pause_gesture_gathering">I-pause ang pangangalap ng data ng galaw sa loob ng 5 minuto</string>
 </resources>

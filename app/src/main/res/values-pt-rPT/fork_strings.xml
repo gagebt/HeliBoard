@@ -118,4 +118,17 @@
     <string name="pf6_clipboard_kept_no_limit">As cópias são mantidas até que você as elimine.</string>
     <string name="pf6_clipboard_pinned">Fixado</string>
     <string name="voice_status_nothing_heard">Não ouvi nada .</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Parar o ditado ao fechar o teclado</string>
+    <string name="voice_stop_on_keyboard_close_summary">Desative para continuar a ouvir com o teclado oculto. Sair do campo de texto continua a parar o ditado.</string>
+    <string name="button_hold_hint">%1$s · Premir sem soltar: %2$s</string>
+    <string name="button_hold_repeat">repetir</string>
+    <string name="button_pin">Fixar na barra de ferramentas</string>
+    <string name="button_unpin">Desafixar da barra de ferramentas</string>
+    <string name="button_expand_toolbar">Mostrar barra de ferramentas</string>
+    <string name="button_collapse_toolbar">Ocultar barra de ferramentas</string>
+    <string name="button_clear_recents">Limpar emojis recentes</string>
+    <string name="voice_transcribe_now_hint">Transcrever agora: inserir o que foi dito e continuar a ouvir</string>
+    <string name="voice_stop_hint">Parar: terminar a escuta e inserir o texto</string>
+    <string name="button_pause_gesture_gathering">Pausar a recolha de dados de gestos durante 5 minutos</string>
 </resources>

@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">Көчөлөрдү жок кылганга чейин сактайбыз.</string>
     <string name="pf6_clipboard_pinned">Капталган</string>
     <string name="voice_status_nothing_heard">Эч нерсе уккан жокмун</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Баскычтоп жабылганда диктантты токтотуу</string>
+    <string name="voice_stop_on_keyboard_close_summary">Баскычтоп жашырылганда угууну улантуу үчүн өчүрүңүз. Текст талаасынан чыгуу диктантты баары бир токтотот.</string>
+    <string name="button_hold_hint">%1$s · Басып туруу: %2$s</string>
+    <string name="button_hold_repeat">кайталоо</string>
+    <string name="button_pin">Куралдар тилкесине бекитүү</string>
+    <string name="button_unpin">Куралдар тилкесинен бошотуу</string>
+    <string name="button_expand_toolbar">Куралдар тилкесин көрсөтүү</string>
+    <string name="button_collapse_toolbar">Куралдар тилкесин жашыруу</string>
+    <string name="button_clear_recents">Акыркы эмодзилерди тазалоо</string>
+    <string name="voice_transcribe_now_hint">Азыр текстке айлантуу: ушул убакка чейинки сөздү киргизип, угууну улантуу</string>
+    <string name="voice_stop_hint">Токтотуу: угууну бүтүрүп, текстти киргизүү</string>
+    <string name="button_pause_gesture_gathering">Жаңсоо маалыматтарын чогултууну 5 мүнөткө тындыруу</string>
 </resources>

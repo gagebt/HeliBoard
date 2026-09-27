@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">आपण ते हटवत नाही तोपर्यंत कॉपी ठेवली जातात.</string>
     <string name="pf6_clipboard_pinned">पिन केले</string>
     <string name="voice_status_nothing_heard">काहीच ऐकले नाही</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">कीबोर्ड बंद झाल्यावर बोलून लिहिणे थांबवा</string>
+    <string name="voice_stop_on_keyboard_close_summary">कीबोर्ड लपलेला असतानाही ऐकत राहण्यासाठी हे बंद करा. मजकूर क्षेत्रातून बाहेर पडल्यावर बोलून लिहिणे तरीही थांबते.</string>
+    <string name="button_hold_hint">%1$s · दाबून धरा: %2$s</string>
+    <string name="button_hold_repeat">पुनरावृत्ती</string>
+    <string name="button_pin">टूलबारवर पिन करा</string>
+    <string name="button_unpin">टूलबारवरून पिन काढा</string>
+    <string name="button_expand_toolbar">टूलबार दाखवा</string>
+    <string name="button_collapse_toolbar">टूलबार लपवा</string>
+    <string name="button_clear_recents">अलीकडील इमोजी साफ करा</string>
+    <string name="voice_transcribe_now_hint">आता मजकुरात रूपांतर करा: आतापर्यंतचे बोलणे घाला आणि ऐकत राहा</string>
+    <string name="voice_stop_hint">थांबवा: ऐकणे संपवा आणि मजकूर घाला</string>
+    <string name="button_pause_gesture_gathering">जेश्चर डेटा गोळा करणे 5 मिनिटांसाठी थांबवा</string>
 </resources>

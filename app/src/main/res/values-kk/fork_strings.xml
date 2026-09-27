@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">Көшірмелер оларды өшіргенше сақталады.</string>
     <string name="pf6_clipboard_pinned">Тіркелген</string>
     <string name="voice_status_nothing_heard">Ешнәрсе естілмеген</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Пернетақта жабылғанда диктантты тоқтату</string>
+    <string name="voice_stop_on_keyboard_close_summary">Пернетақта жасырылғанда тыңдауды жалғастыру үшін өшіріңіз. Мәтін өрісінен шығу диктантты бәрібір тоқтатады.</string>
+    <string name="button_hold_hint">%1$s · Басып тұру: %2$s</string>
+    <string name="button_hold_repeat">қайталау</string>
+    <string name="button_pin">Құралдар тақтасына бекіту</string>
+    <string name="button_unpin">Құралдар тақтасынан босату</string>
+    <string name="button_expand_toolbar">Құралдар тақтасын көрсету</string>
+    <string name="button_collapse_toolbar">Құралдар тақтасын жасыру</string>
+    <string name="button_clear_recents">Соңғы эмодзилерді тазалау</string>
+    <string name="voice_transcribe_now_hint">Қазір мәтінге айналдыру: осы уақытқа дейінгі сөзді кірістіріп, тыңдауды жалғастыру</string>
+    <string name="voice_stop_hint">Тоқтату: тыңдауды аяқтап, мәтінді кірістіру</string>
+    <string name="button_pause_gesture_gathering">Қимыл деректерін жинауды 5 минутқа кідірту</string>
 </resources>

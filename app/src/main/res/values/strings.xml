@@ -1345,4 +1345,16 @@ New dictionary:
     <string name="pf6_clipboard_kept_no_limit">Copies are kept until you delete them.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
     <string name="voice_status_nothing_heard">Nothing heard</string>
+    <string name="voice_stop_on_keyboard_close">Stop dictation when keyboard closes</string>
+    <string name="voice_stop_on_keyboard_close_summary">Turn off to keep listening with the keyboard hidden. Leaving the text field still stops dictation.</string>
+    <string name="button_hold_hint">%1$s · Hold: %2$s</string>
+    <string name="button_hold_repeat">repeat</string>
+    <string name="button_pin">Pin to toolbar</string>
+    <string name="button_unpin">Unpin from toolbar</string>
+    <string name="button_expand_toolbar">Show toolbar</string>
+    <string name="button_collapse_toolbar">Hide toolbar</string>
+    <string name="button_clear_recents">Clear recent emojis</string>
+    <string name="voice_transcribe_now_hint">Transcribe now: insert speech so far and keep listening</string>
+    <string name="voice_stop_hint">Stop: finish listening and insert the text</string>
+    <string name="button_pause_gesture_gathering">Pause gesture data gathering for 5 minutes</string>
 </resources>

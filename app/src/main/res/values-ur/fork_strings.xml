@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">کاپیاں اس وقت تک محفوظ رکھی جاتی ہیں جب تک آپ انہیں حذف نہیں کرتے ہیں۔</string>
     <string name="pf6_clipboard_pinned">پنڈ</string>
     <string name="voice_status_nothing_heard">کچھ نہیں سنا</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">کی بورڈ بند ہونے پر املا روکیں</string>
+    <string name="voice_stop_on_keyboard_close_summary">کی بورڈ چھپا ہونے پر بھی سننا جاری رکھنے کے لیے اسے بند کریں۔ متن کے خانے سے نکلنے پر املا اب بھی رک جاتا ہے۔</string>
+    <string name="button_hold_hint">%1$s · دبا کر رکھیں: %2$s</string>
+    <string name="button_hold_repeat">دہرائیں</string>
+    <string name="button_pin">ٹول بار پر پن کریں</string>
+    <string name="button_unpin">ٹول بار سے پن ہٹائیں</string>
+    <string name="button_expand_toolbar">ٹول بار دکھائیں</string>
+    <string name="button_collapse_toolbar">ٹول بار چھپائیں</string>
+    <string name="button_clear_recents">حالیہ ایموجی صاف کریں</string>
+    <string name="voice_transcribe_now_hint">ابھی متن میں بدلیں: اب تک کی بات درج کریں اور سنتے رہیں</string>
+    <string name="voice_stop_hint">روکیں: سننا ختم کریں اور متن درج کریں</string>
+    <string name="button_pause_gesture_gathering">اشاروں کے ڈیٹا کا جمع کرنا 5 منٹ کے لیے روکیں</string>
 </resources>

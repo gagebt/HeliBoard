@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Le copie vengono conservate fino a quando non vengono cancellate.</string>
     <string name="pf6_clipboard_pinned">Fissato</string>
     <string name="voice_status_nothing_heard">Non ho sentito niente.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Interrompi la dettatura quando si chiude la tastiera</string>
+    <string name="voice_stop_on_keyboard_close_summary">Disattiva per continuare ad ascoltare con la tastiera nascosta. Uscire dal campo di testo interrompe comunque la dettatura.</string>
+    <string name="button_hold_hint">%1$s · Pressione prolungata: %2$s</string>
+    <string name="button_hold_repeat">ripeti</string>
+    <string name="button_pin">Fissa sulla barra degli strumenti</string>
+    <string name="button_unpin">Rimuovi dalla barra degli strumenti</string>
+    <string name="button_expand_toolbar">Mostra barra degli strumenti</string>
+    <string name="button_collapse_toolbar">Nascondi barra degli strumenti</string>
+    <string name="button_clear_recents">Cancella emoji recenti</string>
+    <string name="voice_transcribe_now_hint">Trascrivi ora: inserisci quanto detto e continua ad ascoltare</string>
+    <string name="voice_stop_hint">Stop: termina l’ascolto e inserisci il testo</string>
+    <string name="button_pause_gesture_gathering">Sospendi la raccolta dei dati dei gesti per 5 minuti</string>
 </resources>

@@ -118,4 +118,18 @@
     <string name="pf6_clipboard_kept_no_limit">Les copies se guardan hasta que les elimines.</string>
     <string name="pf6_clipboard_pinned">Encañáu</string>
     <string name="voice_status_nothing_heard">Nun se oyó nada.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Parar el dictáu al zarrar el tecláu</string>
+    <string name="voice_stop_on_keyboard_close_summary">Desactiva pa siguir escuchando col tecláu ocultu. Salir del campu de testu sigue parando el dictáu.</string>
+    <string name="button_hold_hint">%1$s · Caltener primíu: %2$s</string>
+    <string name="button_hold_repeat">repetir</string>
+    <string name="button_pin">Fixar na barra de ferramientes</string>
+    <string name="button_unpin">Desfixar de la barra de ferramientes</string>
+    <string name="button_expand_toolbar">Amosar la barra de ferramientes</string>
+    <string name="button_collapse_toolbar">Anubrir la barra de ferramientes</string>
+    <string name="button_clear_recents">Llimpiar los emojis recientes</string>
+    <string name="voice_transcribe_now_hint">Trescribir agora: inxerir lo dicho hasta agora y siguir escuchando</string>
+    <string name="voice_stop_hint">Parar: dexar de escuchar ya inxerir el testu</string>
+    <string name="button_pause_gesture_gathering">Pausar la recoyida de datos de xestos durante 5 minutos</string>
 </resources>

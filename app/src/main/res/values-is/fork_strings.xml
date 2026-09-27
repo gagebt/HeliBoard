@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Afrit eru geymd þar til þú eyðir þeim.</string>
     <string name="pf6_clipboard_pinned">Fylgjandi</string>
     <string name="voice_status_nothing_heard">Ég heyrđi ekkert.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Stöðva upplestur þegar lyklaborðinu er lokað</string>
+    <string name="voice_stop_on_keyboard_close_summary">Slökktu til að halda áfram að hlusta með lyklaborðið falið. Upplestur stöðvast samt þegar þú yfirgefur textareitinn.</string>
+    <string name="button_hold_hint">%1$s · Haltu inni: %2$s</string>
+    <string name="button_hold_repeat">endurtaka</string>
+    <string name="button_pin">Festa á tækjastiku</string>
+    <string name="button_unpin">Losa af tækjastiku</string>
+    <string name="button_expand_toolbar">Sýna tækjastiku</string>
+    <string name="button_collapse_toolbar">Fela tækjastiku</string>
+    <string name="button_clear_recents">Hreinsa nýleg tjákn</string>
+    <string name="voice_transcribe_now_hint">Umrita núna: setja inn tal hingað til og halda áfram að hlusta</string>
+    <string name="voice_stop_hint">Stöðva: hætta að hlusta og setja inn textann</string>
+    <string name="button_pause_gesture_gathering">Gera hlé á söfnun bendingagagna í 5 mínútur</string>
 </resources>

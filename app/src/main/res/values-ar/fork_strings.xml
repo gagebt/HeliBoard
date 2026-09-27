@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">يتم الاحتفاظ بنسخ حتى تقوم بحذفها</string>
     <string name="pf6_clipboard_pinned">مثبّت</string>
     <string name="voice_status_nothing_heard">لم أسمع شيئاً</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">إيقاف الإملاء عند إغلاق لوحة المفاتيح</string>
+    <string name="voice_stop_on_keyboard_close_summary">أوقف هذا الخيار لمواصلة الاستماع مع إخفاء لوحة المفاتيح. مغادرة حقل النص توقف الإملاء دائمًا.</string>
+    <string name="button_hold_hint">%1$s · ضغط مطوّل: %2$s</string>
+    <string name="button_hold_repeat">تكرار</string>
+    <string name="button_pin">تثبيت في شريط الأدوات</string>
+    <string name="button_unpin">إلغاء التثبيت من شريط الأدوات</string>
+    <string name="button_expand_toolbar">إظهار شريط الأدوات</string>
+    <string name="button_collapse_toolbar">إخفاء شريط الأدوات</string>
+    <string name="button_clear_recents">مسح الرموز التعبيرية الأخيرة</string>
+    <string name="voice_transcribe_now_hint">تحويل الكلام إلى نص الآن: إدراج الكلام حتى الآن ومواصلة الاستماع</string>
+    <string name="voice_stop_hint">إيقاف: إنهاء الاستماع وإدراج النص</string>
+    <string name="button_pause_gesture_gathering">إيقاف جمع بيانات الإيماءات مؤقتًا لمدة 5 دقائق</string>
 </resources>

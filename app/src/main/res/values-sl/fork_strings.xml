@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopije se hranijo, dokler jih ne izbrišete.</string>
     <string name="pf6_clipboard_pinned">Vklopljeno</string>
     <string name="voice_status_nothing_heard">Ničesar nisem slišal.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Ustavi narekovanje ob zaprtju tipkovnice</string>
+    <string name="voice_stop_on_keyboard_close_summary">Izklopite, da se poslušanje nadaljuje s skrito tipkovnico. Izhod iz besedilnega polja še vedno ustavi narekovanje.</string>
+    <string name="button_hold_hint">%1$s · Pridržanje: %2$s</string>
+    <string name="button_hold_repeat">ponavljanje</string>
+    <string name="button_pin">Pripni v orodno vrstico</string>
+    <string name="button_unpin">Odpni iz orodne vrstice</string>
+    <string name="button_expand_toolbar">Pokaži orodno vrstico</string>
+    <string name="button_collapse_toolbar">Skrij orodno vrstico</string>
+    <string name="button_clear_recents">Počisti nedavne emodžije</string>
+    <string name="voice_transcribe_now_hint">Prepiši zdaj: vstavi dosedanji govor in nadaljuj poslušanje</string>
+    <string name="voice_stop_hint">Ustavi: končaj poslušanje in vstavi besedilo</string>
+    <string name="button_pause_gesture_gathering">Začasno ustavi zbiranje podatkov o potezah za 5 minut</string>
 </resources>

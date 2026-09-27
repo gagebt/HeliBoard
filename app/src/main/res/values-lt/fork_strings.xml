@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Kopijos laikomos, kol jas ištrinsite.</string>
     <string name="pf6_clipboard_pinned">Įpinti</string>
     <string name="voice_status_nothing_heard">Nieko negirdėjau.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Stabdyti diktavimą uždarius klaviatūrą</string>
+    <string name="voice_stop_on_keyboard_close_summary">Išjunkite, kad klausymas tęstųsi paslėpus klaviatūrą. Išėjus iš teksto lauko diktavimas vis tiek sustoja.</string>
+    <string name="button_hold_hint">%1$s · Palaikykite: %2$s</string>
+    <string name="button_hold_repeat">kartoti</string>
+    <string name="button_pin">Prisegti prie įrankių juostos</string>
+    <string name="button_unpin">Atsegti nuo įrankių juostos</string>
+    <string name="button_expand_toolbar">Rodyti įrankių juostą</string>
+    <string name="button_collapse_toolbar">Slėpti įrankių juostą</string>
+    <string name="button_clear_recents">Išvalyti naujausius jaustukus</string>
+    <string name="voice_transcribe_now_hint">Transkribuoti dabar: įterpti tai, kas pasakyta, ir toliau klausyti</string>
+    <string name="voice_stop_hint">Stabdyti: baigti klausyti ir įterpti tekstą</string>
+    <string name="button_pause_gesture_gathering">Pristabdyti gestų duomenų rinkimą 5 minutėms</string>
 </resources>

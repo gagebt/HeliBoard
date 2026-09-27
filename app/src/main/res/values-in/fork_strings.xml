@@ -118,4 +118,17 @@
     <string name="pf6_clipboard_kept_no_limit">Salinan disimpan sampai Anda menghapus mereka.</string>
     <string name="pf6_clipboard_pinned">Dipin</string>
     <string name="voice_status_nothing_heard">Tidak ada yang terdengar.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Hentikan dikte saat keyboard ditutup</string>
+    <string name="voice_stop_on_keyboard_close_summary">Nonaktifkan untuk terus mendengarkan saat keyboard disembunyikan. Meninggalkan kolom teks tetap menghentikan dikte.</string>
+    <string name="button_hold_hint">%1$s · Tahan: %2$s</string>
+    <string name="button_hold_repeat">ulangi</string>
+    <string name="button_pin">Sematkan ke bilah alat</string>
+    <string name="button_unpin">Lepas dari bilah alat</string>
+    <string name="button_expand_toolbar">Tampilkan bilah alat</string>
+    <string name="button_collapse_toolbar">Sembunyikan bilah alat</string>
+    <string name="button_clear_recents">Hapus emoji terbaru</string>
+    <string name="voice_transcribe_now_hint">Transkripsikan sekarang: sisipkan ucapan sejauh ini dan terus mendengarkan</string>
+    <string name="voice_stop_hint">Berhenti: akhiri mendengarkan dan sisipkan teks</string>
+    <string name="button_pause_gesture_gathering">Jeda pengumpulan data gestur selama 5 menit</string>
 </resources>

@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">Нусхаҳо то он даме, ки онҳоро нест кунед, нигоҳ дошта мешаванд.</string>
     <string name="pf6_clipboard_pinned">Бандкардашуда</string>
     <string name="voice_status_nothing_heard">Ҳеҷ чиз нашунида шуд</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Ҳангоми бастани клавиатура диктаро қатъ кунед</string>
+    <string name="voice_stop_on_keyboard_close_summary">Барои идомаи гӯш кардан бо клавиатураи пинҳон хомӯш кунед. Баромадан аз майдони матн ҳамоно диктаро қатъ мекунад.</string>
+    <string name="button_hold_hint">%1$s · Нигоҳ доред: %2$s</string>
+    <string name="button_hold_repeat">такрор</string>
+    <string name="button_pin">Ба навори абзорҳо маҳкам кунед</string>
+    <string name="button_unpin">Аз навори абзорҳо ҷудо кунед</string>
+    <string name="button_expand_toolbar">Навори абзорҳоро нишон диҳед</string>
+    <string name="button_collapse_toolbar">Навори абзорҳоро пинҳон кунед</string>
+    <string name="button_clear_recents">Эмоҷиҳои охиринро тоза кунед</string>
+    <string name="voice_transcribe_now_hint">Ҳозир ба матн табдил диҳед: гуфтаҳои то ҳолро ворид кунед ва гӯш карданро идома диҳед</string>
+    <string name="voice_stop_hint">Қатъ: гӯш карданро анҷом диҳед ва матнро ворид кунед</string>
+    <string name="button_pause_gesture_gathering">Ҷамъоварии маълумоти ишораҳоро барои 5 дақиқа таваққуф кунед</string>
 </resources>

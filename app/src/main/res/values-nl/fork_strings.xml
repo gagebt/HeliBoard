@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Kopieën worden bewaard totdat u ze verwijdert.</string>
     <string name="pf6_clipboard_pinned">Vastgezet</string>
     <string name="voice_status_nothing_heard">Ik heb niets gehoord.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Dicteren stoppen bij sluiten van toetsenbord</string>
+    <string name="voice_stop_on_keyboard_close_summary">Schakel uit om te blijven luisteren met een verborgen toetsenbord. Het tekstveld verlaten stopt het dicteren nog steeds.</string>
+    <string name="button_hold_hint">%1$s · Vasthouden: %2$s</string>
+    <string name="button_hold_repeat">herhalen</string>
+    <string name="button_pin">Vastzetten op werkbalk</string>
+    <string name="button_unpin">Losmaken van werkbalk</string>
+    <string name="button_expand_toolbar">Werkbalk tonen</string>
+    <string name="button_collapse_toolbar">Werkbalk verbergen</string>
+    <string name="button_clear_recents">Recente emoji wissen</string>
+    <string name="voice_transcribe_now_hint">Nu transcriberen: gesproken tekst invoegen en blijven luisteren</string>
+    <string name="voice_stop_hint">Stoppen: luisteren beëindigen en tekst invoegen</string>
+    <string name="button_pause_gesture_gathering">Verzamelen van gebarengegevens 5 minuten pauzeren</string>
 </resources>

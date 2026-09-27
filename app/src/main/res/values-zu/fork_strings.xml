@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Amakhophi agcinwa uze uwacime.</string>
     <string name="pf6_clipboard_pinned">Ukufakwa</string>
     <string name="voice_status_nothing_heard">Akukho okuzwakalayo</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Misa ukufaka ngezwi lapho ikhibhodi ivalwa</string>
+    <string name="voice_stop_on_keyboard_close_summary">Vala le nketho ukuze uqhubeke nokulalela lapho ikhibhodi ifihliwe. Ukuphuma endaweni yombhalo kusamisa ukufaka ngezwi.</string>
+    <string name="button_hold_hint">%1$s · Cindezela ubambe: %2$s</string>
+    <string name="button_hold_repeat">phinda</string>
+    <string name="button_pin">Phina kubha yamathuluzi</string>
+    <string name="button_unpin">Susa ukuphina kubha yamathuluzi</string>
+    <string name="button_expand_toolbar">Bonisa ibha yamathuluzi</string>
+    <string name="button_collapse_toolbar">Fihla ibha yamathuluzi</string>
+    <string name="button_clear_recents">Sula ama-emoji asanda kusetshenziswa</string>
+    <string name="voice_transcribe_now_hint">Guqula umsindo ube umbhalo manje: faka okukhulunywe kuze kube manje bese uqhubeka nokulalela</string>
+    <string name="voice_stop_hint">Misa: qeda ukulalela bese ufaka umbhalo</string>
+    <string name="button_pause_gesture_gathering">Misa ukuqoqwa kwedatha yokuthinta imizuzu emi-5</string>
 </resources>

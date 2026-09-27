@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Sas còpias sunt conservadas finas a cando las cancelladas.</string>
     <string name="pf6_clipboard_pinned">Iscuridu</string>
     <string name="voice_status_nothing_heard">No est istètiu nudda</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Firma su dictadu cando si serrat sa tastiera</string>
+    <string name="voice_stop_on_keyboard_close_summary">Disativa pro sighire a iscultare cun sa tastiera cuada. Essire dae su campu de testu firmat ancora su dictadu.</string>
+    <string name="button_hold_hint">%1$s · Mantene incarcadu: %2$s</string>
+    <string name="button_hold_repeat">torra a fàghere</string>
+    <string name="button_pin">Fissa a sa barra de istrumentos</string>
+    <string name="button_unpin">Boga dae sa barra de istrumentos</string>
+    <string name="button_expand_toolbar">Mustra sa barra de istrumentos</string>
+    <string name="button_collapse_toolbar">Cua sa barra de istrumentos</string>
+    <string name="button_clear_recents">Lìmpia is emoji reghentes</string>
+    <string name="voice_transcribe_now_hint">Trascrie immoe: inserta su chi as naradu finas a immoe e sighi a iscultare</string>
+    <string name="voice_stop_hint">Firma: termina de iscultare e inserta su testu</string>
+    <string name="button_pause_gesture_gathering">Firma sa regorta de datos de gestos pro 5 minutos</string>
 </resources>

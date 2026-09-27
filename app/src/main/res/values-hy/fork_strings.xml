@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">Կոպիաները պահվում են, մինչեւ դրանք չփակես:</string>
     <string name="pf6_clipboard_pinned">Պինված</string>
     <string name="voice_status_nothing_heard">Ոչ մի բան չի լսվել</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Դադարեցնել թելադրությունը ստեղնաշարը փակելիս</string>
+    <string name="voice_stop_on_keyboard_close_summary">Անջատեք՝ թաքցված ստեղնաշարով լսելը շարունակելու համար։ Տեքստային դաշտից դուրս գալը միևնույն է դադարեցնում է թելադրությունը։</string>
+    <string name="button_hold_hint">%1$s · Երկար սեղմում՝ %2$s</string>
+    <string name="button_hold_repeat">կրկնել</string>
+    <string name="button_pin">Ամրացնել գործիքագոտում</string>
+    <string name="button_unpin">Ապամրացնել գործիքագոտուց</string>
+    <string name="button_expand_toolbar">Ցուցադրել գործիքագոտին</string>
+    <string name="button_collapse_toolbar">Թաքցնել գործիքագոտին</string>
+    <string name="button_clear_recents">Մաքրել վերջին էմոջիները</string>
+    <string name="voice_transcribe_now_hint">Տառադարձել հիմա․ ներդնել մինչ այժմ ասվածը և շարունակել լսելը</string>
+    <string name="voice_stop_hint">Դադարեցնել․ ավարտել լսելը և ներդնել տեքստը</string>
+    <string name="button_pause_gesture_gathering">Դադարեցնել ժեստերի տվյալների հավաքումը 5 րոպեով</string>
 </resources>

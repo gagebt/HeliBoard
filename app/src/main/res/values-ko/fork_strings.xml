@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">복사본은 삭제할 때까지 보관됩니다.</string>
     <string name="pf6_clipboard_pinned">고정됨</string>
     <string name="voice_status_nothing_heard">소리가 들리지 않았습니다</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">키보드를 닫을 때 받아쓰기 중지</string>
+    <string name="voice_stop_on_keyboard_close_summary">끄면 키보드가 숨겨져도 계속 듣습니다. 텍스트 필드를 벗어나면 받아쓰기는 계속 중지됩니다.</string>
+    <string name="button_hold_hint">%1$s · 길게 누르기: %2$s</string>
+    <string name="button_hold_repeat">반복</string>
+    <string name="button_pin">도구 모음에 고정</string>
+    <string name="button_unpin">도구 모음에서 고정 해제</string>
+    <string name="button_expand_toolbar">도구 모음 표시</string>
+    <string name="button_collapse_toolbar">도구 모음 숨기기</string>
+    <string name="button_clear_recents">최근 이모지 지우기</string>
+    <string name="voice_transcribe_now_hint">지금 변환: 지금까지 말한 내용을 삽입하고 계속 듣기</string>
+    <string name="voice_stop_hint">중지: 듣기를 마치고 텍스트 삽입</string>
+    <string name="button_pause_gesture_gathering">동작 데이터 수집을 5분 동안 일시 중지</string>
 </resources>

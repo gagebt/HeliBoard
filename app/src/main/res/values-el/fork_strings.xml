@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">Τα αντίγραφα διατηρούνται μέχρι να τα διαγράψετε.</string>
     <string name="pf6_clipboard_pinned">Πινέζ</string>
     <string name="voice_status_nothing_heard">Δεν άκουσα τίποτα.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Διακοπή υπαγόρευσης όταν κλείνει το πληκτρολόγιο</string>
+    <string name="voice_stop_on_keyboard_close_summary">Απενεργοποιήστε για να συνεχιστεί η ακρόαση με κρυφό πληκτρολόγιο. Η έξοδος από το πεδίο κειμένου εξακολουθεί να διακόπτει την υπαγόρευση.</string>
+    <string name="button_hold_hint">%1$s · Παρατεταμένο πάτημα: %2$s</string>
+    <string name="button_hold_repeat">επανάληψη</string>
+    <string name="button_pin">Καρφίτσωμα στη γραμμή εργαλείων</string>
+    <string name="button_unpin">Ξεκαρφίτσωμα από τη γραμμή εργαλείων</string>
+    <string name="button_expand_toolbar">Εμφάνιση γραμμής εργαλείων</string>
+    <string name="button_collapse_toolbar">Απόκρυψη γραμμής εργαλείων</string>
+    <string name="button_clear_recents">Εκκαθάριση πρόσφατων emoji</string>
+    <string name="voice_transcribe_now_hint">Μεταγραφή τώρα: εισαγωγή της ομιλίας μέχρι τώρα και συνέχιση ακρόασης</string>
+    <string name="voice_stop_hint">Διακοπή: τερματισμός ακρόασης και εισαγωγή του κειμένου</string>
+    <string name="button_pause_gesture_gathering">Παύση συλλογής δεδομένων χειρονομιών για 5 λεπτά</string>
 </resources>

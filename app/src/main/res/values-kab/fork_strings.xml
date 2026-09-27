@@ -84,4 +84,17 @@
     <string name="pf6_clipboard_kept_no_limit">Tettwaḥrez-d tikkunin alamma tettfeǧǧeḍ-tent.</string>
     <string name="pf6_clipboard_pinned">Yettwaṭṭef</string>
     <string name="voice_status_nothing_heard">Ulac acu i d-yeslan</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Seḥbes asenṭeq mi ara temdel unasiw</string>
+    <string name="voice_stop_on_keyboard_close_summary">Sens akken ad tkemmleḍ asellek mi ara yeffer unasiw. Tuffɣa seg urti n uḍris tesḥabas mazal asenṭeq.</string>
+    <string name="button_hold_hint">%1$s · Ṭṭef: %2$s</string>
+    <string name="button_hold_repeat">ales</string>
+    <string name="button_pin">Senteḍ ɣer tfeggagt n yifecka</string>
+    <string name="button_unpin">Kkes asenteḍ seg tfeggagt n yifecka</string>
+    <string name="button_expand_toolbar">Sken tafeggagt n yifecka</string>
+    <string name="button_collapse_toolbar">Ffer tafeggagt n yifecka</string>
+    <string name="button_clear_recents">Sfeḍ imujiten ineggura</string>
+    <string name="voice_transcribe_now_hint">Aru tura: sekcem ayen yettwannan ar tura u kemmel asellek</string>
+    <string name="voice_stop_hint">Seḥbes: fak asellek u sekcem aḍris</string>
+    <string name="button_pause_gesture_gathering">Seḥbes alqaḍ n yisefka n tnekkiyin i 5 n tesdatin</string>
 </resources>

@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">ನೀವು ಅವುಗಳನ್ನು ಅಳಿಸುವವರೆಗೆ ನಕಲುಗಳನ್ನು ಇರಿಸಲಾಗುತ್ತದೆ.</string>
     <string name="pf6_clipboard_pinned">ಪೈಪ್ಡ್</string>
     <string name="voice_status_nothing_heard">ಏನೂ ಕೇಳಲಿಲ್ಲ</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">ಕೀಬೋರ್ಡ್ ಮುಚ್ಚಿದಾಗ ಧ್ವನಿ ಬರವಣಿಗೆಯನ್ನು ನಿಲ್ಲಿಸಿ</string>
+    <string name="voice_stop_on_keyboard_close_summary">ಕೀಬೋರ್ಡ್ ಮರೆಮಾಡಿದಾಗಲೂ ಕೇಳುವುದನ್ನು ಮುಂದುವರಿಸಲು ಇದನ್ನು ಆಫ್ ಮಾಡಿ. ಪಠ್ಯ ಕ್ಷೇತ್ರದಿಂದ ಹೊರಬಂದಾಗ ಧ್ವನಿ ಬರವಣಿಗೆ ಇನ್ನೂ ನಿಲ್ಲುತ್ತದೆ.</string>
+    <string name="button_hold_hint">%1$s · ಒತ್ತಿ ಹಿಡಿಯಿರಿ: %2$s</string>
+    <string name="button_hold_repeat">ಪುನರಾವರ್ತನೆ</string>
+    <string name="button_pin">ಟೂಲ್‌ಬಾರ್‌ಗೆ ಪಿನ್ ಮಾಡಿ</string>
+    <string name="button_unpin">ಟೂಲ್‌ಬಾರ್‌ನಿಂದ ಪಿನ್ ತೆಗೆದುಹಾಕಿ</string>
+    <string name="button_expand_toolbar">ಟೂಲ್‌ಬಾರ್ ತೋರಿಸಿ</string>
+    <string name="button_collapse_toolbar">ಟೂಲ್‌ಬಾರ್ ಮರೆಮಾಡಿ</string>
+    <string name="button_clear_recents">ಇತ್ತೀಚಿನ ಎಮೋಜಿಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
+    <string name="voice_transcribe_now_hint">ಈಗ ಪಠ್ಯಕ್ಕೆ ಪರಿವರ್ತಿಸಿ: ಇದುವರೆಗಿನ ಮಾತನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಕೇಳುವುದನ್ನು ಮುಂದುವರಿಸಿ</string>
+    <string name="voice_stop_hint">ನಿಲ್ಲಿಸಿ: ಕೇಳುವುದನ್ನು ಮುಗಿಸಿ ಮತ್ತು ಪಠ್ಯವನ್ನು ಸೇರಿಸಿ</string>
+    <string name="button_pause_gesture_gathering">ಗೆಸ್ಚರ್ ಡೇಟಾ ಸಂಗ್ರಹಣೆಯನ್ನು 5 ನಿಮಿಷ ವಿರಾಮಗೊಳಿಸಿ</string>
 </resources>

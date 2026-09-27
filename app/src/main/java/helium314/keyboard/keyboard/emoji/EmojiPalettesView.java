@@ -246,14 +246,17 @@ public final class EmojiPalettesView extends LinearLayout
         host.addView(iconView);
         iconView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f));
         iconView.setOnClickListener(this);
-        if (category == EmojiCategory.Category.RECENTS) {
-            iconView.setOnLongClickListener(v -> {
-                AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS);
+        iconView.setOnLongClickListener(v -> {
+            AudioAndHapticFeedbackManager.getInstance().performHapticAndAudioFeedback(KeyCode.NOT_SPECIFIED, this, HapticEvent.KEY_LONG_PRESS);
+            CharSequence hint = iconView.getContentDescription();
+            if (category == EmojiCategory.Category.RECENTS) {
                 clearRecentKeys();
-
-                return true;
-            });
-        }
+                hint = getContext().getString(R.string.button_hold_hint, hint,
+                        getContext().getString(R.string.button_clear_recents));
+            }
+            helium314.keyboard.latin.utils.ToolbarUtilsKt.showToolbarHint(hint);
+            return true;
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")

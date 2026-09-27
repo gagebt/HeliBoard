@@ -118,4 +118,17 @@
     <string name="pf6_clipboard_kept_no_limit">Les còpies es conserven fins que les elimines.</string>
     <string name="pf6_clipboard_pinned">Pinsats</string>
     <string name="voice_status_nothing_heard">No ho he sentit.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Atura el dictat en tancar el teclat</string>
+    <string name="voice_stop_on_keyboard_close_summary">Desactiva per continuar escoltant amb el teclat ocult. Sortir del camp de text continua aturant el dictat.</string>
+    <string name="button_hold_hint">%1$s · Mantén premut: %2$s</string>
+    <string name="button_hold_repeat">repeteix</string>
+    <string name="button_pin">Fixa a la barra d’eines</string>
+    <string name="button_unpin">Desfixa de la barra d’eines</string>
+    <string name="button_expand_toolbar">Mostra la barra d’eines</string>
+    <string name="button_collapse_toolbar">Amaga la barra d’eines</string>
+    <string name="button_clear_recents">Esborra els emojis recents</string>
+    <string name="voice_transcribe_now_hint">Transcriu ara: insereix el que s’ha dit i continua escoltant</string>
+    <string name="voice_stop_hint">Atura: acaba d’escoltar i insereix el text</string>
+    <string name="button_pause_gesture_gathering">Pausa la recollida de dades de gestos durant 5 minuts</string>
 </resources>

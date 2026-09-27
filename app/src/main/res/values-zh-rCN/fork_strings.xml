@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">在您删除之前保留副本.</string>
     <string name="pf6_clipboard_pinned">已固定</string>
     <string name="voice_status_nothing_heard">未听到声音</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">关闭键盘时停止听写</string>
+    <string name="voice_stop_on_keyboard_close_summary">关闭此选项后，键盘隐藏时仍会继续聆听。离开文本框仍会停止听写。</string>
+    <string name="button_hold_hint">%1$s · 长按：%2$s</string>
+    <string name="button_hold_repeat">重复</string>
+    <string name="button_pin">固定到工具栏</string>
+    <string name="button_unpin">从工具栏取消固定</string>
+    <string name="button_expand_toolbar">显示工具栏</string>
+    <string name="button_collapse_toolbar">隐藏工具栏</string>
+    <string name="button_clear_recents">清除最近使用的表情符号</string>
+    <string name="voice_transcribe_now_hint">立即转写：插入目前说出的内容并继续聆听</string>
+    <string name="voice_stop_hint">停止：结束聆听并插入文本</string>
+    <string name="button_pause_gesture_gathering">暂停收集手势数据5分钟</string>
 </resources>

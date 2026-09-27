@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopyalar silene kadar saklanır.</string>
     <string name="pf6_clipboard_pinned">Sabitlenmiş</string>
     <string name="voice_status_nothing_heard">Ses duyulmadı</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Klavye kapandığında dikteyi durdur</string>
+    <string name="voice_stop_on_keyboard_close_summary">Klavye gizliyken dinlemeye devam etmek için kapatın. Metin alanından çıkmak dikteyi yine de durdurur.</string>
+    <string name="button_hold_hint">%1$s · Basılı tutma: %2$s</string>
+    <string name="button_hold_repeat">tekrarla</string>
+    <string name="button_pin">Araç çubuğuna sabitle</string>
+    <string name="button_unpin">Araç çubuğundan kaldır</string>
+    <string name="button_expand_toolbar">Araç çubuğunu göster</string>
+    <string name="button_collapse_toolbar">Araç çubuğunu gizle</string>
+    <string name="button_clear_recents">Son emojileri temizle</string>
+    <string name="voice_transcribe_now_hint">Şimdi yazıya dök: şu ana kadarki konuşmayı ekle ve dinlemeye devam et</string>
+    <string name="voice_stop_hint">Durdur: dinlemeyi bitir ve metni ekle</string>
+    <string name="button_pause_gesture_gathering">Hareket verisi toplamayı 5 dakika duraklat</string>
 </resources>

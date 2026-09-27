@@ -57,6 +57,7 @@ import helium314.keyboard.latin.utils.removeFirst
 import helium314.keyboard.latin.utils.removePinnedKey
 import helium314.keyboard.latin.utils.setToolbarButtonsActivatedStateOnPrefChange
 import helium314.keyboard.latin.utils.showToolbarHint
+import helium314.keyboard.latin.utils.toolbarKeyHint
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.abs
 import kotlin.math.min
@@ -241,6 +242,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
 
         toolbarExpandKey.scaleX = (if (toolbarVisible) -1f else 1f) * direction
+        updateToolbarExpandDescription()
     }
 
     fun isToolbarVisible() = toolbarContainer.isVisible
@@ -273,6 +275,10 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
             setupKey(closeButton, Settings.getValues().mColors)
             closeButton.setOnClickListener {
                 listener.removeExternalSuggestions()
+            }
+            closeButton.setOnLongClickListener {
+                showToolbarHint(closeButton.contentDescription)
+                true
             }
             suggestionsStrip.addView(closeButton)
         } else {
@@ -397,16 +403,12 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private fun onLongClickToolbarKey(view: View) {
         val tag = view.tag as? ToolbarKey ?: return
         if (!Settings.getValues().mQuickPinToolbarKeys || view.parent === pinnedKeys) {
-            if (helium314.keyboard.latin.utils.getCodeForToolbarKeyLongClick(tag) == KeyCode.UNSPECIFIED) {
-                val hint = if (tag == ToolbarKey.VOICE) context.getString(R.string.voice_button_hint)
-                    else view.contentDescription
-                showToolbarHint(hint)
-            } else {
-                onLongClickToolbarKey(view) { code, isRepeat -> listener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, isRepeat) }
-            }
+            onLongClickToolbarKey(view) { code, isRepeat -> listener.onCodeInput(code, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, isRepeat) }
         } else if (view.parent === toolbar) {
             AudioAndHapticFeedbackManager.getInstance().performHapticFeedback(this, HapticEvent.KEY_LONG_PRESS)
             val pinnedKeyView = pinnedKeys.findViewWithTag<View>(tag)
+            val hint = toolbarKeyHint(context, tag, context.getString(
+                if (pinnedKeyView == null) R.string.button_pin else R.string.button_unpin))
             if (pinnedKeyView == null) {
                 addKeyToPinnedKeys(tag)
                 toolbar.findViewWithTag<View>(tag).background = enabledToolKeyBackground
@@ -416,6 +418,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
                 toolbar.findViewWithTag<View>(tag).background = defaultToolbarBackground.constantState?.newDrawable(resources)
                 pinnedKeys.removeView(pinnedKeyView)
             }
+            showToolbarHint(hint)
         }
     }
 
@@ -561,8 +564,23 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         }
 
         toolbarExpandKey.setOnClickListener(if (!toolbarIsExpandable) null else this)
+        updateToolbarExpandDescription()
+        toolbarExpandKey.setOnLongClickListener {
+            showToolbarHint(toolbarExpandKey.contentDescription)
+            true
+        }
         pinnedKeys.visibility = suggestionsStrip.visibility
         isExternalSuggestionVisible = false
+    }
+
+    private fun updateToolbarExpandDescription() {
+        val settings = Settings.getValues()
+        val label = if (settings.mToolbarMode != ToolbarMode.EXPANDABLE) "" else context.getString(
+            if (toolbarContainer.isVisible) R.string.button_collapse_toolbar else R.string.button_expand_toolbar)
+        toolbarExpandKey.contentDescription = listOfNotNull(
+            label.takeIf { it.isNotEmpty() },
+            context.getString(R.string.incognito).takeIf { settings.mIncognitoModeEnabled }
+        ).joinToString(" · ")
     }
 
     private fun addKeyToPinnedKeys(pinnedKey: ToolbarKey) {

@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopia horiek gorde egiten dira ezabatzen dituzun arte.</string>
     <string name="pf6_clipboard_pinned">Ezta pentsatu ere</string>
     <string name="voice_status_nothing_heard">Ez dut ezer entzun.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Gelditu diktaketa teklatua ixtean</string>
+    <string name="voice_stop_on_keyboard_close_summary">Desaktibatu teklatua ezkutatuta dagoenean entzuten jarraitzeko. Testu-eremutik irteteak diktaketa gelditzen du beti.</string>
+    <string name="button_hold_hint">%1$s · Luze sakatu: %2$s</string>
+    <string name="button_hold_repeat">errepikatu</string>
+    <string name="button_pin">Ainguratu tresna-barran</string>
+    <string name="button_unpin">Kendu tresna-barrako aingura</string>
+    <string name="button_expand_toolbar">Erakutsi tresna-barra</string>
+    <string name="button_collapse_toolbar">Ezkutatu tresna-barra</string>
+    <string name="button_clear_recents">Garbitu azken emojiak</string>
+    <string name="voice_transcribe_now_hint">Transkribatu orain: txertatu orain arteko hizketa eta jarraitu entzuten</string>
+    <string name="voice_stop_hint">Gelditu: amaitu entzutea eta txertatu testua</string>
+    <string name="button_pause_gesture_gathering">Pausatu keinuen datu-bilketa 5 minutuz</string>
 </resources>

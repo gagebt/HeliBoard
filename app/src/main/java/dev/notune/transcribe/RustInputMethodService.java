@@ -468,14 +468,14 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         return text == null ? -1 : text.length();
     }
 
-    /** Call when the keyboard view finishes: leaving the app or field stops the microphone. */
-    public void onInputViewFinished() {
+    /** Remember the field when the view closes, and stop if the close policy requires it. */
+    public void onInputViewFinished(boolean stopRecording) {
         if (!host.isMainThread() || session == null || targetLost) return;
         InputConnection connection = currentTargetConnection();
         // Remember the text around the cursor now, so the same document can be recognised
         // when it comes back.
         if (connection != null) reconcileContinuity(connection);
-        if (recording) stop();
+        if (recording && stopRecording) stop();
     }
 
     @Override public void close() {

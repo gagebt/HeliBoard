@@ -117,4 +117,17 @@
     <string name="pf6_clipboard_kept_no_limit">Kopior lagras tills du raderar dem.</string>
     <string name="pf6_clipboard_pinned">Pinnade</string>
     <string name="voice_status_nothing_heard">Inget hörts.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Stoppa diktering när tangentbordet stängs</string>
+    <string name="voice_stop_on_keyboard_close_summary">Stäng av för att fortsätta lyssna med dolt tangentbord. Dikteringen stoppas fortfarande när du lämnar textfältet.</string>
+    <string name="button_hold_hint">%1$s · Håll: %2$s</string>
+    <string name="button_hold_repeat">upprepa</string>
+    <string name="button_pin">Fäst i verktygsfältet</string>
+    <string name="button_unpin">Lossa från verktygsfältet</string>
+    <string name="button_expand_toolbar">Visa verktygsfält</string>
+    <string name="button_collapse_toolbar">Dölj verktygsfält</string>
+    <string name="button_clear_recents">Rensa senaste emojier</string>
+    <string name="voice_transcribe_now_hint">Transkribera nu: infoga det som sagts och fortsätt lyssna</string>
+    <string name="voice_stop_hint">Stoppa: avsluta lyssningen och infoga texten</string>
+    <string name="button_pause_gesture_gathering">Pausa insamling av gestdata i 5 minuter</string>
 </resources>

@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">你將複製保存到你去除之前</string>
     <string name="pf6_clipboard_pinned">已固定</string>
     <string name="voice_status_nothing_heard">未聽到聲音</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">關閉鍵盤時停止語音輸入</string>
+    <string name="voice_stop_on_keyboard_close_summary">關閉此選項可在鍵盤隱藏時繼續聆聽。離開文字欄位仍會停止語音輸入。</string>
+    <string name="button_hold_hint">%1$s · 長按：%2$s</string>
+    <string name="button_hold_repeat">重複</string>
+    <string name="button_pin">固定至工具列</string>
+    <string name="button_unpin">從工具列取消固定</string>
+    <string name="button_expand_toolbar">顯示工具列</string>
+    <string name="button_collapse_toolbar">隱藏工具列</string>
+    <string name="button_clear_recents">清除最近使用的表情符號</string>
+    <string name="voice_transcribe_now_hint">立即轉錄：插入目前為止的語音文字並繼續聆聽</string>
+    <string name="voice_stop_hint">停止：結束聆聽並插入文字</string>
+    <string name="button_pause_gesture_gathering">暫停收集手勢資料 5 分鐘</string>
 </resources>

@@ -118,4 +118,17 @@
     <string name="pf6_clipboard_kept_no_limit">Kopien werden bewahrt, bis Sie sie löschen.</string>
     <string name="pf6_clipboard_pinned">Angeheftet</string>
     <string name="voice_status_nothing_heard">Nichts gehört</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Diktat beim Schließen der Tastatur stoppen</string>
+    <string name="voice_stop_on_keyboard_close_summary">Ausschalten, um bei ausgeblendeter Tastatur weiter zuzuhören. Beim Verlassen des Textfelds endet das Diktat weiterhin.</string>
+    <string name="button_hold_hint">%1$s · Halten: %2$s</string>
+    <string name="button_hold_repeat">wiederholen</string>
+    <string name="button_pin">An Symbolleiste anheften</string>
+    <string name="button_unpin">Von Symbolleiste lösen</string>
+    <string name="button_expand_toolbar">Symbolleiste anzeigen</string>
+    <string name="button_collapse_toolbar">Symbolleiste ausblenden</string>
+    <string name="button_clear_recents">Zuletzt verwendete Emojis löschen</string>
+    <string name="voice_transcribe_now_hint">Jetzt transkribieren: bisher Gesprochenes einfügen und weiter zuhören</string>
+    <string name="voice_stop_hint">Stopp: Zuhören beenden und Text einfügen</string>
+    <string name="button_pause_gesture_gathering">Erfassung von Gestendaten für 5 Minuten pausieren</string>
 </resources>

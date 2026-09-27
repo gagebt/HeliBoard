@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopie są przechowywane, dopóki ich nie usuniesz.</string>
     <string name="pf6_clipboard_pinned">Wykręty</string>
     <string name="voice_status_nothing_heard">Nic nie słyszałem.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Zatrzymuj dyktowanie po zamknięciu klawiatury</string>
+    <string name="voice_stop_on_keyboard_close_summary">Wyłącz, aby słuchać dalej przy ukrytej klawiaturze. Opuszczenie pola tekstowego nadal zatrzymuje dyktowanie.</string>
+    <string name="button_hold_hint">%1$s · Przytrzymanie: %2$s</string>
+    <string name="button_hold_repeat">powtarzanie</string>
+    <string name="button_pin">Przypnij do paska narzędzi</string>
+    <string name="button_unpin">Odepnij od paska narzędzi</string>
+    <string name="button_expand_toolbar">Pokaż pasek narzędzi</string>
+    <string name="button_collapse_toolbar">Ukryj pasek narzędzi</string>
+    <string name="button_clear_recents">Wyczyść ostatnie emoji</string>
+    <string name="voice_transcribe_now_hint">Transkrybuj teraz: wstaw dotychczasową wypowiedź i słuchaj dalej</string>
+    <string name="voice_stop_hint">Zatrzymaj: zakończ słuchanie i wstaw tekst</string>
+    <string name="button_pause_gesture_gathering">Wstrzymaj zbieranie danych gestów na 5 minut</string>
 </resources>

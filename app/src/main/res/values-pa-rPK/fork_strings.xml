@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">کاپيونه تر هغه ساتل کیږي چې تاسو یې حذف کړئ.</string>
     <string name="pf6_clipboard_pinned">په ټوټه کې</string>
     <string name="voice_status_nothing_heard">هېڅ څه نه دي اوریدلي</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">کی بورڈ بند ہون تے ڈکٹیشن روکو</string>
+    <string name="voice_stop_on_keyboard_close_summary">کی بورڈ لکیا ہووے تے سننا جاری رکھن لئی بند کرو۔ متن دے خانے توں باہر نکلن نال ڈکٹیشن فیر وی رک جاندی اے۔</string>
+    <string name="button_hold_hint">%1$s · دبا کے رکھو: %2$s</string>
+    <string name="button_hold_repeat">دہراؤ</string>
+    <string name="button_pin">ٹول بار تے پن کرو</string>
+    <string name="button_unpin">ٹول بار توں پن ہٹاؤ</string>
+    <string name="button_expand_toolbar">ٹول بار وکھاؤ</string>
+    <string name="button_collapse_toolbar">ٹول بار لُکاؤ</string>
+    <string name="button_clear_recents">حالیہ ایموجی صاف کرو</string>
+    <string name="voice_transcribe_now_hint">ہُن لکھت بناؤ: ہُن تک بولیا درج کرو تے سننا جاری رکھو</string>
+    <string name="voice_stop_hint">روکو: سننا ختم کرو تے متن درج کرو</string>
+    <string name="button_pause_gesture_gathering">اشاریاں دا ڈیٹا اکٹھا کرنا 5 منٹ لئی روکو</string>
 </resources>

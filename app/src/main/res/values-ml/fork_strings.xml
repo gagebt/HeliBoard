@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">പകർപ്പുകള് നീക്കം ചെയ്യുന്നതുവരെ സൂക്ഷിക്കുന്നു.</string>
     <string name="pf6_clipboard_pinned">പിൻഡ്</string>
     <string name="voice_status_nothing_heard">ഒന്നും കേട്ടില്ല.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">കീബോർഡ് അടയ്ക്കുമ്പോൾ ശബ്ദം വഴി എഴുതുന്നത് നിർത്തുക</string>
+    <string name="voice_stop_on_keyboard_close_summary">കീബോർഡ് മറച്ചിരിക്കുമ്പോഴും കേൾക്കുന്നത് തുടരാൻ ഇത് ഓഫാക്കുക. ടെക്സ്റ്റ് ഫീൽഡിൽ നിന്ന് പുറത്തുപോകുമ്പോൾ ശബ്ദം വഴി എഴുതുന്നത് അപ്പോഴും നിർത്തും.</string>
+    <string name="button_hold_hint">%1$s · അമർത്തിപ്പിടിക്കുക: %2$s</string>
+    <string name="button_hold_repeat">ആവർത്തിക്കുക</string>
+    <string name="button_pin">ടൂൾബാറിൽ പിൻ ചെയ്യുക</string>
+    <string name="button_unpin">ടൂൾബാറിൽ നിന്ന് പിൻ നീക്കുക</string>
+    <string name="button_expand_toolbar">ടൂൾബാർ കാണിക്കുക</string>
+    <string name="button_collapse_toolbar">ടൂൾബാർ മറയ്ക്കുക</string>
+    <string name="button_clear_recents">സമീപകാല ഇമോജികൾ മായ്ക്കുക</string>
+    <string name="voice_transcribe_now_hint">ഇപ്പോൾ ടെക്സ്റ്റാക്കുക: ഇതുവരെ പറഞ്ഞത് ചേർത്ത് കേൾക്കുന്നത് തുടരുക</string>
+    <string name="voice_stop_hint">നിർത്തുക: കേൾക്കുന്നത് അവസാനിപ്പിച്ച് ടെക്സ്റ്റ് ചേർക്കുക</string>
+    <string name="button_pause_gesture_gathering">ആംഗ്യ ഡാറ്റ ശേഖരണം 5 മിനിറ്റ് താൽക്കാലികമായി നിർത്തുക</string>
 </resources>

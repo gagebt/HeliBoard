@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">நீங்கள் அவற்றை நீக்கும் வரை பிரதிகள் சேமிக்கப்படும்.</string>
     <string name="pf6_clipboard_pinned">தையல்</string>
     <string name="voice_status_nothing_heard">எதுவும் கேட்கவில்லை</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">விசைப்பலகை மூடும்போது குரல் தட்டச்சை நிறுத்து</string>
+    <string name="voice_stop_on_keyboard_close_summary">விசைப்பலகை மறைந்திருந்தாலும் தொடர்ந்து கேட்க இதை அணைக்கவும். உரைப் புலத்தை விட்டு வெளியேறினால் குரல் தட்டச்சு நிற்கும்.</string>
+    <string name="button_hold_hint">%1$s · அழுத்திப் பிடி: %2$s</string>
+    <string name="button_hold_repeat">மீண்டும் செய்</string>
+    <string name="button_pin">கருவிப்பட்டியில் பொருத்து</string>
+    <string name="button_unpin">கருவிப்பட்டியிலிருந்து விடுவி</string>
+    <string name="button_expand_toolbar">கருவிப்பட்டியைக் காட்டு</string>
+    <string name="button_collapse_toolbar">கருவிப்பட்டியை மறை</string>
+    <string name="button_clear_recents">சமீபத்திய எமோஜிகளை அழி</string>
+    <string name="voice_transcribe_now_hint">இப்போது உரையாக்கு: இதுவரை பேசியதைச் செருகி தொடர்ந்து கேள்</string>
+    <string name="voice_stop_hint">நிறுத்து: கேட்பதை முடித்து உரையைச் செருகு</string>
+    <string name="button_pause_gesture_gathering">சைகைத் தரவு சேகரிப்பை 5 நிமிடங்கள் இடைநிறுத்து</string>
 </resources>

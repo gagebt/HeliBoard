@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">Копиите се съхраняват, докато ги изтриете.</string>
     <string name="pf6_clipboard_pinned">Вградено</string>
     <string name="voice_status_nothing_heard">Нищо не чух.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Спиране на диктовката при затваряне на клавиатурата</string>
+    <string name="voice_stop_on_keyboard_close_summary">Изключете, за да продължи слушането при скрита клавиатура. Напускането на текстовото поле все пак спира диктовката.</string>
+    <string name="button_hold_hint">%1$s · Задържане: %2$s</string>
+    <string name="button_hold_repeat">повторение</string>
+    <string name="button_pin">Закачане към лентата с инструменти</string>
+    <string name="button_unpin">Откачане от лентата с инструменти</string>
+    <string name="button_expand_toolbar">Показване на лентата с инструменти</string>
+    <string name="button_collapse_toolbar">Скриване на лентата с инструменти</string>
+    <string name="button_clear_recents">Изчистване на последните емоджита</string>
+    <string name="voice_transcribe_now_hint">Транскрибиране сега: вмъква казаното дотук и продължава да слуша</string>
+    <string name="voice_stop_hint">Спиране: прекратява слушането и вмъква текста</string>
+    <string name="button_pause_gesture_gathering">Пауза на събирането на данни за жестове за 5 минути</string>
 </resources>

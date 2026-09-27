@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">Các bản sao được giữ cho đến khi bạn xóa chúng.</string>
     <string name="pf6_clipboard_pinned">Đèn đệm</string>
     <string name="voice_status_nothing_heard">Không nghe thấy gì cả.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Dừng đọc chính tả khi đóng bàn phím</string>
+    <string name="voice_stop_on_keyboard_close_summary">Tắt để tiếp tục nghe khi bàn phím bị ẩn. Rời khỏi trường văn bản vẫn dừng đọc chính tả.</string>
+    <string name="button_hold_hint">%1$s · Nhấn giữ: %2$s</string>
+    <string name="button_hold_repeat">lặp lại</string>
+    <string name="button_pin">Ghim vào thanh công cụ</string>
+    <string name="button_unpin">Bỏ ghim khỏi thanh công cụ</string>
+    <string name="button_expand_toolbar">Hiện thanh công cụ</string>
+    <string name="button_collapse_toolbar">Ẩn thanh công cụ</string>
+    <string name="button_clear_recents">Xóa emoji gần đây</string>
+    <string name="voice_transcribe_now_hint">Chép lời ngay: chèn lời nói đến lúc này và tiếp tục nghe</string>
+    <string name="voice_stop_hint">Dừng: kết thúc nghe và chèn văn bản</string>
+    <string name="button_pause_gesture_gathering">Tạm dừng thu thập dữ liệu cử chỉ trong 5 phút</string>
 </resources>

@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Koopiad hoitakse kuni need kustutatakse.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
     <string name="voice_status_nothing_heard">Ma ei kuulnud midagi.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Peata dikteerimine klaviatuuri sulgemisel</string>
+    <string name="voice_stop_on_keyboard_close_summary">Lülita välja, et jätkata kuulamist peidetud klaviatuuriga. Tekstiväljalt lahkumine peatab siiski dikteerimise.</string>
+    <string name="button_hold_hint">%1$s · Hoia all: %2$s</string>
+    <string name="button_hold_repeat">korda</string>
+    <string name="button_pin">Kinnita tööriistaribale</string>
+    <string name="button_unpin">Eemalda tööriistaribalt</string>
+    <string name="button_expand_toolbar">Näita tööriistariba</string>
+    <string name="button_collapse_toolbar">Peida tööriistariba</string>
+    <string name="button_clear_recents">Tühjenda hiljutised emojid</string>
+    <string name="voice_transcribe_now_hint">Transkribeeri kohe: sisesta seni öeldu ja jätka kuulamist</string>
+    <string name="voice_stop_hint">Peata: lõpeta kuulamine ja sisesta tekst</string>
+    <string name="button_pause_gesture_gathering">Peata žestiandmete kogumine 5 minutiks</string>
 </resources>

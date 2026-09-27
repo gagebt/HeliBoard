@@ -119,4 +119,18 @@
     <string name="pf6_clipboard_kept_no_limit">Kopies word gehou totdat jy dit uitvee.</string>
     <string name="pf6_clipboard_pinned">Gesteek</string>
     <string name="voice_status_nothing_heard">Ek het niks gehoor nie</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">Stop diktaat wanneer die sleutelbord sluit</string>
+    <string name="voice_stop_on_keyboard_close_summary">Skakel af om aan te hou luister met die sleutelbord versteek. Diktaat stop steeds wanneer jy die teksveld verlaat.</string>
+    <string name="button_hold_hint">%1$s · Hou in: %2$s</string>
+    <string name="button_hold_repeat">herhaal</string>
+    <string name="button_pin">Speld aan nutsbalk vas</string>
+    <string name="button_unpin">Maak van nutsbalk los</string>
+    <string name="button_expand_toolbar">Wys nutsbalk</string>
+    <string name="button_collapse_toolbar">Versteek nutsbalk</string>
+    <string name="button_clear_recents">Vee onlangse emoji’s uit</string>
+    <string name="voice_transcribe_now_hint">Transkribeer nou: voeg die spraak tot dusver in en hou aan luister</string>
+    <string name="voice_stop_hint">Stop: hou op luister en voeg die teks in</string>
+    <string name="button_pause_gesture_gathering">Onderbreek gebaardata-insameling vir 5 minute</string>
 </resources>

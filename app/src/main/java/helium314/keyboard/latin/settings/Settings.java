@@ -136,6 +136,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VOICE_SPEECH_SENSITIVITY = "voice_speech_sensitivity";
     public static final String PREF_VOICE_TRANSCRIBE_NOW = "voice_transcribe_now";
     public static final String PREF_VOICE_PAUSE_AUDIO = "voice_pause_audio";
+    public static final String PREF_VOICE_STOP_ON_KEYBOARD_CLOSE = "voice_stop_on_keyboard_close";
     public static final String PREF_VOICE_CONTROL_MODE = "voice_control_mode";
     public static final String PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY = "voice_save_dictations_to_history";
     public static final String PREF_KEY_LONGPRESS_TIMEOUT = "key_longpress_timeout";

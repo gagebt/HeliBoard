@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">สําเนาจะเก็บไว้จนกว่าคุณจะลบมัน</string>
     <string name="pf6_clipboard_pinned">ปิด</string>
     <string name="voice_status_nothing_heard">ไม่มีอะไรได้ยิน</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">หยุดการป้อนด้วยเสียงเมื่อปิดแป้นพิมพ์</string>
+    <string name="voice_stop_on_keyboard_close_summary">ปิดตัวเลือกนี้เพื่อฟังต่อขณะแป้นพิมพ์ถูกซ่อน การออกจากช่องข้อความยังคงหยุดการป้อนด้วยเสียง</string>
+    <string name="button_hold_hint">%1$s · กดค้าง: %2$s</string>
+    <string name="button_hold_repeat">ทำซ้ำ</string>
+    <string name="button_pin">ปักหมุดบนแถบเครื่องมือ</string>
+    <string name="button_unpin">เลิกปักหมุดจากแถบเครื่องมือ</string>
+    <string name="button_expand_toolbar">แสดงแถบเครื่องมือ</string>
+    <string name="button_collapse_toolbar">ซ่อนแถบเครื่องมือ</string>
+    <string name="button_clear_recents">ล้างอีโมจิล่าสุด</string>
+    <string name="voice_transcribe_now_hint">ถอดเสียงตอนนี้: แทรกคำพูดจนถึงตอนนี้และฟังต่อ</string>
+    <string name="voice_stop_hint">หยุด: จบการฟังและแทรกข้อความ</string>
+    <string name="button_pause_gesture_gathering">พักการรวบรวมข้อมูลท่าทางเป็นเวลา 5 นาที</string>
 </resources>

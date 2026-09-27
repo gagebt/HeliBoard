@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.util.AttributeSet
+import android.view.GestureDetector
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +21,7 @@ import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.FoldableUtils
 import helium314.keyboard.latin.utils.prefs
+import helium314.keyboard.latin.utils.showToolbarHint
 import kotlin.math.abs
 
 class KeyboardWrapperView @JvmOverloads constructor(
@@ -66,9 +68,21 @@ class KeyboardWrapperView @JvmOverloads constructor(
 
         stopOneHandedModeBtn.setOnClickListener(this)
         switchOneHandedModeBtn.setOnClickListener(this)
+        listOf(stopOneHandedModeBtn, switchOneHandedModeBtn).forEach { button ->
+            button.setOnLongClickListener {
+                showToolbarHint(button.contentDescription)
+                true
+            }
+        }
+        val resizeHint = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+                showToolbarHint(resizeOneHandedModeBtn.contentDescription)
+            }
+        })
 
         var x = 0f
         resizeOneHandedModeBtn.setOnTouchListener { _, motionEvent ->
+            resizeHint.onTouchEvent(motionEvent)
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> x = motionEvent.rawX
                 MotionEvent.ACTION_MOVE -> {

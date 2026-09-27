@@ -156,3 +156,5 @@ layout_PHONE|choose telephone dial keys;change phone number arrangement;pick cal
 layout_PHONE_SYMBOLS|choose symbols on telephone pad;change dialer punctuation keys;pick special phone number characters|выбрать знаки телефонной панели;сменить символы номера телефона;настроить специальные клавиши набора
 layout_EMOJI_BOTTOM|choose buttons below emoji picker;change smiley panel bottom row;pick controls under pictographs|выбрать кнопки под меню эмодзи;сменить нижний ряд панели смайлов;настроить клавиши под картинками
 layout_CLIPBOARD_BOTTOM|choose buttons below copy history;change clipboard panel bottom row;pick controls under saved clips|выбрать кнопки под историей копий;сменить нижний ряд панели буфера;настроить клавиши под сохраненным текстом
+
+voice_stop_on_keyboard_close|stop dictation when keyboard closes;keep listening with keyboard hidden;microphone after back button;continue recording while hiding keyboard|остановить диктовку при закрытии клавиатуры;продолжать запись со скрытой клавиатурой;микрофон после кнопки назад;сворачивание клавиатуры при диктовке

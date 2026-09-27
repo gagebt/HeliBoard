@@ -9,12 +9,16 @@ package helium314.keyboard.latin;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -124,6 +128,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.ServiceCompat;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -163,6 +169,10 @@ public class LatinIME extends InputMethodService implements
     private InsetsOutlineProvider mInsetsUpdater;
     private SuggestionStripView mSuggestionStripView;
     private RustInputMethodService mVoiceController;
+    private boolean mVoiceForeground;
+    private static final String VOICE_CHANNEL = "dictation";
+    private static final String STOP_DICTATION = "helium314.keyboard.STOP_DICTATION";
+    private static final int VOICE_NOTIFICATION = 1;
     private final AudioFocusPauser mVoiceAudioPauser = new AudioFocusPauser();
     private RustInputMethodService.VoiceState mVoiceState;
     private EditorRecord mVoiceEditor;
@@ -847,6 +857,7 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onDestroy() {
         PointerTracker.setOnAllPointersUp(null);
+        stopVoiceForeground();
         if (mVoiceController != null) {
             mVoiceController.close();
             mVoiceController = null;
@@ -1200,6 +1211,7 @@ public class LatinIME extends InputMethodService implements
     void onFinishInputInternal() {
         super.onFinishInput();
         Log.i(TAG, "onFinishInput");
+        if (mVoiceController != null) mVoiceController.onInputViewFinished(true);
 
         mDictionaryFacilitator.onFinishInput();
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
@@ -1212,8 +1224,10 @@ public class LatinIME extends InputMethodService implements
         super.onFinishInputView(finishingInput);
         Log.i(TAG, "onFinishInputView");
         cleanupInternalStateForFinishInput();
-        // Leaving the app or field stops the microphone; rotation defers this callback.
-        if (mVoiceController != null) mVoiceController.onInputViewFinished();
+        // Rotation defers this callback. A hidden keyboard may keep listening in this field.
+        if (mVoiceController != null) mVoiceController.onInputViewFinished(finishingInput
+                || KtxKt.prefs(this).getBoolean(Settings.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE,
+                        helium314.keyboard.latin.settings.Defaults.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE));
     }
 
     private void cleanupInternalStateForFinishInput() {
@@ -1614,11 +1628,65 @@ public class LatinIME extends InputMethodService implements
             mVoiceController.stop();
         } else {
             if (mVoiceController.initialize()) {
+                if (!KtxKt.prefs(this).getBoolean(Settings.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE,
+                        helium314.keyboard.latin.settings.Defaults.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE)
+                        && !startVoiceForeground()) return;
                 if (mVoiceController.start()) {
                     mInputLogic.warmUpSwipe(mKeyboardSwitcher.getKeyboard(), mRichImm.getCurrentSubtypeLocale());
+                } else {
+                    stopVoiceForeground();
                 }
             }
         }
+    }
+
+    /** Keep the existing IME microphone eligible while its view is hidden. */
+    private boolean startVoiceForeground() {
+        if (mVoiceForeground) return true;
+        final NotificationManager manager = getSystemService(NotificationManager.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            manager.createNotificationChannel(new NotificationChannel(VOICE_CHANNEL,
+                    getString(R.string.settings_category_voice_input), NotificationManager.IMPORTANCE_LOW));
+        }
+        final PendingIntent stop = PendingIntent.getService(this, 0,
+                new Intent(this, LatinIME.class).setAction(STOP_DICTATION),
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        final android.app.Notification notification = new NotificationCompat.Builder(this, VOICE_CHANNEL)
+                .setSmallIcon(R.drawable.sym_keyboard_voice_lxx)
+                .setContentTitle(getString(R.string.english_ime_name))
+                .setContentText(getString(R.string.voice_status_listening))
+                .setOngoing(true).setSilent(true)
+                .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
+                .addAction(0, getString(R.string.dictation_stop), stop).build();
+        try {
+            ServiceCompat.startForeground(this, VOICE_NOTIFICATION, notification,
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                            ? ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE : 0);
+            mVoiceForeground = true;
+            return true;
+        } catch (RuntimeException error) {
+            Log.e(TAG, "Could not keep dictation active with the keyboard hidden", error);
+            helium314.keyboard.latin.utils.ToolbarUtilsKt.showToolbarHint(
+                    getString(R.string.voice_status_unavailable));
+            return false;
+        }
+    }
+
+    private void stopVoiceForeground() {
+        if (!mVoiceForeground) return;
+        stopForeground(STOP_FOREGROUND_REMOVE);
+        mVoiceForeground = false;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && STOP_DICTATION.equals(intent.getAction())
+                && mVoiceController != null && mVoiceState != null
+                && mVoiceState.phase == RustInputMethodService.Phase.RECORDING) {
+            mVoiceController.stop();
+        }
+        stopSelf(startId); // the system's IME binding owns the service lifetime
+        return START_NOT_STICKY;
     }
 
     private void onVoicePermissionResult(final int result) {
@@ -1710,6 +1778,7 @@ public class LatinIME extends InputMethodService implements
         final boolean isRecording = state != null
                 && state.phase == RustInputMethodService.Phase.RECORDING;
         if (wasRecording && !isRecording) mVoiceAudioPauser.abandon(this);
+        if (wasRecording && !isRecording) stopVoiceForeground();
         if (!wasRecording && isRecording && KtxKt.prefs(this).getBoolean(
                 Settings.PREF_VOICE_PAUSE_AUDIO,
                 helium314.keyboard.latin.settings.Defaults.PREF_VOICE_PAUSE_AUDIO)) {
@@ -1814,8 +1883,10 @@ public class LatinIME extends InputMethodService implements
         // A held button still acts (a held Stop stops) and names itself inside the keyboard.
         button.setOnLongClickListener(ignored -> {
             action.run();
-            mKeyboardSwitcher.showToast(getString(label),
-                    helium314.keyboard.latin.utils.ToolbarUtilsKt.TOOLBAR_ACTION_HINT_MILLIS);
+            final int hint = label == R.string.dictation_transcribe_now
+                    ? R.string.voice_transcribe_now_hint
+                    : label == R.string.dictation_stop ? R.string.voice_stop_hint : label;
+            helium314.keyboard.latin.utils.ToolbarUtilsKt.showToolbarHint(getString(hint));
             return true;
         });
         mSettings.getCurrent().mColors.setColor(button, ColorType.TOOL_BAR_KEY);

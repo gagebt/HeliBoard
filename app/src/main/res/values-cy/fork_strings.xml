@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">Mae copi\'n cael eu cadw nes eich bod yn eu dileu.</string>
     <string name="pf6_clipboard_pinned">Pinned</string>
     <string name="voice_status_nothing_heard">Nid oes unrhyw glywed</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Atal arddweud pan fydd y bysellfwrdd yn cau</string>
+    <string name="voice_stop_on_keyboard_close_summary">Diffoddwch i barhau i wrando gyda’r bysellfwrdd wedi’i guddio. Mae gadael y maes testun yn dal i atal arddweud.</string>
+    <string name="button_hold_hint">%1$s · Dal: %2$s</string>
+    <string name="button_hold_repeat">ailadrodd</string>
+    <string name="button_pin">Pinio i’r bar offer</string>
+    <string name="button_unpin">Dadbinio o’r bar offer</string>
+    <string name="button_expand_toolbar">Dangos y bar offer</string>
+    <string name="button_collapse_toolbar">Cuddio’r bar offer</string>
+    <string name="button_clear_recents">Clirio emoji diweddar</string>
+    <string name="voice_transcribe_now_hint">Trawsgrifio nawr: mewnosod y lleferydd hyd yma a pharhau i wrando</string>
+    <string name="voice_stop_hint">Atal: gorffen gwrando a mewnosod y testun</string>
+    <string name="button_pause_gesture_gathering">Seibio casglu data ystumiau am 5 munud</string>
 </resources>

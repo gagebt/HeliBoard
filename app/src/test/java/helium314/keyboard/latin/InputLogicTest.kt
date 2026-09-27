@@ -83,6 +83,87 @@ class InputLogicTest {
     }
 
 
+    @Test fun foregroundDictationStopsFromItsNotificationAndReleasesForeground() {
+        val voice = Mockito.mock(dev.notune.transcribe.RustInputMethodService::class.java)
+        LatinIME::class.java.getDeclaredField("mVoiceController")
+            .apply { isAccessible = true }.set(latinIME, voice)
+        val ctor = dev.notune.transcribe.RustInputMethodService.VoiceState::class.java
+            .declaredConstructors.single().apply { isAccessible = true }
+        val recording = ctor.newInstance(dev.notune.transcribe.RustInputMethodService.Phase.RECORDING,
+            "Listening", 0f, false, false, false)
+        LatinIME::class.java.getDeclaredField("mVoiceState")
+            .apply { isAccessible = true }.set(latinIME, recording)
+        assertEquals(true, LatinIME::class.java.getDeclaredMethod("startVoiceForeground")
+            .apply { isAccessible = true }.invoke(latinIME))
+        val service = org.robolectric.Shadows.shadowOf(latinIME)
+        val notification = service.lastForegroundNotification
+        assertEquals("Stop", notification.actions.single().title.toString())
+        val stopIntent = org.robolectric.Shadows.shadowOf(notification.actions.single().actionIntent).savedIntent
+        assertEquals(LatinIME::class.java.name, stopIntent.component?.className)
+        latinIME.onStartCommand(stopIntent, 0, 1)
+        Mockito.verify(voice, Mockito.times(1)).stop()
+        val finishing = ctor.newInstance(dev.notune.transcribe.RustInputMethodService.Phase.FINISHING,
+            "Finishing", 0f, false, false, false)
+        LatinIME::class.java.getDeclaredMethod("renderVoiceState",
+            dev.notune.transcribe.RustInputMethodService.VoiceState::class.java)
+            .apply { isAccessible = true }.invoke(latinIME, finishing)
+        kotlin.test.assertTrue(service.isForegroundStopped)
+        latinIME.onStartCommand(stopIntent, 0, 2)
+        Mockito.verify(voice, Mockito.times(1)).stop()
+    }
+
+    @Test fun fontDefaultIsEightyPercentAndExplicitChoiceWins() {
+        latinIME.prefs().edit { remove(Settings.PREF_FONT_SCALE) }
+        setText("")
+        assertEquals(0.8f, settingsValues.mFontSizeMultiplier)
+        try {
+            latinIME.prefs().edit { putFloat(Settings.PREF_FONT_SCALE, 1.1f) }
+            setText("")
+            assertEquals(1.1f, settingsValues.mFontSizeMultiplier)
+        } finally {
+            latinIME.prefs().edit { remove(Settings.PREF_FONT_SCALE) }
+        }
+    }
+
+    @Test fun heldToolbarButtonShowsBothActionsAndDispatchesOnlyTheHold() {
+        val toast = android.widget.TextView(latinIME)
+        KeyboardSwitcher::class.java.getDeclaredField("mFakeToastView")
+            .apply { isAccessible = true }.set(KeyboardSwitcher.getInstance(), toast)
+        val key = android.widget.ImageButton(latinIME).apply {
+            tag = helium314.keyboard.latin.utils.ToolbarKey.COPY
+        }
+        val sent = mutableListOf<Int>()
+        fun hold() {
+            sent.clear()
+            helium314.keyboard.latin.utils.onLongClickToolbarKey(key) { code, _ -> sent.add(code) }
+        }
+        fun hint() = if (android.os.Build.VERSION.SDK_INT <= 32)
+            org.robolectric.shadows.ShadowToast.getTextOfLatestToast() else toast.text.toString()
+        hold()
+        assertEquals(listOf(KeyCode.CLIPBOARD_CUT), sent)
+        assertEquals("Copy · Hold: Cut", hint())
+        try {
+            latinIME.prefs().edit {
+                putString(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES, "COPY," + KeyCode.UNDO + ",33")
+            }
+            helium314.keyboard.latin.utils.clearCustomToolbarKeyCodes()
+            hold()
+            assertEquals(listOf('!'.code), sent)
+            assertEquals("Undo · Hold: !", hint())
+            key.tag = helium314.keyboard.latin.utils.ToolbarKey.SETTINGS
+            hold()
+            assertEquals(emptyList(), sent)
+            assertEquals("Settings", hint())
+            assertEquals("Left · Hold: repeat", helium314.keyboard.latin.utils.toolbarKeyHint(
+                latinIME, helium314.keyboard.latin.utils.ToolbarKey.LEFT))
+            assertEquals("Undo · Hold: Pin to toolbar", helium314.keyboard.latin.utils.toolbarKeyHint(
+                latinIME, helium314.keyboard.latin.utils.ToolbarKey.COPY, "Pin to toolbar"))
+        } finally {
+            latinIME.prefs().edit { remove(Settings.PREF_TOOLBAR_CUSTOM_KEY_CODES) }
+            helium314.keyboard.latin.utils.clearCustomToolbarKeyCodes()
+        }
+    }
+
     @Test fun permissionNoticeRetiresOnExternalGrantButStaysWhenDenied() {
         val strip = Mockito.mock(helium314.keyboard.latin.suggestions.SuggestionStripView::class.java)
         val notice = android.widget.TextView(latinIME)

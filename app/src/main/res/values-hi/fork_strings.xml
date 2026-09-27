@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">प्रतियां तब तक रखी जाती हैं जब तक आप उन्हें हटा नहीं देते।</string>
     <string name="pf6_clipboard_pinned">पिन किया गया</string>
     <string name="voice_status_nothing_heard">कुछ नहीं सुना</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">कीबोर्ड बंद होने पर बोलकर लिखना रोकें</string>
+    <string name="voice_stop_on_keyboard_close_summary">कीबोर्ड छिपा होने पर सुनना जारी रखने के लिए बंद करें। टेक्स्ट फ़ील्ड से बाहर जाने पर बोलकर लिखना फिर भी रुकता है।</string>
+    <string name="button_hold_hint">%1$s · दबाकर रखें: %2$s</string>
+    <string name="button_hold_repeat">दोहराएँ</string>
+    <string name="button_pin">टूलबार में पिन करें</string>
+    <string name="button_unpin">टूलबार से पिन हटाएँ</string>
+    <string name="button_expand_toolbar">टूलबार दिखाएँ</string>
+    <string name="button_collapse_toolbar">टूलबार छिपाएँ</string>
+    <string name="button_clear_recents">हाल के इमोजी मिटाएँ</string>
+    <string name="voice_transcribe_now_hint">अभी लिखें: अब तक की बोली डालें और सुनना जारी रखें</string>
+    <string name="voice_stop_hint">रोकें: सुनना समाप्त करें और टेक्स्ट डालें</string>
+    <string name="button_pause_gesture_gathering">जेस्चर डेटा इकट्ठा करना 5 मिनट के लिए रोकें</string>
 </resources>

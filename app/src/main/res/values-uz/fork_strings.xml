@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Nishonchalar siz ularni o\'chirganga qadar saqlanadi.</string>
     <string name="pf6_clipboard_pinned">Tushirilgan</string>
     <string name="voice_status_nothing_heard">Hech narsa eshitilmadi</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Klaviatura yopilganda diktantni to‘xtatish</string>
+    <string name="voice_stop_on_keyboard_close_summary">Klaviatura yashirilganda tinglashni davom ettirish uchun o‘chiring. Matn maydonidan chiqish baribir diktantni to‘xtatadi.</string>
+    <string name="button_hold_hint">%1$s · Bosib turish: %2$s</string>
+    <string name="button_hold_repeat">takrorlash</string>
+    <string name="button_pin">Asboblar paneliga mahkamlash</string>
+    <string name="button_unpin">Asboblar panelidan ajratish</string>
+    <string name="button_expand_toolbar">Asboblar panelini ko‘rsatish</string>
+    <string name="button_collapse_toolbar">Asboblar panelini yashirish</string>
+    <string name="button_clear_recents">Oxirgi emojilarni tozalash</string>
+    <string name="voice_transcribe_now_hint">Hozir matnga aylantirish: shu paytgacha aytilganini kiritish va tinglashni davom ettirish</string>
+    <string name="voice_stop_hint">To‘xtatish: tinglashni tugatish va matnni kiritish</string>
+    <string name="button_pause_gesture_gathering">Imo-ishora ma’lumotlarini yig‘ishni 5 daqiqaga to‘xtatish</string>
 </resources>

@@ -119,4 +119,17 @@
     <string name="pf6_clipboard_kept_no_limit">Salinan disimpan sehingga anda memadamkannya.</string>
     <string name="pf6_clipboard_pinned">Dipinda</string>
     <string name="voice_status_nothing_heard">Tiada apa yang didengar.</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">Hentikan imlak apabila papan kekunci ditutup</string>
+    <string name="voice_stop_on_keyboard_close_summary">Matikan untuk terus mendengar apabila papan kekunci disembunyikan. Meninggalkan medan teks masih menghentikan imlak.</string>
+    <string name="button_hold_hint">%1$s · Tekan lama: %2$s</string>
+    <string name="button_hold_repeat">ulang</string>
+    <string name="button_pin">Semat pada bar alat</string>
+    <string name="button_unpin">Nyahsemat daripada bar alat</string>
+    <string name="button_expand_toolbar">Tunjukkan bar alat</string>
+    <string name="button_collapse_toolbar">Sembunyikan bar alat</string>
+    <string name="button_clear_recents">Kosongkan emoji terkini</string>
+    <string name="voice_transcribe_now_hint">Transkripsi sekarang: sisipkan pertuturan setakat ini dan terus mendengar</string>
+    <string name="voice_stop_hint">Henti: tamatkan pendengaran dan sisipkan teks</string>
+    <string name="button_pause_gesture_gathering">Jeda pengumpulan data gerak isyarat selama 5 minit</string>
 </resources>

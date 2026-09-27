@@ -120,4 +120,17 @@
     <string name="pf6_clipboard_kept_no_limit">ଆପଣ ଏହାକୁ ଲିଭାଇବା ପର୍ଯ୍ୟନ୍ତ ନକଲ ରଖାଯାଏ ।</string>
     <string name="pf6_clipboard_pinned">ପିନ</string>
     <string name="voice_status_nothing_heard">ମୁଁ କିଛି ଶୁଣିନାହିଁ ।</string>
+    <!-- Keyboard controls: AI translation -->
+    <string name="voice_stop_on_keyboard_close">କୀବୋର୍ଡ ବନ୍ଦ ହେଲେ ଶ୍ରୁତଲିଖନ ବନ୍ଦ କରନ୍ତୁ</string>
+    <string name="voice_stop_on_keyboard_close_summary">କୀବୋର୍ଡ ଲୁଚିଥିଲେ ମଧ୍ୟ ଶୁଣିବା ଜାରି ରଖିବା ପାଇଁ ବନ୍ଦ କରନ୍ତୁ। ପାଠ୍ୟ କ୍ଷେତ୍ର ଛାଡ଼ିଲେ ଶ୍ରୁତଲିଖନ ତଥାପି ବନ୍ଦ ହୁଏ।</string>
+    <string name="button_hold_hint">%1$s · ଦବାଇ ଧରନ୍ତୁ: %2$s</string>
+    <string name="button_hold_repeat">ପୁନରାବୃତ୍ତି</string>
+    <string name="button_pin">ଟୁଲବାରରେ ପିନ୍ କରନ୍ତୁ</string>
+    <string name="button_unpin">ଟୁଲବାରରୁ ପିନ୍ ହଟାନ୍ତୁ</string>
+    <string name="button_expand_toolbar">ଟୁଲବାର ଦେଖାନ୍ତୁ</string>
+    <string name="button_collapse_toolbar">ଟୁଲବାର ଲୁଚାନ୍ତୁ</string>
+    <string name="button_clear_recents">ସାମ୍ପ୍ରତିକ ଇମୋଜି ମିଟାନ୍ତୁ</string>
+    <string name="voice_transcribe_now_hint">ଏବେ ପ୍ରତିଲିପି କରନ୍ତୁ: ଏପର୍ଯ୍ୟନ୍ତ କହିଥିବା କଥା ଭରନ୍ତୁ ଏବଂ ଶୁଣିବା ଜାରି ରଖନ୍ତୁ</string>
+    <string name="voice_stop_hint">ବନ୍ଦ କରନ୍ତୁ: ଶୁଣିବା ଶେଷ କରନ୍ତୁ ଏବଂ ପାଠ୍ୟ ଭରନ୍ତୁ</string>
+    <string name="button_pause_gesture_gathering">ଅଙ୍ଗଭଙ୍ଗୀ ତଥ୍ୟ ସଂଗ୍ରହ 5 ମିନିଟ୍ ପାଇଁ ବିରତ କରନ୍ତୁ</string>
 </resources>

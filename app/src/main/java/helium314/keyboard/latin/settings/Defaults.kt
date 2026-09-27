@@ -97,7 +97,7 @@ object Defaults {
     val PREF_SIDE_PADDING_SCALE = Array(8) { 0f }
     @JvmField
     val PREF_KEY_GAP_SCALE = Array(4) { DEFAULT_SIZE_SCALE }
-    const val PREF_FONT_SCALE = DEFAULT_SIZE_SCALE
+    const val PREF_FONT_SCALE = 0.8f
     const val PREF_HINT_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_FONT_SCALE = DEFAULT_SIZE_SCALE
     const val PREF_EMOJI_KEY_FIT = true
@@ -123,6 +123,7 @@ object Defaults {
     const val PREF_VOICE_SPLIT_SECONDS = 1.5f
     const val PREF_VOICE_SPEECH_SENSITIVITY = 3f
     const val PREF_VOICE_PAUSE_AUDIO = false
+    const val PREF_VOICE_STOP_ON_KEYBOARD_CLOSE = true
     const val PREF_VOICE_CONTROL_MODE = "full"
     const val PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY = false
     const val PREF_KEY_LONGPRESS_TIMEOUT = 300

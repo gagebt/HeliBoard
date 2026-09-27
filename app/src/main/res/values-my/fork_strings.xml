@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">ကိုယ်က ဖျက်တဲ့အထိ ကိုယ်က သိမ်းထားတယ်။</string>
     <string name="pf6_clipboard_pinned">ပိတ်ထားသည်</string>
     <string name="voice_status_nothing_heard">ဘာမှ မကြားရဘူး။</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">ကီးဘုတ်ပိတ်သည့်အခါ အသံဖြင့်စာရိုက်ခြင်းကို ရပ်ရန်</string>
+    <string name="voice_stop_on_keyboard_close_summary">ကီးဘုတ်ကို ဖျောက်ထားစဉ် ဆက်နားထောင်ရန် ဤရွေးချယ်မှုကို ပိတ်ပါ။ စာသားအကွက်မှ ထွက်သည့်အခါ အသံဖြင့်စာရိုက်ခြင်းကို ရပ်ဆဲဖြစ်သည်။</string>
+    <string name="button_hold_hint">%1$s · ဖိထားရန်: %2$s</string>
+    <string name="button_hold_repeat">ထပ်လုပ်ရန်</string>
+    <string name="button_pin">ကိရိယာဘားတွင် ပင်ထိုးရန်</string>
+    <string name="button_unpin">ကိရိယာဘားမှ ပင်ဖြုတ်ရန်</string>
+    <string name="button_expand_toolbar">ကိရိယာဘားကို ပြရန်</string>
+    <string name="button_collapse_toolbar">ကိရိယာဘားကို ဖျောက်ရန်</string>
+    <string name="button_clear_recents">မကြာသေးမီက အီမိုဂျီများကို ရှင်းရန်</string>
+    <string name="voice_transcribe_now_hint">ယခု စာသားပြောင်းရန်: ယခုအထိ ပြောထားသည်ကို ထည့်ပြီး ဆက်နားထောင်ရန်</string>
+    <string name="voice_stop_hint">ရပ်ရန်: နားထောင်ခြင်းကို အဆုံးသတ်ပြီး စာသားထည့်ရန်</string>
+    <string name="button_pause_gesture_gathering">လက်ဟန်ဒေတာစုဆောင်းခြင်းကို 5 မိနစ် ခေတ္တရပ်ရန်</string>
 </resources>

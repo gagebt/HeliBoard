@@ -130,6 +130,35 @@ public class DeferredVoiceDeliveryTest {
         assertEquals("World.", savedDraft().text);
     }
 
+    @Test public void closePolicyKeepsListeningOnlyInTheSameField() throws Exception {
+        FakeEditor editor = new FakeEditor("Note: ");
+        FakeHost host = new FakeHost(editor);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        voice.onInputViewFinished(false);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
+        assertEquals(RustInputMethodService.Phase.RECORDING, host.state.phase);
+        assertTrue(editor.text.toString().toLowerCase().contains("buy milk"));
+
+        FakeEditor other = new FakeEditor("");
+        host.switchTo(other, new EditorRecord("other.app", 9, TEXT, 0, false));
+        voice.onEditorStarted(false);
+        assertEquals(RustInputMethodService.Phase.FINISHING, host.state.phase);
+        assertEquals("", other.text.toString());
+    }
+
+    @Test public void closePolicyStopsWithoutDiscardingTheFinalPiece() throws Exception {
+        FakeEditor editor = new FakeEditor("Note: ");
+        FakeHost host = new FakeHost(editor);
+        host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        voice.onInputViewFinished(true);
+        assertEquals(RustInputMethodService.Phase.FINISHING, host.state.phase);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
+        voice.onDictationComplete(SESSION, 0, "Buy milk.", "");
+        assertEquals("note: buy milk. ", editor.text.toString().toLowerCase());
+    }
+
     @Test public void theSameDocumentComingBackReceivesTheWords() throws Exception {
         FakeEditor editor = new FakeEditor("Note: ");
         FakeHost host = new FakeHost(editor);
@@ -137,7 +166,7 @@ public class DeferredVoiceDeliveryTest {
         RustInputMethodService voice = recording(host, editor, SESSION);
         EditorRecord record = host.editor;
 
-        voice.onInputViewFinished();           // Home: the keyboard view finishes
+        voice.onInputViewFinished(true);           // Home: the keyboard view finishes
         host.editor = null;                    // then onFinishInput
         assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
         voice.onDictationComplete(SESSION, 0, "Buy milk.", "");
@@ -158,7 +187,7 @@ public class DeferredVoiceDeliveryTest {
         EditorRecord record = host.editor;
         assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
 
-        voice.onInputViewFinished();
+        voice.onInputViewFinished(true);
         FakeEditor launcher = new FakeEditor("");
         // Observed after Home: the launcher starts input with type 0, options 0, id 0.
         host.switchTo(launcher, new EditorRecord("launcher", 0, InputType.TYPE_NULL, 0, false));
@@ -184,7 +213,7 @@ public class DeferredVoiceDeliveryTest {
         assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
 
         editor.readable = false;
-        voice.onInputViewFinished();
+        voice.onInputViewFinished(true);
         host.connection = null;
         host.editor = null;
         assertTrue(voice.onTranscriptPiece(SESSION, 1, "And eggs.", 4f));
@@ -204,7 +233,7 @@ public class DeferredVoiceDeliveryTest {
         EditorRecord record2 = host2.editor;
         assertTrue(voice2.onTranscriptPiece(SESSION + 1, 0, "Buy milk.", 0));
         other.readable = false;
-        voice2.onInputViewFinished();
+        voice2.onInputViewFinished(true);
         host2.connection = null;
         host2.editor = null;
         assertTrue(voice2.onTranscriptPiece(SESSION + 1, 1, "And eggs.", 4f));
@@ -224,7 +253,7 @@ public class DeferredVoiceDeliveryTest {
         host.ready = true;
         RustInputMethodService voice = recording(host, editor, SESSION);
         assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
-        voice.onInputViewFinished();
+        voice.onInputViewFinished(true);
         host.switchTo(new FakeEditor(""), new EditorRecord("other.app", 9, TEXT, 0, false));
         voice.onEditorStarted(false);
         assertTrue(voice.onTranscriptPiece(SESSION, 1, "And eggs.", 4f));
@@ -247,7 +276,7 @@ public class DeferredVoiceDeliveryTest {
         RustInputMethodService voice = recording(host, editor, SESSION);
         EditorRecord record = host.editor;
 
-        voice.onInputViewFinished();
+        voice.onInputViewFinished(true);
         host.editor = null;
         assertTrue(voice.onTranscriptPiece(SESSION, 0, "Buy milk.", 0));
         voice.onDictationComplete(SESSION, 0, "Buy milk.", "");

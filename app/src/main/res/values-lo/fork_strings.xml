@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">ສໍາ ເນົາຈະຖືກຮັກສາໄວ້ຈົນກວ່າທ່ານຈະລຶບມັນ.</string>
     <string name="pf6_clipboard_pinned">ປິດ</string>
     <string name="voice_status_nothing_heard">ບໍ່ ໄດ້ຍິນຫຍັງເລີຍ</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">ຢຸດການປ້ອນດ້ວຍສຽງເມື່ອປິດແປ້ນພິມ</string>
+    <string name="voice_stop_on_keyboard_close_summary">ປິດຕົວເລືອກນີ້ເພື່ອຟັງຕໍ່ເມື່ອແປ້ນພິມຖືກເຊື່ອງ. ການອອກຈາກຊ່ອງຂໍ້ຄວາມຍັງຄົງຢຸດການປ້ອນດ້ວຍສຽງ.</string>
+    <string name="button_hold_hint">%1$s · ກົດຄ້າງ: %2$s</string>
+    <string name="button_hold_repeat">ເຮັດຊ້ຳ</string>
+    <string name="button_pin">ປັກໝຸດໃສ່ແຖບເຄື່ອງມື</string>
+    <string name="button_unpin">ຖອນໝຸດຈາກແຖບເຄື່ອງມື</string>
+    <string name="button_expand_toolbar">ສະແດງແຖບເຄື່ອງມື</string>
+    <string name="button_collapse_toolbar">ເຊື່ອງແຖບເຄື່ອງມື</string>
+    <string name="button_clear_recents">ລ້າງອີໂມຈິທີ່ໃຊ້ຫຼ້າສຸດ</string>
+    <string name="voice_transcribe_now_hint">ຖອດສຽງຕອນນີ້: ໃສ່ຄຳເວົ້າທີ່ຜ່ານມາແລ້ວຟັງຕໍ່</string>
+    <string name="voice_stop_hint">ຢຸດ: ຈົບການຟັງແລ້ວໃສ່ຂໍ້ຄວາມ</string>
+    <string name="button_pause_gesture_gathering">ພັກການເກັບຂໍ້ມູນທ່າທາງເປັນເວລາ 5 ນາທີ</string>
 </resources>

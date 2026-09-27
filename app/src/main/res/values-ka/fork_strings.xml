@@ -120,4 +120,18 @@
     <string name="pf6_clipboard_kept_no_limit">ასლები ინახება, სანამ არ წაშალებთ.</string>
     <string name="pf6_clipboard_pinned">დახურული</string>
     <string name="voice_status_nothing_heard">არაფერი გავიგე.</string>
+
+    <!-- Keyboard control hints: AI translations, not native reviewed. -->
+    <string name="voice_stop_on_keyboard_close">კარნახის შეწყვეტა კლავიატურის დახურვისას</string>
+    <string name="voice_stop_on_keyboard_close_summary">გამორთეთ, რომ მოსმენა დამალული კლავიატურით გაგრძელდეს. ტექსტის ველიდან გასვლა მაინც წყვეტს კარნახს.</string>
+    <string name="button_hold_hint">%1$s · ხანგრძლივი დაჭერა: %2$s</string>
+    <string name="button_hold_repeat">გამეორება</string>
+    <string name="button_pin">ხელსაწყოთა ზოლზე მიმაგრება</string>
+    <string name="button_unpin">ხელსაწყოთა ზოლიდან მოხსნა</string>
+    <string name="button_expand_toolbar">ხელსაწყოთა ზოლის ჩვენება</string>
+    <string name="button_collapse_toolbar">ხელსაწყოთა ზოლის დამალვა</string>
+    <string name="button_clear_recents">ბოლო ემოჯების გასუფთავება</string>
+    <string name="voice_transcribe_now_hint">ახლავე ტექსტად გარდაქმნა: აქამდე ნათქვამის ჩასმა და მოსმენის გაგრძელება</string>
+    <string name="voice_stop_hint">შეჩერება: მოსმენის დასრულება და ტექსტის ჩასმა</string>
+    <string name="button_pause_gesture_gathering">ჟესტების მონაცემების შეგროვების შეჩერება 5 წუთით</string>
 </resources>
