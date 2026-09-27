@@ -462,7 +462,6 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
      */
     public void onEditorStarted(boolean rotating) {
         if (!host.isMainThread()) return;
-        onEditorPrivacyChanged();
         EditorRecord current = host.currentEditor();
         if (current != null && current.noField) {
             // Home shows the launcher, which has no field: wait for the next real field.
@@ -474,6 +473,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 && viewOwner.interval.destination.sameField(current)
                 && (rotating || viewOwner.snapshot != null && viewOwner.snapshot.sameAs(
                         readSnapshot(host.currentInputConnection(), current)))) {
+            onEditorPrivacyChanged();
             resumePendingDelivery();
             return;
         }
@@ -498,6 +498,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             }
         }
         if (continues) {
+            onEditorPrivacyChanged();
             Log.i(TAG, "Voice binding continues in " + current + (rotating ? " (rotation)" : ""));
             resumePendingDelivery();
             return;
@@ -521,15 +522,14 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         if (!host.isMainThread()) return;
         EditorRecord current = host.currentEditor();
         if (current == null || !current.privateField) return;
-        markPrivateInCurrentField(session, current);
-        markPrivateInCurrentField(recovery, current);
-        for (Recording item : waiting) markPrivateInCurrentField(item.interval, current);
+        markPrivateInCurrentBinding(session);
+        markPrivateInCurrentBinding(recovery);
+        for (Recording item : waiting) markPrivateInCurrentBinding(item.interval);
         persist();
     }
 
-    private void markPrivateInCurrentField(VoiceInterval item, EditorRecord current) {
-        if (item != null && item.binding == bindingGeneration && item.destination != null
-                && item.destination.sameField(current)) item.markPrivate();
+    private void markPrivateInCurrentBinding(VoiceInterval item) {
+        if (item != null && item.binding == bindingGeneration) item.markPrivate();
     }
 
     /**

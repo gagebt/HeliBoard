@@ -854,6 +854,36 @@ public class DeferredVoiceDeliveryTest {
         assertFalse(draftPath().exists());
     }
 
+
+    @Test public void privacyToggleProtectsUnreadableFieldWithUnknownId() throws Exception {
+        FakeEditor editor = new FakeEditor(""); editor.accepts = false;
+        FakeHost host = new FakeHost(editor, new EditorRecord("com.termux", 0, 0, 0, false));
+        host.ready = true; host.history = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "maySaveCurrentSession", true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Private terminal words.", 0));
+        assertTrue(draftPath().exists());
+        host.editor = new EditorRecord("com.termux", 0, 0, 0, true);
+        voice.onEditorPrivacyChanged();
+        assertFalse(draftPath().exists());
+        voice.onInputViewFinished(true);
+        voice.onDictationComplete(SESSION, 0, "Private terminal words.", "");
+        assertTrue(host.saved.isEmpty());
+        assertTrue(voice.copyDraft());
+        assertTrue(clipIsSensitive());
+    }
+
+    @Test public void enteringAnotherPrivateFieldDoesNotReclassifyOldPublicRecovery() throws Exception {
+        FakeEditor editor = new FakeEditor(""); editor.accepts = false;
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Public pending words.", 0));
+        host.switchTo(new FakeEditor(""), new EditorRecord("other.app", 9, PASSWORD, 0, false));
+        voice.onEditorStarted(false);
+        voice.onDictationComplete(SESSION, 0, "Public pending words.", "");
+        assertTrue(draftPath().exists());
+    }
+
     private Object pending(RustInputMethodService voice, FakeHost host, long id, long started,
                            boolean enqueue) throws Exception {
         Class<?> type = Class.forName(RustInputMethodService.class.getName() + "$Recording");
