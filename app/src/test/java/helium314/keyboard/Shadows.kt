@@ -124,7 +124,7 @@ class ShadowDictionaryFacilitatorImpl {
 
 // could also extend LatinIME, it's not final anyway
 @Implements(InputMethodService::class)
-class ShadowInputMethodService {
+class ShadowInputMethodService : org.robolectric.shadows.ShadowService() {
     companion object {
         var batchEdit = 0
         var text = ""

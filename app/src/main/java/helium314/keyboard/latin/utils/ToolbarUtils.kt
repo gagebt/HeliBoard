@@ -307,8 +307,6 @@ private fun toolbarCodeName(context: Context, code: Int): String = when (code) {
         ?: "${context.getString(R.string.key_code)}: $code"
 }
 
-const val TOOLBAR_ACTION_HINT_MILLIS = 1500
-
 /** Shows a key hint inside the keyboard view; Android 13+ suppresses system toasts from a keyboard. */
 @JvmOverloads
 fun showToolbarHint(text: CharSequence?, millis: Int = 2000) {
