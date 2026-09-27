@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Hozir matnga aylantirish: shu paytgacha aytilganini kiritish va tinglashni davom ettirish</string>
     <string name="voice_stop_hint">To‘xtatish: tinglashni tugatish va matnni kiritish</string>
     <string name="button_pause_gesture_gathering">Imo-ishora ma’lumotlarini yig‘ishni 5 daqiqaga to‘xtatish</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Tinish belgilarini bo‘shliqlardan oldinga ko‘chirish</string>
+    <string name="move_punctuation_before_space_summary">“so‘z ,” yozilsa, “so‘z, ” hosil bo‘ladi. Backspace ko‘chirishni bekor qiladi.</string>
 </resources>

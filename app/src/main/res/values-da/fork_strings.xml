@@ -131,4 +131,8 @@
     <string name="voice_transcribe_now_hint">Transskriber nu: indsæt den hidtidige tale, og fortsæt med at lytte</string>
     <string name="voice_stop_hint">Stop: afslut lytning, og indsæt teksten</string>
     <string name="button_pause_gesture_gathering">Sæt indsamling af bevægelsesdata på pause i 5 minutter</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Flyt tegnsætning før mellemrum</string>
+    <string name="move_punctuation_before_space_summary">Når du skriver “word ,”, bliver det til “word, ”. Backspace fortryder flytningen.</string>
 </resources>

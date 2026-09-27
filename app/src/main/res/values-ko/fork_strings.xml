@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">지금 변환: 지금까지 말한 내용을 삽입하고 계속 듣기</string>
     <string name="voice_stop_hint">중지: 듣기를 마치고 텍스트 삽입</string>
     <string name="button_pause_gesture_gathering">동작 데이터 수집을 5분 동안 일시 중지</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">문장 부호를 공백 앞으로 이동</string>
+    <string name="move_punctuation_before_space_summary">“단어 ,”를 입력하면 “단어, ”가 됩니다. Backspace로 이동을 취소합니다.</string>
 </resources>

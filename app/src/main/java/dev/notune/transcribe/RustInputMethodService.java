@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -37,15 +36,14 @@ import java.util.concurrent.TimeUnit;
  * <p>Editor entry points (seam S1): HeliBoard calls {@link #onEditorStarted} after each
  * {@code onStartInput} and {@link #onInputViewFinished} when the keyboard view finishes.
  * Each recording is one {@link VoiceInterval} bound to an {@link EditorRecord} and a
- * binding generation; earlier intervals that still need recovery keep their own.
+ * binding generation. Copy offers only the latest recording that needs recovery.
  */
 public final class RustInputMethodService extends ContextWrapper implements AutoCloseable {
     private static final String TAG = "NoTuneVoice";
-    private static final String DRAFT_FILE = "pending-dictation";
+    // Legacy pending-dictation may merge recordings. Preserve it, but never offer it as latest.
+    private static final String DRAFT_FILE = "pending-dictation-latest";
     private static final int CONTEXT_BEFORE_CHARS = 2048;
     private static final int CONTEXT_AFTER_CHARS = 512;
-    /** Earlier results kept for Copy; the oldest goes when a fourth arrives. */
-    private static final int MAX_RECOVERIES = 3;
     private static final long NOTICE_MILLIS = 3000;
 
     public static final String SETTING_SENTENCE_PAUSE_SECONDS = "pause_sentence_seconds";
@@ -173,7 +171,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         }
     }
     private final ArrayList<DeferredPiece> deferredPieces = new ArrayList<>();
-    /** The finished session already moved (or not) into the Copy list. */
+    /** The finished session already considered for Copy. */
     private VoiceInterval settledSession;
     private int deferredCopyStart = -1;
     private boolean completionDeferred;
@@ -181,8 +179,8 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private String deferredFinalText;
     private String deferredError;
     private boolean maySaveCurrentSession;
-    /** Earlier results that still need Copy, oldest first; never joined together. */
-    private final ArrayList<VoiceInterval> recoveries = new ArrayList<>();
+    /** Only the latest recording may be offered for Copy. */
+    private VoiceInterval recovery;
 
     public RustInputMethodService(Context context, Host host) {
         super(context.getApplicationContext());
@@ -373,11 +371,10 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return false;
         }
-        int index = recoveries.indexOf(item);
-        recoveries.remove(index);
+        recovery = null;
         if (!persist()) {
             // The saved copy is still on disk: keep offering it rather than claim it is gone.
-            recoveries.add(index, item);
+            recovery = item;
             message = getString(R.string.voice_status_copy_retire_failed);
             stateError = true;
             publishState();
@@ -429,10 +426,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return;
         }
         bindingGeneration++;
-        for (Iterator<VoiceInterval> it = recoveries.iterator(); it.hasNext(); ) {
-            VoiceInterval item = it.next();
-            // Unconfirmed text is offered only until the user leaves its field.
-            if (item.state == VoiceInterval.State.UNCONFIRMED) it.remove();
+        // Unconfirmed text is offered only until the user leaves its field.
+        if (recovery != null && recovery.state == VoiceInterval.State.UNCONFIRMED) {
+            recovery = null;
         }
         if (session != null && !targetLost && (!terminal || hasStagedText())) {
             Log.i(TAG, "Voice target left; words kept for Copy");
@@ -448,16 +444,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
      */
     public void onUserEdit() {
         if (!host.isMainThread()) return;
-        boolean removed = false;
-        for (Iterator<VoiceInterval> it = recoveries.iterator(); it.hasNext(); ) {
-            VoiceInterval item = it.next();
-            if (item.state() == VoiceInterval.State.UNCONFIRMED
-                    && item.binding == bindingGeneration) {
-                it.remove();
-                removed = true;
-            }
-        }
-        if (removed) {
+        if (recovery != null && recovery.state == VoiceInterval.State.UNCONFIRMED
+                && recovery.binding == bindingGeneration) {
+            recovery = null;
             Log.i(TAG, "User edited the field; unconfirmed voice text no longer offered");
             persist();
             publishState();
@@ -587,6 +576,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 publishState();
                 return false;
             }
+            recovery = null;
             nextPieceSequence = pieceSequence + 1;
             publishState();
             return true;
@@ -609,6 +599,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 return false;
             }
             if (deferredPieces.size() == 1) deferredCopyStart = previousCopy.length();
+            recovery = null;
             nextPieceSequence = pieceSequence + 1;
             if (host.voiceCommitReady()) deliverStagedText();
             publishState();
@@ -636,9 +627,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return false;
         }
+        recovery = null;
         nextPieceSequence = pieceSequence + 1;
         hasAcceptedPiece = true;
         if (!undeliveredText.isEmpty()) deliverStagedText();
+        else persist();
         publishState();
         return true;
     }
@@ -955,7 +948,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         settleSession();
     }
 
-    /** Moves a finished recording that needs recovery into the Copy list. */
+    /** Offers only the finished recording, if its delivery needs recovery. */
     private void settleSession() {
         if (session == null || !terminal || completionDeferred) return;
         if (hasStagedText()) {
@@ -970,22 +963,16 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         settledSession = session;
         boolean needsRecovery = session.state == VoiceInterval.State.UNCONFIRMED
                 || session.state == VoiceInterval.State.UNDELIVERED;
-        if (needsRecovery && SessionDraftPolicy.hasLetterOrDigit(session.text)
-                && !recoveries.contains(session)) {
-            recoveries.add(session);
-            while (recoveries.size() > MAX_RECOVERIES) recoveries.remove(0);
+        if (SessionDraftPolicy.hasLetterOrDigit(session.text)) {
+            recovery = needsRecovery ? session : null;
         }
         persist();
     }
 
     /** The newest result offered in the current field, or null. */
     private VoiceInterval offeredRecovery() {
-        EditorRecord current = host.currentEditor();
-        for (int i = recoveries.size() - 1; i >= 0; i--) {
-            VoiceInterval item = recoveries.get(i);
-            if (SessionDraftPolicy.copyOffered(item, current, bindingGeneration)) return item;
-        }
-        return null;
+        return SessionDraftPolicy.copyOffered(recovery, host.currentEditor(), bindingGeneration)
+                ? recovery : null;
     }
 
     private InputConnection currentTargetConnection() {
@@ -1102,7 +1089,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             VoiceInterval item = new VoiceInterval(restored.sessionId, null, -1);
             item.text = restored.text;
             item.markUndelivered();
-            recoveries.add(item);
+            recovery = item;
             message = getString(R.string.voice_status_saved_available);
         } catch (FileNotFoundException ignored) {
             // First run.
@@ -1130,12 +1117,10 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                         PendingDictationDraft.PENDING, text);
             }
         }
-        for (int i = recoveries.size() - 1; wanted == null && i >= 0; i--) {
-            VoiceInterval item = recoveries.get(i);
-            if (item.state == VoiceInterval.State.UNDELIVERED && !item.privateOrigin()) {
-                wanted = new PendingDictationDraft(item.sessionId, 0,
-                        PendingDictationDraft.INTERRUPTED, item.text);
-            }
+        if (wanted == null && recovery != null
+                && recovery.state == VoiceInterval.State.UNDELIVERED && !recovery.privateOrigin()) {
+            wanted = new PendingDictationDraft(recovery.sessionId, 0,
+                    PendingDictationDraft.INTERRUPTED, recovery.text);
         }
         return wanted == null ? clearDraftFile() : writeDraft(wanted);
     }

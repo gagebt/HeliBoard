@@ -131,4 +131,7 @@
     <string name="voice_transcribe_now_hint">Transkripto tani: fut të folurën deri tani dhe vazhdo dëgjimin</string>
     <string name="voice_stop_hint">Ndalo: përfundo dëgjimin dhe fut tekstin</string>
     <string name="button_pause_gesture_gathering">Pezullo mbledhjen e të dhënave të gjesteve për 5 minuta</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Zhvendos pikësimin para hapësirave</string>
+    <string name="move_punctuation_before_space_summary">Shkrimi i “fjalë ,” jep “fjalë, ”. Backspace zhbën zhvendosjen.</string>
 </resources>

@@ -131,4 +131,8 @@
     <string name="voice_transcribe_now_hint">Transkriber no: set inn talen så langt og hald fram med å lytta</string>
     <string name="voice_stop_hint">Stopp: avslutt lyttinga og set inn teksten</string>
     <string name="button_pause_gesture_gathering">Set innsamling av rørsledata på pause i 5 minutt</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Flytt teiknsetjing før mellomrom</string>
+    <string name="move_punctuation_before_space_summary">Når du skriv “word ,”, vert det til “word, ”. Rettetasten angrar flyttinga.</string>
 </resources>

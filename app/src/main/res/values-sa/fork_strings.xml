@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">अधुना लिप्यन्तरं कुरुत: अद्यावधि उक्तं निवेशयत श्रवणं च अनुवर्तयत</string>
     <string name="voice_stop_hint">विरमतु: श्रवणं समापयत पाठं च निवेशयत</string>
     <string name="button_pause_gesture_gathering">पञ्चनिमेषपर्यन्तं चेष्टादत्तांशसंग्रहं विरामयत</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">विरामचिह्नानि रिक्तस्थानानां पूर्वं स्थापयत</string>
+    <string name="move_punctuation_before_space_summary">“word ,” इति लेखने “word, ” इति भवति। Backspace कुञ्जी स्थानपरिवर्तनं पूर्ववत् करोति।</string>
 </resources>

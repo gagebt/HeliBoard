@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">Қазір мәтінге айналдыру: осы уақытқа дейінгі сөзді кірістіріп, тыңдауды жалғастыру</string>
     <string name="voice_stop_hint">Тоқтату: тыңдауды аяқтап, мәтінді кірістіру</string>
     <string name="button_pause_gesture_gathering">Қимыл деректерін жинауды 5 минутқа кідірту</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Тыныс белгілерін бос орындардың алдына жылжыту</string>
+    <string name="move_punctuation_before_space_summary">“word ,” тергенде “word, ” шығады. Backspace жылжытуды болдырмайды.</string>
 </resources>

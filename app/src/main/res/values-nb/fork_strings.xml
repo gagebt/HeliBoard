@@ -130,4 +130,7 @@
     <string name="voice_transcribe_now_hint">Transkriber nå: sett inn det som er sagt og fortsett å lytte</string>
     <string name="voice_stop_hint">Stopp: avslutt lyttingen og sett inn teksten</string>
     <string name="button_pause_gesture_gathering">Sett innsamling av bevegelsesdata på pause i 5 minutter</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Flytt tegnsetting foran mellomrom</string>
+    <string name="move_punctuation_before_space_summary">Når du skriver «ord ,», blir det «ord, ». Tilbaketasten angrer flyttingen.</string>
 </resources>

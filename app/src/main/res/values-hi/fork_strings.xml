@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">अभी लिखें: अब तक की बोली डालें और सुनना जारी रखें</string>
     <string name="voice_stop_hint">रोकें: सुनना समाप्त करें और टेक्स्ट डालें</string>
     <string name="button_pause_gesture_gathering">जेस्चर डेटा इकट्ठा करना 5 मिनट के लिए रोकें</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">विराम चिह्न को स्पेस से पहले ले जाएँ</string>
+    <string name="move_punctuation_before_space_summary">“शब्द ,” लिखने पर “शब्द, ” मिलता है। Backspace इस बदलाव को पूर्ववत करता है।</string>
 </resources>

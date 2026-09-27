@@ -83,6 +83,81 @@ class InputLogicTest {
     }
 
 
+    @Test fun punctuationMovesBeforeAnInteriorSpaceByDefault() {
+        setText("one two"); setCursorPosition(4)
+        assertEquals("e ", latinIME.currentInputConnection.getTextBeforeCursor(2, 0).toString())
+        latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code))
+        handleMessages()
+        assertEquals("one, two", text)
+        assertEquals(5, cursor)
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("one ,two", text)
+        assertEquals(5, cursor)
+    }
+
+    @Test fun punctuationAfterTypedSpaceKeepsTheSpaceAfterTheMark() {
+        chainInput("one ")
+        latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code))
+        handleMessages()
+        assertEquals("one, ", text)
+        assertEquals(5, cursor)
+    }
+
+    @Test fun punctuationSettingOffAndLiteralContextsPreserveText() {
+        latinIME.prefs().edit { putBoolean(Settings.PREF_MOVE_PUNCTUATION_BEFORE_SPACE, false) }
+        setText("one two"); setCursorPosition(4)
+        latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code)); handleMessages()
+        assertEquals("one ,two", text)
+        latinIME.prefs().edit { remove(Settings.PREF_MOVE_PUNCTUATION_BEFORE_SPACE) }
+        for (prefix in listOf("", " ", "one  ", "one\n ", "one\u00a0 ")) {
+            setText(prefix)
+            latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code)); handleMessages()
+            assertEquals(prefix + ",", text)
+        }
+        for (mark in listOf('$', ':', ';', '&', '(')) {
+            setText("one ")
+            latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(mark.code)); handleMessages()
+            assertEquals("one " + mark, text)
+        }
+        setText("one two"); setCursorPosition(4, 7)
+        latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code)); handleMessages()
+        assertEquals("one ,", text)
+    }
+
+    @Test fun punctuationRespectsLiteralFieldTypesAndUnavailableContext() {
+        for (type in listOf(InputType.TYPE_NULL,
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI,
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+            currentInputType = type; setText("one ")
+            latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code)); handleMessages()
+            assertEquals("one ,", text)
+        }
+        currentInputType = InputType.TYPE_CLASS_TEXT; setText("one ")
+        ShadowInputMethodService.refuseTextBeforeCursor = true
+        try {
+            latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code)); handleMessages()
+            assertEquals("one ,", text)
+        } finally { ShadowInputMethodService.refuseTextBeforeCursor = false }
+        setText("x")
+        assertEquals(false, connection.revertSwapPunctuation())
+        assertEquals("x", text)
+    }
+
+    @Test fun punctuationSwapSupportsRepeatedMarksAndEnter() {
+        for (mark in listOf('.', '!', '?', ')', ']', '}')) {
+            setText("one ")
+            latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(mark.code)); handleMessages()
+            assertEquals("one" + mark + " ", text)
+        }
+        setText("wait ")
+        repeat(3) { latinIME.onEvent(Event.createEventForCodePointFromUnknownSource('.'.code)); handleMessages() }
+        assertEquals("wait... ", text)
+        ShadowInputMethodService.currentImeOptions = EditorInfo.IME_ACTION_NONE
+        latinIME.onEvent(Event.createEventForCodePointFromUnknownSource('\n'.code)); handleMessages()
+        assertEquals("wait...\n", text)
+    }
+
     @Test fun foregroundDictationStopsFromItsNotificationAndReleasesForeground() {
         val voice = Mockito.mock(dev.notune.transcribe.RustInputMethodService::class.java)
         LatinIME::class.java.getDeclaredField("mVoiceController")
@@ -97,7 +172,7 @@ class InputLogicTest {
             .apply { isAccessible = true }.invoke(latinIME))
         val service = org.robolectric.Shadows.shadowOf(latinIME)
         val notification = service.lastForegroundNotification
-        assertEquals("Stop", notification.actions.single().title.toString())
+        assertEquals("Stop dictation", notification.actions.single().title.toString())
         val stopIntent = org.robolectric.Shadows.shadowOf(notification.actions.single().actionIntent).savedIntent
         assertEquals(LatinIME::class.java.name, stopIntent.component?.className)
         latinIME.onStartCommand(stopIntent, 0, 1)

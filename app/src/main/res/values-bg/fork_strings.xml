@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">Транскрибиране сега: вмъква казаното дотук и продължава да слуша</string>
     <string name="voice_stop_hint">Спиране: прекратява слушането и вмъква текста</string>
     <string name="button_pause_gesture_gathering">Пауза на събирането на данни за жестове за 5 минути</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Преместване на пунктуацията пред интервалите</string>
+    <string name="move_punctuation_before_space_summary">Въвеждането на “word ,” дава “word, ”. Backspace отменя преместването.</string>
 </resources>

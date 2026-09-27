@@ -131,4 +131,7 @@
     <string name="voice_transcribe_now_hint">Transcribir agora: inserir o falado e seguir escoitando</string>
     <string name="voice_stop_hint">Deter: rematar a escoita e inserir o texto</string>
     <string name="button_pause_gesture_gathering">Pausar a recollida de datos de xestos durante 5 minutos</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Mover a puntuación antes dos espazos</string>
+    <string name="move_punctuation_before_space_summary">Escribir «palabra ,» dá «palabra, ». Retroceso desfai o movemento.</string>
 </resources>

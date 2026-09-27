@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">Ҳозир ба матн табдил диҳед: гуфтаҳои то ҳолро ворид кунед ва гӯш карданро идома диҳед</string>
     <string name="voice_stop_hint">Қатъ: гӯш карданро анҷом диҳед ва матнро ворид кунед</string>
     <string name="button_pause_gesture_gathering">Ҷамъоварии маълумоти ишораҳоро барои 5 дақиқа таваққуф кунед</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Аломатҳои китобатро пеш аз фосилаҳо гузаронед</string>
+    <string name="move_punctuation_before_space_summary">Навиштани «калима ,» ба «калима, » табдил меёбад. Backspace ҷойивазкуниро бекор мекунад.</string>
 </resources>

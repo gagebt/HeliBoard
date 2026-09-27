@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Transkribiraj sada: umetni dosadašnji govor i nastavi slušanje</string>
     <string name="voice_stop_hint">Zaustavi: završi slušanje i umetni tekst</string>
     <string name="button_pause_gesture_gathering">Pauziraj prikupljanje podataka o gestama na 5 minuta</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Premjesti interpunkciju ispred razmaka</string>
+    <string name="move_punctuation_before_space_summary">Upisivanjem “word ,” dobivate “word, ”. Tipka Backspace poništava pomicanje.</string>
 </resources>

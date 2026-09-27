@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">Розпізнати зараз: вставити вже сказане й слухати далі</string>
     <string name="voice_stop_hint">Стоп: завершити слухання та вставити текст</string>
     <string name="button_pause_gesture_gathering">Призупинити збір даних жестів на 5 хвилин</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Переносити розділові знаки перед пробілами</string>
+    <string name="move_punctuation_before_space_summary">Введення «слово ,» дає «слово, ». Backspace скасовує перенесення.</string>
 </resources>

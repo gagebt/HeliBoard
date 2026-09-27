@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Transkribēt tagad: ievietot līdz šim teikto un turpināt klausīšanos</string>
     <string name="voice_stop_hint">Apturēt: beigt klausīšanos un ievietot tekstu</string>
     <string name="button_pause_gesture_gathering">Apturēt žestu datu vākšanu uz 5 minūtēm</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Pārvietot pieturzīmes pirms atstarpēm</string>
+    <string name="move_punctuation_before_space_summary">Ievadot “word ,”, iegūstat “word, ”. Atpakaļatkāpes taustiņš atsauc pārvietošanu.</string>
 </resources>

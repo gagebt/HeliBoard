@@ -131,4 +131,7 @@
     <string name="voice_transcribe_now_hint">Transcriu ara: insereix el que s’ha dit i continua escoltant</string>
     <string name="voice_stop_hint">Atura: acaba d’escoltar i insereix el text</string>
     <string name="button_pause_gesture_gathering">Pausa la recollida de dades de gestos durant 5 minuts</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Mou la puntuació abans dels espais</string>
+    <string name="move_punctuation_before_space_summary">Escriure «paraula ,» dona «paraula, ». La tecla de retrocés desfà el moviment.</string>
 </resources>

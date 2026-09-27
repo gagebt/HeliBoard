@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Transkribeer nou: voeg die spraak tot dusver in en hou aan luister</string>
     <string name="voice_stop_hint">Stop: hou op luister en voeg die teks in</string>
     <string name="button_pause_gesture_gathering">Onderbreek gebaardata-insameling vir 5 minute</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Skuif leestekens voor spasies</string>
+    <string name="move_punctuation_before_space_summary">As jy “word ,” tik, kry jy “word, ”. Backspace maak die skuif ongedaan.</string>
 </resources>

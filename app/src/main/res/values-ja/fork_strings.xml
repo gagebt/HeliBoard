@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">今すぐ文字起こし: ここまでの発話を挿入して聞き取りを続ける</string>
     <string name="voice_stop_hint">停止: 聞き取りを終了してテキストを挿入</string>
     <string name="button_pause_gesture_gathering">ジェスチャーデータの収集を5分間一時停止</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">句読点を空白の前に移動</string>
+    <string name="move_punctuation_before_space_summary">「word ,」と入力すると「word, 」になります。Backspaceで移動を元に戻せます。</string>
 </resources>

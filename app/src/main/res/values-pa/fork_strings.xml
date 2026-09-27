@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ਹੁਣ ਲਿਖਤ ਵਿੱਚ ਬਦਲੋ: ਹੁਣ ਤੱਕ ਦੀ ਬੋਲੀ ਸ਼ਾਮਲ ਕਰੋ ਅਤੇ ਸੁਣਨਾ ਜਾਰੀ ਰੱਖੋ</string>
     <string name="voice_stop_hint">ਰੋਕੋ: ਸੁਣਨਾ ਬੰਦ ਕਰੋ ਅਤੇ ਲਿਖਤ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="button_pause_gesture_gathering">ਜੈਸਚਰ ਡੇਟਾ ਇਕੱਠਾ ਕਰਨਾ 5 ਮਿੰਟ ਲਈ ਰੋਕੋ</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">ਵਿਰਾਮ ਚਿੰਨ੍ਹ ਖਾਲੀ ਥਾਵਾਂ ਤੋਂ ਪਹਿਲਾਂ ਲਿਜਾਓ</string>
+    <string name="move_punctuation_before_space_summary">“word ,” ਟਾਈਪ ਕਰਨ ਨਾਲ “word, ” ਮਿਲਦਾ ਹੈ। Backspace ਇਸ ਤਬਦੀਲੀ ਨੂੰ ਵਾਪਸ ਕਰਦਾ ਹੈ।</string>
 </resources>

@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Litteroi nyt: lisää tähänastinen puhe ja jatka kuuntelua</string>
     <string name="voice_stop_hint">Lopeta: lopeta kuuntelu ja lisää teksti</string>
     <string name="button_pause_gesture_gathering">Keskeytä eletietojen keruu 5 minuutiksi</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Siirrä välimerkit välilyöntien eteen</string>
+    <string name="move_punctuation_before_space_summary">Kun kirjoitat “word ,”, tuloksena on “word, ”. Askelpalautin kumoaa siirron.</string>
 </resources>

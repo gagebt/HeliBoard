@@ -131,4 +131,7 @@
     <string name="voice_transcribe_now_hint">Jetzt transkribieren: bisher Gesprochenes einfügen und weiter zuhören</string>
     <string name="voice_stop_hint">Stopp: Zuhören beenden und Text einfügen</string>
     <string name="button_pause_gesture_gathering">Erfassung von Gestendaten für 5 Minuten pausieren</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Satzzeichen vor Leerzeichen verschieben</string>
+    <string name="move_punctuation_before_space_summary">Aus „Wort ,“ wird „Wort, “. Die Rücktaste macht das Verschieben rückgängig.</string>
 </resources>

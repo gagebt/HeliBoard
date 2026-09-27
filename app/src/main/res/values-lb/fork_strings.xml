@@ -130,4 +130,7 @@
     <string name="voice_transcribe_now_hint">Elo transkribéieren: dat bis elo Gesotent afügen a weider nolauschteren</string>
     <string name="voice_stop_hint">Stoppen: Nolauschteren ophalen an den Text afügen</string>
     <string name="button_pause_gesture_gathering">Sammele vu Gestendate fir 5 Minutte pausen</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Sazzeeche viru Leerzeeche réckelen</string>
+    <string name="move_punctuation_before_space_summary">Aus „Wuert ,“ gëtt „Wuert, “. Backspace mécht d’Réckele réckgängeg.</string>
 </resources>

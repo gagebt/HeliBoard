@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">දැන් පෙළට හරවන්න: මෙතෙක් පැවසූ දේ ඇතුළු කර සවන් දීම දිගටම කරන්න</string>
     <string name="voice_stop_hint">නවත්වන්න: සවන් දීම අවසන් කර පෙළ ඇතුළු කරන්න</string>
     <string name="button_pause_gesture_gathering">අභිනය දත්ත රැස් කිරීම මිනිත්තු 5කට නවත්වන්න</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">විරාම ලකුණු හිස්තැන්වලට පෙර ගෙනයන්න</string>
+    <string name="move_punctuation_before_space_summary">“word ,” ටයිප් කළ විට “word, ” ලැබේ. Backspace මඟින් ගෙනයාම අහෝසි කරයි.</string>
 </resources>

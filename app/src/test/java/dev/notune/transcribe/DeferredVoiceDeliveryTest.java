@@ -40,10 +40,61 @@ public class DeferredVoiceDeliveryTest {
 
     @Before public void clearRecovery() {
         context = RuntimeEnvironment.getApplication();
-        File base = new File(context.getNoBackupFilesDir(), "pending-dictation");
+        File base = draftPath();
         base.delete();
         new File(base.getPath() + ".bak").delete();
         new File(base.getPath() + ".new").delete();
+    }
+
+    @Test public void copyOffersOnlyNewestRecordingAndDoesNotWalkBackThroughOlderOnes() throws Exception {
+        FakeEditor editor = new FakeEditor(""); editor.accepts = false;
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "First result.", 0));
+        voice.onDictationComplete(SESSION, 0, "First result.", "");
+        recording(host, editor, SESSION + 1, voice);
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "Second result.", 0));
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 1, "Its second piece.", 4));
+        voice.onDictationComplete(SESSION + 1, 0, "Second result. Its second piece.", "");
+        assertTrue(voice.copyDraft());
+        assertEquals("Second result. Its second piece.", clip().trim());
+        assertFalse(host.state.canCopy);
+        assertFalse(voice.copyDraft());
+        FakeHost reopened = new FakeHost(new FakeEditor(""));
+        new RustInputMethodService(context, reopened);
+        assertFalse(reopened.state.canCopy);
+    }
+
+    @Test public void ambiguousLegacyAggregateStaysSavedButIsNotOfferedAsLatest() throws Exception {
+        File legacy = new File(context.getNoBackupFilesDir(), "pending-dictation");
+        byte[] old = ("NOTUNE1\n77\n2\ninterrupted\n" + java.util.Base64.getEncoder()
+                .encodeToString("First result.\nSecond result.".getBytes(java.nio.charset.StandardCharsets.UTF_8)))
+                .getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        Files.write(legacy.toPath(), old);
+        try {
+            FakeHost host = new FakeHost(new FakeEditor(""));
+            RustInputMethodService voice = new RustInputMethodService(context, host);
+            assertFalse(host.state.canCopy);
+            assertFalse(voice.copyDraft());
+            org.junit.Assert.assertArrayEquals(old, Files.readAllBytes(legacy.toPath()));
+        } finally { legacy.delete(); }
+    }
+
+    @Test public void confirmedPieceRetiresOlderCopyBeforeTerminalCallback() throws Exception {
+        FakeEditor first = new FakeEditor(""); first.accepts = false;
+        FakeHost host = new FakeHost(first); host.ready = true;
+        RustInputMethodService voice = recording(host, first, SESSION);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Older result.", 0));
+        voice.onDictationComplete(SESSION, 0, "Older result.", "");
+        FakeEditor next = new FakeEditor("");
+        host.switchTo(next, new EditorRecord("test.app", 8, TEXT, 0, false));
+        voice.onEditorStarted(false);
+        recording(host, next, SESSION + 1, voice);
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "Newest result", 0));
+        assertFalse(draftPath().exists());
+        FakeHost reopened = new FakeHost(new FakeEditor(""));
+        new RustInputMethodService(context, reopened);
+        assertFalse(reopened.state.canCopy);
     }
 
     @Test public void acknowledgedLateWordsSurviveRestartBeforeCompletion() throws Exception {
@@ -454,7 +505,7 @@ public class DeferredVoiceDeliveryTest {
         assertFalse(host.state.canCopy);       // never exposed in another field
     }
 
-    @Test public void aNewDictationNeitherDropsNorJoinsAnOlderUndeliveredResult() throws Exception {
+    @Test public void confirmedNewDictationRetiresOlderCopyAcrossRestart() throws Exception {
         FakeEditor refusing = new FakeEditor("");
         refusing.accepts = false;
         FakeHost host = new FakeHost(refusing);
@@ -471,12 +522,12 @@ public class DeferredVoiceDeliveryTest {
         assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "Second result.", 0));
         voice.onDictationComplete(SESSION + 1, 0, "Second result.", "");
         assertEquals("Second result. ", good.text.toString());
-        assertTrue(host.state.canCopy);
-        assertTrue(voice.copyDraft());
-        assertEquals("First result.", clip().trim());
-        assertFalse(clipIsSensitive());        // an ordinary field's words are not marked
         assertFalse(host.state.canCopy);
+        assertFalse(voice.copyDraft());
         assertFalse(draftPath().exists());
+        FakeHost reopened = new FakeHost(new FakeEditor(""));
+        new RustInputMethodService(context, reopened);
+        assertFalse(reopened.state.canCopy);
     }
 
     @Test public void numberFieldGetsDigitsOrNothingAndCopyKeepsTheWords() throws Exception {
@@ -618,7 +669,7 @@ public class DeferredVoiceDeliveryTest {
         return extras != null && extras.getBoolean(android.content.ClipDescription.EXTRA_IS_SENSITIVE);
     }
 
-    private File draftPath() { return new File(context.getNoBackupFilesDir(), "pending-dictation"); }
+    private File draftPath() { return new File(context.getNoBackupFilesDir(), "pending-dictation-latest"); }
 
     private void seedRecovery(String text) throws Exception {
         Files.write(draftPath().toPath(),

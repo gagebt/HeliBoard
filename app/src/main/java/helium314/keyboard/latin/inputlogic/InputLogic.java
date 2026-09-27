@@ -1633,7 +1633,30 @@ public final class InputLogic {
             }
             mConnection.removeTrailingSpace();
         }
-        return false;
+        final SettingsValues settings = inputTransaction.getSettingsValues();
+        final int kind = Character.getType(codePoint);
+        if (!settings.mMovePunctuationBeforeSpace || isFromSuggestionStrip
+                || !settings.shouldInsertSpacesAutomatically()
+                || InputTypeUtils.isUriOrEmailType(settings.mInputAttributes.mInputType)
+                || !settings.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
+                || !settings.isUsuallyFollowedBySpace(codePoint)
+                || settings.isUsuallyPrecededBySpace(codePoint)
+                || codePoint == ':' || codePoint == ';'
+                || kind != Character.OTHER_PUNCTUATION && kind != Character.END_PUNCTUATION
+                || mConnection.getExpectedSelectionStart() < 0 || mConnection.hasSelection()) {
+            return false;
+        }
+        // A moved cursor or a voice commit can outlive the cached text. Read before deleting.
+        final android.view.inputmethod.InputConnection editor = mLatinIME.getCurrentInputConnection();
+        if (editor == null) return false;
+        try {
+            final CharSequence before = editor.getTextBeforeCursor(2, 0);
+            return before != null && before.length() == 2 && before.charAt(1) == ' '
+                    && !Character.isWhitespace(before.charAt(0)) && !Character.isSpaceChar(before.charAt(0))
+                    && TextUtils.equals(before, mConnection.getTextBeforeCursor(2, 0));
+        } catch (RuntimeException unavailable) {
+            return false;
+        }
     }
 
     public void startDoubleSpacePeriodCountdown(final InputTransaction inputTransaction) {

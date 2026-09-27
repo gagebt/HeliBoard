@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">立即轉錄：插入目前為止的語音文字並繼續聆聽</string>
     <string name="voice_stop_hint">停止：結束聆聽並插入文字</string>
     <string name="button_pause_gesture_gathering">暫停收集手勢資料 5 分鐘</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">將標點符號移到空格前</string>
+    <string name="move_punctuation_before_space_summary">輸入 “word ,” 會變成 “word, ”。退格鍵可復原移動。</string>
 </resources>

@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Transkribuoti dabar: įterpti tai, kas pasakyta, ir toliau klausyti</string>
     <string name="voice_stop_hint">Stabdyti: baigti klausyti ir įterpti tekstą</string>
     <string name="button_pause_gesture_gathering">Pristabdyti gestų duomenų rinkimą 5 minutėms</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Perkelti skyrybos ženklus prieš tarpus</string>
+    <string name="move_punctuation_before_space_summary">Įvedus „žodis ,“ gaunama „žodis, “. Backspace atšaukia perkėlimą.</string>
 </resources>

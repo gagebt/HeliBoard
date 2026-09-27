@@ -134,6 +134,7 @@ class ShadowInputMethodService : org.robolectric.shadows.ShadowService() {
         var composingEnd = -1
         var refuseTextBeforeCursor = false
         var currentInputType = InputType.TYPE_CLASS_TEXT
+        var currentImeOptions = EditorInfo.IME_ACTION_UNSPECIFIED
 
         // convenience for access
         val textBeforeCursor get() = text.substring(0, selectionStart)
@@ -154,12 +155,14 @@ class ShadowInputMethodService : org.robolectric.shadows.ShadowService() {
             composingEnd = -1
             refuseTextBeforeCursor = false
             currentInputType = InputType.TYPE_CLASS_TEXT
+            currentImeOptions = EditorInfo.IME_ACTION_UNSPECIFIED
         }
     }
 
     @Implementation
     fun getCurrentInputEditorInfo() = EditorInfo().apply {
         inputType = currentInputType
+        imeOptions = currentImeOptions
         // anything else?
     }
     @Implementation
@@ -172,7 +175,7 @@ class ShadowInputMethodService : org.robolectric.shadows.ShadowService() {
         // pretty clear (though this may be slow depending on the editor)
         // bad return value here is likely the cause for that weird bug improved/fixed by fixIncorrectLength
         override fun getTextBeforeCursor(p0: Int, p1: Int): CharSequence? =
-            if (refuseTextBeforeCursor) null else textBeforeCursor.take(p0)
+            if (refuseTextBeforeCursor) null else textBeforeCursor.takeLast(p0)
         // pretty clear (though this may be slow depending on the editor)
         override fun getTextAfterCursor(p0: Int, p1: Int): CharSequence = textAfterCursor.take(p0)
         // pretty clear

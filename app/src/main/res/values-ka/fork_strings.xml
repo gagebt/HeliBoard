@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ახლავე ტექსტად გარდაქმნა: აქამდე ნათქვამის ჩასმა და მოსმენის გაგრძელება</string>
     <string name="voice_stop_hint">შეჩერება: მოსმენის დასრულება და ტექსტის ჩასმა</string>
     <string name="button_pause_gesture_gathering">ჟესტების მონაცემების შეგროვების შეჩერება 5 წუთით</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">პუნქტუაციის გამოტოვებამდე გადატანა</string>
+    <string name="move_punctuation_before_space_summary">“word ,”-ის აკრეფით მიიღება “word, ”. Backspace გადატანას აუქმებს.</string>
 </resources>

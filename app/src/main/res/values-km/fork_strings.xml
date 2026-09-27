@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">បម្លែងជាអត្ថបទឥឡូវ៖ បញ្ចូលពាក្យដែលបាននិយាយរួច ហើយបន្តស្តាប់</string>
     <string name="voice_stop_hint">បញ្ឈប់៖ បញ្ចប់ការស្តាប់ ហើយបញ្ចូលអត្ថបទ</string>
     <string name="button_pause_gesture_gathering">ផ្អាកការប្រមូលទិន្នន័យកាយវិការរយៈពេល 5 នាទី</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">ផ្លាស់ទីសញ្ញាវណ្ណយុត្តិទៅមុនចន្លោះ</string>
+    <string name="move_punctuation_before_space_summary">វាយ “ពាក្យ ,” នឹងបាន “ពាក្យ, ”។ Backspace ត្រឡប់ការផ្លាស់ទីទៅសភាពដើម។</string>
 </resources>

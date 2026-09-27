@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">இப்போது உரையாக்கு: இதுவரை பேசியதைச் செருகி தொடர்ந்து கேள்</string>
     <string name="voice_stop_hint">நிறுத்து: கேட்பதை முடித்து உரையைச் செருகு</string>
     <string name="button_pause_gesture_gathering">சைகைத் தரவு சேகரிப்பை 5 நிமிடங்கள் இடைநிறுத்து</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">நிறுத்தற்குறிகளை இடைவெளிகளுக்கு முன் நகர்த்து</string>
+    <string name="move_punctuation_before_space_summary">“சொல் ,” என்று தட்டச்சு செய்தால் “சொல், ” கிடைக்கும். Backspace இந்த நகர்வை மீட்டமைக்கும்.</string>
 </resources>

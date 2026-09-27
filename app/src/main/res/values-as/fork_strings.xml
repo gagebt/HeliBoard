@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">এতিয়াই প্ৰতিলিপি কৰক: এতিয়ালৈ কোৱা কথা সুমুৱাওক আৰু শুনি থাকক</string>
     <string name="voice_stop_hint">বন্ধ কৰক: শুনা শেষ কৰক আৰু পাঠ্য সুমুৱাওক</string>
     <string name="button_pause_gesture_gathering">অংগিভংগীৰ তথ্য সংগ্ৰহ 5 মিনিটৰ বাবে স্থগিত ৰাখক</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">বিৰাম চিহ্ন খালী ঠাইৰ আগলৈ নিয়ক</string>
+    <string name="move_punctuation_before_space_summary">“শব্দ ,” লিখিলে “শব্দ, ” হয়। Backspace-এ এই স্থানান্তৰ বাতিল কৰে।</string>
 </resources>

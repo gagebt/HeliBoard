@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">Chép lời ngay: chèn lời nói đến lúc này và tiếp tục nghe</string>
     <string name="voice_stop_hint">Dừng: kết thúc nghe và chèn văn bản</string>
     <string name="button_pause_gesture_gathering">Tạm dừng thu thập dữ liệu cử chỉ trong 5 phút</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Chuyển dấu câu lên trước dấu cách</string>
+    <string name="move_punctuation_before_space_summary">Nhập “word ,” sẽ cho ra “word, ”. Phím Backspace hoàn tác việc chuyển dấu.</string>
 </resources>

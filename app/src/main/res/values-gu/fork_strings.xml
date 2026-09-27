@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">હમણાં લખાણમાં ફેરવો: અત્યાર સુધીની વાણી દાખલ કરો અને સાંભળવાનું ચાલુ રાખો</string>
     <string name="voice_stop_hint">રોકો: સાંભળવાનું બંધ કરો અને લખાણ દાખલ કરો</string>
     <string name="button_pause_gesture_gathering">હાવભાવના ડેટાનું સંકલન 5 મિનિટ માટે થોભાવો</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">વિરામચિહ્નોને ખાલી જગ્યાની પહેલાં ખસેડો</string>
+    <string name="move_punctuation_before_space_summary">“word ,” લખવાથી “word, ” મળે છે. Backspace ખસેડવાની ક્રિયાને પૂર્વવત્ કરે છે.</string>
 </resources>

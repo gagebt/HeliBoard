@@ -1357,4 +1357,6 @@ New dictionary:
     <string name="voice_transcribe_now_hint">Transcribe now: insert speech so far and keep listening</string>
     <string name="voice_stop_hint">Stop: finish listening and insert the text</string>
     <string name="button_pause_gesture_gathering">Pause gesture data gathering for 5 minutes</string>
+    <string name="move_punctuation_before_space">Move punctuation before spaces</string>
+    <string name="move_punctuation_before_space_summary">Typing “word ,” gives “word, ”. Backspace undoes the move.</string>
 </resources>

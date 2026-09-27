@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Umrita núna: setja inn tal hingað til og halda áfram að hlusta</string>
     <string name="voice_stop_hint">Stöðva: hætta að hlusta og setja inn textann</string>
     <string name="button_pause_gesture_gathering">Gera hlé á söfnun bendingagagna í 5 mínútur</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Færa greinarmerki á undan bilum</string>
+    <string name="move_punctuation_before_space_summary">Ef þú slærð inn “word ,” verður útkoman “word, ”. Backspace afturkallar færsluna.</string>
 </resources>

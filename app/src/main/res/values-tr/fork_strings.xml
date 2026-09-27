@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Şimdi yazıya dök: şu ana kadarki konuşmayı ekle ve dinlemeye devam et</string>
     <string name="voice_stop_hint">Durdur: dinlemeyi bitir ve metni ekle</string>
     <string name="button_pause_gesture_gathering">Hareket verisi toplamayı 5 dakika duraklat</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Noktalama işaretlerini boşlukların önüne taşı</string>
+    <string name="move_punctuation_before_space_summary">“word ,” yazınca “word, ” elde edilir. Geri silme tuşu taşımayı geri alır.</string>
 </resources>

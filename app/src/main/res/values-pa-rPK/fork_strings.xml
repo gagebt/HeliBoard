@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">ہُن لکھت بناؤ: ہُن تک بولیا درج کرو تے سننا جاری رکھو</string>
     <string name="voice_stop_hint">روکو: سننا ختم کرو تے متن درج کرو</string>
     <string name="button_pause_gesture_gathering">اشاریاں دا ڈیٹا اکٹھا کرنا 5 منٹ لئی روکو</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">رموزِ اوقاف نوں خالی تھاں توں پہلاں لے جاؤ</string>
+    <string name="move_punctuation_before_space_summary">“لفظ ,” لکھن نال “لفظ, ” بن جاندا اے۔ Backspace ایہ تبدیلی واپس کردا اے۔</string>
 </resources>

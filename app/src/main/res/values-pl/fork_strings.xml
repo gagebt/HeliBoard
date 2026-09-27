@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Transkrybuj teraz: wstaw dotychczasową wypowiedź i słuchaj dalej</string>
     <string name="voice_stop_hint">Zatrzymaj: zakończ słuchanie i wstaw tekst</string>
     <string name="button_pause_gesture_gathering">Wstrzymaj zbieranie danych gestów na 5 minut</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Przenoś znaki interpunkcyjne przed spacje</string>
+    <string name="move_punctuation_before_space_summary">Wpisanie “word ,” daje “word, ”. Backspace cofa przeniesienie.</string>
 </resources>

@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Přepsat nyní: vložit dosavadní řeč a pokračovat v poslechu</string>
     <string name="voice_stop_hint">Zastavit: ukončit poslech a vložit text</string>
     <string name="button_pause_gesture_gathering">Pozastavit sběr dat gest na 5 minut</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Přesouvat interpunkci před mezery</string>
+    <string name="move_punctuation_before_space_summary">Při napsání “word ,” vznikne “word, ”. Backspace přesun vrátí zpět.</string>
 </resources>

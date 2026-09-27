@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">Tar-sgrìobh an-dràsta: cuir a-steach na chaidh a ràdh agus lean air èisteachd</string>
     <string name="voice_stop_hint">Stad: cuir crìoch air èisteachd agus cuir a-steach an teacsa</string>
     <string name="button_pause_gesture_gathering">Cuir cruinneachadh dàta ghluasadan air stad fad 5 mionaidean</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Gluais puingeachadh ro bheàrnan</string>
+    <string name="move_punctuation_before_space_summary">Ma sgrìobhas tu “word ,”, gheibh thu “word, ”. Cuiridh Backspace an gluasad às.</string>
 </resources>

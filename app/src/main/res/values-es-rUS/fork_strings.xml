@@ -132,4 +132,8 @@
     <string name="voice_transcribe_now_hint">Transcribir ahora: insertar lo dicho hasta ahora y seguir escuchando</string>
     <string name="voice_stop_hint">Detener: dejar de escuchar e insertar el texto</string>
     <string name="button_pause_gesture_gathering">Pausar la recopilación de datos de gestos durante 5 minutos</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Mover la puntuación antes de los espacios</string>
+    <string name="move_punctuation_before_space_summary">Al escribir “word ,” se obtiene “word, ”. La tecla de retroceso deshace el movimiento.</string>
 </resources>

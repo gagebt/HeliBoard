@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">አሁን ወደ ጽሑፍ ቀይር: እስካሁን የተነገረውን አስገባና ማዳመጥን ቀጥል</string>
     <string name="voice_stop_hint">አቁም: ማዳመጥን ጨርስና ጽሑፉን አስገባ</string>
     <string name="button_pause_gesture_gathering">የጣት እንቅስቃሴ ውሂብ መሰብሰብን ለ5 ደቂቃዎች አቁም</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">ሥርዓተ ነጥብን ከክፍተት በፊት አንቀሳቅስ</string>
+    <string name="move_punctuation_before_space_summary">“ቃል ,” መጻፍ “ቃል, ” ያስገኛል። Backspace ማንቀሳቀሱን ይቀለብሳል።</string>
 </resources>

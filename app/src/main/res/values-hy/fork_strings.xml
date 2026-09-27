@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">Տառադարձել հիմա․ ներդնել մինչ այժմ ասվածը և շարունակել լսելը</string>
     <string name="voice_stop_hint">Դադարեցնել․ ավարտել լսելը և ներդնել տեքստը</string>
     <string name="button_pause_gesture_gathering">Դադարեցնել ժեստերի տվյալների հավաքումը 5 րոպեով</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Տեղափոխել կետադրությունը բացատներից առաջ</string>
+    <string name="move_punctuation_before_space_summary">“word ,” մուտքագրելիս ստացվում է “word, ”։ Backspace ստեղնը չեղարկում է տեղափոխումը։</string>
 </resources>

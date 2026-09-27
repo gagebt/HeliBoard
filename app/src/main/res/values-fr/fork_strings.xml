@@ -128,4 +128,8 @@
     <string name="voice_transcribe_now_hint">Transcrire maintenant : insérer les paroles déjà prononcées et continuer à écouter</string>
     <string name="voice_stop_hint">Arrêter : terminer l’écoute et insérer le texte</string>
     <string name="button_pause_gesture_gathering">Suspendre la collecte des données de gestes pendant 5 minutes</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Déplacer la ponctuation avant les espaces</string>
+    <string name="move_punctuation_before_space_summary">Saisir “word ,” donne “word, ”. La touche de retour arrière annule le déplacement.</string>
 </resources>

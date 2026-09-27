@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">Μεταγραφή τώρα: εισαγωγή της ομιλίας μέχρι τώρα και συνέχιση ακρόασης</string>
     <string name="voice_stop_hint">Διακοπή: τερματισμός ακρόασης και εισαγωγή του κειμένου</string>
     <string name="button_pause_gesture_gathering">Παύση συλλογής δεδομένων χειρονομιών για 5 λεπτά</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Μετακίνηση σημείων στίξης πριν από τα κενά</string>
+    <string name="move_punctuation_before_space_summary">Η πληκτρολόγηση “word ,” δίνει “word, ”. Το Backspace αναιρεί τη μετακίνηση.</string>
 </resources>

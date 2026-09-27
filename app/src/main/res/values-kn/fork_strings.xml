@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ಈಗ ಪಠ್ಯಕ್ಕೆ ಪರಿವರ್ತಿಸಿ: ಇದುವರೆಗಿನ ಮಾತನ್ನು ಸೇರಿಸಿ ಮತ್ತು ಕೇಳುವುದನ್ನು ಮುಂದುವರಿಸಿ</string>
     <string name="voice_stop_hint">ನಿಲ್ಲಿಸಿ: ಕೇಳುವುದನ್ನು ಮುಗಿಸಿ ಮತ್ತು ಪಠ್ಯವನ್ನು ಸೇರಿಸಿ</string>
     <string name="button_pause_gesture_gathering">ಗೆಸ್ಚರ್ ಡೇಟಾ ಸಂಗ್ರಹಣೆಯನ್ನು 5 ನಿಮಿಷ ವಿರಾಮಗೊಳಿಸಿ</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">ವಿರಾಮಚಿಹ್ನೆಗಳನ್ನು ಖಾಲಿ ಜಾಗಗಳ ಮೊದಲು ಸರಿಸಿ</string>
+    <string name="move_punctuation_before_space_summary">“word ,” ಎಂದು ಟೈಪ್ ಮಾಡಿದಾಗ “word, ” ಆಗುತ್ತದೆ. Backspace ಸರಿಸುವಿಕೆಯನ್ನು ರದ್ದುಗೊಳಿಸುತ್ತದೆ.</string>
 </resources>

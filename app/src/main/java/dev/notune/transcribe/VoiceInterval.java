@@ -2,9 +2,8 @@ package dev.notune.transcribe;
 
 /**
  * One stretch of dictated text with its own destination and delivery state (seam S1).
- * The controller keeps the current session's interval and a short list of earlier ones
- * that still need recovery; each keeps the field and binding it was spoken into, so
- * several can be pending at once without sharing one mutable anchor.
+ * The controller keeps the current session and the latest recovery interval. Each
+ * retains the field and binding it was spoken into.
  */
 public final class VoiceInterval {
     public enum State {

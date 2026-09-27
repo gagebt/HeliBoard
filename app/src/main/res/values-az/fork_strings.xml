@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">İndi mətnə çevir: indiyədək deyiləni daxil et və dinləməyə davam et</string>
     <string name="voice_stop_hint">Dayandır: dinləməni bitir və mətni daxil et</string>
     <string name="button_pause_gesture_gathering">Jest məlumatlarının toplanmasını 5 dəqiqə dayandır</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Durğu işarələrini boşluqlardan əvvələ keçir</string>
+    <string name="move_punctuation_before_space_summary">“söz ,” yazdıqda “söz, ” alınır. Backspace yerdəyişməni geri qaytarır.</string>
 </resources>

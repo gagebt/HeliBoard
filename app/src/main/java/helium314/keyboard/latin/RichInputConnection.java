@@ -951,7 +951,7 @@ public final class RichInputConnection implements PrivateCommandPerformer {
         final CharSequence textBeforeCursor = getTextBeforeCursor(2, 0);
         // NOTE: This does not work with surrogate pairs. Hopefully when the keyboard is able to
         // enter surrogate pairs this code will have been removed.
-        if (TextUtils.isEmpty(textBeforeCursor)
+        if (textBeforeCursor == null || textBeforeCursor.length() < 2
                 || (Constants.CODE_SPACE != textBeforeCursor.charAt(1))) {
             // We may only come here if the application is changing the text while we are typing.
             // This is quite a broken case, but not logically impossible, so we shouldn't crash,

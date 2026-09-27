@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ابھی متن میں بدلیں: اب تک کی بات درج کریں اور سنتے رہیں</string>
     <string name="voice_stop_hint">روکیں: سننا ختم کریں اور متن درج کریں</string>
     <string name="button_pause_gesture_gathering">اشاروں کے ڈیٹا کا جمع کرنا 5 منٹ کے لیے روکیں</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">رموزِ اوقاف کو خالی جگہوں سے پہلے منتقل کریں</string>
+    <string name="move_punctuation_before_space_summary">“word ,” ٹائپ کرنے سے “word, ” بنتا ہے۔ Backspace منتقلی کو واپس کرتا ہے۔</string>
 </resources>

@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">এখন প্রতিলিখন করুন: এ পর্যন্ত বলা কথা ঢোকান এবং শুনতে থাকুন</string>
     <string name="voice_stop_hint">থামান: শোনা শেষ করুন এবং টেক্সট ঢোকান</string>
     <string name="button_pause_gesture_gathering">অঙ্গভঙ্গির তথ্য সংগ্রহ 5 মিনিটের জন্য থামান</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">যতিচিহ্ন ফাঁকা স্থানের আগে সরান</string>
+    <string name="move_punctuation_before_space_summary">“শব্দ ,” লিখলে “শব্দ, ” হয়। Backspace সরানোটি পূর্বাবস্থায় ফেরায়।</string>
 </resources>

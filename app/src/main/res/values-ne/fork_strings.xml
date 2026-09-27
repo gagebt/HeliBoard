@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">अहिले पाठमा बदल्नुहोस्: अहिलेसम्मको बोली घुसाउनुहोस् र सुन्न जारी राख्नुहोस्</string>
     <string name="voice_stop_hint">रोक्नुहोस्: सुन्न बन्द गर्नुहोस् र पाठ घुसाउनुहोस्</string>
     <string name="button_pause_gesture_gathering">इसारा डेटा सङ्कलन 5 मिनेटका लागि रोक्नुहोस्</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">विरामचिह्नलाई खाली ठाउँअघि सार्नुहोस्</string>
+    <string name="move_punctuation_before_space_summary">“word ,” टाइप गर्दा “word, ” हुन्छ। Backspace ले सार्ने कामलाई पूर्ववत् गर्छ।</string>
 </resources>

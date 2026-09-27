@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">تحويل الكلام إلى نص الآن: إدراج الكلام حتى الآن ومواصلة الاستماع</string>
     <string name="voice_stop_hint">إيقاف: إنهاء الاستماع وإدراج النص</string>
     <string name="button_pause_gesture_gathering">إيقاف جمع بيانات الإيماءات مؤقتًا لمدة 5 دقائق</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">نقل علامات الترقيم قبل المسافات</string>
+    <string name="move_punctuation_before_space_summary">كتابة “word ,” تعطي “word, ”. مفتاح الحذف للخلف يتراجع عن النقل.</string>
 </resources>

@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Prepísať teraz: vložiť doterajšiu reč a pokračovať v počúvaní</string>
     <string name="voice_stop_hint">Zastaviť: ukončiť počúvanie a vložiť text</string>
     <string name="button_pause_gesture_gathering">Pozastaviť zber údajov o gestách na 5 minút</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Presúvať interpunkciu pred medzery</string>
+    <string name="move_punctuation_before_space_summary">Pri písaní „slovo ,“ vznikne „slovo, “. Backspace zruší presunutie.</string>
 </resources>

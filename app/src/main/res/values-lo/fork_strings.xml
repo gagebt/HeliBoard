@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ຖອດສຽງຕອນນີ້: ໃສ່ຄຳເວົ້າທີ່ຜ່ານມາແລ້ວຟັງຕໍ່</string>
     <string name="voice_stop_hint">ຢຸດ: ຈົບການຟັງແລ້ວໃສ່ຂໍ້ຄວາມ</string>
     <string name="button_pause_gesture_gathering">ພັກການເກັບຂໍ້ມູນທ່າທາງເປັນເວລາ 5 ນາທີ</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">ຍ້າຍເຄື່ອງໝາຍວັກຕອນໄວ້ກ່ອນຍະຫວ່າງ</string>
+    <string name="move_punctuation_before_space_summary">ພິມ “word ,” ຈະໄດ້ “word, ”. ປຸ່ມ Backspace ຈະຍົກເລີກການຍ້າຍ.</string>
 </resources>

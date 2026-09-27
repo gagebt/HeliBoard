@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Transkribatu orain: txertatu orain arteko hizketa eta jarraitu entzuten</string>
     <string name="voice_stop_hint">Gelditu: amaitu entzutea eta txertatu testua</string>
     <string name="button_pause_gesture_gathering">Pausatu keinuen datu-bilketa 5 minutuz</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Mugitu puntuazioa zuriuneen aurretik</string>
+    <string name="move_punctuation_before_space_summary">“word ,” idaztean “word, ” lortzen da. Atzera-tekla sakatzeak mugimendua desegiten du.</string>
 </resources>

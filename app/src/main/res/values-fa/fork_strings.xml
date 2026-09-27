@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">رونویسی اکنون: درج گفتار تا این لحظه و ادامهٔ شنیدن</string>
     <string name="voice_stop_hint">توقف: پایان شنیدن و درج متن</string>
     <string name="button_pause_gesture_gathering">توقف گردآوری داده‌های حرکت به‌مدت 5 دقیقه</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">انتقال نشانه‌گذاری به پیش از فاصله‌ها</string>
+    <string name="move_punctuation_before_space_summary">نوشتن «واژه ,» به «واژه, » تبدیل می‌شود. Backspace این جابه‌جایی را برمی‌گرداند.</string>
 </resources>

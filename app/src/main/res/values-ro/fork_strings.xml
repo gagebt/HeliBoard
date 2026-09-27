@@ -132,4 +132,8 @@
     <string name="voice_transcribe_now_hint">Transcrie acum: inserează vorbirea de până acum și continuă ascultarea</string>
     <string name="voice_stop_hint">Oprește: încheie ascultarea și inserează textul</string>
     <string name="button_pause_gesture_gathering">Suspendă colectarea datelor despre gesturi timp de 5 minute</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Mută punctuația înaintea spațiilor</string>
+    <string name="move_punctuation_before_space_summary">Scrierea “word ,” produce “word, ”. Tasta Backspace anulează mutarea.</string>
 </resources>

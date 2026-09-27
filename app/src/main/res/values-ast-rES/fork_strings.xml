@@ -132,4 +132,8 @@
     <string name="voice_transcribe_now_hint">Trescribir agora: inxerir lo dicho hasta agora y siguir escuchando</string>
     <string name="voice_stop_hint">Parar: dexar de escuchar ya inxerir el testu</string>
     <string name="button_pause_gesture_gathering">Pausar la recoyida de datos de xestos durante 5 minutos</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Mover la puntuación delantre de los espacios</string>
+    <string name="move_punctuation_before_space_summary">Escribir “word ,” da “word, ”. La tecla de retrocesu desfái el movimientu.</string>
 </resources>

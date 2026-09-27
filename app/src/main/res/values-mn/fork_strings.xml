@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">Одоо хөрвүүлэх: одоог хүртэл хэлснийг оруулаад үргэлжлүүлэн сонсох</string>
     <string name="voice_stop_hint">Зогсоох: сонсож дуусаад текстийг оруулах</string>
     <string name="button_pause_gesture_gathering">Дохионы өгөгдөл цуглуулахыг 5 минут түр зогсоох</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Цэг тэмдгийг зайны өмнө шилжүүлэх</string>
+    <string name="move_punctuation_before_space_summary">“үг ,” гэж бичвэл “үг, ” болно. Backspace шилжүүлэлтийг буцаана.</string>
 </resources>

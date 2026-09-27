@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Guqula umsindo ube umbhalo manje: faka okukhulunywe kuze kube manje bese uqhubeka nokulalela</string>
     <string name="voice_stop_hint">Misa: qeda ukulalela bese ufaka umbhalo</string>
     <string name="button_pause_gesture_gathering">Misa ukuqoqwa kwedatha yokuthinta imizuzu emi-5</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Hambisa izimpawu zokuloba ngaphambi kwezikhala</string>
+    <string name="move_punctuation_before_space_summary">Ukuthayipha “word ,” kunikeza “word, ”. Inkinobho ye-Backspace ihlehlisa lokhu kuhambisa.</string>
 </resources>

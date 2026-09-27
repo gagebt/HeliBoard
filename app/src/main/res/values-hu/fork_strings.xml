@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Átírás most: az eddigi beszéd beillesztése és a figyelés folytatása</string>
     <string name="voice_stop_hint">Leállítás: figyelés befejezése és a szöveg beillesztése</string>
     <string name="button_pause_gesture_gathering">Gesztusadatok gyűjtésének szüneteltetése 5 percre</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Írásjelek áthelyezése a szóközök elé</string>
+    <string name="move_punctuation_before_space_summary">A „szó ,” beírásából „szó, ” lesz. A Backspace visszavonja az áthelyezést.</string>
 </resources>

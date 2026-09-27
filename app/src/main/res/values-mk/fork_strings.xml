@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">Препиши сега: вметни го досега кажаното и продолжи да слушаш</string>
     <string name="voice_stop_hint">Запри: заврши со слушање и вметни го текстот</string>
     <string name="button_pause_gesture_gathering">Паузирај го собирањето податоци за гестови 5 минути</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Премести ги интерпункциските знаци пред празните места</string>
+    <string name="move_punctuation_before_space_summary">Пишувањето „збор ,“ дава „збор, “. Backspace го поништува преместувањето.</string>
 </resources>

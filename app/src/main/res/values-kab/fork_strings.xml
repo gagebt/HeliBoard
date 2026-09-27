@@ -97,4 +97,7 @@
     <string name="voice_transcribe_now_hint">Aru tura: sekcem ayen yettwannan ar tura u kemmel asellek</string>
     <string name="voice_stop_hint">Seḥbes: fak asellek u sekcem aḍris</string>
     <string name="button_pause_gesture_gathering">Seḥbes alqaḍ n yisefka n tnekkiyin i 5 n tesdatin</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Senkez azamul n useɣti uqbel tallunin</string>
+    <string name="move_punctuation_before_space_summary">Tira n “awal ,” tettak “awal, ”. Backspace yessemḥay asenkez.</string>
 </resources>

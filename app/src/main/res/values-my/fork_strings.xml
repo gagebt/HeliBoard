@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ယခု စာသားပြောင်းရန်: ယခုအထိ ပြောထားသည်ကို ထည့်ပြီး ဆက်နားထောင်ရန်</string>
     <string name="voice_stop_hint">ရပ်ရန်: နားထောင်ခြင်းကို အဆုံးသတ်ပြီး စာသားထည့်ရန်</string>
     <string name="button_pause_gesture_gathering">လက်ဟန်ဒေတာစုဆောင်းခြင်းကို 5 မိနစ် ခေတ္တရပ်ရန်</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">ပုဒ်ဖြတ်ပုဒ်ရပ်များကို နေရာလွတ်များရှေ့သို့ ရွှေ့ရန်</string>
+    <string name="move_punctuation_before_space_summary">“word ,” ဟု ရိုက်လျှင် “word, ” ဟု ဖြစ်လာသည်။ Backspace က ရွှေ့ခြင်းကို ပြန်ဖျက်ပေးသည်။</string>
 </resources>

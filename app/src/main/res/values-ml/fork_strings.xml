@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ഇപ്പോൾ ടെക്സ്റ്റാക്കുക: ഇതുവരെ പറഞ്ഞത് ചേർത്ത് കേൾക്കുന്നത് തുടരുക</string>
     <string name="voice_stop_hint">നിർത്തുക: കേൾക്കുന്നത് അവസാനിപ്പിച്ച് ടെക്സ്റ്റ് ചേർക്കുക</string>
     <string name="button_pause_gesture_gathering">ആംഗ്യ ഡാറ്റ ശേഖരണം 5 മിനിറ്റ് താൽക്കാലികമായി നിർത്തുക</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">വിരാമചിഹ്നങ്ങൾ സ്പേസുകൾക്ക് മുമ്പിലേക്ക് നീക്കുക</string>
+    <string name="move_punctuation_before_space_summary">“word ,” ടൈപ്പ് ചെയ്താൽ “word, ” ലഭിക്കും. Backspace സ്ഥാനം മാറ്റൽ പഴയപടിയാക്കുന്നു.</string>
 </resources>

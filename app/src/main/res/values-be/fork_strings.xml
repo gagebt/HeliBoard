@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">Распазнаць зараз: уставіць ужо сказанае і слухаць далей</string>
     <string name="voice_stop_hint">Стоп: скончыць слухаць і ўставіць тэкст</string>
     <string name="button_pause_gesture_gathering">Прыпыніць збор даных жэстаў на 5 хвілін</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Пераносіць знакі прыпынку перад прабеламі</string>
+    <string name="move_punctuation_before_space_summary">Увод «слова ,» дае «слова, ». Backspace адмяняе перанос.</string>
 </resources>

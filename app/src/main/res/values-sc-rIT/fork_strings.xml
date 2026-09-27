@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Trascrie immoe: inserta su chi as naradu finas a immoe e sighi a iscultare</string>
     <string name="voice_stop_hint">Firma: termina de iscultare e inserta su testu</string>
     <string name="button_pause_gesture_gathering">Firma sa regorta de datos de gestos pro 5 minutos</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Move sa puntuatzione in antis de is ispàtzios</string>
+    <string name="move_punctuation_before_space_summary">Iscrìere “paràula ,” donat “paràula, ”. Backspace annullat su movimentu.</string>
 </resources>

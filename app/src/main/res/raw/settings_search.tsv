@@ -158,3 +158,4 @@ layout_EMOJI_BOTTOM|choose buttons below emoji picker;change smiley panel bottom
 layout_CLIPBOARD_BOTTOM|choose buttons below copy history;change clipboard panel bottom row;pick controls under saved clips|выбрать кнопки под историей копий;сменить нижний ряд панели буфера;настроить клавиши под сохраненным текстом
 
 voice_stop_on_keyboard_close|stop dictation when keyboard closes;keep listening with keyboard hidden;microphone after back button;continue recording while hiding keyboard|остановить диктовку при закрытии клавиатуры;продолжать запись со скрытой клавиатурой;микрофон после кнопки назад;сворачивание клавиатуры при диктовке
+move_punctuation_before_space|comma before space;move punctuation;fix spaces around punctuation;attach period to previous word|запятая перед пробелом;переместить знак препинания;исправить пробелы перед знаками;точка перед пробелом

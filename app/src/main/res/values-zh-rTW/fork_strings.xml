@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">立即轉寫：插入目前說出的內容並繼續聆聽</string>
     <string name="voice_stop_hint">停止：結束聆聽並插入文字</string>
     <string name="button_pause_gesture_gathering">暫停收集手勢資料5分鐘</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">將標點移到空格前</string>
+    <string name="move_punctuation_before_space_summary">輸入「word ,」會得到「word, 」。按退格鍵可復原移動。</string>
 </resources>

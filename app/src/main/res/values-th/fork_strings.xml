@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ถอดเสียงตอนนี้: แทรกคำพูดจนถึงตอนนี้และฟังต่อ</string>
     <string name="voice_stop_hint">หยุด: จบการฟังและแทรกข้อความ</string>
     <string name="button_pause_gesture_gathering">พักการรวบรวมข้อมูลท่าทางเป็นเวลา 5 นาที</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">ย้ายเครื่องหมายวรรคตอนไปไว้ก่อนช่องว่าง</string>
+    <string name="move_punctuation_before_space_summary">พิมพ์ “word ,” แล้วจะได้ “word, ” ปุ่ม Backspace ยกเลิกการย้าย</string>
 </resources>

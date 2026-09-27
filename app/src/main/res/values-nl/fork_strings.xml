@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Nu transcriberen: gesproken tekst invoegen en blijven luisteren</string>
     <string name="voice_stop_hint">Stoppen: luisteren beëindigen en tekst invoegen</string>
     <string name="button_pause_gesture_gathering">Verzamelen van gebarengegevens 5 minuten pauzeren</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Leestekens voor spaties plaatsen</string>
+    <string name="move_punctuation_before_space_summary">“woord ,” typen geeft “woord, ”. Backspace maakt de verplaatsing ongedaan.</string>
 </resources>

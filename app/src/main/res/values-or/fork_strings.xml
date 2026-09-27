@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">ଏବେ ପ୍ରତିଲିପି କରନ୍ତୁ: ଏପର୍ଯ୍ୟନ୍ତ କହିଥିବା କଥା ଭରନ୍ତୁ ଏବଂ ଶୁଣିବା ଜାରି ରଖନ୍ତୁ</string>
     <string name="voice_stop_hint">ବନ୍ଦ କରନ୍ତୁ: ଶୁଣିବା ଶେଷ କରନ୍ତୁ ଏବଂ ପାଠ୍ୟ ଭରନ୍ତୁ</string>
     <string name="button_pause_gesture_gathering">ଅଙ୍ଗଭଙ୍ଗୀ ତଥ୍ୟ ସଂଗ୍ରହ 5 ମିନିଟ୍ ପାଇଁ ବିରତ କରନ୍ତୁ</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">ବିରାମ ଚିହ୍ନକୁ ଖାଲି ସ୍ଥାନ ପୂର୍ବକୁ ନିଅନ୍ତୁ</string>
+    <string name="move_punctuation_before_space_summary">“ଶବ୍ଦ ,” ଲେଖିଲେ “ଶବ୍ଦ, ” ହୁଏ। Backspace ଏହି ସ୍ଥାନାନ୍ତରକୁ ପୂର୍ବବତ୍ କରେ।</string>
 </resources>

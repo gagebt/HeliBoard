@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Trascrivi ora: inserisci quanto detto e continua ad ascoltare</string>
     <string name="voice_stop_hint">Stop: termina l’ascolto e inserisci il testo</string>
     <string name="button_pause_gesture_gathering">Sospendi la raccolta dei dati dei gesti per 5 minuti</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Sposta la punteggiatura prima degli spazi</string>
+    <string name="move_punctuation_before_space_summary">Digitando “parola ,” si ottiene “parola, ”. Il tasto Backspace annulla lo spostamento.</string>
 </resources>

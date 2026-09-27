@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">ఇప్పుడే వచనంగా మార్చండి: ఇప్పటివరకు మాట్లాడినది చేర్చి వినడం కొనసాగించండి</string>
     <string name="voice_stop_hint">ఆపండి: వినడం ముగించి వచనాన్ని చేర్చండి</string>
     <string name="button_pause_gesture_gathering">సంజ్ఞల డేటా సేకరణను 5 నిమిషాలు నిలిపివేయండి</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">విరామచిహ్నాలను ఖాళీల ముందు పెట్టండి</string>
+    <string name="move_punctuation_before_space_summary">“word ,” అని టైప్ చేస్తే “word, ” అవుతుంది. Backspace ఈ మార్పును రద్దు చేస్తుంది.</string>
 </resources>

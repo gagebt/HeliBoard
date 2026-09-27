@@ -133,4 +133,7 @@
     <string name="voice_transcribe_now_hint">Trawsgrifio nawr: mewnosod y lleferydd hyd yma a pharhau i wrando</string>
     <string name="voice_stop_hint">Atal: gorffen gwrando a mewnosod y testun</string>
     <string name="button_pause_gesture_gathering">Seibio casglu data ystumiau am 5 munud</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Symud atalnodi o flaen bylchau</string>
+    <string name="move_punctuation_before_space_summary">Mae teipio “gair ,” yn rhoi “gair, ”. Mae Backspace yn dadwneud y symudiad.</string>
 </resources>

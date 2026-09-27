@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Prepiši zdaj: vstavi dosedanji govor in nadaljuj poslušanje</string>
     <string name="voice_stop_hint">Ustavi: končaj poslušanje in vstavi besedilo</string>
     <string name="button_pause_gesture_gathering">Začasno ustavi zbiranje podatkov o potezah za 5 minut</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Premakni ločila pred presledke</string>
+    <string name="move_punctuation_before_space_summary">Z vnosom “word ,” dobite “word, ”. Tipka Backspace razveljavi premik.</string>
 </resources>

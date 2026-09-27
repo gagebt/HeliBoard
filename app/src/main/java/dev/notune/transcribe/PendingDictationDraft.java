@@ -25,7 +25,7 @@ final class PendingDictationDraft {
     }
 
     byte[] encode() {
-        String body = "NOTUNE1\n" + sessionId + "\n" + nextSequence + "\n" + state + "\n"
+        String body = "NOTUNE2\n" + sessionId + "\n" + nextSequence + "\n" + state + "\n"
                 + Base64.getEncoder().encodeToString(text.getBytes(StandardCharsets.UTF_8));
         return body.getBytes(StandardCharsets.UTF_8);
     }
@@ -33,7 +33,7 @@ final class PendingDictationDraft {
     static PendingDictationDraft decode(byte[] bytes) {
         try {
             String[] parts = new String(bytes, StandardCharsets.UTF_8).split("\\n", 5);
-            if (parts.length != 5 || !"NOTUNE1".equals(parts[0]) || !validState(parts[3])) {
+            if (parts.length != 5 || !"NOTUNE2".equals(parts[0]) || !validState(parts[3])) {
                 return null;
             }
             long sessionId = Long.parseLong(parts[1]);

@@ -134,4 +134,8 @@
     <string name="voice_transcribe_now_hint">आता मजकुरात रूपांतर करा: आतापर्यंतचे बोलणे घाला आणि ऐकत राहा</string>
     <string name="voice_stop_hint">थांबवा: ऐकणे संपवा आणि मजकूर घाला</string>
     <string name="button_pause_gesture_gathering">जेश्चर डेटा गोळा करणे 5 मिनिटांसाठी थांबवा</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">विरामचिन्हे रिकाम्या जागांच्या आधी हलवा</string>
+    <string name="move_punctuation_before_space_summary">“word ,” टाइप केल्यावर “word, ” मिळते. Backspace ही हालचाल पूर्ववत करते.</string>
 </resources>

@@ -130,4 +130,7 @@
     <string name="voice_transcribe_now_hint">Transkribera nu: infoga det som sagts och fortsätt lyssna</string>
     <string name="voice_stop_hint">Stoppa: avsluta lyssningen och infoga texten</string>
     <string name="button_pause_gesture_gathering">Pausa insamling av gestdata i 5 minuter</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Flytta skiljetecken före blanksteg</string>
+    <string name="move_punctuation_before_space_summary">När du skriver ”ord ,” blir det ”ord, ”. Backsteg ångrar flytten.</string>
 </resources>

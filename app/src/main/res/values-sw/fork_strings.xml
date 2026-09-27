@@ -133,4 +133,8 @@
     <string name="voice_transcribe_now_hint">Andika sauti sasa: ingiza yaliyosemwa hadi sasa na uendelee kusikiliza</string>
     <string name="voice_stop_hint">Simamisha: maliza kusikiliza na ingiza maandishi</string>
     <string name="button_pause_gesture_gathering">Sitisha ukusanyaji wa data ya ishara kwa dakika 5</string>
+
+    <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
+    <string name="move_punctuation_before_space">Hamisha alama za uakifishaji kabla ya nafasi</string>
+    <string name="move_punctuation_before_space_summary">Kuandika “word ,” hutoa “word, ”. Kitufe cha Backspace hutengua uhamishaji.</string>
 </resources>

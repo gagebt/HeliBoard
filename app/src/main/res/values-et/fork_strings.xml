@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Transkribeeri kohe: sisesta seni öeldu ja jätka kuulamist</string>
     <string name="voice_stop_hint">Peata: lõpeta kuulamine ja sisesta tekst</string>
     <string name="button_pause_gesture_gathering">Peata žestiandmete kogumine 5 minutiks</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Liiguta kirjavahemärgid tühikute ette</string>
+    <string name="move_punctuation_before_space_summary">„sõna ,“ sisestamisel saad „sõna, “. Tagasilükkeklahv tühistab liigutamise.</string>
 </resources>

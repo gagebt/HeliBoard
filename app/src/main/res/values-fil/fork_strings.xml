@@ -130,4 +130,7 @@
     <string name="voice_transcribe_now_hint">I-transcribe ngayon: ipasok ang nasabi na at patuloy na makinig</string>
     <string name="voice_stop_hint">Ihinto: tapusin ang pakikinig at ipasok ang teksto</string>
     <string name="button_pause_gesture_gathering">I-pause ang pangangalap ng data ng galaw sa loob ng 5 minuto</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Ilipat ang bantas bago ang mga espasyo</string>
+    <string name="move_punctuation_before_space_summary">Ang pag-type ng “salita ,” ay nagiging “salita, ”. Binabawi ng Backspace ang paglipat.</string>
 </resources>

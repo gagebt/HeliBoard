@@ -132,4 +132,7 @@
     <string name="voice_transcribe_now_hint">Transkripsi sekarang: sisipkan pertuturan setakat ini dan terus mendengar</string>
     <string name="voice_stop_hint">Henti: tamatkan pendengaran dan sisipkan teks</string>
     <string name="button_pause_gesture_gathering">Jeda pengumpulan data gerak isyarat selama 5 minit</string>
+    <!-- Punctuation controls: AI translation -->
+    <string name="move_punctuation_before_space">Alihkan tanda baca sebelum ruang</string>
+    <string name="move_punctuation_before_space_summary">Menaip “perkataan ,” menghasilkan “perkataan, ”. Backspace membatalkan pengalihan.</string>
 </resources>
