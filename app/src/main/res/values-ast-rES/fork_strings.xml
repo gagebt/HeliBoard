@@ -136,4 +136,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Mover la puntuación delantre de los espacios</string>
     <string name="move_punctuation_before_space_summary">Escribir “word ,” da “word, ”. La tecla de retrocesu desfái el movimientu.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Puntu dempués del dictáu</string>
+    <string name="voice_full_stop_summary">Por defeutu omítese’l últimu puntu. Una frase nueva dempués d’una pausa sigue recibiendo un puntu.</string>
+    <string name="voice_full_stop_next_sentence">Cuando entama la frase siguiente</string>
+    <string name="voice_full_stop_always">Siempres</string>
 </resources>

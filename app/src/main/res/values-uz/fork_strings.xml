@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Tinish belgilarini bo‘shliqlardan oldinga ko‘chirish</string>
     <string name="move_punctuation_before_space_summary">“so‘z ,” yozilsa, “so‘z, ” hosil bo‘ladi. Backspace ko‘chirishni bekor qiladi.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Diktantdan keyingi nuqta</string>
+    <string name="voice_full_stop_summary">Odatiy holatda oxirgi nuqta qo‘yilmaydi. Tanaffusdan keyin yangi gap boshlanganda nuqta baribir qo‘yiladi.</string>
+    <string name="voice_full_stop_next_sentence">Keyingi gap boshlanganda</string>
+    <string name="voice_full_stop_always">Har doim</string>
 </resources>

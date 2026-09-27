@@ -60,23 +60,23 @@ public class FieldRulesTest {
         PieceJoiner j = new PieceJoiner();
         StringBuilder out = new StringBuilder();
         out.append(j.join("Hi Sam, I will be 10 minutes late.", 0f, null, null,
-                FieldKinds.of(InputType.TYPE_NULL, 0), 0, 3f));
+                FieldKinds.of(InputType.TYPE_NULL, 0), 0, 3f, true).text);
         out.append(j.join("We can meet at the east entrance.", 3.5f, null, null,
-                FieldKinds.of(InputType.TYPE_NULL, 0), 0, 3f));
-        out.append(j.finish());
+                FieldKinds.of(InputType.TYPE_NULL, 0), 0, 3f, true).text);
+        out.append(j.finish(true, false).text);
         assertEquals("Hi Sam, I will be 10 minutes late. We can meet at the east entrance. ",
                 out.toString());
         // Opposite: the plain rule, which pf5 gave a terminal, joins the two sentences.
         PieceJoiner plain = new PieceJoiner();
-        String joined = plain.join("late.", 0f, null, null, FieldKind.PLAIN, 0, 3f)
-                + plain.join("We can.", 3.5f, null, null, FieldKind.PLAIN, 0, 3f);
+        String joined = plain.join("late.", 0f, null, null, FieldKind.PLAIN, 0, 3f, true).text
+                + plain.join("We can.", 3.5f, null, null, FieldKind.PLAIN, 0, 3f, true).text;
         assertEquals("lateWe can", joined);
     }
 
     @Test public void addressBarPiecesKeepOneSpace() {
         PieceJoiner j = new PieceJoiner();
-        String first = j.join("Weather in Moscow tomorrow.", 0f, "", "", FieldKind.SEARCH, 0, 3f);
-        String second = j.join("The forecast.", 1f, first, "", FieldKind.SEARCH, 0, 3f);
+        String first = j.join("Weather in Moscow tomorrow.", 0f, "", "", FieldKind.SEARCH, 0, 3f, true).text;
+        String second = j.join("The forecast.", 1f, first, "", FieldKind.SEARCH, 0, 3f, true).text;
         assertEquals("Weather in Moscow tomorrow The forecast", first + second);
     }
 

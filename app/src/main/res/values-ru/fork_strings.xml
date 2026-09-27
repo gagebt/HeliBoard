@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Переносить знаки препинания перед пробелами</string>
     <string name="move_punctuation_before_space_summary">При вводе «слово ,» получается «слово, ». Backspace отменяет перенос.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Точка после диктовки</string>
+    <string name="voice_full_stop_summary">По умолчанию последняя точка не вставляется. При начале нового предложения после паузы точка всё равно ставится.</string>
+    <string name="voice_full_stop_next_sentence">Когда начинается следующее предложение</string>
+    <string name="voice_full_stop_always">Всегда</string>
 </resources>

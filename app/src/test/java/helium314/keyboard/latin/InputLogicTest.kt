@@ -165,7 +165,7 @@ class InputLogicTest {
         val ctor = dev.notune.transcribe.RustInputMethodService.VoiceState::class.java
             .declaredConstructors.single().apply { isAccessible = true }
         val recording = ctor.newInstance(dev.notune.transcribe.RustInputMethodService.Phase.RECORDING,
-            "Listening", 0f, false, false, false)
+            "Listening", 0f, false, false, false, false)
         LatinIME::class.java.getDeclaredField("mVoiceState")
             .apply { isAccessible = true }.set(latinIME, recording)
         assertEquals(true, LatinIME::class.java.getDeclaredMethod("startVoiceForeground")
@@ -178,7 +178,7 @@ class InputLogicTest {
         latinIME.onStartCommand(stopIntent, 0, 1)
         Mockito.verify(voice, Mockito.times(1)).stop()
         val finishing = ctor.newInstance(dev.notune.transcribe.RustInputMethodService.Phase.FINISHING,
-            "Finishing", 0f, false, false, false)
+            "Finishing", 0f, false, false, false, false)
         LatinIME::class.java.getDeclaredMethod("renderVoiceState",
             dev.notune.transcribe.RustInputMethodService.VoiceState::class.java)
             .apply { isAccessible = true }.invoke(latinIME, finishing)
@@ -268,8 +268,8 @@ class InputLogicTest {
             .apply { isAccessible = true }.set(latinIME, null)
         val ctor = dev.notune.transcribe.RustInputMethodService.VoiceState::class.java
             .declaredConstructors.single().apply { isAccessible = true }
-        fun render(phase: dev.notune.transcribe.RustInputMethodService.Phase, level: Float) {
-            val state = ctor.newInstance(phase, "Listening", level, false, false, false)
+        fun render(phase: dev.notune.transcribe.RustInputMethodService.Phase, level: Float, busy: Boolean = false) {
+            val state = ctor.newInstance(phase, "Listening", level, false, false, false, busy)
             LatinIME::class.java.getDeclaredMethod("renderVoiceState",
                 dev.notune.transcribe.RustInputMethodService.VoiceState::class.java)
                 .apply { isAccessible = true }.invoke(latinIME, state)
@@ -282,6 +282,14 @@ class InputLogicTest {
         kotlin.test.assertSame(first, shown, "A recording update replaces the pressed controls")
         kotlin.test.assertSame(stop, (shown as android.widget.LinearLayout).getChildAt(first.childCount - 1))
         kotlin.test.assertTrue(stop.isPressed)
+        render(dev.notune.transcribe.RustInputMethodService.Phase.RECORDING, 0.5f, true)
+        kotlin.test.assertSame(first, shown)
+        kotlin.test.assertFalse(first.getChildAt(0).isEnabled)
+        kotlin.test.assertTrue(stop.isEnabled)
+        render(dev.notune.transcribe.RustInputMethodService.Phase.RECORDING, 0.5f, false)
+        kotlin.test.assertTrue(first.getChildAt(0).isEnabled)
+        render(dev.notune.transcribe.RustInputMethodService.Phase.FINISHING, 0f, true)
+        Mockito.verify(strip, Mockito.atLeastOnce()).setVoiceInputKeyHiddenForRecording(false)
         render(dev.notune.transcribe.RustInputMethodService.Phase.IDLE, 0f)
         kotlin.test.assertNull(shown, "Completed recording must retire the controls")
     }

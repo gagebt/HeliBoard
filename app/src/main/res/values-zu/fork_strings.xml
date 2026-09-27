@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Hambisa izimpawu zokuloba ngaphambi kwezikhala</string>
     <string name="move_punctuation_before_space_summary">Ukuthayipha “word ,” kunikeza “word, ”. Inkinobho ye-Backspace ihlehlisa lokhu kuhambisa.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Ungqi ngemva kokufaka ngezwi</string>
+    <string name="voice_full_stop_summary">Ngokuzenzakalelayo ungqi wokugcina uyashiywa. Umusho omusha ngemva kokumisa kancane usathola ungqi.</string>
+    <string name="voice_full_stop_next_sentence">Lapho umusho olandelayo uqala</string>
+    <string name="voice_full_stop_always">Njalo</string>
 </resources>

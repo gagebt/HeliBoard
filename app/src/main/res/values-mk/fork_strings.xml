@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Премести ги интерпункциските знаци пред празните места</string>
     <string name="move_punctuation_before_space_summary">Пишувањето „збор ,“ дава „збор, “. Backspace го поништува преместувањето.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Точка по диктирање</string>
+    <string name="voice_full_stop_summary">Стандардно се изоставува последната точка. При почеток на нова реченица по пауза сепак се додава точка.</string>
+    <string name="voice_full_stop_next_sentence">Кога започнува следната реченица</string>
+    <string name="voice_full_stop_always">Секогаш</string>
 </resources>

@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Move sa puntuatzione in antis de is ispàtzios</string>
     <string name="move_punctuation_before_space_summary">Iscrìere “paràula ,” donat “paràula, ”. Backspace annullat su movimentu.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Puntu a pustis de su dictadu</string>
+    <string name="voice_full_stop_summary">Pro predefinidu si bogat s’ùrtimu puntu. Cando cumintzat una frase noa a pustis de una pàusa, si ponet ancora unu puntu.</string>
+    <string name="voice_full_stop_next_sentence">Cando cumintzat sa frase imbeniente</string>
+    <string name="voice_full_stop_always">Semper</string>
 </resources>

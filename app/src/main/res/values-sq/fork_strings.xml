@@ -134,4 +134,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Zhvendos pikësimin para hapësirave</string>
     <string name="move_punctuation_before_space_summary">Shkrimi i “fjalë ,” jep “fjalë, ”. Backspace zhbën zhvendosjen.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Pikë pas diktimit</string>
+    <string name="voice_full_stop_summary">Si parazgjedhje, pika e fundit lihet jashtë. Një fjali e re pas një pauze merr ende një pikë.</string>
+    <string name="voice_full_stop_next_sentence">Kur fillon fjalia tjetër</string>
+    <string name="voice_full_stop_always">Gjithmonë</string>
 </resources>

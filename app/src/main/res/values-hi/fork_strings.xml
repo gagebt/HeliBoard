@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">विराम चिह्न को स्पेस से पहले ले जाएँ</string>
     <string name="move_punctuation_before_space_summary">“शब्द ,” लिखने पर “शब्द, ” मिलता है। Backspace इस बदलाव को पूर्ववत करता है।</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">बोलकर लिखने के बाद पूर्ण विराम</string>
+    <string name="voice_full_stop_summary">डिफ़ॉल्ट रूप से आखिरी पूर्ण विराम छोड़ दिया जाता है। विराम के बाद नया वाक्य शुरू होने पर पूर्ण विराम फिर भी डाला जाता है।</string>
+    <string name="voice_full_stop_next_sentence">जब अगला वाक्य शुरू हो</string>
+    <string name="voice_full_stop_always">हमेशा</string>
 </resources>

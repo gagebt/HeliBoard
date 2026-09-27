@@ -133,4 +133,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Sazzeeche viru Leerzeeche réckelen</string>
     <string name="move_punctuation_before_space_summary">Aus „Wuert ,“ gëtt „Wuert, “. Backspace mécht d’Réckele réckgängeg.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punkt nom Diktat</string>
+    <string name="voice_full_stop_summary">Standardméisseg gëtt de leschte Punkt ewechgelooss. Wann no enger Paus en neie Saz ufänkt, gëtt nach ëmmer e Punkt agesat.</string>
+    <string name="voice_full_stop_next_sentence">Wann den nächste Saz ufänkt</string>
+    <string name="voice_full_stop_always">Ëmmer</string>
 </resources>

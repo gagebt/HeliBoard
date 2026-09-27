@@ -134,4 +134,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Mover la puntuación antes de los espacios</string>
     <string name="move_punctuation_before_space_summary">Escribir «palabra ,» da «palabra, ». Retroceso deshace el movimiento.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punto final después del dictado</string>
+    <string name="voice_full_stop_summary">Por defecto se omite el último punto. Una nueva oración después de una pausa sigue recibiendo un punto.</string>
+    <string name="voice_full_stop_next_sentence">Cuando empieza la siguiente oración</string>
+    <string name="voice_full_stop_always">Siempre</string>
 </resources>

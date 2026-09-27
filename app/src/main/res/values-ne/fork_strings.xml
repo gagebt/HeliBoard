@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">विरामचिह्नलाई खाली ठाउँअघि सार्नुहोस्</string>
     <string name="move_punctuation_before_space_summary">“word ,” टाइप गर्दा “word, ” हुन्छ। Backspace ले सार्ने कामलाई पूर्ववत् गर्छ।</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">बोलेर लेखेपछि पूर्णविराम</string>
+    <string name="voice_full_stop_summary">पूर्वनिर्धारित रूपमा अन्तिम पूर्णविराम छोडिन्छ। विरामपछि नयाँ वाक्यले अझै पूर्णविराम पाउँछ।</string>
+    <string name="voice_full_stop_next_sentence">अर्को वाक्य सुरु हुँदा</string>
+    <string name="voice_full_stop_always">सधैँ</string>
 </resources>

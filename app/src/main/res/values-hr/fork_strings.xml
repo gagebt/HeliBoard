@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Premjesti interpunkciju ispred razmaka</string>
     <string name="move_punctuation_before_space_summary">Upisivanjem “word ,” dobivate “word, ”. Tipka Backspace poništava pomicanje.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Točka nakon diktiranja</string>
+    <string name="voice_full_stop_summary">Prema zadanim postavkama izostavlja se posljednja točka. Nova rečenica nakon stanke i dalje dobiva točku.</string>
+    <string name="voice_full_stop_next_sentence">Kada počne sljedeća rečenica</string>
+    <string name="voice_full_stop_always">Uvijek</string>
 </resources>

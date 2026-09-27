@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">將標點移到空格前</string>
     <string name="move_punctuation_before_space_summary">輸入「word ,」會得到「word, 」。按退格鍵可復原移動。</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">聽寫後的句號</string>
+    <string name="voice_full_stop_summary">預設省略最後的句號。停頓後開始新句子時，仍會插入句號。</string>
+    <string name="voice_full_stop_next_sentence">下一句開始時</string>
+    <string name="voice_full_stop_always">一律</string>
 </resources>

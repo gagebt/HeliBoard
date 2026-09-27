@@ -58,6 +58,7 @@ fun PreferencesScreen(
         Settings.PREF_VOICE_STOP_ON_KEYBOARD_CLOSE,
         Settings.PREF_VOICE_SAVE_DICTATIONS_TO_HISTORY,
         Settings.PREF_VOICE_PAUSE_SECONDS,
+        Settings.PREF_VOICE_FULL_STOP,
         Settings.PREF_VOICE_SPLIT_SECONDS,
         Settings.PREF_VOICE_SPEECH_SENSITIVITY,
         Settings.PREF_VOICE_PAUSE_AUDIO,
@@ -163,6 +164,13 @@ fun createPreferencesSettings(context: Context) = listOf(
             description = setting.description + " " +
                 stringResource(R.string.pf6_voice_saved_retention, clipboardRetentionLabel(ctx, minutes))
         )
+    },
+    Setting(context, Settings.PREF_VOICE_FULL_STOP, R.string.voice_full_stop,
+        R.string.voice_full_stop_summary) { setting ->
+        ListPreference(setting, listOf(
+            stringResource(R.string.voice_full_stop_next_sentence) to "next_sentence",
+            stringResource(R.string.voice_full_stop_always) to "always"
+        ), Defaults.PREF_VOICE_FULL_STOP)
     },
     Setting(context, Settings.PREF_VOICE_PAUSE_SECONDS, R.string.voice_pause_seconds,
         R.string.voice_pause_seconds_summary) { setting ->

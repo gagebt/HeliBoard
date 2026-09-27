@@ -1624,7 +1624,7 @@ public class LatinIME extends InputMethodService implements
         }
         if (mVoiceController == null) return;
         syncVoiceSettings();
-        if (mVoiceState != null && mVoiceState.phase != RustInputMethodService.Phase.IDLE) {
+        if (mVoiceState != null && mVoiceState.phase == RustInputMethodService.Phase.RECORDING) {
             mVoiceController.stop();
         } else {
             if (mVoiceController.initialize()) {
@@ -1801,7 +1801,7 @@ public class LatinIME extends InputMethodService implements
         mVoiceState = state;
         if (mSuggestionStripView == null) return;
         mSuggestionStripView.setVoiceInputKeyHiddenForRecording(
-                state != null && state.phase != RustInputMethodService.Phase.IDLE);
+                state != null && state.phase == RustInputMethodService.Phase.RECORDING);
         if (state == null || state.phase == RustInputMethodService.Phase.IDLE) {
             if (previous != null && previous.phase != RustInputMethodService.Phase.IDLE) {
                 if (mVoiceRestoreToolbar) mSuggestionStripView.setToolbarVisibility(true);
@@ -1849,6 +1849,11 @@ public class LatinIME extends InputMethodService implements
         if (isRecording && wasRecording && currentControls instanceof LinearLayout
                 && ((LinearLayout) currentControls).getChildCount() == (transcribeVisible ? 2 : 1)) {
             // A status update must not replace a button while a finger is pressing it.
+            if (transcribeVisible) {
+                View transcribe = ((LinearLayout) currentControls).getChildAt(0);
+                transcribe.setEnabled(!state.transcribing);
+                transcribe.setAlpha(state.transcribing ? 0.4f : 1f);
+            }
             currentControls.setContentDescription(state.message + ". "
                     + getString(R.string.dictation_stop));
             return;
@@ -1860,6 +1865,10 @@ public class LatinIME extends InputMethodService implements
             if (transcribeVisible)
                 addVoiceButton(row, R.string.dictation_transcribe_now,
                         R.drawable.ic_voice_draft, () -> mVoiceController.transcribeNow());
+            if (transcribeVisible) {
+                row.getChildAt(0).setEnabled(!state.transcribing);
+                row.getChildAt(0).setAlpha(state.transcribing ? 0.4f : 1f);
+            }
             addVoiceButton(row, R.string.dictation_stop, R.drawable.ic_voice_stop,
                     () -> mVoiceController.stop());
             row.setContentDescription(state.message + ". "

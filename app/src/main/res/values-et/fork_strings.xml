@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Liiguta kirjavahemärgid tühikute ette</string>
     <string name="move_punctuation_before_space_summary">„sõna ,“ sisestamisel saad „sõna, “. Tagasilükkeklahv tühistab liigutamise.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punkt pärast dikteerimist</string>
+    <string name="voice_full_stop_summary">Vaikimisi jäetakse viimane punkt ära. Uus lause pärast pausi saab endiselt punkti.</string>
+    <string name="voice_full_stop_next_sentence">Kui järgmine lause algab</string>
+    <string name="voice_full_stop_always">Alati</string>
 </resources>

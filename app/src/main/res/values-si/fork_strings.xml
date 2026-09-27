@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">විරාම ලකුණු හිස්තැන්වලට පෙර ගෙනයන්න</string>
     <string name="move_punctuation_before_space_summary">“word ,” ටයිප් කළ විට “word, ” ලැබේ. Backspace මඟින් ගෙනයාම අහෝසි කරයි.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">හඬින් ලිවීමෙන් පසු තිත</string>
+    <string name="voice_full_stop_summary">පෙරනිමියෙන් අවසාන තිත ඉවත් කරයි. විරාමයකින් පසු නව වාක්‍යයකට තවමත් තිතක් ලැබේ.</string>
+    <string name="voice_full_stop_next_sentence">ඊළඟ වාක්‍යය ආරම්භ වන විට</string>
+    <string name="voice_full_stop_always">සෑම විටම</string>
 </resources>

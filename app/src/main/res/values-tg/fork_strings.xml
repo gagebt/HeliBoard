@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Аломатҳои китобатро пеш аз фосилаҳо гузаронед</string>
     <string name="move_punctuation_before_space_summary">Навиштани «калима ,» ба «калима, » табдил меёбад. Backspace ҷойивазкуниро бекор мекунад.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Нуқта пас аз дикта</string>
+    <string name="voice_full_stop_summary">Бо нобаёнӣ нуқтаи охирин гузошта намешавад. Ҳангоми оғози ҷумлаи нав пас аз таваққуф нуқта ҳамоно гузошта мешавад.</string>
+    <string name="voice_full_stop_next_sentence">Ҳангоми оғози ҷумлаи навбатӣ</string>
+    <string name="voice_full_stop_always">Ҳамеша</string>
 </resources>

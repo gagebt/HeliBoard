@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">ሥርዓተ ነጥብን ከክፍተት በፊት አንቀሳቅስ</string>
     <string name="move_punctuation_before_space_summary">“ቃል ,” መጻፍ “ቃል, ” ያስገኛል። Backspace ማንቀሳቀሱን ይቀለብሳል።</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">በድምፅ ከመጻፍ በኋላ ነጥብ</string>
+    <string name="voice_full_stop_summary">በነባሪነት የመጨረሻው ነጥብ ይቀራል። ከእረፍት በኋላ አዲስ ዓረፍተ ነገር ሲጀምር ነጥብ አሁንም ይጨመራል።</string>
+    <string name="voice_full_stop_next_sentence">ቀጣዩ ዓረፍተ ነገር ሲጀምር</string>
+    <string name="voice_full_stop_always">ሁልጊዜ</string>
 </resources>

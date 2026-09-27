@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Skuif leestekens voor spasies</string>
     <string name="move_punctuation_before_space_summary">As jy “word ,” tik, kry jy “word, ”. Backspace maak die skuif ongedaan.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Punt ná diktaat</string>
+    <string name="voice_full_stop_summary">Die verstek laat die laaste punt weg. ’n Nuwe sin ná ’n pouse kry steeds ’n punt.</string>
+    <string name="voice_full_stop_next_sentence">Wanneer die volgende sin begin</string>
+    <string name="voice_full_stop_always">Altyd</string>
 </resources>

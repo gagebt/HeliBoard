@@ -134,4 +134,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Satzzeichen vor Leerzeichen verschieben</string>
     <string name="move_punctuation_before_space_summary">Aus „Wort ,“ wird „Wort, “. Die Rücktaste macht das Verschieben rückgängig.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punkt nach dem Diktat</string>
+    <string name="voice_full_stop_summary">Standardmäßig entfällt der letzte Punkt. Ein neuer Satz nach einer Pause erhält weiterhin einen Punkt.</string>
+    <string name="voice_full_stop_next_sentence">Wenn der nächste Satz beginnt</string>
+    <string name="voice_full_stop_always">Immer</string>
 </resources>

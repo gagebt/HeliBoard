@@ -136,4 +136,9 @@
     <string name="voice_status_saved_damaged">Asusru yettwasekelsen yexser</string>
     <string name="voice_status_saved_unreadable">Asusru yettwasekelsen ur yettwaɣra ara</string>
     <string name="voice_status_uncertain">Tangenṭṭut yettwasekelsen tella; asekcem ur yettwasentem ara</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Taneqqiḍt seld usenṭeq</string>
+    <string name="voice_full_stop_summary">S wudem amezwer, taneqqiḍt taneggarut tettwakkes. Mi ara tebdu tefyirt tamaynut seld usgunfu, tettwarna mazal taneqqiḍt.</string>
+    <string name="voice_full_stop_next_sentence">Mi ara tebdu tefyirt i d-iteddun</string>
+    <string name="voice_full_stop_always">Yal tikelt</string>
 </resources>

@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">句読点を空白の前に移動</string>
     <string name="move_punctuation_before_space_summary">「word ,」と入力すると「word, 」になります。Backspaceで移動を元に戻せます。</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">音声入力後の句点</string>
+    <string name="voice_full_stop_summary">既定では最後の句点を省きます。間を置いて次の文を始めると、句点が挿入されます。</string>
+    <string name="voice_full_stop_next_sentence">次の文が始まるとき</string>
+    <string name="voice_full_stop_always">常に</string>
 </resources>

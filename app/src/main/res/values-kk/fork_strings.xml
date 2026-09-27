@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Тыныс белгілерін бос орындардың алдына жылжыту</string>
     <string name="move_punctuation_before_space_summary">“word ,” тергенде “word, ” шығады. Backspace жылжытуды болдырмайды.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Диктанттан кейінгі нүкте</string>
+    <string name="voice_full_stop_summary">Әдепкіде соңғы нүкте қойылмайды. Үзілістен кейінгі жаңа сөйлемге нүкте бәрібір қойылады.</string>
+    <string name="voice_full_stop_next_sentence">Келесі сөйлем басталғанда</string>
+    <string name="voice_full_stop_always">Әрқашан</string>
 </resources>

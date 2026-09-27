@@ -134,4 +134,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Pindahkan tanda baca sebelum spasi</string>
     <string name="move_punctuation_before_space_summary">Mengetik “kata ,” menghasilkan “kata, ”. Backspace membatalkan pemindahan.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Titik setelah dikte</string>
+    <string name="voice_full_stop_summary">Secara default, titik terakhir dihilangkan. Kalimat baru setelah jeda tetap mendapat titik.</string>
+    <string name="voice_full_stop_next_sentence">Saat kalimat berikutnya dimulai</string>
+    <string name="voice_full_stop_always">Selalu</string>
 </resources>

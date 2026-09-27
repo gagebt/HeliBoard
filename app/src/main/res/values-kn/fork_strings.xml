@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">ವಿರಾಮಚಿಹ್ನೆಗಳನ್ನು ಖಾಲಿ ಜಾಗಗಳ ಮೊದಲು ಸರಿಸಿ</string>
     <string name="move_punctuation_before_space_summary">“word ,” ಎಂದು ಟೈಪ್ ಮಾಡಿದಾಗ “word, ” ಆಗುತ್ತದೆ. Backspace ಸರಿಸುವಿಕೆಯನ್ನು ರದ್ದುಗೊಳಿಸುತ್ತದೆ.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">ಧ್ವನಿ ಬರವಣಿಗೆಯ ನಂತರ ಪೂರ್ಣವಿರಾಮ</string>
+    <string name="voice_full_stop_summary">ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ಕೊನೆಯ ಪೂರ್ಣವಿರಾಮವನ್ನು ಬಿಡಲಾಗುತ್ತದೆ. ವಿರಾಮದ ನಂತರದ ಹೊಸ ವಾಕ್ಯಕ್ಕೆ ಇನ್ನೂ ಪೂರ್ಣವಿರಾಮ ಸಿಗುತ್ತದೆ.</string>
+    <string name="voice_full_stop_next_sentence">ಮುಂದಿನ ವಾಕ್ಯ ಪ್ರಾರಂಭವಾದಾಗ</string>
+    <string name="voice_full_stop_always">ಯಾವಾಗಲೂ</string>
 </resources>

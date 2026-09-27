@@ -132,4 +132,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Déplacer la ponctuation avant les espaces</string>
     <string name="move_punctuation_before_space_summary">Saisir “word ,” donne “word, ”. La touche de retour arrière annule le déplacement.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Point après la dictée</string>
+    <string name="voice_full_stop_summary">Par défaut, le dernier point est omis. Une nouvelle phrase après une pause reçoit toujours un point.</string>
+    <string name="voice_full_stop_next_sentence">Au début de la phrase suivante</string>
+    <string name="voice_full_stop_always">Toujours</string>
 </resources>

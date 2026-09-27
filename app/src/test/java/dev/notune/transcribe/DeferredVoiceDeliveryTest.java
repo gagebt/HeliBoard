@@ -46,6 +46,55 @@ public class DeferredVoiceDeliveryTest {
         new File(base.getPath() + ".new").delete();
     }
 
+    @Test public void defaultPartAndStopLeaveTheFinalDotForKeyboardPunctuation() throws Exception {
+        FakeEditor editor = new FakeEditor("");
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "alwaysFullStop", false);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Send me the address, please.", 0));
+        assertEquals("Send me the address, please", editor.text.toString().trim());
+        voice.onDictationComplete(SESSION, 0, "Send me the address, please.", "");
+        assertEquals("Send me the address, please", editor.text.toString().trim());
+    }
+
+    @Test public void questionMarkIsPresentBeforeTheNextUserEdit() throws Exception {
+        FakeEditor editor = new FakeEditor("");
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "alwaysFullStop", false);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "What do you think?", 0));
+        assertEquals("What do you think? ", editor.text.toString());
+        editor.replaceSelection("Yes"); voice.onUserEdit();
+        voice.onDictationComplete(SESSION, 0, "What do you think?", "");
+        assertEquals("What do you think? Yes", editor.text.toString());
+    }
+
+    @Test public void cursorMoveNeverDropsTheSeparatorBeforeExistingText() throws Exception {
+        FakeEditor editor = new FakeEditor("Existing paragraph 0000"); editor.cursor = 0;
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "alwaysFullStop", false);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Second point, the venue is booked.", 0));
+        assertTrue(editor.text.toString().contains("booked Existing paragraph"));
+        editor.cursor = editor.text.length(); voice.onUserEdit();
+        voice.onDictationComplete(SESSION, 0, "Second point, the venue is booked.", "");
+        assertTrue(editor.text.toString().contains("booked Existing paragraph"));
+    }
+
+    @Test public void automaticCloseKeepsTheConfirmedFinalTailCopyable() throws Exception {
+        FakeEditor editor = new FakeEditor("");
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "alwaysFullStop", false);
+        voice.onInputViewFinished(true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Thanks a lot.", 0));
+        voice.onDictationComplete(SESSION, 0, "Thanks a lot.", "");
+        assertTrue(host.state.canCopy);
+        assertTrue(voice.copyDraft());
+        assertTrue(clip().startsWith("Thanks a lot"));
+        assertFalse(host.state.canCopy);
+    }
+
     @Test public void copyOffersOnlyNewestRecordingAndDoesNotWalkBackThroughOlderOnes() throws Exception {
         FakeEditor editor = new FakeEditor(""); editor.accepts = false;
         FakeHost host = new FakeHost(editor); host.ready = true;
@@ -139,7 +188,7 @@ public class DeferredVoiceDeliveryTest {
         editor.replaceSelection("hello");
         host.ready = true;
         voice.resumePendingDelivery();
-        assertEquals("hello world", editor.text.toString());
+        assertEquals("hello world ", editor.text.toString());
         assertEquals(1, editor.commits);
 
         voice.onDictationComplete(SESSION, 0, "World.", "");
@@ -226,8 +275,8 @@ public class DeferredVoiceDeliveryTest {
         host.editor = record;                  // the same field returns unchanged
         voice.onEditorStarted(false);
         assertEquals("Note: buy milk. ", editor.text.toString().replace("Buy", "buy"));
-        assertFalse(host.state.canCopy);
-        assertFalse(draftPath().exists());
+        assertTrue(host.state.canCopy); // Automatic close now keeps even confirmed text copyable.
+        assertTrue(draftPath().exists());
     }
 
     @Test public void homeShowsTheLauncherAndTheSameDocumentStillReceivesTheWords() throws Exception {
@@ -250,7 +299,7 @@ public class DeferredVoiceDeliveryTest {
         host.switchTo(editor, record);          // the same note comes back unchanged
         voice.onEditorStarted(false);
         assertEquals("note: buy milk. and eggs. ", editor.text.toString().toLowerCase());
-        assertFalse(host.state.canCopy);
+        assertTrue(host.state.canCopy); // Automatic close now keeps even confirmed text copyable.
     }
 
     @Test public void lockScreenReturnDeliversAlthoughTheFieldWasUnreadableWhenLeft() throws Exception {
@@ -274,7 +323,7 @@ public class DeferredVoiceDeliveryTest {
         host.switchTo(editor, record);          // unlock: the same note, unchanged
         voice.onEditorStarted(false);
         assertEquals("note: buy milk. and eggs. ", editor.text.toString().toLowerCase());
-        assertFalse(host.state.canCopy);
+        assertTrue(host.state.canCopy); // Automatic close now keeps even confirmed text copyable.
 
         // Opposite: the note changed while away, so the words go to Copy instead.
         FakeEditor other = new FakeEditor("Note: ");
@@ -659,6 +708,125 @@ public class DeferredVoiceDeliveryTest {
         }
     }
 
+    @Test public void earlierCompletionDoesNotStopNewCaptureAndCopyContainsOnlyTheNewRecording() throws Exception {
+        FakeEditor editor = new FakeEditor("");
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "alwaysFullStop", false);
+        Object a = pending(voice, host, SESSION, 1000, false);
+        set(voice, "delivering", a);
+        set(a, "stoppedAt", 2000L);
+        Object b = pending(voice, host, SESSION + 1, 2100, true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Send me the address, please.", 0));
+        voice.onDictationComplete(SESSION, 0, "Send me the address, please.", "");
+        assertEquals(RustInputMethodService.Phase.RECORDING, host.state.phase);
+        assertEquals(SESSION + 1, get(voice, "captureId"));
+        voice.onAutoStop(SESSION);
+        assertEquals(SESSION + 1, get(voice, "captureId"));
+        voice.onTranscriptionBusy(SESSION + 1, true);
+        assertEquals(-1, voice.transcribeNow());
+        voice.onInputViewFinished(true); // Stop must still be possible while inference is busy.
+        assertEquals(0, get(voice, "captureId"));
+        voice.onTranscriptionBusy(SESSION + 1, false);
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "Thanks a lot!", 0));
+        voice.onDictationComplete(SESSION + 1, 0, "Thanks a lot!", "");
+        assertEquals("Send me the address, please thanks a lot! ", editor.text.toString());
+        assertTrue(voice.copyDraft());
+        assertEquals("thanks a lot!", clip().trim());
+    }
+
+    @Test public void nextSentenceReplacesOnlyTheOwnedSpaceAndDoesNotCopyThePreviousDot() throws Exception {
+        FakeEditor editor = new FakeEditor("");
+        FakeHost host = new FakeHost(editor); host.ready = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "alwaysFullStop", false);
+        Object a = pending(voice, host, SESSION, 1000, false);
+        set(voice, "delivering", a); set(a, "stoppedAt", 2000L);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "First point.", 0));
+        voice.onDictationComplete(SESSION, 0, "First point.", "");
+        Object b = pending(voice, host, SESSION + 1, 7000, false);
+        activate(voice, b);
+        voice.onInputViewFinished(true);
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "Second point.", 0));
+        voice.onDictationComplete(SESSION + 1, 0, "Second point.", "");
+        assertEquals("First point. Second point ", editor.text.toString());
+        assertTrue(voice.copyDraft());
+        assertEquals("Second point", clip().trim());
+    }
+
+    @Test public void queuedAcknowledgedWordsSurviveRestartAndReplayAfterTheFingerLifts() throws Exception {
+        FakeEditor editor = new FakeEditor("");
+        FakeHost host = new FakeHost(editor); host.ready = false;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "alwaysFullStop", false);
+        Object a = pending(voice, host, SESSION, 1000, false);
+        set(voice, "delivering", a); set(a, "stoppedAt", 2000L);
+        Object b = pending(voice, host, SESSION + 1, 2200, true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "First point.", 0));
+        voice.onDictationComplete(SESSION, 0, "First point.", "");
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "Second point.", 0));
+        assertEquals("Second point.", savedDraft().text);
+        FakeHost restoredHost = new FakeHost(new FakeEditor(""));
+        RustInputMethodService restored = new RustInputMethodService(context, restoredHost);
+        assertTrue(restored.copyDraft());
+        assertEquals("Second point.", clip());
+        voice.onInputViewFinished(true);
+        voice.onDictationComplete(SESSION + 1, 0, "Second point.", "");
+        assertEquals("", editor.text.toString());
+        host.ready = true; voice.resumePendingDelivery();
+        assertEquals("First point second point ", editor.text.toString());
+        assertTrue(voice.copyDraft());
+        assertEquals("second point", clip().trim());
+    }
+
+    @Test public void queuedNewFieldKeepsItsBindingAcrossCloseAndReopen() throws Exception {
+        FakeEditor first = new FakeEditor("");
+        FakeHost host = new FakeHost(first); host.ready = true;
+        RustInputMethodService voice = recording(host, first, SESSION);
+        set(voice, "alwaysFullStop", false);
+        Object a = pending(voice, host, SESSION, 1000, false);
+        set(voice, "delivering", a); set(a, "stoppedAt", 2000L);
+        set(voice, "captureId", 0L); set(voice, "recording", false);
+        FakeEditor second = new FakeEditor("New note: ");
+        host.switchTo(second, new EditorRecord("second.app", 9, TEXT, 0, false));
+        voice.onEditorStarted(false);
+        long binding = get(voice, "bindingGeneration");
+        pending(voice, host, SESSION + 1, 2200, true);
+        voice.onInputViewFinished(true);
+        voice.onEditorStarted(true);
+        voice.onEditorStarted(false);
+        assertEquals(binding, get(voice, "bindingGeneration"));
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Old field words.", 0));
+        voice.onDictationComplete(SESSION, 0, "Old field words.", "");
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "New field words.", 0));
+        voice.onDictationComplete(SESSION + 1, 0, "New field words.", "");
+        assertEquals("", first.text.toString());
+        assertEquals("New note: New field words ", second.text.toString());
+        assertTrue(voice.copyDraft());
+        assertEquals("New field words", clip().trim());
+    }
+
+    private Object pending(RustInputMethodService voice, FakeHost host, long id, long started,
+                           boolean enqueue) throws Exception {
+        Class<?> type = Class.forName(RustInputMethodService.class.getName() + "$Recording");
+        java.lang.reflect.Constructor<?> ctor = type.getDeclaredConstructors()[0];
+        ctor.setAccessible(true);
+        Object item = ctor.newInstance(new VoiceInterval(id, host.editor,
+                get(voice, "bindingGeneration")), false);
+        set(item, "startedAt", started);
+        set(voice, "captureId", id); set(voice, "recording", true);
+        if (enqueue) {
+            Field field = voice.getClass().getDeclaredField("waiting"); field.setAccessible(true);
+            ((ArrayList<Object>) field.get(voice)).add(item);
+        }
+        return item;
+    }
+
+    private void activate(RustInputMethodService voice, Object item) throws Exception {
+        java.lang.reflect.Method method = voice.getClass().getDeclaredMethod("activate", item.getClass());
+        method.setAccessible(true); method.invoke(voice, item);
+    }
+
     private String clip() {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         return clipboard.getPrimaryClip().getItemAt(0).getText().toString();
@@ -690,6 +858,9 @@ public class DeferredVoiceDeliveryTest {
     private RustInputMethodService recording(FakeHost host, FakeEditor editor, long id,
                                              RustInputMethodService voice) throws Exception {
         set(voice, "activeSessionId", id);
+        set(voice, "captureId", id);
+        // Existing scenarios retain the selectable old mode. New policy cases override it.
+        set(voice, "alwaysFullStop", true);
         set(voice, "nextPieceSequence", 0L);
         set(voice, "terminal", false);
         set(voice, "recording", true);
@@ -734,7 +905,7 @@ public class DeferredVoiceDeliveryTest {
             text = new StringBuilder(initial);
             cursor = text.length();
             when(connection.getTextBeforeCursor(anyInt(), anyInt()))
-                    .thenAnswer(call -> readable ? before() : null);
+                    .thenAnswer(call -> readable ? before().substring(Math.max(0, cursor - (int) call.getArgument(0))) : null);
             when(connection.getTextAfterCursor(anyInt(), anyInt()))
                     .thenAnswer(call -> readable ? after() : null);
             when(connection.getExtractedText(any(ExtractedTextRequest.class), anyInt()))
@@ -747,6 +918,12 @@ public class DeferredVoiceDeliveryTest {
                         result.selectionEnd = cursor;
                         return result;
                     });
+            when(connection.deleteSurroundingText(anyInt(), anyInt())).thenAnswer(call -> {
+                int count = call.getArgument(0);
+                if (!accepts || count > cursor) return false;
+                if (reflects) { text.delete(cursor - count, cursor); cursor -= count; }
+                return true;
+            });
             when(connection.commitText(any(CharSequence.class), anyInt()))
                     .thenAnswer(call -> {
                         if (!accepts) return false;

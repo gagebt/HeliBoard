@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">വിരാമചിഹ്നങ്ങൾ സ്പേസുകൾക്ക് മുമ്പിലേക്ക് നീക്കുക</string>
     <string name="move_punctuation_before_space_summary">“word ,” ടൈപ്പ് ചെയ്താൽ “word, ” ലഭിക്കും. Backspace സ്ഥാനം മാറ്റൽ പഴയപടിയാക്കുന്നു.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">ശബ്ദം വഴി എഴുതിയ ശേഷം പൂർണ്ണവിരാമം</string>
+    <string name="voice_full_stop_summary">സ്വതവേ അവസാനത്തെ പൂർണ്ണവിരാമം ഒഴിവാക്കുന്നു. ഇടവേളയ്ക്ക് ശേഷമുള്ള പുതിയ വാക്യത്തിന് അപ്പോഴും പൂർണ്ണവിരാമം ലഭിക്കും.</string>
+    <string name="voice_full_stop_next_sentence">അടുത്ത വാക്യം ആരംഭിക്കുമ്പോൾ</string>
+    <string name="voice_full_stop_always">എപ്പോഴും</string>
 </resources>

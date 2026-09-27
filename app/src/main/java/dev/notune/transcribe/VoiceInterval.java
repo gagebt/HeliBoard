@@ -24,6 +24,7 @@ public final class VoiceInterval {
     public final long binding;
     String text = "";
     State state = State.STAGED;
+    boolean closeFinalized;
 
     VoiceInterval(long sessionId, EditorRecord destination, long binding) {
         this.sessionId = sessionId;

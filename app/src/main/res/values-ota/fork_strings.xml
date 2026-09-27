@@ -133,4 +133,9 @@
     <string name="move_punctuation_before_space">نقطە علامتلرینی بوشلوقلردن اونجە طاشی</string>
     <string name="move_punctuation_before_space_summary">“كلمە ,” یازمق “كلمە, ” ویرر. گری سیلمە طوشی حركتی گری آلیر.</string>
     <string name="voice_status_nothing_heard">هیچ بر شی دویولمادی</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">املادن صوڭرا نقطە</string>
+    <string name="voice_full_stop_summary">اوصیلە گورە صوڭ نقطە قوینماز. دوراقلامدن صوڭرا یڭی جملە باشلاینجا نقطە یینە قوینور.</string>
+    <string name="voice_full_stop_next_sentence">صوڭراکی جملە باشلاینجا</string>
+    <string name="voice_full_stop_always">دائما</string>
 </resources>

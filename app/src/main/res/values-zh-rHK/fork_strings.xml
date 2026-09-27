@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">將標點符號移到空格前</string>
     <string name="move_punctuation_before_space_summary">輸入 “word ,” 會變成 “word, ”。退格鍵可復原移動。</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">語音輸入後的句號</string>
+    <string name="voice_full_stop_summary">預設省略最後的句號。停頓後的新句子仍會加入句號。</string>
+    <string name="voice_full_stop_next_sentence">當下一句開始時</string>
+    <string name="voice_full_stop_always">一律</string>
 </resources>

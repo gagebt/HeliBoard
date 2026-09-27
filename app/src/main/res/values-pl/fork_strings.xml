@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Przenoś znaki interpunkcyjne przed spacje</string>
     <string name="move_punctuation_before_space_summary">Wpisanie “word ,” daje “word, ”. Backspace cofa przeniesienie.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Kropka po dyktowaniu</string>
+    <string name="voice_full_stop_summary">Domyślnie ostatnia kropka jest pomijana. Nowe zdanie po pauzie nadal otrzymuje kropkę.</string>
+    <string name="voice_full_stop_next_sentence">Gdy zaczyna się następne zdanie</string>
+    <string name="voice_full_stop_always">Zawsze</string>
 </resources>

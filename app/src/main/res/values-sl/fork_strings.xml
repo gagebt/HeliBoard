@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Premakni ločila pred presledke</string>
     <string name="move_punctuation_before_space_summary">Z vnosom “word ,” dobite “word, ”. Tipka Backspace razveljavi premik.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Pika po narekovanju</string>
+    <string name="voice_full_stop_summary">Privzeto je zadnja pika izpuščena. Nov stavek po premoru še vedno dobi piko.</string>
+    <string name="voice_full_stop_next_sentence">Ko se začne naslednji stavek</string>
+    <string name="voice_full_stop_always">Vedno</string>
 </resources>

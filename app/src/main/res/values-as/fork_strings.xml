@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">বিৰাম চিহ্ন খালী ঠাইৰ আগলৈ নিয়ক</string>
     <string name="move_punctuation_before_space_summary">“শব্দ ,” লিখিলে “শব্দ, ” হয়। Backspace-এ এই স্থানান্তৰ বাতিল কৰে।</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">শ্ৰুতলিখনৰ পিছত পূৰ্ণচ্ছেদ</string>
+    <string name="voice_full_stop_summary">অবিকল্পিতভাৱে শেষ পূৰ্ণচ্ছেদ বাদ দিয়া হয়। বিৰতিৰ পিছত নতুন বাক্য আৰম্ভ হ’লে পূৰ্ণচ্ছেদ তথাপিও দিয়া হয়।</string>
+    <string name="voice_full_stop_next_sentence">পৰৱৰ্তী বাক্য আৰম্ভ হ’লে</string>
+    <string name="voice_full_stop_always">সদায়</string>
 </resources>

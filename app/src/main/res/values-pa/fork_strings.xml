@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">ਵਿਰਾਮ ਚਿੰਨ੍ਹ ਖਾਲੀ ਥਾਵਾਂ ਤੋਂ ਪਹਿਲਾਂ ਲਿਜਾਓ</string>
     <string name="move_punctuation_before_space_summary">“word ,” ਟਾਈਪ ਕਰਨ ਨਾਲ “word, ” ਮਿਲਦਾ ਹੈ। Backspace ਇਸ ਤਬਦੀਲੀ ਨੂੰ ਵਾਪਸ ਕਰਦਾ ਹੈ।</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">ਬੋਲ ਕੇ ਲਿਖਣ ਤੋਂ ਬਾਅਦ ਪੂਰਨ ਵਿਰਾਮ</string>
+    <string name="voice_full_stop_summary">ਮੂਲ ਸੈਟਿੰਗ ਆਖਰੀ ਪੂਰਨ ਵਿਰਾਮ ਛੱਡ ਦਿੰਦੀ ਹੈ। ਵਿਰਾਮ ਤੋਂ ਬਾਅਦ ਨਵੇਂ ਵਾਕ ਨੂੰ ਫਿਰ ਵੀ ਪੂਰਨ ਵਿਰਾਮ ਮਿਲਦਾ ਹੈ।</string>
+    <string name="voice_full_stop_next_sentence">ਜਦੋਂ ਅਗਲਾ ਵਾਕ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ</string>
+    <string name="voice_full_stop_always">ਹਮੇਸ਼ਾ</string>
 </resources>

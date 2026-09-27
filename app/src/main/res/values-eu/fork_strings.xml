@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Mugitu puntuazioa zuriuneen aurretik</string>
     <string name="move_punctuation_before_space_summary">“word ,” idaztean “word, ” lortzen da. Atzera-tekla sakatzeak mugimendua desegiten du.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Puntua diktaketaren ondoren</string>
+    <string name="voice_full_stop_summary">Lehenespenez azken puntua ez da jartzen. Eten baten ondorengo esaldi berriak puntua jasotzen du oraindik.</string>
+    <string name="voice_full_stop_next_sentence">Hurrengo esaldia hasten denean</string>
+    <string name="voice_full_stop_always">Beti</string>
 </resources>

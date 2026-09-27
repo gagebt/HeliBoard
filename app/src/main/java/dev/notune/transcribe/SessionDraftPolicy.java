@@ -50,6 +50,7 @@ final class SessionDraftPolicy {
     static boolean copyOffered(VoiceInterval interval, EditorRecord current, long currentBinding) {
         if (interval == null || current == null || !hasLetterOrDigit(interval.text)) return false;
         boolean own = interval.binding >= 0 && interval.binding == currentBinding;
+        if (interval.closeFinalized) return own || !interval.privateOrigin() && !current.privateField;
         if (interval.state == VoiceInterval.State.UNCONFIRMED) return own;
         if (interval.state != VoiceInterval.State.UNDELIVERED) return false;
         return own || !interval.privateOrigin() && !current.privateField;

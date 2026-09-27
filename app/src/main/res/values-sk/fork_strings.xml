@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Presúvať interpunkciu pred medzery</string>
     <string name="move_punctuation_before_space_summary">Pri písaní „slovo ,“ vznikne „slovo, “. Backspace zruší presunutie.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Bodka po diktovaní</string>
+    <string name="voice_full_stop_summary">Predvolene sa posledná bodka vynechá. Pri začiatku novej vety po prestávke sa bodka stále vloží.</string>
+    <string name="voice_full_stop_next_sentence">Keď sa začne ďalšia veta</string>
+    <string name="voice_full_stop_always">Vždy</string>
 </resources>

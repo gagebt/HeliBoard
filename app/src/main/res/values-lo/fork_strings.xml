@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">ຍ້າຍເຄື່ອງໝາຍວັກຕອນໄວ້ກ່ອນຍະຫວ່າງ</string>
     <string name="move_punctuation_before_space_summary">ພິມ “word ,” ຈະໄດ້ “word, ”. ປຸ່ມ Backspace ຈະຍົກເລີກການຍ້າຍ.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">ຈຸດຫຼັງການປ້ອນດ້ວຍສຽງ</string>
+    <string name="voice_full_stop_summary">ຄ່າເລີ່ມຕົ້ນຈະບໍ່ໃສ່ຈຸດສຸດທ້າຍ. ປະໂຫຍກໃໝ່ຫຼັງຈາກຢຸດພັກຍັງຄົງມີຈຸດ.</string>
+    <string name="voice_full_stop_next_sentence">ເມື່ອປະໂຫຍກຕໍ່ໄປເລີ່ມຕົ້ນ</string>
+    <string name="voice_full_stop_always">ສະເໝີ</string>
 </resources>

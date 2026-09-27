@@ -132,6 +132,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_GESTURE_INPUT = "gesture_input";
     public static final String PREF_VIBRATION_DURATION_SETTINGS = "vibration_duration_settings";
     public static final String PREF_KEYPRESS_SOUND_VOLUME = "keypress_sound_volume";
+    public static final String PREF_VOICE_FULL_STOP = "voice_full_stop";
     public static final String PREF_VOICE_PAUSE_SECONDS = "voice_pause_seconds";
     public static final String PREF_VOICE_SPLIT_SECONDS = "voice_split_seconds";
     public static final String PREF_VOICE_SPEECH_SENSITIVITY = "voice_speech_sensitivity";

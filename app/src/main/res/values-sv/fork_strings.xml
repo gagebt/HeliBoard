@@ -133,4 +133,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Flytta skiljetecken före blanksteg</string>
     <string name="move_punctuation_before_space_summary">När du skriver ”ord ,” blir det ”ord, ”. Backsteg ångrar flytten.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punkt efter diktering</string>
+    <string name="voice_full_stop_summary">Som standard utelämnas den sista punkten. En ny mening efter en paus får fortfarande en punkt.</string>
+    <string name="voice_full_stop_next_sentence">När nästa mening börjar</string>
+    <string name="voice_full_stop_always">Alltid</string>
 </resources>

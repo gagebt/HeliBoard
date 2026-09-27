@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">انتقال نشانه‌گذاری به پیش از فاصله‌ها</string>
     <string name="move_punctuation_before_space_summary">نوشتن «واژه ,» به «واژه, » تبدیل می‌شود. Backspace این جابه‌جایی را برمی‌گرداند.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">نقطه پس از دیکته</string>
+    <string name="voice_full_stop_summary">به‌طور پیش‌فرض، نقطهٔ آخر حذف می‌شود. با شروع جملهٔ جدید پس از مکث، همچنان نقطه درج می‌شود.</string>
+    <string name="voice_full_stop_next_sentence">هنگام شروع جملهٔ بعدی</string>
+    <string name="voice_full_stop_always">همیشه</string>
 </resources>

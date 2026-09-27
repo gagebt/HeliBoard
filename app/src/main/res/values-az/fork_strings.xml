@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Durğu işarələrini boşluqlardan əvvələ keçir</string>
     <string name="move_punctuation_before_space_summary">“söz ,” yazdıqda “söz, ” alınır. Backspace yerdəyişməni geri qaytarır.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Diktədən sonra nöqtə</string>
+    <string name="voice_full_stop_summary">Standart olaraq son nöqtə buraxılır. Fasilədən sonra yeni cümlə başlayanda nöqtə yenə əlavə olunur.</string>
+    <string name="voice_full_stop_next_sentence">Növbəti cümlə başlayanda</string>
+    <string name="voice_full_stop_always">Həmişə</string>
 </resources>

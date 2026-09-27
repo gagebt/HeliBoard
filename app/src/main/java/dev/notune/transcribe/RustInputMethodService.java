@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.PersistableBundle;
+import android.os.SystemClock;
 import android.util.AtomicFile;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -114,15 +115,17 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         public final boolean error;
         /** A short information line, such as "Nothing heard"; not a failure. */
         public final boolean notice;
+        public final boolean transcribing;
 
         VoiceState(Phase phase, String message, float level, boolean canCopy,
-                   boolean error, boolean notice) {
+                   boolean error, boolean notice, boolean transcribing) {
             this.phase = phase;
             this.message = message;
             this.level = level;
             this.canCopy = canCopy;
             this.error = error;
             this.notice = notice;
+            this.transcribing = transcribing;
         }
     }
 
@@ -142,6 +145,35 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private float level;
 
     private long activeSessionId;
+    /** Capture and delivery have separate owners while an earlier recording finishes. */
+    private long captureId;
+    private long busySessionId;
+    private Recording delivering;
+    private final ArrayList<Recording> waiting = new ArrayList<>();
+    private int pendingDelete;
+    private boolean crossRecordingTail;
+    private boolean alwaysFullStop;
+    private float firstPiecePause = -1;
+
+    private static final class Recording {
+        final VoiceInterval interval;
+        final boolean saveHistory;
+        final long startedAt;
+        final ArrayList<DeferredPiece> pieces = new ArrayList<>();
+        long stoppedAt;
+        long nextSequence;
+        boolean complete;
+        int outcome;
+        String finalText;
+        String error;
+        EditorSnapshot snapshot;
+
+        Recording(VoiceInterval interval, boolean saveHistory) {
+            this.interval = interval;
+            this.saveHistory = saveHistory;
+            startedAt = SystemClock.elapsedRealtime();
+        }
+    }
     private long nextPieceSequence;
     /** Increases at every started field that does not continue the previous binding. */
     private long bindingGeneration = 1;
@@ -209,44 +241,26 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     /** Starts one recording bound to the current editor record and binding. */
     public boolean start() {
-        if (!initialized || !terminal || !host.isMainThread()) return false;
-        InputConnection connection = host.currentInputConnection();
+        if (!initialized || captureId != 0 || !host.isMainThread()) return false;
         EditorInfo info = host.currentEditorInfo();
         EditorRecord editor = host.currentEditor();
-        if (connection == null || info == null || editor == null) {
+        if (host.currentInputConnection() == null || info == null || editor == null) {
             message = getString(R.string.voice_status_no_field);
             stateError = true;
             publishState();
             return false;
         }
-        // Text of the previous recording that is still waiting for its field becomes a
-        // recovery item of its own; it is never joined into the new recording.
         abandonStagedText();
-        final boolean candidateLeadSpace = !editor.readBackKnown && host.spacePendingBeforeVoice();
-        // Some editors reject HeliBoard composition but still accept a direct commit.
         if (!prepareHostForVoiceCommit()) {
             message = getString(R.string.voice_status_finish_gesture);
             stateError = true;
             publishState();
             return false;
         }
-
-        final long candidateSessionId = Math.max(
-                activeSessionId + 1, Math.max(1, System.nanoTime()));
-        int candidateCapsMode;
-        try {
-            candidateCapsMode = connection.getCursorCapsMode(info.inputType);
-        } catch (Throwable ignored) {
-            candidateCapsMode = 0;
-        }
-        final String candidateBefore = readBefore(connection, editor);
-        final String candidateAfter = readAfter(connection, editor);
-        final EditorSnapshot candidateSnapshot = readSnapshot(connection, editor);
-        final float candidateSentencePauseSeconds = readSentencePauseSeconds();
-
+        final long id = Math.max(activeSessionId + 1, Math.max(1, System.nanoTime()));
         boolean started;
         try {
-            started = startRecording(candidateSessionId);
+            started = startRecording(id);
         } catch (Throwable error) {
             Log.e(TAG, "Could not start recording", error);
             started = false;
@@ -257,47 +271,101 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return false;
         }
-
-        activeSessionId = candidateSessionId;
-        nextPieceSequence = 0;
-        session = new VoiceInterval(candidateSessionId, editor, bindingGeneration);
-        targetLost = false;
-        maySaveCurrentSession = host.maySaveDictation(editor);
-        targetCapsMode = candidateCapsMode;
-        expectedBefore = candidateBefore;
-        expectedAfter = candidateAfter;
-        expectedSelectionStart = selectionStart(candidateSnapshot);
-        expectedSelectionEnd = selectionEnd(candidateSnapshot);
-        sentencePauseSeconds = candidateSentencePauseSeconds;
-        joiner.finish();
-        hasAcceptedPiece = false;
-        leadSpacePending = candidateLeadSpace;
-        numberRefused = false;
+        Recording next = new Recording(new VoiceInterval(id, editor, bindingGeneration),
+                host.maySaveDictation(editor));
+        Log.i(TAG, "Voice capture started: " + id);
+        next.snapshot = readSnapshot(host.currentInputConnection(), editor);
+        captureId = id;
+        recording = true;
+        if (terminal && !completionDeferred && !hasStagedText()) activate(next);
+        else waiting.add(next);
         stateError = false;
         clearNotice();
-        terminal = false;
-        recording = true;
-        autoDeliveryOpen = true;
-        phase = Phase.RECORDING;
         message = getString(R.string.voice_status_listening);
         level = 0;
-        undeliveredText = "";
-        sessionRawText = "";
-        deferredPieces.clear();
-        deferredCopyStart = -1;
-        completionDeferred = false;
         publishState();
         return true;
     }
 
+    /** Begin delivery only after the previous recording has completed its writes. */
+    private void activate(Recording next) {
+        InputConnection connection = host.currentInputConnection();
+        EditorRecord editor = next.interval.destination;
+        boolean sameSpot = session != null && session.binding == next.interval.binding
+                && session.destination.sameField(editor) && !targetLost;
+        if (sameSpot && connection != null) reconcileContinuity(connection);
+        else joiner.abandonHeldTail();
+        long previousStop = delivering == null ? 0 : delivering.stoppedAt;
+        crossRecordingTail = sameSpot && joiner.hasHeldTail() && previousStop > 0;
+        float gap = previousStop > 0 ? Math.max(0, next.startedAt - previousStop) / 1000f : 0;
+        delivering = next;
+        activeSessionId = next.interval.sessionId;
+        session = next.interval;
+        nextPieceSequence = 0;
+        targetLost = session.binding != bindingGeneration;
+        maySaveCurrentSession = next.saveHistory;
+        EditorInfo info = host.currentEditorInfo();
+        try {
+            targetCapsMode = connection == null || info == null ? 0
+                    : connection.getCursorCapsMode(info.inputType);
+        } catch (Throwable ignored) {
+            targetCapsMode = 0;
+        }
+        expectedBefore = readBefore(connection, editor);
+        expectedAfter = readAfter(connection, editor);
+        EditorSnapshot snapshot = readSnapshot(connection, editor);
+        expectedSelectionStart = selectionStart(snapshot);
+        expectedSelectionEnd = selectionEnd(snapshot);
+        sentencePauseSeconds = readSentencePauseSeconds();
+        alwaysFullStop = "always".equals(helium314.keyboard.latin.utils.KtxKt.prefs(this).getString(
+                        helium314.keyboard.latin.settings.Settings.PREF_VOICE_FULL_STOP,
+                        helium314.keyboard.latin.settings.Defaults.PREF_VOICE_FULL_STOP));
+        hasAcceptedPiece = false;
+        leadSpacePending = !editor.readBackKnown && host.spacePendingBeforeVoice();
+        numberRefused = false;
+        terminal = false;
+        autoDeliveryOpen = !targetLost;
+        undeliveredText = "";
+        pendingDelete = 0;
+        sessionRawText = "";
+        session.text = "";
+        deferredPieces.clear();
+        deferredCopyStart = -1;
+        completionDeferred = false;
+        // Capture time, never model latency, decides the boundary between recordings.
+        firstPiecePause = crossRecordingTail ? gap : -1;
+        if (!next.pieces.isEmpty()) {
+            deferredPieces.addAll(next.pieces);
+            next.pieces.clear();
+            for (DeferredPiece piece : deferredPieces) {
+                sessionRawText = joinWords(sessionRawText, piece.text);
+            }
+            session.text = sessionRawText;
+            deferredCopyStart = 0;
+            nextPieceSequence = next.nextSequence;
+            deliverStagedText();
+        }
+        if (next.complete) finishSession(activeSessionId, next.outcome, next.finalText, next.error);
+    }
+
+    private Recording recording(long id) {
+        if (delivering != null && delivering.interval.sessionId == id) return delivering;
+        for (Recording item : waiting) if (item.interval.sessionId == id) return item;
+        return null;
+    }
+
     public boolean stop() {
-        if (terminal || !host.isMainThread()) return false;
+        if (captureId == 0 || !host.isMainThread()) return false;
+        final long id = captureId;
+        Log.i(TAG, "Voice stop requested: " + id);
+        Recording item = recording(id);
+        if (item != null) item.stoppedAt = SystemClock.elapsedRealtime();
+        captureId = 0;
         recording = false;
-        phase = Phase.FINISHING;
         message = getString(R.string.voice_status_finishing);
         boolean accepted;
         try {
-            accepted = stopRecording(activeSessionId);
+            accepted = stopRecording(id);
         } catch (Throwable error) {
             Log.e(TAG, "Could not stop recording", error);
             accepted = false;
@@ -313,9 +381,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
      * the cut held no audio. -1 when nothing was cut.
      */
     public long transcribeNow() {
-        if (terminal || !recording || !host.isMainThread()) return -1;
+        if (captureId == 0 || busySessionId != 0 || !host.isMainThread()) return -1;
         try {
-            return transcribeNowRecording(activeSessionId);
+            return transcribeNowRecording(captureId);
         } catch (Throwable error) {
             Log.e(TAG, "Could not transcribe current audio", error);
             message = getString(R.string.voice_status_transcribe_failed);
@@ -326,13 +394,14 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     }
 
     public boolean cancel() {
-        if (terminal || !host.isMainThread()) return false;
+        if (captureId == 0 || !host.isMainThread()) return false;
+        long id = captureId;
+        captureId = 0;
         recording = false;
-        phase = Phase.FINISHING;
         message = getString(R.string.voice_status_canceling);
         boolean accepted;
         try {
-            accepted = cancelRecording(activeSessionId);
+            accepted = cancelRecording(id);
         } catch (Throwable error) {
             Log.e(TAG, "Could not cancel recording", error);
             accepted = false;
@@ -399,6 +468,14 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             publishState();
             return;
         }
+        Recording viewOwner = waiting.isEmpty() ? null : waiting.get(waiting.size() - 1);
+        if (viewOwner != null && current != null
+                && viewOwner.interval.destination.sameField(current)
+                && (rotating || viewOwner.snapshot != null && viewOwner.snapshot.sameAs(
+                        readSnapshot(host.currentInputConnection(), current)))) {
+            resumePendingDelivery();
+            return;
+        }
         boolean continues = false;
         if (session != null && !targetLost && current != null) {
             InputConnection connection = host.currentInputConnection();
@@ -425,8 +502,10 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             return;
         }
         bindingGeneration++;
+        if (captureId != 0 && captureId != activeSessionId) stop();
         // Unconfirmed text is offered only until the user leaves its field.
-        if (recovery != null && recovery.state == VoiceInterval.State.UNCONFIRMED) {
+        if (recovery != null && recovery.state == VoiceInterval.State.UNCONFIRMED
+                && !recovery.closeFinalized) {
             recovery = null;
         }
         if (session != null && !targetLost && (!terminal || hasStagedText())) {
@@ -443,8 +522,14 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
      */
     public void onUserEdit() {
         if (!host.isMainThread()) return;
-        if (recovery != null && recovery.state == VoiceInterval.State.UNCONFIRMED
-                && recovery.binding == bindingGeneration) {
+        if (session != null && session.binding == bindingGeneration) {
+            joiner.abandonHeldTail();
+            crossRecordingTail = false;
+            firstPiecePause = -1;
+        }
+        rememberWaitingContext();
+        if (recovery != null && (recovery.state == VoiceInterval.State.UNCONFIRMED
+                || recovery.closeFinalized) && recovery.binding == bindingGeneration) {
             recovery = null;
             Log.i(TAG, "User edited the field; unconfirmed voice text no longer offered");
             persist();
@@ -457,13 +542,19 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     }
 
     /** Remember the field when the view closes, and stop if the close policy requires it. */
-    public void onInputViewFinished(boolean stopRecording) {
-        if (!host.isMainThread() || session == null || targetLost) return;
-        InputConnection connection = currentTargetConnection();
-        // Remember the text around the cursor now, so the same document can be recognised
-        // when it comes back.
-        if (connection != null) reconcileContinuity(connection);
-        if (recording && stopRecording) stop();
+    public void onInputViewFinished(boolean stopOnClose) {
+        if (!host.isMainThread()) return;
+        rememberWaitingContext();
+        if (session != null && !targetLost) {
+            InputConnection connection = currentTargetConnection();
+            if (connection != null) reconcileContinuity(connection);
+        }
+        if (recording && stopOnClose) {
+            Recording item = recording(captureId);
+            if (item != null) item.interval.closeFinalized = true;
+            else if (session != null) session.closeFinalized = true;
+            stop();
+        }
     }
 
     @Override public void close() {
@@ -474,6 +565,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             Log.w(TAG, "Native cleanup failed", error);
         }
         initialized = false;
+        captureId = 0;
+        busySessionId = 0;
+        waiting.clear();
         recording = false;
         terminal = true;
         phase = Phase.IDLE;
@@ -493,7 +587,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     public void onDictationStatus(long sessionId, String status) {
         onMain(() -> {
-            if (sessionId != activeSessionId || terminal) return;
+            if (sessionId != (captureId != 0 ? captureId : activeSessionId)) return;
             if (status != null && !status.isEmpty()) Log.i(TAG, "Native dictation status: " + status);
             final int label = "Listening...".equals(status) ? R.string.voice_status_listening
                     : "Transcribing...".equals(status) ? R.string.voice_status_transcribing
@@ -508,15 +602,24 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     public void onDictationLevel(long sessionId, float newLevel) {
         onMain(() -> {
-            if (sessionId != activeSessionId) return;
+            if (sessionId != captureId) return;
             level = newLevel;
         });
     }
 
     public void onAutoStop(long sessionId) {
         onMain(() -> {
-            if (sessionId != activeSessionId || terminal || !recording) return;
+            if (sessionId != captureId || !recording) return;
             stop();
+        });
+    }
+
+    public void onTranscriptionBusy(long sessionId, boolean busy) {
+        onMain(() -> {
+            Log.i(TAG, "Voice inference: " + sessionId + ", busy " + busy);
+            if (busy) busySessionId = sessionId;
+            else if (busySessionId == sessionId) busySessionId = 0;
+            publishState();
         });
     }
 
@@ -552,18 +655,38 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     private boolean acceptPiece(long sessionId, long pieceSequence,
                                 String text, float pauseBeforeSeconds) {
-        if (sessionId != activeSessionId || terminal || text == null
-                || text.trim().isEmpty()) return false;
+        if (text == null || text.trim().isEmpty()) return false;
+        if (sessionId != activeSessionId) {
+            Recording item = recording(sessionId);
+            if (item == null || item.complete) return false;
+            if (pieceSequence < item.nextSequence) return true;
+            String previous = item.interval.text;
+            item.pieces.add(new DeferredPiece(text.trim(), pauseBeforeSeconds));
+            item.interval.text = joinWords(previous, text.trim());
+            if (!persist()) {
+                item.pieces.remove(item.pieces.size() - 1);
+                item.interval.text = previous;
+                return false;
+            }
+            item.nextSequence = pieceSequence + 1;
+            recovery = null;
+            return true;
+        }
+        if (terminal) return false;
         if (pieceSequence < nextPieceSequence) return true;
         final String raw = text.trim();
         final String previousRaw = sessionRawText;
         sessionRawText = joinWords(sessionRawText, raw);
-        if (targetLost) {
+        if (targetLost || !autoDeliveryOpen) {
+            keepHeldTail();
             // The field is gone: the words go to Copy as spoken, not formatted against a
             // field that is not there.
             String previousCopy = session.text;
             VoiceInterval.State previousState = session.state;
-            session.text = joinWords(session.text, raw);
+            String copyPiece = session.destination.kind == TextFitter.FieldKind.PROSE
+                    ? TextFitter.fit(raw, null, null, session.destination.kind, 0, alwaysFullStop).text
+                    : raw;
+            session.text = joinWords(session.text, copyPiece);
             // These words never reached a field.
             session.markUndelivered();
             if (!persist()) {
@@ -607,20 +730,24 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         InputConnection connection = currentTargetConnection();
         if (connection != null) reconcileContinuity(connection);
 
-        String oldTail = joiner.pendingTail();
+        PieceJoiner.PendingTail oldTail = joiner.pendingTail();
         String previousCopy = session.text;
         String previousUndelivered = undeliveredText;
         boolean previousRefused = numberRefused;
-        String candidate = numberChecked(joinPiece(raw, pauseBeforeSeconds,
-                ownedBefore(""), PieceJoiner.capsModeForPiece(targetCapsMode, hasAcceptedPiece)));
-        session.text += candidate;
-        undeliveredText += candidate;
+        int previousDelete = pendingDelete;
+        boolean previousCross = crossRecordingTail;
+        float previousPause = firstPiecePause;
+        appendJoin(joinPiece(raw, pauseBeforeSeconds,
+                PieceJoiner.capsModeForPiece(targetCapsMode, hasAcceptedPiece)));
         if (!persist()) {
             joiner.restorePendingTail(oldTail);
             session.text = previousCopy;
             undeliveredText = previousUndelivered;
             sessionRawText = previousRaw;
             numberRefused = previousRefused;
+            pendingDelete = previousDelete;
+            crossRecordingTail = previousCross;
+            firstPiecePause = previousPause;
             message = getString(R.string.voice_status_save_text_failed);
             stateError = true;
             publishState();
@@ -636,7 +763,22 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     }
 
     private void finishSession(long sessionId, int outcome, String text, String error) {
-        if (sessionId != activeSessionId || terminal) return;
+        Log.i(TAG, "Voice completed: " + sessionId + ", outcome " + outcome);
+        if (sessionId == captureId) {
+            captureId = 0;
+            recording = false;
+        }
+        if (sessionId != activeSessionId) {
+            Recording item = recording(sessionId);
+            if (item == null) return;
+            item.complete = true;
+            item.outcome = outcome;
+            item.finalText = text;
+            item.error = error;
+            publishState();
+            return;
+        }
+        if (terminal) return;
         if (outcome == OUTCOME_SUCCESS && !deferredPieces.isEmpty()) {
             if (host.voiceCommitReady()) deliverStagedText();
             if (!deferredPieces.isEmpty()) {
@@ -648,7 +790,6 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     deferredOutcome = outcome;
                     deferredFinalText = text;
                     deferredError = error;
-                    recording = false;
                     phase = Phase.FINISHING;
                     message = getString(R.string.voice_status_finishing);
                     publishState();
@@ -669,7 +810,6 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         }
         stateError = false;
         terminal = true;
-        recording = false;
         phase = Phase.IDLE;
         level = 0;
 
@@ -677,11 +817,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             InputConnection connection = currentTargetConnection();
             if (connection != null && host.voiceCommitReady()) reconcileContinuity(connection);
             if (deferredPieces.isEmpty()) {
-                String tail = joiner.finish();
-                if (!tail.isEmpty()) {
-                    undeliveredText += tail;
-                    session.text += tail;
-                }
+                appendJoin(joiner.finish(alwaysFullStop, afterStartsSentence()));
             }
             if (hasStagedText()) deliverStagedText();
             if (numberRefused) {
@@ -694,7 +830,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 showNotice(getString(R.string.voice_status_nothing_heard));
             }
         } else if (outcome == OUTCOME_REVIEW) {
-            joiner.finish();
+            joiner.abandonHeldTail();
             dropStagedText();
             if (text != null && !text.trim().isEmpty()) session.text = text;
             session.markUndelivered();
@@ -708,18 +844,18 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             } catch (Throwable cancelError) {
                 Log.w(TAG, "Could not release retry audio", cancelError);
             }
-            joiner.finish();
+            joiner.abandonHeldTail();
             dropStagedText();
             session.markUndelivered();
             if (error != null && !error.isEmpty()) Log.w(TAG, "Native retryable failure: " + error);
             message = getString(R.string.voice_status_failed);
             stateError = true;
         } else if (outcome == OUTCOME_CANCELLED) {
-            joiner.finish();
+            joiner.abandonHeldTail();
             dropStagedText();
             message = getString(R.string.voice_status_canceled);
         } else {
-            joiner.finish();
+            joiner.abandonHeldTail();
             dropStagedText();
             session.markUndelivered();
             if (error != null && !error.isEmpty()) Log.w(TAG, "Native failure: " + error);
@@ -767,9 +903,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             reconcileContinuity(connection);
             if (!stageDeferredPieces()) return;
             if (terminal && !completionDeferred) {
-                String tail = joiner.finish();
-                undeliveredText += tail;
-                session.text += tail;
+                appendJoin(joiner.finish(alwaysFullStop, afterStartsSentence()));
             }
         }
         if (undeliveredText.isEmpty()) {
@@ -780,13 +914,31 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         EditorSnapshot before = readSnapshot(connection, session.destination);
         String sent = leadSpace && !Character.isWhitespace(undeliveredText.charAt(0))
                 ? " " + undeliveredText : undeliveredText;
-        boolean accepted;
+        boolean accepted = false;
+        int deleted = 0;
         try {
+            connection.beginBatchEdit();
+            if (pendingDelete != 0) {
+                CharSequence live = connection.getTextBeforeCursor(2, 0);
+                boolean ownsSpace = live != null && live.length() == 2
+                        && !Character.isWhitespace(live.charAt(0)) && live.charAt(1) == ' '
+                        && (before == null || before.selectionStart == before.selectionEnd);
+                if (ownsSpace) {
+                    if (connection.deleteSurroundingText(1, 0)) deleted = 1;
+                    else throw new IllegalStateException("Voice separator replacement refused");
+                } else if (live == null || live.length() == 0
+                        || Character.isWhitespace(live.charAt(live.length() - 1))) {
+                    // Context cannot prove our space: omit its owed mark, never delete blindly.
+                    sent = sent.replaceFirst("^[.!?] ?", "");
+                }
+            }
             accepted = connection.commitText(sent, 1);
         } catch (Throwable error) {
             Log.w(TAG, "Editor commit failed", error);
-            accepted = false;
+        } finally {
+            try { connection.endBatchEdit(); } catch (Throwable ignored) { }
         }
+        pendingDelete = 0;
         EditorSnapshot after = accepted ? readSnapshot(connection, session.destination) : null;
         finishHostVoiceCommit();
         leadSpacePending = false;
@@ -795,7 +947,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             autoDeliveryOpen = SessionDraftPolicy.deliveryOpenAfterUnconfirmedCommit(false);
             session.markUndelivered();
             message = getString(R.string.voice_status_delivery_rejected);
-        } else if (before == null || after == null || !after.isExactCommitOf(before, sent)) {
+        } else if (before == null || after == null || !after.isExactCommitOf(before, deleted, sent)) {
             // accepted=true alone does not prove the text arrived.
             Log.i(TAG, "Voice commit not confirmed; read-back "
                     + (session.destination.readBackKnown ? "mismatch" : "unknown")
@@ -831,21 +983,19 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     /** Replays saved raw pieces against the cursor after the touch, before any commit. */
     private boolean stageDeferredPieces() {
         String rawCopy = session.text;
-        String oldTail = joiner.pendingTail();
+        PieceJoiner.PendingTail oldTail = joiner.pendingTail();
         boolean oldAccepted = hasAcceptedPiece;
         boolean oldRefused = numberRefused;
+        boolean oldCross = crossRecordingTail;
+        float oldPause = firstPiecePause;
+        int oldDelete = pendingDelete;
+        String oldUndelivered = undeliveredText;
         session.text = rawCopy.substring(0, deferredCopyStart);
-        StringBuilder rendered = new StringBuilder();
         for (DeferredPiece piece : deferredPieces) {
-            String candidate = numberChecked(joinPiece(piece.text, piece.pauseBeforeSeconds,
-                    ownedBefore(rendered.toString()),
+            appendJoin(joinPiece(piece.text, piece.pauseBeforeSeconds,
                     PieceJoiner.capsModeForPiece(targetCapsMode, hasAcceptedPiece)));
-            rendered.append(candidate);
-            session.text += candidate;
             hasAcceptedPiece = true;
         }
-        String oldUndelivered = undeliveredText;
-        undeliveredText += rendered;
         ArrayList<DeferredPiece> oldPieces = new ArrayList<>(deferredPieces);
         deferredPieces.clear();
         if (!persist()) {
@@ -855,6 +1005,9 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             joiner.restorePendingTail(oldTail);
             hasAcceptedPiece = oldAccepted;
             numberRefused = oldRefused;
+            crossRecordingTail = oldCross;
+            firstPiecePause = oldPause;
+            pendingDelete = oldDelete;
             message = getString(R.string.voice_status_save_text_failed);
             stateError = true;
             return false;
@@ -863,16 +1016,56 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         return true;
     }
 
-    private String joinPiece(String text, float pauseBeforeSeconds, CharSequence before,
-                             int capsMode) {
-        return joiner.join(text, pauseBeforeSeconds, before, expectedAfter,
-                session.destination.kind, capsMode, sentencePauseSeconds);
+    private PieceJoiner.Join joinPiece(String text, float pauseBeforeSeconds, int capsMode) {
+        if (firstPiecePause >= 0) {
+            pauseBeforeSeconds = firstPiecePause;
+            firstPiecePause = -1;
+        }
+        PieceJoiner.Join joined = joiner.join(text, pauseBeforeSeconds, ownedBefore(), expectedAfter,
+                session.destination.kind, capsMode, sentencePauseSeconds, alwaysFullStop);
+        if (session.destination.kind == TextFitter.FieldKind.NUMBER && joined.text.isEmpty()) {
+            numberRefused = true;
+        }
+        return joined;
     }
 
-    /** The text voice owns before the cursor: the last reading plus what it has staged. */
-    private CharSequence ownedBefore(String rendered) {
+    /** Apply the same cursor edit to staged text and this recording's Copy text. */
+    private void appendJoin(PieceJoiner.Join join) {
+        if (join.text.isEmpty() && join.deleteBefore == 0) return;
+        String text = numberChecked(join.text);
+        if (join.deleteBefore != 0) {
+            if (undeliveredText.endsWith(" ")) {
+                undeliveredText = undeliveredText.substring(0, undeliveredText.length() - 1);
+            } else {
+                pendingDelete = join.deleteBefore;
+            }
+        }
+        if (!crossRecordingTail) {
+            if (join.deleteBefore != 0 && session.text.endsWith(" ")) {
+                session.text = session.text.substring(0, session.text.length() - 1);
+            }
+            session.text += text;
+        } else {
+            // A's boundary belongs in the field, never in B's latest-recording Copy.
+            String copy = text.startsWith(". ") ? text.substring(2)
+                    : text.startsWith(".") ? text.substring(1) : text;
+            session.text += copy;
+        }
+        crossRecordingTail = false;
+        undeliveredText += text;
+    }
+
+    private CharSequence ownedBefore() {
         if (expectedBefore == null) return null;
-        return expectedBefore + undeliveredText + rendered;
+        int keep = Math.max(0, expectedBefore.length() - pendingDelete);
+        return expectedBefore.substring(0, keep) + undeliveredText;
+    }
+
+    private boolean afterStartsSentence() {
+        if (expectedAfter == null || expectedAfter.isBlank()) return false;
+        int first = expectedAfter.stripLeading().codePointAt(0);
+        return Character.isUpperCase(first) || Character.isDigit(first)
+                || first == '(' || first == '[' || first == '"';
     }
 
     /**
@@ -901,6 +1094,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
 
     private void dropStagedText() {
         undeliveredText = "";
+        pendingDelete = 0;
         deferredPieces.clear();
         deferredCopyStart = -1;
     }
@@ -911,7 +1105,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         targetLost = true;
         autoDeliveryOpen = false;
         message = getString(R.string.voice_status_field_changed);
-        if (recording) stop();
+        if (recording && captureId == activeSessionId) stop();
         if (hasStagedText()) {
             session.markUndelivered();
             dropStagedText();
@@ -929,14 +1123,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
      * field is lost, that mark belongs to the Copy text, right after the formatted words.
      */
     private void keepHeldTail() {
-        String tail = joiner.abandonHeldTail();
-        if (tail.isEmpty()) return;
-        if (deferredPieces.isEmpty() || deferredCopyStart < 0) {
-            session.text += tail;
-        } else if (deferredCopyStart <= session.text.length()) {
-            session.text = session.text.substring(0, deferredCopyStart) + tail.trim()
-                    + session.text.substring(deferredCopyStart);
-        }
+        PieceJoiner.PendingTail tail = joiner.abandonHeldTail();
+        if (!alwaysFullStop || tail.mark.isEmpty()) return;
+        int at = deferredCopyStart >= 0 ? deferredCopyStart : session.text.length();
+        if (tail.ownsSpace && at > 0 && session.text.charAt(at - 1) == ' ') at--;
+        session.text = session.text.substring(0, at) + tail.mark + session.text.substring(at);
     }
 
     /** A finished recording whose words still wait for their field becomes a Copy item. */
@@ -951,21 +1142,32 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     private void settleSession() {
         if (session == null || !terminal || completionDeferred) return;
         if (hasStagedText()) {
-            persist();
-            return;
+            if (waiting.isEmpty()) {
+                persist();
+                return;
+            }
+            // A deliberate newer recording replaces the old field's pending delivery.
+            session.markUndelivered();
+            dropStagedText();
         }
         if (session == settledSession) {
             // Already decided; a Copy the user's edit or a copy removed stays removed.
             persist();
+            promoteWaiting();
             return;
         }
         settledSession = session;
         boolean needsRecovery = session.state == VoiceInterval.State.UNCONFIRMED
-                || session.state == VoiceInterval.State.UNDELIVERED;
+                || session.state == VoiceInterval.State.UNDELIVERED || session.closeFinalized;
         if (SessionDraftPolicy.hasLetterOrDigit(session.text)) {
             recovery = needsRecovery ? session : null;
         }
         persist();
+        promoteWaiting();
+    }
+
+    private void promoteWaiting() {
+        if (!waiting.isEmpty()) activate(waiting.remove(0));
     }
 
     /** The newest result offered in the current field, or null. */
@@ -997,7 +1199,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 before, after, selectionStart(snapshot), selectionEnd(snapshot));
         boolean abandonedTail = false;
         if (changed) {
-            abandonedTail = !joiner.abandonHeldTail().isEmpty();
+            abandonedTail = !joiner.abandonHeldTail().mark.isEmpty();
             hasAcceptedPiece = false;
             EditorInfo info = host.currentEditorInfo();
             try {
@@ -1026,6 +1228,19 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
         int selectionEnd = selectionEnd(snapshot);
         if (selectionStart >= 0) expectedSelectionStart = selectionStart;
         if (selectionEnd >= 0) expectedSelectionEnd = selectionEnd;
+        rememberWaitingContext();
+    }
+
+    private void rememberWaitingContext() {
+        EditorRecord current = host.currentEditor();
+        if (current == null) return;
+        for (Recording item : waiting) {
+            if (item.interval.binding == bindingGeneration
+                    && item.interval.destination.sameField(current)) {
+                EditorSnapshot snapshot = readSnapshot(host.currentInputConnection(), current);
+                if (snapshot != null) item.snapshot = snapshot;
+            }
+        }
     }
 
     private boolean prepareHostForVoiceCommit() {
@@ -1107,21 +1322,37 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
      */
     private boolean persist() {
         PendingDictationDraft wanted = null;
-        if (session != null && !session.privateOrigin()
+        for (int i = waiting.size() - 1; i >= 0; i--) {
+            Recording item = waiting.get(i);
+            if (item.interval.privateOrigin() || !SessionDraftPolicy.hasLetterOrDigit(item.interval.text)) continue;
+            wanted = new PendingDictationDraft(item.interval.sessionId, item.nextSequence,
+                    PendingDictationDraft.PENDING, item.interval.text);
+            break;
+        }
+        if (wanted == null && session != null && !session.privateOrigin()
                 && (hasStagedText() || session != settledSession
                 && session.state == VoiceInterval.State.UNDELIVERED)) {
-            String text = session.text + joiner.pendingTail();
+            String text = copyTextWithPendingMark();
             if (SessionDraftPolicy.hasLetterOrDigit(text)) {
                 wanted = new PendingDictationDraft(session.sessionId, nextPieceSequence,
                         PendingDictationDraft.PENDING, text);
             }
         }
         if (wanted == null && recovery != null
-                && recovery.state == VoiceInterval.State.UNDELIVERED && !recovery.privateOrigin()) {
+                && (recovery.state == VoiceInterval.State.UNDELIVERED || recovery.closeFinalized)
+                && !recovery.privateOrigin()) {
             wanted = new PendingDictationDraft(recovery.sessionId, 0,
                     PendingDictationDraft.INTERRUPTED, recovery.text);
         }
         return wanted == null ? clearDraftFile() : writeDraft(wanted);
+    }
+
+    private String copyTextWithPendingMark() {
+        PieceJoiner.PendingTail tail = joiner.pendingTail();
+        if (!alwaysFullStop || tail.mark.isEmpty()) return session.text;
+        int at = deferredCopyStart >= 0 ? deferredCopyStart : session.text.length();
+        if (tail.ownsSpace && at > 0 && session.text.charAt(at - 1) == ' ') at--;
+        return session.text.substring(0, at) + tail.mark + session.text.substring(at);
     }
 
     private boolean writeDraft(PendingDictationDraft draft) {
@@ -1204,8 +1435,11 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
     }
 
     private void publishState() {
+        phase = recording ? Phase.RECORDING
+                : !terminal || !waiting.isEmpty() ? Phase.FINISHING : Phase.IDLE;
         boolean canCopy = terminal && phase == Phase.IDLE && offeredRecovery() != null;
-        host.postVoiceState(new VoiceState(phase, message, level, canCopy, stateError, notice));
+        host.postVoiceState(new VoiceState(phase, message, level, canCopy, stateError, notice,
+                busySessionId != 0));
     }
 
     private static final class EditorSnapshot {
@@ -1221,14 +1455,21 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             this.selectionEnd = selectionEnd;
         }
 
-        boolean isExactCommitOf(EditorSnapshot before, String inserted) {
+        boolean sameAs(EditorSnapshot other) {
+            return other != null && startOffset == other.startOffset
+                    && selectionStart == other.selectionStart && selectionEnd == other.selectionEnd
+                    && text.equals(other.text);
+        }
+
+        boolean isExactCommitOf(EditorSnapshot before, int deleted, String inserted) {
             if (before == null || startOffset != before.startOffset
                     || !valid() || !before.valid()) return false;
             int start = Math.min(before.selectionStart, before.selectionEnd);
             int end = Math.max(before.selectionStart, before.selectionEnd);
-            String expected = before.text.substring(0, start) + inserted
+            if (deleted < 0 || start < deleted) return false;
+            String expected = before.text.substring(0, start - deleted) + inserted
                     + before.text.substring(end);
-            int cursor = start + inserted.length();
+            int cursor = start - deleted + inserted.length();
             return expected.equals(text) && selectionStart == cursor && selectionEnd == cursor;
         }
 

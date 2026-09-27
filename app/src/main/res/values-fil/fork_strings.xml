@@ -133,4 +133,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Ilipat ang bantas bago ang mga espasyo</string>
     <string name="move_punctuation_before_space_summary">Ang pag-type ng “salita ,” ay nagiging “salita, ”. Binabawi ng Backspace ang paglipat.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Tuldok pagkatapos ng pagdidikta</string>
+    <string name="voice_full_stop_summary">Bilang default, inaalis ang huling tuldok. May tuldok pa rin kapag nagsimula ang bagong pangungusap pagkatapos ng paghinto.</string>
+    <string name="voice_full_stop_next_sentence">Kapag nagsimula ang susunod na pangungusap</string>
+    <string name="voice_full_stop_always">Palagi</string>
 </resources>

@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Alihkan tanda baca sebelum ruang</string>
     <string name="move_punctuation_before_space_summary">Menaip “perkataan ,” menghasilkan “perkataan, ”. Backspace membatalkan pengalihan.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Noktah selepas imlak</string>
+    <string name="voice_full_stop_summary">Secara lalai, noktah terakhir ditinggalkan. Ayat baharu selepas jeda masih mendapat noktah.</string>
+    <string name="voice_full_stop_next_sentence">Apabila ayat seterusnya bermula</string>
+    <string name="voice_full_stop_always">Sentiasa</string>
 </resources>

@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">ย้ายเครื่องหมายวรรคตอนไปไว้ก่อนช่องว่าง</string>
     <string name="move_punctuation_before_space_summary">พิมพ์ “word ,” แล้วจะได้ “word, ” ปุ่ม Backspace ยกเลิกการย้าย</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">จุดหลังการป้อนด้วยเสียง</string>
+    <string name="voice_full_stop_summary">ค่าเริ่มต้นจะไม่ใส่จุดสุดท้าย ประโยคใหม่หลังการหยุดพักยังคงได้รับจุด</string>
+    <string name="voice_full_stop_next_sentence">เมื่อประโยคถัดไปเริ่มต้น</string>
+    <string name="voice_full_stop_always">เสมอ</string>
 </resources>

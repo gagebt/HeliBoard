@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">העברת סימני פיסוק לפני רווחים</string>
     <string name="move_punctuation_before_space_summary">הקלדת “word ,” יוצרת “word, ”. מקש Backspace מבטל את ההעברה.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">נקודה לאחר הכתבה</string>
+    <string name="voice_full_stop_summary">כברירת מחדל, הנקודה האחרונה מושמטת. משפט חדש לאחר הפסקה עדיין מקבל נקודה.</string>
+    <string name="voice_full_stop_next_sentence">בתחילת המשפט הבא</string>
+    <string name="voice_full_stop_always">תמיד</string>
 </resources>

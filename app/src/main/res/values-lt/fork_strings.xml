@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Perkelti skyrybos ženklus prieš tarpus</string>
     <string name="move_punctuation_before_space_summary">Įvedus „žodis ,“ gaunama „žodis, “. Backspace atšaukia perkėlimą.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Taškas po diktavimo</string>
+    <string name="voice_full_stop_summary">Pagal numatytąją nuostatą paskutinis taškas praleidžiamas. Naujas sakinys po pauzės vis tiek gauna tašką.</string>
+    <string name="voice_full_stop_next_sentence">Kai prasideda kitas sakinys</string>
+    <string name="voice_full_stop_always">Visada</string>
 </resources>

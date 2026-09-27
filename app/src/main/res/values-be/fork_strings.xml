@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Пераносіць знакі прыпынку перад прабеламі</string>
     <string name="move_punctuation_before_space_summary">Увод «слова ,» дае «слова, ». Backspace адмяняе перанос.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Кропка пасля дыктоўкі</string>
+    <string name="voice_full_stop_summary">Паводле змаўчання апошняя кропка не ўстаўляецца. Пры пачатку новага сказа пасля паўзы кропка ўсё роўна ставіцца.</string>
+    <string name="voice_full_stop_next_sentence">Калі пачынаецца наступны сказ</string>
+    <string name="voice_full_stop_always">Заўсёды</string>
 </resources>

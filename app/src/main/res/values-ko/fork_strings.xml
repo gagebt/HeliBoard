@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">문장 부호를 공백 앞으로 이동</string>
     <string name="move_punctuation_before_space_summary">“단어 ,”를 입력하면 “단어, ”가 됩니다. Backspace로 이동을 취소합니다.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">받아쓰기 후 마침표</string>
+    <string name="voice_full_stop_summary">기본적으로 마지막 마침표를 생략합니다. 잠시 쉰 뒤 새 문장을 시작하면 마침표가 삽입됩니다.</string>
+    <string name="voice_full_stop_next_sentence">다음 문장이 시작될 때</string>
+    <string name="voice_full_stop_always">항상</string>
 </resources>

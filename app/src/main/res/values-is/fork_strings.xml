@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Færa greinarmerki á undan bilum</string>
     <string name="move_punctuation_before_space_summary">Ef þú slærð inn “word ,” verður útkoman “word, ”. Backspace afturkallar færsluna.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Punktur eftir upplestur</string>
+    <string name="voice_full_stop_summary">Sjálfgefið er síðasta punktinum sleppt. Ný setning eftir hlé fær samt punkt.</string>
+    <string name="voice_full_stop_next_sentence">Þegar næsta setning byrjar</string>
+    <string name="voice_full_stop_always">Alltaf</string>
 </resources>

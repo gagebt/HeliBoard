@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Symud atalnodi o flaen bylchau</string>
     <string name="move_punctuation_before_space_summary">Mae teipio “gair ,” yn rhoi “gair, ”. Mae Backspace yn dadwneud y symudiad.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Atalnod llawn ar ôl arddweud</string>
+    <string name="voice_full_stop_summary">Yn ddiofyn, hepgorir yr atalnod llawn olaf. Mae dechrau brawddeg newydd ar ôl saib yn dal i ychwanegu atalnod llawn.</string>
+    <string name="voice_full_stop_next_sentence">Pan fydd y frawddeg nesaf yn dechrau</string>
+    <string name="voice_full_stop_always">Bob amser</string>
 </resources>

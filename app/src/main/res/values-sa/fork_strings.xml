@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">विरामचिह्नानि रिक्तस्थानानां पूर्वं स्थापयत</string>
     <string name="move_punctuation_before_space_summary">“word ,” इति लेखने “word, ” इति भवति। Backspace कुञ्जी स्थानपरिवर्तनं पूर्ववत् करोति।</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">श्रुतलेखनानन्तरं पूर्णविरामः</string>
+    <string name="voice_full_stop_summary">पूर्वनिर्धारितविकल्पे अन्तिमः पूर्णविरामः लुप्यते। विरामानन्तरं नूतनवाक्ये तथापि पूर्णविरामः भवति।</string>
+    <string name="voice_full_stop_next_sentence">अग्रिमवाक्यस्य आरम्भे</string>
+    <string name="voice_full_stop_always">सर्वदा</string>
 </resources>

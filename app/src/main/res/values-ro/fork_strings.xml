@@ -136,4 +136,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Mută punctuația înaintea spațiilor</string>
     <string name="move_punctuation_before_space_summary">Scrierea “word ,” produce “word, ”. Tasta Backspace anulează mutarea.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Punct după dictare</string>
+    <string name="voice_full_stop_summary">Implicit, ultimul punct este omis. O propoziție nouă după o pauză primește în continuare un punct.</string>
+    <string name="voice_full_stop_next_sentence">Când începe următoarea propoziție</string>
+    <string name="voice_full_stop_always">Întotdeauna</string>
 </resources>

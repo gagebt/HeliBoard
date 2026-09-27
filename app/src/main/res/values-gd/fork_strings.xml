@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Gluais puingeachadh ro bheàrnan</string>
     <string name="move_punctuation_before_space_summary">Ma sgrìobhas tu “word ,”, gheibh thu “word, ”. Cuiridh Backspace an gluasad às.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Puinge às dèidh deachdachaidh</string>
+    <string name="voice_full_stop_summary">Fàgaidh an roghainn bhunaiteach a’ phuing mu dheireadh às. Gheibh seantans ùr às dèidh stad puing fhathast.</string>
+    <string name="voice_full_stop_next_sentence">Nuair a thòisicheas an ath sheantans</string>
+    <string name="voice_full_stop_always">An-còmhnaidh</string>
 </resources>

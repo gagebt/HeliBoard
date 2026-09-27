@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">વિરામચિહ્નોને ખાલી જગ્યાની પહેલાં ખસેડો</string>
     <string name="move_punctuation_before_space_summary">“word ,” લખવાથી “word, ” મળે છે. Backspace ખસેડવાની ક્રિયાને પૂર્વવત્ કરે છે.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">બોલીને લખ્યા પછી પૂર્ણવિરામ</string>
+    <string name="voice_full_stop_summary">મૂળભૂત રીતે છેલ્લો પૂર્ણવિરામ છોડી દેવાય છે. વિરામ પછીના નવા વાક્યને હજી પણ પૂર્ણવિરામ મળે છે.</string>
+    <string name="voice_full_stop_next_sentence">જ્યારે આગલું વાક્ય શરૂ થાય</string>
+    <string name="voice_full_stop_always">હંમેશાં</string>
 </resources>

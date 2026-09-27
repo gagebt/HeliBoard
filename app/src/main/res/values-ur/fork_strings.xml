@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">رموزِ اوقاف کو خالی جگہوں سے پہلے منتقل کریں</string>
     <string name="move_punctuation_before_space_summary">“word ,” ٹائپ کرنے سے “word, ” بنتا ہے۔ Backspace منتقلی کو واپس کرتا ہے۔</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">املا کے بعد ختمہ</string>
+    <string name="voice_full_stop_summary">طے شدہ ترتیب آخری ختمہ چھوڑ دیتی ہے۔ وقفے کے بعد نئے جملے کو پھر بھی ختمہ ملتا ہے۔</string>
+    <string name="voice_full_stop_next_sentence">جب اگلا جملہ شروع ہو</string>
+    <string name="voice_full_stop_always">ہمیشہ</string>
 </resources>

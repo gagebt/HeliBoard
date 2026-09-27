@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">நிறுத்தற்குறிகளை இடைவெளிகளுக்கு முன் நகர்த்து</string>
     <string name="move_punctuation_before_space_summary">“சொல் ,” என்று தட்டச்சு செய்தால் “சொல், ” கிடைக்கும். Backspace இந்த நகர்வை மீட்டமைக்கும்.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">குரல் தட்டச்சுக்குப் பின் முற்றுப்புள்ளி</string>
+    <string name="voice_full_stop_summary">இயல்பாக இறுதி முற்றுப்புள்ளி விடப்படும். இடைவேளைக்குப் பின் புதிய வாக்கியம் தொடங்கும்போது முற்றுப்புள்ளி சேர்க்கப்படும்.</string>
+    <string name="voice_full_stop_next_sentence">அடுத்த வாக்கியம் தொடங்கும்போது</string>
+    <string name="voice_full_stop_always">எப்போதும்</string>
 </resources>

@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Преместване на пунктуацията пред интервалите</string>
     <string name="move_punctuation_before_space_summary">Въвеждането на “word ,” дава “word, ”. Backspace отменя преместването.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Точка след диктовка</string>
+    <string name="voice_full_stop_summary">По подразбиране последната точка се пропуска. Ново изречение след пауза все пак получава точка.</string>
+    <string name="voice_full_stop_next_sentence">Когато започне следващото изречение</string>
+    <string name="voice_full_stop_always">Винаги</string>
 </resources>

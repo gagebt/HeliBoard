@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Leestekens voor spaties plaatsen</string>
     <string name="move_punctuation_before_space_summary">“woord ,” typen geeft “woord, ”. Backspace maakt de verplaatsing ongedaan.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punt na dicteren</string>
+    <string name="voice_full_stop_summary">Standaard wordt de laatste punt weggelaten. Een nieuwe zin na een pauze krijgt nog steeds een punt.</string>
+    <string name="voice_full_stop_next_sentence">Wanneer de volgende zin begint</string>
+    <string name="voice_full_stop_always">Altijd</string>
 </resources>

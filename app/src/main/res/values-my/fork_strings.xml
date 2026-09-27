@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">ပုဒ်ဖြတ်ပုဒ်ရပ်များကို နေရာလွတ်များရှေ့သို့ ရွှေ့ရန်</string>
     <string name="move_punctuation_before_space_summary">“word ,” ဟု ရိုက်လျှင် “word, ” ဟု ဖြစ်လာသည်။ Backspace က ရွှေ့ခြင်းကို ပြန်ဖျက်ပေးသည်။</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">အသံဖြင့်စာရိုက်ပြီးနောက် ပုဒ်မ</string>
+    <string name="voice_full_stop_summary">မူလသတ်မှတ်ချက်တွင် နောက်ဆုံးပုဒ်မကို ချန်လှပ်ထားသည်။ ခေတ္တရပ်ပြီးနောက် ဝါကျအသစ်တွင် ပုဒ်မပါဝင်ဆဲဖြစ်သည်။</string>
+    <string name="voice_full_stop_next_sentence">နောက်ဝါကျ စတင်သောအခါ</string>
+    <string name="voice_full_stop_always">အမြဲ</string>
 </resources>

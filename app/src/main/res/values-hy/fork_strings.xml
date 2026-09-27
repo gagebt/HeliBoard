@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Տեղափոխել կետադրությունը բացատներից առաջ</string>
     <string name="move_punctuation_before_space_summary">“word ,” մուտքագրելիս ստացվում է “word, ”։ Backspace ստեղնը չեղարկում է տեղափոխումը։</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Վերջակետ թելադրությունից հետո</string>
+    <string name="voice_full_stop_summary">Լռելյայն վերջին վերջակետը բաց է թողնվում։ Դադարից հետո նոր նախադասությունը շարունակում է վերջակետ ստանալ։</string>
+    <string name="voice_full_stop_next_sentence">Երբ սկսվում է հաջորդ նախադասությունը</string>
+    <string name="voice_full_stop_always">Միշտ</string>
 </resources>

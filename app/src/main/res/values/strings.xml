@@ -1312,6 +1312,10 @@ New dictionary:
 
     <!-- new strings should go above the section for gesture data gathering -->
     <string name="settings_category_voice_input">Parakeet voice input</string>
+    <string name="voice_full_stop">Full stop after dictation</string>
+    <string name="voice_full_stop_summary">The default leaves the last full stop out. A new sentence after a pause still gets a full stop.</string>
+    <string name="voice_full_stop_next_sentence">When the next sentence starts</string>
+    <string name="voice_full_stop_always">Always</string>
     <string name="voice_pause_seconds">Sentence pause</string>
     <string name="voice_pause_seconds_summary">Silence that makes the next words start a new sentence. Recording continues.</string>
     <string name="voice_split_seconds">Processing pause</string>

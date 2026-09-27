@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Noktalama işaretlerini boşlukların önüne taşı</string>
     <string name="move_punctuation_before_space_summary">“word ,” yazınca “word, ” elde edilir. Geri silme tuşu taşımayı geri alır.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Dikteden sonra nokta</string>
+    <string name="voice_full_stop_summary">Varsayılan olarak son nokta atlanır. Duraklamadan sonraki yeni cümleye yine de nokta eklenir.</string>
+    <string name="voice_full_stop_next_sentence">Sonraki cümle başladığında</string>
+    <string name="voice_full_stop_always">Her zaman</string>
 </resources>

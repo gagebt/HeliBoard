@@ -135,4 +135,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Flyt tegnsætning før mellemrum</string>
     <string name="move_punctuation_before_space_summary">Når du skriver “word ,”, bliver det til “word, ”. Backspace fortryder flytningen.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Punktum efter diktat</string>
+    <string name="voice_full_stop_summary">Som standard udelades det sidste punktum. En ny sætning efter en pause får stadig et punktum.</string>
+    <string name="voice_full_stop_next_sentence">Når den næste sætning begynder</string>
+    <string name="voice_full_stop_always">Altid</string>
 </resources>

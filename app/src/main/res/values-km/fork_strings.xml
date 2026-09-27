@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">ផ្លាស់ទីសញ្ញាវណ្ណយុត្តិទៅមុនចន្លោះ</string>
     <string name="move_punctuation_before_space_summary">វាយ “ពាក្យ ,” នឹងបាន “ពាក្យ, ”។ Backspace ត្រឡប់ការផ្លាស់ទីទៅសភាពដើម។</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">សញ្ញាខណ្ឌបន្ទាប់ពីការសរសេរតាមសំឡេង</string>
+    <string name="voice_full_stop_summary">តាមលំនាំដើម សញ្ញាខណ្ឌចុងក្រោយត្រូវបានលុបចេញ។ ពេលចាប់ផ្តើមប្រយោគថ្មីបន្ទាប់ពីផ្អាក សញ្ញាខណ្ឌនៅតែត្រូវបានបញ្ចូល។</string>
+    <string name="voice_full_stop_next_sentence">ពេលប្រយោគបន្ទាប់ចាប់ផ្តើម</string>
+    <string name="voice_full_stop_always">ជានិច្ច</string>
 </resources>

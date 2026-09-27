@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Переносити розділові знаки перед пробілами</string>
     <string name="move_punctuation_before_space_summary">Введення «слово ,» дає «слово, ». Backspace скасовує перенесення.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Крапка після диктування</string>
+    <string name="voice_full_stop_summary">За замовчуванням остання крапка не вставляється. На початку нового речення після паузи крапка все одно ставиться.</string>
+    <string name="voice_full_stop_next_sentence">Коли починається наступне речення</string>
+    <string name="voice_full_stop_always">Завжди</string>
 </resources>

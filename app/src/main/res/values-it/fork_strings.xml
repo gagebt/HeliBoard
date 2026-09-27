@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Sposta la punteggiatura prima degli spazi</string>
     <string name="move_punctuation_before_space_summary">Digitando “parola ,” si ottiene “parola, ”. Il tasto Backspace annulla lo spostamento.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punto dopo la dettatura</string>
+    <string name="voice_full_stop_summary">Per impostazione predefinita, l’ultimo punto viene omesso. Una nuova frase dopo una pausa riceve comunque un punto.</string>
+    <string name="voice_full_stop_next_sentence">Quando inizia la frase successiva</string>
+    <string name="voice_full_stop_always">Sempre</string>
 </resources>

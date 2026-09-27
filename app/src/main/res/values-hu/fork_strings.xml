@@ -135,4 +135,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Írásjelek áthelyezése a szóközök elé</string>
     <string name="move_punctuation_before_space_summary">A „szó ,” beírásából „szó, ” lesz. A Backspace visszavonja az áthelyezést.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Pont a diktálás után</string>
+    <string name="voice_full_stop_summary">Alapértelmezés szerint az utolsó pont kimarad. Szünet után az új mondat kezdetekor továbbra is bekerül egy pont.</string>
+    <string name="voice_full_stop_next_sentence">A következő mondat kezdetekor</string>
+    <string name="voice_full_stop_always">Mindig</string>
 </resources>

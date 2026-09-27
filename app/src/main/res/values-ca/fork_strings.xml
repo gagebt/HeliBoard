@@ -134,4 +134,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Mou la puntuació abans dels espais</string>
     <string name="move_punctuation_before_space_summary">Escriure «paraula ,» dona «paraula, ». La tecla de retrocés desfà el moviment.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punt final després del dictat</string>
+    <string name="voice_full_stop_summary">Per defecte s’omet l’últim punt. Una frase nova després d’una pausa continua rebent un punt.</string>
+    <string name="voice_full_stop_next_sentence">Quan comença la frase següent</string>
+    <string name="voice_full_stop_always">Sempre</string>
 </resources>

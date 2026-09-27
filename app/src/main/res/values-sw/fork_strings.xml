@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Hamisha alama za uakifishaji kabla ya nafasi</string>
     <string name="move_punctuation_before_space_summary">Kuandika “word ,” hutoa “word, ”. Kitufe cha Backspace hutengua uhamishaji.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Nukta baada ya uandishi wa sauti</string>
+    <string name="voice_full_stop_summary">Kwa chaguomsingi nukta ya mwisho huachwa. Sentensi mpya baada ya pumziko bado hupata nukta.</string>
+    <string name="voice_full_stop_next_sentence">Sentensi inayofuata inapoanza</string>
+    <string name="voice_full_stop_always">Daima</string>
 </resources>

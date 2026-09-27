@@ -133,4 +133,9 @@
     <string name="move_punctuation_before_space">Movya poyntyans kyns spasow</string>
     <string name="move_punctuation_before_space_summary">Jynnskrifa “ger ,” a ri “ger, ”. Trespas a dhaskor an movyans.</string>
     <string name="voice_status_nothing_heard">Tra vyth klewys</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Poynt war-lergh leverel</string>
+    <string name="voice_full_stop_summary">Dre dhefowt, an poynt diwettha yw hepkorys. Pan dhall sentens nowydh war-lergh powes, poynt yw keworrys hwath.</string>
+    <string name="voice_full_stop_next_sentence">Pan dhall an sentens nessa</string>
+    <string name="voice_full_stop_always">Pub prys</string>
 </resources>

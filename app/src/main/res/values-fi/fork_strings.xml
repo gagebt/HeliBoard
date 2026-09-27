@@ -137,4 +137,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Siirrä välimerkit välilyöntien eteen</string>
     <string name="move_punctuation_before_space_summary">Kun kirjoitat “word ,”, tuloksena on “word, ”. Askelpalautin kumoaa siirron.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Piste sanelun jälkeen</string>
+    <string name="voice_full_stop_summary">Oletuksena viimeinen piste jätetään pois. Tauon jälkeinen uusi virke saa silti pisteen.</string>
+    <string name="voice_full_stop_next_sentence">Kun seuraava virke alkaa</string>
+    <string name="voice_full_stop_always">Aina</string>
 </resources>

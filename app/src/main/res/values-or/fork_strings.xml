@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">ବିରାମ ଚିହ୍ନକୁ ଖାଲି ସ୍ଥାନ ପୂର୍ବକୁ ନିଅନ୍ତୁ</string>
     <string name="move_punctuation_before_space_summary">“ଶବ୍ଦ ,” ଲେଖିଲେ “ଶବ୍ଦ, ” ହୁଏ। Backspace ଏହି ସ୍ଥାନାନ୍ତରକୁ ପୂର୍ବବତ୍ କରେ।</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">ଶ୍ରୁତଲିଖନ ପରେ ପୂର୍ଣ୍ଣଚ୍ଛେଦ</string>
+    <string name="voice_full_stop_summary">ଡିଫଲ୍ଟ ଭାବରେ ଶେଷ ପୂର୍ଣ୍ଣଚ୍ଛେଦ ଛାଡ଼ି ଦିଆଯାଏ। ବିରତି ପରେ ନୂଆ ବାକ୍ୟ ଆରମ୍ଭ ହେଲେ ତଥାପି ପୂର୍ଣ୍ଣଚ୍ଛେଦ ଦିଆଯାଏ।</string>
+    <string name="voice_full_stop_next_sentence">ପରବର୍ତ୍ତୀ ବାକ୍ୟ ଆରମ୍ଭ ହେଲେ</string>
+    <string name="voice_full_stop_always">ସର୍ବଦା</string>
 </resources>

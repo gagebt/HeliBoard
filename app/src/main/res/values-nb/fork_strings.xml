@@ -133,4 +133,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Flytt tegnsetting foran mellomrom</string>
     <string name="move_punctuation_before_space_summary">Når du skriver «ord ,», blir det «ord, ». Tilbaketasten angrer flyttingen.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Punktum etter diktering</string>
+    <string name="voice_full_stop_summary">Som standard utelates det siste punktumet. En ny setning etter en pause får fortsatt et punktum.</string>
+    <string name="voice_full_stop_next_sentence">Når neste setning starter</string>
+    <string name="voice_full_stop_always">Alltid</string>
 </resources>

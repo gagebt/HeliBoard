@@ -134,4 +134,10 @@
     <string name="integration_attribution">HeliBoard בא ורודי צותי אֻפליין NVIDIA Parakeet TDT 0.6B v3. בא נירוי FUTO Swipe.</string>
     <string name="move_punctuation_before_space">עלאמת נגארש רא פיש אז פֿאצלה בבר</string>
     <string name="move_punctuation_before_space_summary">תאיפ “word ,” נתיג׳ה “word, ” מידהד. כליד פאכּ כּרדן, ג׳אבה ג׳איי רא לגֿו מיכּנד.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">נוקטה פס אז אמרלא</string>
+    <string name="voice_full_stop_summary">דר חאלת פישפֿרז נוקטה אכֿר חדֿףֿ מישוד. ג׳מלה ג׳דיד פס אז מקס הםצׄנאן נוקטה מיגירד.</string>
+    <string name="voice_full_stop_next_sentence">הנגאם שרוע ג׳מלה בעדי</string>
+    <string name="voice_full_stop_always">המישה</string>
 </resources>

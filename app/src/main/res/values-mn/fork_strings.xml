@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">Цэг тэмдгийг зайны өмнө шилжүүлэх</string>
     <string name="move_punctuation_before_space_summary">“үг ,” гэж бичвэл “үг, ” болно. Backspace шилжүүлэлтийг буцаана.</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">Дуугаар бичсэний дараах цэг</string>
+    <string name="voice_full_stop_summary">Анхдагчаар сүүлийн цэгийг орхино. Завсарласны дараа шинэ өгүүлбэр эхлэхэд цэгийг нэмж оруулна.</string>
+    <string name="voice_full_stop_next_sentence">Дараагийн өгүүлбэр эхлэхэд</string>
+    <string name="voice_full_stop_always">Үргэлж</string>
 </resources>

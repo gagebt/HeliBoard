@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">رموزِ اوقاف نوں خالی تھاں توں پہلاں لے جاؤ</string>
     <string name="move_punctuation_before_space_summary">“لفظ ,” لکھن نال “لفظ, ” بن جاندا اے۔ Backspace ایہ تبدیلی واپس کردا اے۔</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">ڈکٹیشن توں بعد نقطہ</string>
+    <string name="voice_full_stop_summary">مُڈلے طور تے آخری نقطہ نئیں پایا جاندا۔ وقفے توں بعد نواں جملہ شروع ہووے تے نقطہ فیر وی پایا جاندا اے۔</string>
+    <string name="voice_full_stop_next_sentence">جدوں اگلا جملہ شروع ہووے</string>
+    <string name="voice_full_stop_always">ہمیشہ</string>
 </resources>

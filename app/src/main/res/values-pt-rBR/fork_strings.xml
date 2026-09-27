@@ -136,4 +136,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">Mover a pontuação para antes dos espaços</string>
     <string name="move_punctuation_before_space_summary">Digitar “word ,” resulta em “word, ”. A tecla Backspace desfaz a movimentação.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">Ponto final após o ditado</string>
+    <string name="voice_full_stop_summary">Por padrão, o último ponto final é omitido. Uma nova frase após uma pausa ainda recebe um ponto final.</string>
+    <string name="voice_full_stop_next_sentence">Quando a próxima frase começa</string>
+    <string name="voice_full_stop_always">Sempre</string>
 </resources>

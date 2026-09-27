@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">విరామచిహ్నాలను ఖాళీల ముందు పెట్టండి</string>
     <string name="move_punctuation_before_space_summary">“word ,” అని టైప్ చేస్తే “word, ” అవుతుంది. Backspace ఈ మార్పును రద్దు చేస్తుంది.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">వాయిస్ ఇన్‌పుట్‌ తర్వాత పూర్ణవిరామం</string>
+    <string name="voice_full_stop_summary">డిఫాల్ట్‌గా చివరి పూర్ణవిరామం వదిలివేయబడుతుంది. విరామం తర్వాత కొత్త వాక్యానికి ఇప్పటికీ పూర్ణవిరామం వస్తుంది.</string>
+    <string name="voice_full_stop_next_sentence">తదుపరి వాక్యం ప్రారంభమైనప్పుడు</string>
+    <string name="voice_full_stop_always">ఎల్లప్పుడూ</string>
 </resources>

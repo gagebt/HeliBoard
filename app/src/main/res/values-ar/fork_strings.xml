@@ -138,4 +138,10 @@
     <!-- Punctuation spacing hints: AI translations, not native reviewed. -->
     <string name="move_punctuation_before_space">نقل علامات الترقيم قبل المسافات</string>
     <string name="move_punctuation_before_space_summary">كتابة “word ,” تعطي “word, ”. مفتاح الحذف للخلف يتراجع عن النقل.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">النقطة بعد الإملاء</string>
+    <string name="voice_full_stop_summary">الإعداد الافتراضي يحذف النقطة الأخيرة. الجملة الجديدة بعد وقفة تظل تحصل على نقطة.</string>
+    <string name="voice_full_stop_next_sentence">عند بدء الجملة التالية</string>
+    <string name="voice_full_stop_always">دائمًا</string>
 </resources>

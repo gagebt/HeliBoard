@@ -134,4 +134,10 @@
     <string name="voice_status_clear_audio_failed">އާ ރެކޯޑިންގްއަކަށް ކުރީގެ އަޑު ފޮހެއެއްނުލެވުނު</string>
     <string name="voice_status_discard_audio_failed">އަލުން މަސައްކަތްކުރުމުގެ އަޑު ފޮހެއެއްނުލެވުނު; ސޭވްކުރި ލިޔުން ބަދަލުނުވި</string>
     <string name="voice_stop_on_keyboard_close_summary">ކީބޯޑް ފޮރުވާފައިވާއިރުވެސް އަޑުއެހުން ދިގުކުރުމަށް މިކަން ނިވާލާ. ލިޔުމުގެ ފީލްޑްއިން ބޭރުވުމުން އަޑުން ލިޔުން ހުއްޓާނެ.</string>
+
+    <!-- Dictation final-period setting: AI translation draft. -->
+    <string name="voice_full_stop">އަޑުން ލިޔުމަށްފަހު ފުލްސްޓޮޕް</string>
+    <string name="voice_full_stop_summary">ޑިފޯލްޓް އިޚްތިޔާރުގައި އެންމެ ފަހު ފުލްސްޓޮޕް ނުލާނެ. ހިމޭން މުއްދަތަކަށްފަހު އާ ޖުމްލައަކަށް ފުލްސްޓޮޕް ލާނެ.</string>
+    <string name="voice_full_stop_next_sentence">ދެން އޮތް ޖުމްލަ ފެށޭއިރު</string>
+    <string name="voice_full_stop_always">ހަމެހިންދުވެސް</string>
 </resources>

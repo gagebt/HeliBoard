@@ -136,4 +136,9 @@
     <!-- Punctuation controls: AI translation -->
     <string name="move_punctuation_before_space">যতিচিহ্ন ফাঁকা স্থানের আগে সরান</string>
     <string name="move_punctuation_before_space_summary">“শব্দ ,” লিখলে “শব্দ, ” হয়। Backspace সরানোটি পূর্বাবস্থায় ফেরায়।</string>
+    <!-- Full-stop options: AI translation draft -->
+    <string name="voice_full_stop">শ্রুতিলিখনের পরে পূর্ণচ্ছেদ</string>
+    <string name="voice_full_stop_summary">ডিফল্টভাবে শেষ পূর্ণচ্ছেদ বাদ দেওয়া হয়। বিরতির পরে নতুন বাক্য শুরু হলে পূর্ণচ্ছেদ তবুও বসে।</string>
+    <string name="voice_full_stop_next_sentence">পরের বাক্য শুরু হলে</string>
+    <string name="voice_full_stop_always">সবসময়</string>
 </resources>
