@@ -10,4 +10,8 @@
     <string name="retention_7_days">7 روچ</string>
     <string name="retention_90_days">90 روچ</string>
 
+    <string name="retention_1_hour">1 ساھت</string>
+    <string name="retention_2_hours">2 ساھت</string>
+    <string name="retention_6_hours">6 ساھت</string>
+    <string name="retention_12_hours">12 ساھت</string>
 </resources>
