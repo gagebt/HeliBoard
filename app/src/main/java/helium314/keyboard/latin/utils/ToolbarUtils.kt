@@ -12,11 +12,14 @@ import androidx.core.content.edit
 import androidx.core.view.forEach
 import helium314.keyboard.accessibility.KeyCodeDescriptionMapper
 import helium314.keyboard.event.HapticEvent
+import helium314.keyboard.keyboard.Key
+import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.AudioAndHapticFeedbackManager
 import helium314.keyboard.latin.R
+import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.Constants.Separators
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
@@ -301,10 +304,40 @@ fun toolbarKeyHint(context: Context, key: ToolbarKey, holdAction: CharSequence? 
 private fun toolbarCodeName(context: Context, code: Int): String = when (code) {
     KeyCode.UNSPECIFIED -> context.getString(R.string.action_none)
     KeyCode.VOICE_INPUT -> context.getString(R.string.voice_button_hint)
+    KeyCode.CAPS_LOCK -> context.getString(R.string.label_shift_key_locked)
     KeyCode.BACKGROUND_GATHERING_TEMP_OFF -> context.getString(R.string.button_pause_gesture_gathering)
     else -> toolbarActionName(context, code)
         ?: KeyCodeDescriptionMapper.instance.getDescriptionForCodePoint(context, code)
         ?: "${context.getString(R.string.key_code)}: $code"
+}
+
+/** Functional keys use the same in-keyboard hints as toolbar buttons, without changing the hold. */
+fun keyboardKeyHint(context: Context, keyboard: Keyboard,
+    key: Key, holdAction: Boolean): String? {
+    val code = key.code
+    if (!hasKeyboardKeyHint(code)) return null
+    val mapper = KeyCodeDescriptionMapper.instance
+    val main = mapper.getDescriptionForKey(context, keyboard, key, false) ?: return null
+    val hold = when {
+        key.isRepeatable -> context.getString(R.string.button_hold_repeat)
+        !holdAction -> null
+        key.hasNoPanelAutoPopupKey() -> toolbarCodeName(context, key.popupKeys!![0].mCode)
+        code == KeyCode.LANGUAGE_SWITCH || code == Constants.CODE_SPACE
+            && key.popupKeys == null && Settings.getValues().mSpaceForLangChange -> context.getString(R.string.select_input_method)
+        code == KeyCode.SYMBOL_ALPHA -> context.getString(R.string.spoken_description_to_numeric)
+        else -> key.popupKeys?.map { popup -> popup.mLabel?.takeIf { it.isNotBlank() }
+            ?: toolbarCodeName(context, popup.mCode) }?.distinct()?.joinToString(", ")
+    }
+    return if (hold.isNullOrEmpty()) main else context.getString(R.string.button_hold_hint, main, hold)
+}
+
+fun hasKeyboardKeyHint(code: Int) = code < 0 || code == Constants.CODE_SPACE
+    || code == Constants.CODE_ENTER || code == Constants.CODE_TAB
+
+fun showKeyboardKeyHint(keyboard: Keyboard,
+    key: Key, holdAction: Boolean) {
+    val context = KeyboardSwitcher.getInstance().mainKeyboardView?.context ?: return
+    showToolbarHint(keyboardKeyHint(context, keyboard, key, holdAction))
 }
 
 /** Shows a key hint inside the keyboard view; Android 13+ suppresses system toasts from a keyboard. */

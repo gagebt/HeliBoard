@@ -337,6 +337,34 @@ class InputLogicTest {
         assertEquals(false, inputLogic.isGesturePending)
     }
 
+    @Test @Config(sdk = [33]) fun sensitiveCopyStaysPasteableWithoutEnteringHistoryAfterRestart() {
+        latinIME.prefs().edit { putBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, true) }
+        setText("")
+        val clipboard = latinIME.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        var history = ClipboardHistoryManager(latinIME)
+        history.onCreate()
+        try {
+            history.clearHistory()
+            clipboard.setPrimaryClip(android.content.ClipData.newPlainText("ordinary", "ordinary copy"))
+            history.onPrimaryClipChanged()
+            assertEquals(1, history.getHistorySize())
+            val words = "I was thinking, that we could go to the lake on Sunday.What do you think?"
+            val sensitive = android.content.ClipData.newPlainText("dictation", words)
+            sensitive.description.extras = android.os.PersistableBundle().apply {
+                putBoolean("android.content.extra.IS_SENSITIVE", true)
+            }
+            clipboard.setPrimaryClip(sensitive)
+            history.onPrimaryClipChanged()
+            assertEquals(words, history.getPrimaryClipIfText())
+            assertEquals(1, history.getHistorySize())
+            history.onDestroy()
+            history = ClipboardHistoryManager(latinIME)
+            history.onCreate()
+            assertEquals(1, history.getHistorySize())
+            assertEquals("ordinary copy", history.getHistoryEntry(0)?.text)
+        } finally { history.onDestroy() }
+    }
+
     @Test fun clipboardKeyReplacesExplicitSelectionWithoutMovingOtherText() {
         latinIME.prefs().edit { putBoolean(Settings.PREF_ENABLE_CLIPBOARD_HISTORY, false) }
         setText("left countryed right")

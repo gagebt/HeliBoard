@@ -20,6 +20,22 @@ import kotlin.test.assertNull
 class PartUHintsTest {
     private val context = ApplicationProvider.getApplicationContext<App>()
 
+    @Test fun functionalKeyHintsNameTheRealHoldAndLeaveCharacterPopupsAlone() {
+        val keyboard = org.mockito.Mockito.mock(helium314.keyboard.keyboard.Keyboard::class.java)
+        val key = org.mockito.Mockito.mock(helium314.keyboard.keyboard.Key::class.java)
+        org.mockito.Mockito.doReturn(KeyCode.SHIFT).`when`(key).code
+        org.mockito.Mockito.doReturn(true).`when`(key).hasNoPanelAutoPopupKey()
+        org.mockito.Mockito.doReturn(arrayOf(helium314.keyboard.keyboard.internal.PopupKeySpec(" |!code/key_capslock", false, java.util.Locale.ENGLISH))).`when`(key).popupKeys
+        assertEquals(context.getString(R.string.button_hold_hint, "Shift", "Caps lock"), helium314.keyboard.latin.utils.keyboardKeyHint(context, keyboard, key, true))
+        org.mockito.Mockito.doReturn(KeyCode.DELETE).`when`(key).code
+        org.mockito.Mockito.doReturn(true).`when`(key).isRepeatable
+        assertEquals(context.getString(R.string.button_hold_hint, "Delete", context.getString(R.string.button_hold_repeat)), helium314.keyboard.latin.utils.keyboardKeyHint(context, keyboard, key, true))
+        org.mockito.Mockito.doReturn(false).`when`(key).isRepeatable
+        assertEquals("Delete", helium314.keyboard.latin.utils.keyboardKeyHint(context, keyboard, key, false))
+        org.mockito.Mockito.doReturn(97).`when`(key).code
+        assertNull(helium314.keyboard.latin.utils.keyboardKeyHint(context, keyboard, key, true))
+    }
+
     @Test fun hiddenLongPressActionsMapToTheirOwnKeys() {
         assertEquals(ToolbarKey.CUT, toolbarKeyForCode(defaultCodeForToolbarKeyLongClick(ToolbarKey.COPY)))
         assertEquals(ToolbarKey.PASTE, toolbarKeyForCode(defaultCodeForToolbarKeyLongClick(ToolbarKey.CLIPBOARD)))

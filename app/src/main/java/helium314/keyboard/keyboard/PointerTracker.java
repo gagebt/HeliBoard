@@ -1179,6 +1179,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             return;
         }
         final int code = key.getCode();
+        final boolean holdAction = key.isLongPressEnabled() && (code != KeyCode.SYMBOL_ALPHA
+                || Settings.getValues().mLongPressSymbolsForNumpad
+                && mKeyboard.mId.getElement() == KeyboardElement.SYMBOLS);
+        helium314.keyboard.latin.utils.ToolbarUtilsKt.showKeyboardKeyHint(mKeyboard, key, holdAction);
+        if (!holdAction) return;
         sListener.onLongPressKey(code);
         if (key.hasNoPanelAutoPopupKey()) {
             cancelKeyTracking();
@@ -1285,7 +1290,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         sTimerProxy.cancelLongPressAlphaSymbolKeyTimer();
         if (sInGesture) return;
         if (key == null) return;
-        if (!key.isLongPressEnabled()) return;
+        if (!key.isLongPressEnabled() && (key.isRepeatable()
+                || !helium314.keyboard.latin.utils.ToolbarUtilsKt.hasKeyboardKeyHint(key.getCode()))) return;
         // Caveat: Please note that isLongPressEnabled() can be true even if the current key
         // doesn't have its popup keys. (e.g. spacebar, globe key) If we are in the dragging finger
         // mode, we will disable long press timer of such key.
@@ -1295,13 +1301,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         if (mIsInDraggingFinger && (code == KeyCode.SHIFT || key.getPopupKeys() == null)) return;
         if (code == KeyCode.SHIFT && sIsShiftLongPressSuppressed) {
             sIsShiftLongPressSuppressed = false;
-            return;
-        }
-        if (code == KeyCode.SYMBOL_ALPHA
-            && (!Settings.getValues().mLongPressSymbolsForNumpad
-                || mKeyboard.mId.getElement() != KeyboardElement.SYMBOLS
-            )
-        ) {
             return;
         }
 
@@ -1358,6 +1357,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             mCurrentRepeatingKeyCode = Constants.NOT_A_CODE;
             return;
         }
+        if (repeatCount == 1)
+            helium314.keyboard.latin.utils.ToolbarUtilsKt.showKeyboardKeyHint(mKeyboard, key, true);
         mCurrentRepeatingKeyCode = code;
         if (mKeySwipeAllowed) {
             mKeySwipeAllowed = false;

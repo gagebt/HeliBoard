@@ -5,7 +5,6 @@ import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.os.Build;
 import android.os.PersistableBundle;
 import android.util.AtomicFile;
 import android.util.Log;
@@ -357,7 +356,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                 return false;
             }
             ClipData clip = ClipData.newPlainText(getString(R.string.voice_clip_label), item.text);
-            if (item.privateOrigin() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (item.privateOrigin()) {
                 // Words from a private field stay out of clipboard previews and history.
                 PersistableBundle extras = new PersistableBundle();
                 extras.putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true);

@@ -472,7 +472,8 @@ public class DeferredVoiceDeliveryTest {
         assertFalse(host.state.canCopy);
     }
 
-    @Test public void privateFieldInsertsWithoutADraftAndCopyStaysInThatField() throws Exception {
+    @Test @org.robolectric.annotation.Config(sdk = {26, 33})
+    public void privateFieldInsertsWithoutADraftAndCopyStaysInThatField() throws Exception {
         FakeEditor editor = new FakeEditor("");
         FakeHost host = new FakeHost(editor, new EditorRecord("bank.app", 3, PASSWORD, 0, false));
         host.ready = true;
