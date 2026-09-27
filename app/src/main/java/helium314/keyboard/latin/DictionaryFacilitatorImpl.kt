@@ -804,7 +804,7 @@ private class DictionaryGroup(
             synchronized(this) {
                 try {
                     val newLines = blacklistFile.readLines().filterNot { it in forms }
-                    blacklistFile.writeText(newLines.joinToString("\n"))
+                    blacklistFile.writeText(newLines.joinToString("") { "$it\n" })
                 } catch (e: IOException) {
                     Log.e(TAG, "Exception while trying to remove word \"$word\" to blacklist ${blacklistFile.name}", e)
                 }
