@@ -857,13 +857,13 @@ public class DeferredVoiceDeliveryTest {
 
     @Test public void privacyToggleProtectsUnreadableFieldWithUnknownId() throws Exception {
         FakeEditor editor = new FakeEditor(""); editor.accepts = false;
-        FakeHost host = new FakeHost(editor, new EditorRecord("com.termux", 0, 0, 0, false));
+        FakeHost host = new FakeHost(editor, new EditorRecord("com.termux", 0, 0x80090, 0, false));
         host.ready = true; host.history = true;
         RustInputMethodService voice = recording(host, editor, SESSION);
         set(voice, "maySaveCurrentSession", true);
         assertTrue(voice.onTranscriptPiece(SESSION, 0, "Private terminal words.", 0));
         assertTrue(draftPath().exists());
-        host.editor = new EditorRecord("com.termux", 0, 0, 0, true);
+        host.editor = new EditorRecord("com.termux", 0, 0x80090, 0, true);
         voice.onEditorPrivacyChanged();
         assertFalse(draftPath().exists());
         voice.onInputViewFinished(true);
