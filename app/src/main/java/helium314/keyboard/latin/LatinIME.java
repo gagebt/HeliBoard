@@ -1021,6 +1021,10 @@ public class LatinIME extends InputMethodService implements
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInputView(editorInfo, restarting);
+        if (mSuggestionStripView != null && ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+            mSuggestionStripView.setVoiceNoticeView(null);
+        }
 
         setGestureDataGatheringMode(editorInfo, restarting);
 

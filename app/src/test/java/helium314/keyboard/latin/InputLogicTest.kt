@@ -83,6 +83,23 @@ class InputLogicTest {
     }
 
 
+    @Test fun permissionNoticeRetiresOnExternalGrantButStaysWhenDenied() {
+        val strip = Mockito.mock(helium314.keyboard.latin.suggestions.SuggestionStripView::class.java)
+        val notice = android.widget.TextView(latinIME)
+        var shown: android.view.View? = notice
+        Mockito.doAnswer { shown = it.getArgument<android.view.View?>(0); null }
+            .`when`(strip).setVoiceNoticeView(Mockito.any())
+        LatinIME::class.java.getDeclaredField("mSuggestionStripView")
+            .apply { isAccessible = true }.set(latinIME, strip)
+        val app = org.robolectric.Shadows.shadowOf(org.robolectric.RuntimeEnvironment.getApplication())
+        app.denyPermissions(android.Manifest.permission.RECORD_AUDIO)
+        setText("")
+        kotlin.test.assertSame(notice, shown, "Denied permission still needs its recovery notice")
+        app.grantPermissions(android.Manifest.permission.RECORD_AUDIO)
+        setText("")
+        kotlin.test.assertNull(shown, "Returning after an external grant must retire the stale notice")
+    }
+
     @Test fun recordingUpdateKeepsPressedVoiceControl() {
         val strip = Mockito.mock(helium314.keyboard.latin.suggestions.SuggestionStripView::class.java)
         var shown: android.view.View? = null
