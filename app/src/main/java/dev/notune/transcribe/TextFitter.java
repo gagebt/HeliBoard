@@ -103,6 +103,12 @@ public final class TextFitter {
      */
     public static Fit fit(String spoken, CharSequence before, CharSequence after,
                           FieldKind kind, int capsMode) {
+        return fit(spoken, before, after, kind, capsMode, true);
+    }
+
+    /** Default prose keeps non-period terminators even before continuing text. */
+    public static Fit fit(String spoken, CharSequence before, CharSequence after,
+                          FieldKind kind, int capsMode, boolean alwaysFullStop) {
         if (spoken == null) return NOTHING;
         String t = spoken.trim();
         if (t.isEmpty()) return NOTHING;
@@ -131,9 +137,11 @@ public final class TextFitter {
             return new Fit(prefix, t, "");
         }
 
-        // Prose, connection dead: today's exact behaviour. No guess at a context that
-        // could not be read.
+        // Unreadable prose cannot retain a mark at a known editor position.
         if (before == null) {
+            if (!alwaysFullStop && endsWithOrdinaryFullStop(t)) {
+                t = t.substring(0, t.length() - 1);
+            }
             return new Fit("", t, " ");
         }
 
@@ -158,7 +166,8 @@ public final class TextFitter {
 
         // Step 3 — terminal punctuation.
         String a = trimLeadingSpacesAndTabs(after);
-        if (endsWithTerminator(t) && !a.isEmpty()) {
+        if ((alwaysFullStop ? endsWithTerminator(t) : endsWithOrdinaryFullStop(t))
+                && !a.isEmpty()) {
             char first = a.charAt(0);
             if (Character.isLowerCase(first) || isFollowingPunctuation(first)) {
                 t = t.substring(0, t.length() - 1);
@@ -303,6 +312,10 @@ public final class TextFitter {
         if (s.isEmpty()) return false;
         char c = s.charAt(s.length() - 1);
         return c == '.' || c == '!' || c == '?' || c == '…';
+    }
+
+    static boolean endsWithOrdinaryFullStop(String s) {
+        return s.endsWith(".") && !s.endsWith("..");
     }
 
     /** Punctuation of the owner's own that may follow the cursor. */

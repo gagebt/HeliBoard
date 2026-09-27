@@ -14,10 +14,7 @@ import dev.notune.transcribe.TextFitter.Fit;
  * opposite case that must give a different answer, plus the "what the app must never
  * do" invariants.
  *
- * <p>Deliberately case-independent. Every assertion here holds whether or not fitter
- * rule 3 (the leading-capital change) is present, so reverting rule 3 leaves this file
- * green. Rule 3's own rows, including the capitalised rows of the section 2 table and
- * the caps-mode vote, live in {@link TextFitterCapitalTest}, which is deleted with it.
+ * <p>Exact assertions cover spacing, punctuation, and the first-letter case.
  */
 public class TextFitterTest {
 
@@ -266,6 +263,33 @@ public class TextFitterTest {
         assertEquals("we go home.", f.text);
         assertEquals("", f.suffix);
     }
+
+    @Test public void defaultModeKeepsNonPeriodMarksInAllRightContexts() {
+        for (String after : new String[]{"", "existing", " existing", ", rest", ")", "Next"}) {
+            for (String mark : new String[]{"?", "!", "…", "...", "?!"}) {
+                assertEquals("really" + mark, TextFitter.fit("Really" + mark,
+                        "We think ", after, FieldKind.PROSE, 0, false).text);
+            }
+        }
+    }
+
+    @Test public void readableDefaultLeavesTheFrontierPeriodForTheJoiner() {
+        assertEquals("Hello. ", TextFitter.fit("Hello.", "", "",
+                FieldKind.PROSE, 0, false).inserted());
+        assertEquals("hello ", TextFitter.fit("Hello.", "We said ", "existing",
+                FieldKind.PROSE, 0, false).inserted());
+        assertEquals("hello", TextFitter.fit("Hello.", "We said ", ")",
+                FieldKind.PROSE, 0, false).inserted());
+    }
+
+    @Test public void unreadableModeDropsOnlyTheOrdinaryFinalPeriod() {
+        assertEquals("Hello ", TextFitter.fit("Hello.", null, null,
+                FieldKind.PROSE, 0, false).inserted());
+        assertEquals("Hello. ", TextFitter.fit("Hello.", null, null,
+                FieldKind.PROSE, 0, true).inserted());
+        for (String raw : new String[]{"Hello?", "Hello!", "Hello…", "Hello...", "Dr. Smith?"}) {
+            assertEquals(raw + " ", TextFitter.fit(raw, null, null,
+                    FieldKind.PROSE, 0, false).inserted());
+        }
+    }
 }
-
-

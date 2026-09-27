@@ -1,235 +1,251 @@
 package dev.notune.transcribe;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.*;
 import org.junit.Test;
-
 import dev.notune.transcribe.TextFitter.FieldKind;
 
-/**
- * Whole dictation sessions, replayed against a StringBuilder standing in for the field.
- *
- * <p>The question these answer is the one the owner asked: he stops in the middle of a
- * sentence to think, and the sentence must not be cut in two. The recording is still cut
- * at the short silence, because that is what makes the words appear while he speaks; what
- * changes is that a cut is not believed to be a sentence end until the silence before the
- * next piece says so.
- */
+/** Exact text and deletion plans at the pure joining boundary. */
 public class PieceJoinerTest {
-
-    private static final float THRESHOLD = PieceJoiner.DEFAULT_SENTENCE_PAUSE_SECONDS;
-    private static final int NO_CAPS = 0;
-
-    /** A field with a cursor at the end, written only by appending, as the IME does. */
     private static final class Field {
-        final StringBuilder text = new StringBuilder();
+        final StringBuilder before;
         final PieceJoiner joiner = new PieceJoiner();
+        final String after;
+        final boolean always;
         final float threshold;
 
-        Field(String initial, float threshold) {
-            text.append(initial);
+        Field(String before, String after, boolean always, float threshold) {
+            this.before = new StringBuilder(before);
+            this.after = after;
+            this.always = always;
             this.threshold = threshold;
         }
 
-        void say(String piece, float pauseBefore) {
-            String committed = joiner.join(piece, pauseBefore, text.toString(), "",
-                    FieldKind.PROSE, NO_CAPS, threshold);
-            text.append(committed);
+        PieceJoiner.Join say(String raw, float pause) {
+            PieceJoiner.Join joined = joiner.join(raw, pause, before, after,
+                    FieldKind.PROSE, 0, threshold, always);
+            apply(joined);
+            return joined;
         }
 
-        String end() {
-            text.append(joiner.finish());
-            return text.toString();
+        void apply(PieceJoiner.Join joined) {
+            if (joined.deleteBefore == 1) {
+                assertEquals(' ', before.charAt(before.length() - 1));
+                before.setLength(before.length() - 1);
+            }
+            before.append(joined.text);
+        }
+
+        String stop(boolean afterStartsSentence) {
+            apply(joiner.finish(always, afterStartsSentence));
+            return before.toString() + after;
         }
     }
 
-    private static Field session() {
-        return new Field("", THRESHOLD);
+    private static Field field(boolean always) {
+        return new Field("", "", always, 3f);
     }
 
-    /**
-     * Compares without regard to case, on purpose. What these tests prove is where a
-     * sentence ends and where the spaces go; the case of a first letter belongs to
-     * fitter rule 3 and is proven in {@link PieceJoinerCapitalTest}, which is deleted
-     * together with that rule. Keeping the two apart is what lets rule 3 be reverted
-     * without any of this file turning red.
-     */
-    private static void assertJoined(String expected, String actual) {
-        assertEquals(expected.toLowerCase(java.util.Locale.ROOT),
-                actual.toLowerCase(java.util.Locale.ROOT));
-    }
-
-    // --------------------------------------------------- the case he asked about
-
-    @Test public void aPauseToThinkDoesNotCutTheSentenceInTwo() {
-        Field f = session();
-        f.say("I was thinking.", 0f);
-        f.say("That we should go home.", 2.0f);
-        assertJoined("I was thinking that we should go home. ", f.end());
-    }
-
-    @Test public void theSameWordsWithALongPauseBecomeTwoSentences() {
-        // The opposite case: identical pieces, only the silence differs.
-        Field f = session();
-        f.say("I was thinking.", 0f);
-        f.say("That we should go home.", 5.0f);
-        assertJoined("I was thinking. That we should go home. ", f.end());
-    }
-
-    @Test public void exactlyTheThresholdEndsTheSentence() {
-        Field f = session();
-        f.say("I was thinking.", 0f);
-        f.say("That we should go home.", THRESHOLD);
-        assertJoined("I was thinking. That we should go home. ", f.end());
-    }
-
-    @Test public void justUnderTheThresholdDoesNot() {
-        Field f = session();
-        f.say("I was thinking.", 0f);
-        f.say("That we should go home.", THRESHOLD - 0.1f);
-        assertJoined("I was thinking that we should go home. ", f.end());
-    }
-
-    @Test public void oneSessionMixesHesitationsAndRealSentenceEnds() {
-        Field f = session();
-        f.say("I was thinking.", 0f);
-        f.say("That we should go home.", 1.8f);       // hesitation
-        f.say("Then we eat.", 6.0f);                  // real end
-        f.say("And then we sleep.", 0.9f);            // hesitation
-        assertJoined("I was thinking that we should go home. Then we eat and then we sleep. ",
-                f.end());
-    }
-
-    @Test public void aFiveWayMixKeepsEveryWordAndEveryPause() {
-        Field f = session();
-        f.say("First part.", 0f);
-        f.say("Second part.", 0.5f);
-        f.say("Third part.", 0.5f);
-        f.say("Fourth part.", 4.5f);
-        f.say("Fifth part.", 0.5f);
-        assertJoined("First part second part third part. Fourth part fifth part. ", f.end());
-    }
-
-    // ------------------------------------------------------------ the invariants
-
-    @Test public void nothingIsEverRevised() {
-        // Every call returns an append, and the field only grows: the text committed
-        // for piece N is still there, unchanged, at the end.
-        Field f = session();
-        f.say("I was thinking.", 0f);
-        String afterFirst = f.text.toString();
-        f.say("That we should go home.", 1.0f);
-        assertTrue(f.text.toString().startsWith(afterFirst));
-        f.say("Or not.", 5.0f);
-        assertTrue(f.text.toString().startsWith(afterFirst));
-        assertTrue(f.end().startsWith(afterFirst));
-    }
-
-    @Test public void theLastPieceKeepsTheMarkTheModelGaveIt() {
-        Field f = session();
-        f.say("Is that right?", 0f);
-        assertEquals("Is that right? ", f.end());
-    }
-
-    @Test public void aSinglePieceSessionIsExactlyWhatItWasBeforeStreaming() {
-        Field f = session();
-        f.say("And then we go home.", 0f);
-        assertEquals("And then we go home. ", f.end());
-    }
-
-    @Test public void anUnfinishedLastPieceGetsNoInventedMark() {
-        Field f = session();
-        f.say("I was thinking.", 0f);
-        f.say("that we should go home", 1.0f);     // the model gave no mark
-        assertJoined("I was thinking that we should go home ", f.end());
-    }
-
-    @Test public void theHeldMarkIsGoneOnceTheSessionEnds() {
-        Field f = session();
-        f.say("Hello.", 0f);
+    @Test public void defaultWritesTheSpaceAndKeepsOnlyThePeriodOwed() {
+        Field f = field(false);
+        assertEquals("Hello ", f.say("Hello.", 0f).text);
+        assertEquals("Hello ", f.stop(false));
         assertTrue(f.joiner.hasHeldTail());
-        f.end();
+        assertEquals(".", f.joiner.pendingTail().mark);
+        assertTrue(f.joiner.pendingTail().ownsSpace);
+    }
+
+    @Test public void alwaysWritesThePeriodBeforeItsOwnedSpaceAtStop() {
+        Field f = field(true);
+        f.say("Hello.", 0f);
+        PieceJoiner.Join end = f.joiner.finish(true, false);
+        assertEquals(1, end.deleteBefore);
+        assertEquals(". ", end.text);
+        f.apply(end);
+        assertEquals("Hello. ", f.before.toString());
         assertFalse(f.joiner.hasHeldTail());
-        assertEquals("", f.joiner.finish());
+        assertEquals("", f.joiner.finish(true, false).text);
     }
 
-    @Test public void movingAwayDropsOnlyTheHeldFormatting() {
-        PieceJoiner joiner = new PieceJoiner();
-        assertEquals("Hello", joiner.join("Hello.", 0f, "", "", FieldKind.PROSE,
-                NO_CAPS, THRESHOLD));
-        assertEquals(". ", joiner.abandonHeldTail());
-        assertFalse(joiner.hasHeldTail());
-        assertEquals("", joiner.finish());
+    @Test public void shortPauseContinuesAndLongPauseStartsASentence() {
+        for (boolean always : new boolean[]{false, true}) {
+            Field shortPause = field(always);
+            shortPause.say("First part.", 0f);
+            assertEquals(0, shortPause.say("Second part.", 2.9f).deleteBefore);
+            assertEquals(always ? "First part second part. " : "First part second part ",
+                    shortPause.stop(false));
+            Field longPause = field(always);
+            longPause.say("First part.", 0f);
+            PieceJoiner.Join next = longPause.say("Second part.", 3f);
+            assertEquals(1, next.deleteBefore);
+            assertEquals(". Second part ", next.text);
+            assertEquals(always ? "First part. Second part. " : "First part. Second part ",
+                    longPause.stop(false));
+        }
     }
 
-    @Test public void theFirstPieceOfASessionIsNeverJoinedToAnything() {
-        Field f = new Field("I typed this. ", THRESHOLD);
-        f.say("And then we go home.", 0f);
-        assertEquals("I typed this. And then we go home. ", f.end());
+    @Test public void customThresholdChangesOnlyTheSentenceBoundary() {
+        Field f = new Field("", "", false, 1.5f);
+        f.say("I was thinking.", 0f);
+        f.say("That we should go home.", 2f);
+        assertEquals("I was thinking. That we should go home ", f.stop(false));
+        assertEquals(3f, PieceJoiner.DEFAULT_SENTENCE_PAUSE_SECONDS, 0.0001f);
     }
 
-    // -------------------------------------------------------------- other fields
-
-    @Test public void aSearchBoxNeverHoldsAnything() {
-        PieceJoiner j = new PieceJoiner();
-        String out = j.join("Weather in Moscow.", 0f, "", "", FieldKind.SEARCH, NO_CAPS,
-                THRESHOLD);
-        assertEquals("Weather in Moscow", out);
-        assertFalse(j.hasHeldTail());
-        assertEquals("", j.finish());
+    @Test public void defaultKeepsQuestionsExclamationsAndBothEllipsesImmediately() {
+        for (String mark : new String[]{"?", "!", "…", "...", "?!"}) {
+            Field f = field(false);
+            assertEquals("Really" + mark + " ", f.say("Really" + mark, 0f).text);
+            assertFalse(f.joiner.hasHeldTail());
+            f.say("Next.", 0.1f);
+            assertEquals("Really" + mark + " Next ", f.stop(false));
+        }
     }
 
-    @Test public void searchPiecesKeepWordSpacing() {
-        PieceJoiner j = new PieceJoiner();
-        String first = j.join("Weather in.", 0f, "", "", FieldKind.SEARCH, NO_CAPS,
-                THRESHOLD);
-        String second = j.join("Moscow.", 1f, first, "", FieldKind.SEARCH, NO_CAPS,
-                THRESHOLD);
-        assertEquals("Weather in Moscow", first + second);
+    @Test public void retainedMarksSurviveLowercaseAndFollowingPunctuation() {
+        for (String after : new String[]{"existing", " existing", ", rest", ")"}) {
+            for (String mark : new String[]{"?", "!", "…", "..."}) {
+                Field f = new Field("", after, false, 3f);
+                f.say("Really" + mark, 0f);
+                String separator = after.startsWith("existing") ? " " : "";
+                assertEquals("Really" + mark + separator + after, f.stop(false));
+                assertFalse(f.joiner.hasHeldTail());
+            }
+        }
     }
 
-    @Test public void aPasswordFieldNeverHoldsAnything() {
-        PieceJoiner j = new PieceJoiner();
-        String out = j.join("Hunter two.", 0f, "abc", "", FieldKind.PASSWORD, NO_CAPS,
-                THRESHOLD);
-        assertEquals("Hunter two.", out);
-        assertFalse(j.hasHeldTail());
+    @Test public void alwaysKeepsTheOriginalNonPeriodTerminalRules() {
+        for (String mark : new String[]{"?", "!", "…"}) {
+            Field f = field(true);
+            f.say("Really" + mark, 0f);
+            assertTrue(f.joiner.hasHeldTail());
+            f.say("Next.", 1f);
+            assertEquals("Really next. ", f.stop(false));
+            Field lower = new Field("", "existing", true, 3f);
+            lower.say("Really" + mark, 0f);
+            assertEquals("Really existing", lower.stop(false));
+        }
+        Field ellipsis = field(true);
+        ellipsis.say("Really...", 0f);
+        assertEquals("Really... ", ellipsis.stop(false));
     }
 
-    @Test public void aDeadConnectionStillDeliversEveryWord() {
-        // before == null: the fitter degrades to today's behaviour and the joiner holds
-        // nothing back, because with nothing readable in front of the cursor there is
-        // no separating space to be had except the one the fitter adds. The sentence is
-        // then cut at the pause, which is what this build did before streaming existed.
-        PieceJoiner j = new PieceJoiner();
-        StringBuilder out = new StringBuilder();
-        out.append(j.join("I was thinking.", 0f, null, null, FieldKind.PROSE, NO_CAPS,
-                THRESHOLD));
-        out.append(j.join("That we should go.", 1.0f, null, null, FieldKind.PROSE, NO_CAPS,
-                THRESHOLD));
-        out.append(j.finish());
-        assertEquals("I was thinking. That we should go. ", out.toString());
+    @Test public void internalPeriodsAndUnfinishedWordsStayExact() {
+        Field f = field(false);
+        f.say("We called Dr. Smith about 3.14.", 0f);
+        f.say("And NASA", 1f);
+        assertEquals("We called Dr. Smith about 3.14 and NASA ", f.stop(false));
+        assertFalse(f.joiner.hasHeldTail());
     }
 
-    // ------------------------------------------------------- the owner's own knob
-
-    @Test public void theThresholdIsTheOwnersNumberAndItIsObeyed() {
-        // At 1.5 s the same 2 s pause that was a hesitation becomes a sentence end.
-        Field slow = new Field("", 4.0f);
-        slow.say("I was thinking.", 0f);
-        slow.say("That we should go home.", 2.0f);
-        assertJoined("I was thinking that we should go home. ", slow.end());
-
-        Field quick = new Field("", 1.5f);
-        quick.say("I was thinking.", 0f);
-        quick.say("That we should go home.", 2.0f);
-        assertJoined("I was thinking. That we should go home. ", quick.end());
+    @Test public void rightSentenceFinishesButRightContinuationDropsThePeriod() {
+        for (boolean always : new boolean[]{false, true}) {
+            Field sentence = new Field("", "Existing paragraph", always, 3f);
+            sentence.say("The venue is booked.", 0f);
+            assertEquals("The venue is booked Existing paragraph", sentence.before + sentence.after);
+            assertEquals("The venue is booked. Existing paragraph", sentence.stop(true));
+            Field continuation = new Field("", "existing paragraph", always, 3f);
+            continuation.say("The venue is booked.", 0f);
+            assertFalse(continuation.joiner.hasHeldTail());
+            assertEquals("The venue is booked existing paragraph", continuation.stop(false));
+        }
     }
 
-    @Test public void theDefaultIsThreeSeconds() {
-        assertEquals(3.0f, PieceJoiner.DEFAULT_SENTENCE_PAUSE_SECONDS, 0.0001f);
+    @Test public void existingRightSpaceIsNeverClaimedByVoice() {
+        Field f = new Field("", " Existing paragraph", false, 3f);
+        f.say("Booked.", 0f);
+        assertFalse(f.joiner.pendingTail().ownsSpace);
+        PieceJoiner.Join end = f.joiner.finish(false, true);
+        assertEquals(0, end.deleteBefore);
+        assertEquals(".", end.text);
+        f.apply(end);
+        assertEquals("Booked. Existing paragraph", f.before + f.after);
+    }
+
+    @Test public void longPauseWithoutOwnedSuffixGetsOneNewPrefixSpace() {
+        Field f = new Field("", " Existing paragraph", false, 3f);
+        f.say("Booked.", 0f);
+        PieceJoiner.Join next = f.say("Next.", 4f);
+        assertEquals(0, next.deleteBefore);
+        assertEquals(". Next", next.text);
+        assertEquals("Booked. Next. Existing paragraph", f.stop(true));
+    }
+
+    @Test public void movingAwayDropsOnlyTheMarkAndKeepsTheF1Separator() {
+        Field f = new Field("", "Existing paragraph", false, 3f);
+        f.say("The venue is booked.", 0f);
+        PieceJoiner.PendingTail abandoned = f.joiner.abandonHeldTail();
+        assertEquals(".", abandoned.mark);
+        assertTrue(abandoned.ownsSpace);
+        assertFalse(f.joiner.hasHeldTail());
+        assertEquals("The venue is booked Existing paragraph", f.stop(true));
+    }
+
+    @Test public void frontierStopKeepsTheMarkAcrossRecordingRestart() {
+        for (float gap : new float[]{1f, 3f}) {
+            Field f = field(false);
+            f.say("First.", 0f);
+            assertEquals("First ", f.stop(false));
+            f.say("Second.", gap);
+            assertEquals(gap < 3f ? "First second " : "First. Second ", f.stop(false));
+        }
+    }
+
+    @Test public void rollbackRestoresBothTheMarkAndTheOwnedSpace() {
+        Field f = field(false);
+        f.say("Hello.", 0f);
+        PieceJoiner.PendingTail saved = f.joiner.pendingTail();
+        f.joiner.abandonHeldTail();
+        f.joiner.restorePendingTail(saved);
+        f.apply(f.joiner.finish(true, false));
+        assertEquals("Hello. ", f.before.toString());
+        f.joiner.restorePendingTail(null);
+        assertFalse(f.joiner.hasHeldTail());
+    }
+
+    @Test public void emptyPieceDoesNotConsumeThePendingPeriod() {
+        Field f = field(false);
+        f.say("Hello.", 0f);
+        assertEquals("", f.say(" ", 5f).text);
+        assertEquals("", f.say(null, 5f).text);
+        assertTrue(f.joiner.hasHeldTail());
+        assertEquals("Hello ", f.stop(false));
+    }
+
+    @Test public void unreadableDefaultDropsOnlyASinglePeriodWithoutHolding() {
+        for (boolean always : new boolean[]{false, true}) {
+            PieceJoiner j = new PieceJoiner();
+            StringBuilder out = new StringBuilder();
+            for (String raw : new String[]{"Hello.", "Really?", "Wait!", "Maybe...", "Perhaps…"}) {
+                PieceJoiner.Join join = j.join(raw, 4f, null, null, FieldKind.PROSE, 0, 3f, always);
+                assertEquals(0, join.deleteBefore);
+                out.append(join.text);
+                assertFalse(j.hasHeldTail());
+            }
+            assertEquals(always ? "Hello. Really? Wait! Maybe... Perhaps… "
+                                : "Hello Really? Wait! Maybe... Perhaps… ", out.toString());
+        }
+    }
+
+    @Test public void newlineRightTextIsAFrontierWithoutAnOwnedSpace() {
+        Field f = new Field("", "\nnext line", false, 3f);
+        f.say("Booked.", 0f);
+        assertFalse(f.joiner.pendingTail().ownsSpace);
+        assertEquals("Booked\nnext line", f.stop(false));
+        assertTrue(f.joiner.hasHeldTail());
+    }
+
+    @Test public void fieldKindsKeepTheirExistingRulesInEitherMode() {
+        for (boolean always : new boolean[]{false, true}) {
+            for (FieldKind kind : new FieldKind[]{FieldKind.SEARCH, FieldKind.PLAIN,
+                                                FieldKind.PASSWORD, FieldKind.NUMBER}) {
+                PieceJoiner j = new PieceJoiner();
+                String raw = kind == FieldKind.NUMBER ? "12." : "Hello.";
+                PieceJoiner.Join join = j.join(raw, 0f, "", "", kind, 0, 3f, always);
+                assertEquals(kind == FieldKind.NUMBER ? "12"
+                        : kind == FieldKind.PASSWORD ? "Hello." : "Hello", join.text);
+                assertEquals(0, join.deleteBefore);
+                assertFalse(j.hasHeldTail());
+            }
+        }
     }
 }
-
