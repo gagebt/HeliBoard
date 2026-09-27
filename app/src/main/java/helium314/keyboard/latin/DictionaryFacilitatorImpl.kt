@@ -708,38 +708,14 @@ private class DictionaryGroup(
 ) {
     private val subDicts: ConcurrentHashMap<String, ExpandableBinaryDictionary> = ConcurrentHashMap(subDicts)
 
-    /** Removes a word from all dictionaries in this group. If the word is in a read-only dictionary, it is blacklisted. */
+    /** Suppresses a dismissed suggestion, including words supplied only by FUTO. */
     fun removeWord(word: String) {
-        // remove from user history
         getSubDict(Dictionary.TYPE_USER_HISTORY)?.removeUnigramEntryDynamically(word)
-
-        // and from personal dictionary
         getSubDict(Dictionary.TYPE_USER)?.removeUnigramEntryDynamically(word)
-
-        val contactsDict = getSubDict(Dictionary.TYPE_CONTACTS)
-        if (contactsDict != null && contactsDict.isInDictionary(word)) {
-            contactsDict.removeUnigramEntryDynamically(word) // will be gone until next reload of dict
-            addToBlacklist(word)
-            return
-        }
-
-        val appsDict = getSubDict(Dictionary.TYPE_APPS)
-        if (appsDict != null && appsDict.isInDictionary(word)) {
-            appsDict.removeUnigramEntryDynamically(word) // will be gone until next reload of dict
-            addToBlacklist(word)
-            return
-        }
-
-        val mainDict = mainDict ?: return
-        if (mainDict.isValidWord(word)) {
-            addToBlacklist(word)
-            return
-        }
-
-        val lowercase = word.lowercase(locale)
-        if (getDict(Dictionary.TYPE_MAIN)!!.isValidWord(lowercase)) {
-            addToBlacklist(lowercase)
-        }
+        getSubDict(Dictionary.TYPE_CONTACTS)?.removeUnigramEntryDynamically(word)
+        getSubDict(Dictionary.TYPE_APPS)?.removeUnigramEntryDynamically(word)
+        addToBlacklist(word)
+        addToBlacklist(word.lowercase(locale))
     }
 
     // --------------- Confidence for multilingual typing -------------------
@@ -822,11 +798,12 @@ private class DictionaryGroup(
     }
 
     fun removeFromBlacklist(word: String) {
-        if (!blacklist.remove(word) || blacklistFile == null) return
+        val forms = setOf(word, word.lowercase(locale))
+        if (!blacklist.removeAll(forms) || blacklistFile == null) return
         scope.launch {
             synchronized(this) {
                 try {
-                    val newLines = blacklistFile.readLines().filterNot { it == word }
+                    val newLines = blacklistFile.readLines().filterNot { it in forms }
                     blacklistFile.writeText(newLines.joinToString("\n"))
                 } catch (e: IOException) {
                     Log.e(TAG, "Exception while trying to remove word \"$word\" to blacklist ${blacklistFile.name}", e)

@@ -4,12 +4,19 @@ package helium314.keyboard.latin
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.utils.SuggestionResults
+import helium314.keyboard.keyboard.Keyboard
+import helium314.keyboard.latin.settings.SettingsValuesForSuggestion
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.mockito.Mockito.mock
+import org.junit.Assert.assertTrue
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Test
 
 /** X11: words the user removed stay out of FUTO swipe results and FUTO next-word predictions. */
+@RunWith(RobolectricTestRunner::class)
 class RemovedWordsFilterTest {
     private val removed = setOf("hell")
 
@@ -21,6 +28,35 @@ class RemovedWordsFilterTest {
         words.forEachIndexed { rank, it ->
             results.add(word(it, 1_000_000_000 - rank, Dictionary.DICTIONARY_APPLICATION_DEFINED, kind))
         }
+    }
+
+    @Test
+    fun personalOnlyWordCanBeRemoved() {
+        val dictionaries = DictionaryFacilitatorImpl()
+        dictionaries.removeWord("Radek")
+        assertTrue(dictionaries.isBlacklisted("Radek"))
+        assertTrue(dictionaries.isBlacklisted("radek"))
+    }
+
+    @Test
+    fun removedWordLeavesAnAlreadyCachedPrediction() {
+        val dictionaries = DictionaryFacilitatorImpl()
+        val suggest = Suggest(dictionaries)
+        val context = NgramContext.BEGINNING_OF_SENTENCE
+        val results = futo(SuggestedWordInfo.KIND_PREDICTION, "Radek", "hello")
+        val cacheField = Suggest::class.java.getDeclaredField("nextWordSuggestionsCache").apply { isAccessible = true }
+        @Suppress("UNCHECKED_CAST")
+        val cache = cacheField.get(suggest) as MutableMap<NgramContext, SuggestionResults>
+        cache[context] = results
+        val method = Suggest::class.java.getDeclaredMethod("getNextWordSuggestions", NgramContext::class.java,
+            Keyboard::class.java, Int::class.javaPrimitiveType, SettingsValuesForSuggestion::class.java).apply { isAccessible = true }
+        val keyboard = mock(Keyboard::class.java)
+        val settings = SettingsValuesForSuggestion(false, false)
+        fun read() = (method.invoke(suggest, context, keyboard, 0, settings) as SuggestionResults).map { it.mWord }
+        assertEquals(listOf("Radek", "hello"), read())
+        dictionaries.removeWord("Radek")
+        assertEquals(listOf("hello"), read())
+        assertSame(results, cache[context])
     }
 
     @Test

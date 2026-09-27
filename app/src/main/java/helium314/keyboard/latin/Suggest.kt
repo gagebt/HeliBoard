@@ -365,7 +365,7 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
     private fun getNextWordSuggestions(ngramContext: NgramContext, keyboard: Keyboard, inputStyle: Int,
                                        settingsValuesForSuggestion: SettingsValuesForSuggestion): SuggestionResults {
         val cachedResults = nextWordSuggestionsCache[ngramContext]
-        if (cachedResults != null) return cachedResults
+        if (cachedResults != null) return withoutRemovedWords(cachedResults, mDictionaryFacilitator::isBlacklisted)!!
         val futoResults = FutoSuggestions.predictNext(
             keyboard,
             mDictionaryFacilitator.mainLocale,
