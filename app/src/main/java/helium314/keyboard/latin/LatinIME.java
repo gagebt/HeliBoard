@@ -1644,6 +1644,7 @@ public class LatinIME extends InputMethodService implements
     private void showMicPermissionNotice(final boolean permanent) {
         if (mSuggestionStripView == null) return;
         final TextView line = new TextView(this);
+        line.setTextColor(mSettings.getCurrent().mColors.get(ColorType.TOOL_BAR_KEY));
         line.setSingleLine(true);
         line.setEllipsize(android.text.TextUtils.TruncateAt.END);
         line.setGravity(Gravity.CENTER_VERTICAL);
@@ -1742,6 +1743,7 @@ public class LatinIME extends InputMethodService implements
             row.setGravity(Gravity.CENTER_VERTICAL);
             if (state.error || state.notice) {
                 final TextView status = new TextView(this);
+                status.setTextColor(mSettings.getCurrent().mColors.get(ColorType.TOOL_BAR_KEY));
                 status.setSingleLine(true);
                 status.setText(state.message);
                 row.addView(status);
@@ -1791,6 +1793,7 @@ public class LatinIME extends InputMethodService implements
                     + getString(R.string.dictation_stop));
         } else {
             final TextView status = new TextView(this);
+            status.setTextColor(mSettings.getCurrent().mColors.get(ColorType.TOOL_BAR_KEY));
             status.setText(state.message);
             status.setSingleLine(true);
             row.addView(status);
