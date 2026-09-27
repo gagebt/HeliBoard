@@ -83,6 +83,83 @@ class InputLogicTest {
     }
 
 
+    // Observed on Android 17: hello |world + a meeting swipe joined meetingworld.
+    @Test fun gestureBeforeExistingWordKeepsItsRightBoundaryAndCandidates() {
+        setText("hello world"); setCursorPosition(6)
+        completedGesture("meeting")
+        assertEquals("hello meeting world", text)
+        assertEquals(13, getCursorPosition())
+        assertEquals("meeting", composingText)
+        checkConnectionConsistency()
+        pickSuggestion("greeting")
+        assertEquals("hello greeting world", text)
+        assertEquals(14, getCursorPosition())
+        completedGesture("today")
+        assertEquals("hello greeting today world", text)
+        assertEquals("today", composingText)
+        checkConnectionConsistency()
+        latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(','.code)); handleMessages()
+        assertEquals("hello greeting today, world", text)
+        checkConnectionConsistency()
+    }
+
+    @Test fun gestureRightBoundaryRespectsExistingTextAndAutospaceSetting() {
+        for (suffix in listOf(" world", ", world", "\nworld", "")) {
+            setText("hello " + suffix); setCursorPosition(6)
+            completedGesture("meeting")
+            assertEquals("hello meeting" + suffix, text)
+            checkConnectionConsistency()
+        }
+        latinIME.prefs().edit { putBoolean(Settings.PREF_AUTOSPACE_AFTER_GESTURE_TYPING, false) }
+        setText("hello world"); setCursorPosition(6)
+        completedGesture("meeting")
+        assertEquals("hello meetingworld", text)
+        checkConnectionConsistency()
+    }
+
+    @Test fun gestureRightBoundarySpaceAndBackspaceKeepUserWhitespace() {
+        setText("hello world"); setCursorPosition(6)
+        completedGesture("meeting")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello world", text)
+        assertEquals(6, getCursorPosition())
+        completedGesture("meeting")
+        latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(' '.code)); handleMessages()
+        assertEquals("hello meeting world", text)
+        assertEquals(14, getCursorPosition())
+        checkConnectionConsistency()
+        setText("hello  world"); setCursorPosition(6)
+        completedGesture("meeting")
+        functionalKeyPress(KeyCode.DELETE)
+        assertEquals("hello  world", text)
+        checkConnectionConsistency()
+        setText("hello oldworld"); setCursorPosition(6, 9)
+        completedGesture("meeting")
+        assertEquals("hello meeting world", text)
+        checkConnectionConsistency()
+    }
+
+    private fun completedGesture(word: String) {
+        inputLogic.onStartBatchInput(settingsValues, KeyboardSwitcher.getInstance(), latinIME.mHandler)
+        inputLogic.onEndBatchInput(InputPointers(1))
+        @Suppress("UNCHECKED_CAST")
+        val pending = InputLogic::class.java.getDeclaredField("mPendingTailBatchSequenceNumbers")
+            .apply { isAccessible = true }.get(inputLogic) as ArrayList<Int>
+        val info = SuggestedWordInfo(word, "", 0, 0, null, 0, 0)
+        val sw = SuggestedWords(arrayListOf(info), null, info, true, false, false,
+            SuggestedWords.INPUT_STYLE_TAIL_BATCH, pending.first())
+        // Supply the decoded word through the real callback; it also retires the drawing state.
+        val handler = InputLogic::class.java.getDeclaredField("mInputLogicHandler")
+            .apply { isAccessible = true }.get(inputLogic)
+        val generation = handler.javaClass.getDeclaredField("mBatchGeneration")
+            .apply { isAccessible = true }.getLong(handler)
+        handler.javaClass.getDeclaredMethod("showGestureSuggestionsWithPreviewVisuals",
+            SuggestedWords::class.java, Boolean::class.javaPrimitiveType,
+            Long::class.javaPrimitiveType, Int::class.javaPrimitiveType)
+            .apply { isAccessible = true }.invoke(handler, sw, true, generation, sw.mSequenceNumber)
+        handleMessages()
+    }
+
     @Test fun punctuationMovesBeforeAnInteriorSpaceByDefault() {
         setText("one two"); setCursorPosition(4)
         assertEquals("e ", latinIME.currentInputConnection.getTextBeforeCursor(2, 0).toString())

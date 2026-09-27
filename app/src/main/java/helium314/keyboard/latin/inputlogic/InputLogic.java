@@ -95,6 +95,8 @@ public final class InputLogic {
     // TODO : make all these fields private as soon as possible.
     // Current space state of the input method. This can be any of the above constants.
     private int mSpaceState;
+    // Owned only by the current composing gesture word; never delete pre-existing spaces.
+    private boolean mBatchInputInsertedSpace;
     // Never null
     public SuggestedWords mSuggestedWords = SuggestedWords.getEmptyInstance();
     public Suggest mSuggest; // non-final for active gesture data gathering, revert when data gathering phase is done (end of 2026 latest)
@@ -1280,7 +1282,13 @@ public final class InputLogic {
             }
 
             if (!shouldAvoidSendingCode) {
-                mConnection.commitCodePoint(codePoint);
+                if (SpaceState.PHANTOM == inputTransaction.getSpaceState()
+                        && TextUtils.equals(" ", mConnection.getTextAfterCursor(1, 0))) {
+                    final int afterSpace = mConnection.getExpectedSelectionStart() + 1;
+                    mConnection.setSelection(afterSpace, afterSpace);
+                } else {
+                    mConnection.commitCodePoint(codePoint);
+                }
             }
         } else {
             if (SpaceState.PHANTOM == inputTransaction.getSpaceState()
@@ -1361,6 +1369,12 @@ public final class InputLogic {
         if (mWordComposer.isComposingWord()) {
             if (mWordComposer.isBatchMode()) {
                 final String rejectedSuggestion = mWordComposer.getTypedWord();
+                if (mBatchInputInsertedSpace
+                        && TextUtils.equals(" ", mConnection.getTextAfterCursor(1, 0))) {
+                    final int wordEnd = mConnection.getExpectedSelectionStart();
+                    mConnection.setComposingRegion(wordEnd - rejectedSuggestion.length(), wordEnd + 1);
+                }
+                mBatchInputInsertedSpace = false;
                 if (GestureDataGatheringKt.useBackgroundGathering)
                     BackgroundGatheringCache.INSTANCE.onRejectedSuggestion(rejectedSuggestion);
                 mWordComposer.reset();
@@ -2380,15 +2394,17 @@ public final class InputLogic {
      * @param settingsValues the current values of the settings.
      */
     private void insertAutomaticSpaceIfOptionsAndTextAllow(final SettingsValues settingsValues) {
-        if (settingsValues.shouldInsertSpacesAutomatically()
+        if (canInsertAutomaticSpace(settingsValues)) {
+            mConnection.commitCodePoint(Constants.CODE_SPACE);
+        }
+    }
+
+    private boolean canInsertAutomaticSpace(final SettingsValues settingsValues) {
+        return settingsValues.shouldInsertSpacesAutomatically()
                 && settingsValues.mSpacingAndPunctuations.mCurrentLanguageHasSpaces
                 && !textBeforeCursorMayBeUrlOrSimilar(settingsValues, true)
                 && !mConnection.textBeforeCursorLooksLikeURL() // adding this check to textBeforeCursorMayBeUrlOrSimilar might not be wanted for word continuation (see effect on unit tests)
-                && !(mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD && mConnection.wordBeforeCursorMayBeEmail())
-        ) {
-            mConnection.commitCodePoint(Constants.CODE_SPACE);
-            // todo: why not remove phantom space state?
-        }
+                && !(mConnection.getCodePointBeforeCursor() == Constants.CODE_PERIOD && mConnection.wordBeforeCursorMayBeEmail());
     }
 
     private boolean textBeforeCursorMayBeUrlOrSimilar(final SettingsValues settingsValues, final Boolean forAutoSpace) {
@@ -2429,6 +2445,21 @@ public final class InputLogic {
         mWordComposer.setBatchInputWord(batchInputText);
         enterInlineEmojiSearchIfNeeded(batchInputText.codePointAt(0), settingsValues);
         setComposingTextInternal(batchInputText, 1);
+        mBatchInputInsertedSpace = false;
+        if (settingsValues.mAutospaceAfterGestureTyping && canInsertAutomaticSpace(settingsValues)
+                && mConnection.isCursorPositionKnown() && !mConnection.hasSlowInputConnection()
+                && mConnection.isCursorFollowedByWordCharacter(settingsValues.mSpacingAndPunctuations)) {
+            final int wordEnd = mConnection.getExpectedSelectionStart();
+            mConnection.finishComposingText();
+            mConnection.commitCodePoint(Constants.CODE_SPACE);
+            if (mConnection.setSelection(wordEnd, wordEnd)) {
+                // Keep the separator outside composition so candidates replace only the word.
+                mConnection.setComposingRegion(wordEnd - batchInputText.length(), wordEnd);
+                mBatchInputInsertedSpace = true;
+            } else {
+                mWordComposer.reset();
+            }
+        }
         mConnection.endBatchEdit();
         // Space state must be updated before calling updateShiftState
         if (settingsValues.mAutospaceAfterGestureTyping)
