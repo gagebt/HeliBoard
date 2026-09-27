@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * The field a dictation belongs to (seam S1). HeliBoard builds one at each
- * {@code onStartInput} from the editor's own facts; delivery, Copy and the draft file
+ * {@code onStartInput} and refreshes its Incognito fact on a setting change; delivery, Copy and the draft file
  * read only this record. {@link #sameField} (same package, known field id, same input
  * type) is only a precondition: apps reuse one widget id for many documents, so the
  * controller also keeps a binding generation and continues a binding only after a
@@ -22,7 +22,7 @@ public final class EditorRecord {
     public final TextFitter.FieldKind kind;
     /** False for a terminal: the text before the cursor cannot be read back. */
     public final boolean readBackKnown;
-    /** Password, no-learning or incognito: no draft file, no Copy, no history. */
+    /** Password, no-learning or incognito: no draft file or history; Copy stays in its field. */
     public final boolean privateField;
     /**
      * A window without a text field, such as the launcher after Home (observed: type 0,
@@ -63,6 +63,11 @@ public final class EditorRecord {
     public static EditorRecord of(EditorInfo info, boolean incognito) {
         return info == null ? null : new EditorRecord(info.packageName, info.fieldId,
                 info.inputType, info.imeOptions, incognito);
+    }
+
+    /** Refresh the global setting without replacing the observed field identity. */
+    public EditorRecord withIncognito(boolean enabled) {
+        return new EditorRecord(packageName, fieldId, inputType, imeOptions, enabled);
     }
 
     public boolean sameField(EditorRecord other) {

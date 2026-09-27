@@ -806,6 +806,54 @@ public class DeferredVoiceDeliveryTest {
         assertEquals("New field words", clip().trim());
     }
 
+
+    @Test public void privacyChangeDuringRecordingPreventsDraftHistoryAndPublicCopy() throws Exception {
+        FakeEditor editor = new FakeEditor(""); editor.accepts = false;
+        FakeHost host = new FakeHost(editor); host.ready = true; host.history = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        set(voice, "maySaveCurrentSession", true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "Private later.", 0));
+        assertTrue(draftPath().exists());
+        host.editor = new EditorRecord("test.app", 7, TEXT, 0, true);
+        voice.onEditorStarted(true);
+        assertFalse(draftPath().exists());
+        host.editor = new EditorRecord("test.app", 7, TEXT, 0, false);
+        voice.onEditorStarted(true);
+        voice.onInputViewFinished(true);
+        voice.onDictationComplete(SESSION, 0, "Private later.", "");
+        assertTrue(host.saved.isEmpty());
+        assertTrue(voice.copyDraft());
+        assertTrue(clipIsSensitive());
+        assertFalse(draftPath().exists());
+    }
+
+    @Test public void privacyChangeCoversQueuedRecordingAfterIncognitoTurnsOff() throws Exception {
+        FakeEditor editor = new FakeEditor("");
+        FakeHost host = new FakeHost(editor); host.ready = true; host.history = true;
+        RustInputMethodService voice = recording(host, editor, SESSION);
+        Object a = pending(voice, host, SESSION, 1000, false);
+        set(voice, "delivering", a); set(a, "stoppedAt", 2000L);
+        set(voice, "maySaveCurrentSession", true);
+        assertTrue(voice.onTranscriptPiece(SESSION, 0, "First point.", 0));
+        Object b = pending(voice, host, SESSION + 1, 2100, true);
+        set(b, "saveHistory", true);
+        assertTrue(voice.onTranscriptPiece(SESSION + 1, 0, "Private second point.", 0));
+        assertTrue(draftPath().exists());
+        host.editor = new EditorRecord("test.app", 7, TEXT, 0, true);
+        voice.onEditorStarted(true);
+        assertFalse(draftPath().exists());
+        host.editor = new EditorRecord("test.app", 7, TEXT, 0, false);
+        voice.onEditorStarted(true);
+        voice.onInputViewFinished(true);
+        voice.onDictationComplete(SESSION, 0, "First point.", "");
+        voice.onDictationComplete(SESSION + 1, 0, "Private second point.", "");
+        assertTrue(host.saved.isEmpty());
+        assertTrue(voice.copyDraft());
+        assertTrue(clip().contains("second point"));
+        assertTrue(clipIsSensitive());
+        assertFalse(draftPath().exists());
+    }
+
     private Object pending(RustInputMethodService voice, FakeHost host, long id, long started,
                            boolean enqueue) throws Exception {
         Class<?> type = Class.forName(RustInputMethodService.class.getName() + "$Recording");

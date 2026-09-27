@@ -88,6 +88,7 @@ import helium314.keyboard.latin.define.DebugFlags;
 import helium314.keyboard.latin.inputlogic.InputLogic;
 import helium314.keyboard.latin.personalization.PersonalizationHelper;
 import helium314.keyboard.latin.settings.Settings;
+import helium314.keyboard.latin.settings.Defaults;
 import helium314.keyboard.latin.settings.SettingsValues;
 import helium314.keyboard.latin.suggestions.SuggestionStripView;
 import helium314.keyboard.latin.suggestions.SuggestionStripViewAccessor;
@@ -176,6 +177,12 @@ public class LatinIME extends InputMethodService implements
     private final AudioFocusPauser mVoiceAudioPauser = new AudioFocusPauser();
     private RustInputMethodService.VoiceState mVoiceState;
     private EditorRecord mVoiceEditor;
+    private final SharedPreferences.OnSharedPreferenceChangeListener mVoicePrivacyListener = (prefs, key) -> {
+        if (!Settings.PREF_ALWAYS_INCOGNITO_MODE.equals(key) || mVoiceEditor == null) return;
+        mVoiceEditor = mVoiceEditor.withIncognito(prefs.getBoolean(
+                Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE));
+        if (mVoiceController != null) mVoiceController.onEditorPrivacyChanged();
+    };
     private boolean mVoiceRestoreToolbar;
     private boolean mVoiceOptionalHidden;
     private Runnable mVoiceHideOptional;
@@ -703,6 +710,7 @@ public class LatinIME extends InputMethodService implements
                 }
             }
         });
+        KtxKt.prefs(this).registerOnSharedPreferenceChangeListener(mVoicePrivacyListener);
         // Voice text held while a finger was on the keyboard goes in after the last finger lifts.
         PointerTracker.setOnAllPointersUp(() -> mHandler.post(() -> {
             if (mVoiceController != null) mVoiceController.resumePendingDelivery();
@@ -856,6 +864,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onDestroy() {
+        KtxKt.prefs(this).unregisterOnSharedPreferenceChangeListener(mVoicePrivacyListener);
         PointerTracker.setOnAllPointersUp(null);
         stopVoiceForeground();
         if (mVoiceController != null) {
@@ -955,7 +964,8 @@ public class LatinIME extends InputMethodService implements
     public void onStartInput(final EditorInfo editorInfo, final boolean restarting) {
         // Read before the handler clears its rotation state.
         final boolean rotating = mHandler.isOrientationChanging();
-        mVoiceEditor = EditorRecord.of(editorInfo, mSettings.getCurrent().mIncognitoModeEnabled);
+        mVoiceEditor = EditorRecord.of(editorInfo, KtxKt.prefs(this).getBoolean(
+                Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE));
         mHandler.onStartInput(editorInfo, restarting);
         if (mVoiceController != null) mVoiceController.onEditorStarted(rotating);
     }

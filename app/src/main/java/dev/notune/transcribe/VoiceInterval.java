@@ -25,11 +25,13 @@ public final class VoiceInterval {
     String text = "";
     State state = State.STAGED;
     boolean closeFinalized;
+    private boolean privateContent;
 
     VoiceInterval(long sessionId, EditorRecord destination, long binding) {
         this.sessionId = sessionId;
         this.destination = destination;
         this.binding = binding;
+        privateContent = destination != null && destination.privateField;
     }
 
     public String text() {
@@ -41,8 +43,11 @@ public final class VoiceInterval {
     }
 
     boolean privateOrigin() {
-        return destination != null && destination.privateField;
+        return privateContent;
     }
+
+    /** Disabling Incognito later never declassifies words already recorded privately. */
+    void markPrivate() { privateContent = true; }
 
     /** Marks a write that was accepted but not read back; a refusal or loss stays worse. */
     void markUnconfirmed() {

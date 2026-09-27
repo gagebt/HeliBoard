@@ -462,6 +462,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
      */
     public void onEditorStarted(boolean rotating) {
         if (!host.isMainThread()) return;
+        onEditorPrivacyChanged();
         EditorRecord current = host.currentEditor();
         if (current != null && current.noField) {
             // Home shows the launcher, which has no field: wait for the next real field.
@@ -513,6 +514,22 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
             loseTarget();
         }
         publishState();
+    }
+
+    /** A live privacy change protects active, queued and retained words in this binding. */
+    public void onEditorPrivacyChanged() {
+        if (!host.isMainThread()) return;
+        EditorRecord current = host.currentEditor();
+        if (current == null || !current.privateField) return;
+        markPrivateInCurrentField(session, current);
+        markPrivateInCurrentField(recovery, current);
+        for (Recording item : waiting) markPrivateInCurrentField(item.interval, current);
+        persist();
+    }
+
+    private void markPrivateInCurrentField(VoiceInterval item, EditorRecord current) {
+        if (item != null && item.binding == bindingGeneration && item.destination != null
+                && item.destination.sameField(current)) item.markPrivate();
     }
 
     /**
@@ -863,7 +880,7 @@ public final class RustInputMethodService extends ContextWrapper implements Auto
                     ? R.string.voice_status_interrupted : R.string.voice_status_failed);
             stateError = true;
         }
-        if (maySaveCurrentSession) {
+        if (maySaveCurrentSession && !session.privateOrigin()) {
             // Native sends the full revised candidate for REVIEW.
             String historyText = (outcome == OUTCOME_REVIEW || session.text.isBlank())
                     && text != null && !text.isBlank() ? text : session.text;
