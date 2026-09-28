@@ -138,4 +138,7 @@
     <string name="voice_full_stop_summary">اوصیلە گورە صوڭ نقطە قوینماز. دوراقلامدن صوڭرا یڭی جملە باشلاینجا نقطە یینە قوینور.</string>
     <string name="voice_full_stop_next_sentence">صوڭراکی جملە باشلاینجا</string>
     <string name="voice_full_stop_always">دائما</string>
+    <string name="key_long_presses">Key long presses</string>
+    <string name="key_long_press_title">Hold %1$s</string>
+    <string name="key_long_presses_summary">Choose or disable what holding a key does. None keeps its normal tap action.</string>
 </resources>

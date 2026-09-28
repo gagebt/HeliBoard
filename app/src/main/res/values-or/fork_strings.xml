@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">ଡିଫଲ୍ଟ ଭାବରେ ଶେଷ ପୂର୍ଣ୍ଣଚ୍ଛେଦ ଛାଡ଼ି ଦିଆଯାଏ। ବିରତି ପରେ ନୂଆ ବାକ୍ୟ ଆରମ୍ଭ ହେଲେ ତଥାପି ପୂର୍ଣ୍ଣଚ୍ଛେଦ ଦିଆଯାଏ।</string>
     <string name="voice_full_stop_next_sentence">ପରବର୍ତ୍ତୀ ବାକ୍ୟ ଆରମ୍ଭ ହେଲେ</string>
     <string name="voice_full_stop_always">ସର୍ବଦା</string>
+    <string name="key_long_presses">କୀ ଦବାଇ ଧରିବା</string>
+    <string name="key_long_press_title">%1$s ଦବାଇ ଧରନ୍ତୁ</string>
+    <string name="key_long_presses_summary">କୀ ଦବାଇ ଧରିଲେ କ’ଣ ହେବ ତାହା ବାଛନ୍ତୁ କିମ୍ବା ବନ୍ଦ କରନ୍ତୁ। “None” ବାଛିଲେ ସାଧାରଣ ଟ୍ୟାପ୍ କାର୍ଯ୍ୟ ରହିବ।</string>
 </resources>

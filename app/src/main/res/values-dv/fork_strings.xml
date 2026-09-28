@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">ޑިފޯލްޓް އިޚްތިޔާރުގައި އެންމެ ފަހު ފުލްސްޓޮޕް ނުލާނެ. ހިމޭން މުއްދަތަކަށްފަހު އާ ޖުމްލައަކަށް ފުލްސްޓޮޕް ލާނެ.</string>
     <string name="voice_full_stop_next_sentence">ދެން އޮތް ޖުމްލަ ފެށޭއިރު</string>
     <string name="voice_full_stop_always">ހަމެހިންދުވެސް</string>
+    <string name="key_long_presses">ކީ ދިގު ފިތުމުގެ ޢަމަލުތައް</string>
+    <string name="key_long_press_title">%1$s ހިފަހައްޓާ</string>
+    <string name="key_long_presses_summary">ކީއެއް ހިފަހައްޓާއިރު ވާ ކަން ހޮވާ ނުވަތަ ބަންދު ކުރޭ. އެއްޗެއް ނެތް ކީގެ އާދައިގެ ފިތުމުގެ ޢަމަލު ބަހައްޓައެވެ.</string>
 </resources>

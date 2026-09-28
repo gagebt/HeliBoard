@@ -142,4 +142,7 @@
     <string name="voice_full_stop_summary">Implicit, ultimul punct este omis. O propoziție nouă după o pauză primește în continuare un punct.</string>
     <string name="voice_full_stop_next_sentence">Când începe următoarea propoziție</string>
     <string name="voice_full_stop_always">Întotdeauna</string>
+    <string name="key_long_presses">Apăsări lungi ale tastelor</string>
+    <string name="key_long_press_title">Ține apăsată tasta %1$s</string>
+    <string name="key_long_presses_summary">Alege sau dezactivează acțiunea la ținerea apăsată a unei taste. Fără păstrează acțiunea normală la atingere.</string>
 </resources>

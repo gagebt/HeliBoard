@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">כברירת מחדל, הנקודה האחרונה מושמטת. משפט חדש לאחר הפסקה עדיין מקבל נקודה.</string>
     <string name="voice_full_stop_next_sentence">בתחילת המשפט הבא</string>
     <string name="voice_full_stop_always">תמיד</string>
+    <string name="key_long_presses">פעולות בלחיצה ארוכה על מקשים</string>
+    <string name="key_long_press_title">יש ללחוץ לחיצה ארוכה על %1$s</string>
+    <string name="key_long_presses_summary">בחרו או השביתו את הפעולה בעת לחיצה ארוכה על מקש. ללא שומר על פעולת ההקשה הרגילה.</string>
 </resources>

@@ -139,4 +139,7 @@
     <string name="voice_full_stop_summary">Secara default, titik terakhir dihilangkan. Kalimat baru setelah jeda tetap mendapat titik.</string>
     <string name="voice_full_stop_next_sentence">Saat kalimat berikutnya dimulai</string>
     <string name="voice_full_stop_always">Selalu</string>
+    <string name="key_long_presses">Tindakan tekan lama tombol</string>
+    <string name="key_long_press_title">Tahan %1$s</string>
+    <string name="key_long_presses_summary">Pilih atau nonaktifkan tindakan saat tombol ditahan. Tidak ada mempertahankan tindakan ketuk biasa.</string>
 </resources>

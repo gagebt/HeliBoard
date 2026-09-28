@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Per impostazione predefinita, l’ultimo punto viene omesso. Una nuova frase dopo una pausa riceve comunque un punto.</string>
     <string name="voice_full_stop_next_sentence">Quando inizia la frase successiva</string>
     <string name="voice_full_stop_always">Sempre</string>
+    <string name="key_long_presses">Azioni alla pressione prolungata dei tasti</string>
+    <string name="key_long_press_title">Tieni premuto %1$s</string>
+    <string name="key_long_presses_summary">Scegli o disattiva l’azione quando tieni premuto un tasto. Nessuno mantiene la normale azione al tocco.</string>
 </resources>

@@ -14,6 +14,7 @@ import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardId
 import helium314.keyboard.keyboard.KeyboardMode
 import helium314.keyboard.keyboard.KeyboardTheme
+import helium314.keyboard.keyboard.internal.KeySpecParser
 import helium314.keyboard.keyboard.internal.KeyboardCodesSet
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
@@ -24,6 +25,7 @@ import helium314.keyboard.latin.RichInputMethodManager
 import helium314.keyboard.latin.common.Constants
 import helium314.keyboard.latin.common.LocaleUtils.constructLocale
 import helium314.keyboard.latin.common.StringUtils
+import helium314.keyboard.latin.settings.KeyLongPress
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.spellcheck.AndroidSpellCheckerService
 import helium314.keyboard.latin.utils.LayoutType
@@ -355,7 +357,13 @@ sealed interface KeyData : AbstractKeyData {
             newLabel = KeyLabel.keyLabelToActualLabel(label, params)
         }
         var newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
-        val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
+        val holdKey = KeyLongPress.forKey(this,
+            if (newCode == KeyCode.UNSPECIFIED) KeySpecParser.getCode(newLabel) else newCode)
+        val layoutPopups = popup.merge(getAdditionalPopupKeys(params))
+        val defaultPicker = holdKey == KeyLongPress.SPACE || holdKey == KeyLongPress.LANGUAGE
+        val holdCode = holdKey?.let { Settings.getInstance().getKeyLongPress(it) }
+            ?: KeyCode.SYSTEM_INPUT_METHOD_PICKER.takeIf { defaultPicker && layoutPopups.isEmpty() }
+        val newPopupKeys = layoutPopups
 
         val background = when (type) {
             KeyType.CHARACTER, KeyType.NUMERIC -> Key.BACKGROUND_TYPE_NORMAL
@@ -382,6 +390,7 @@ sealed interface KeyData : AbstractKeyData {
                     newLabelFlags,
                     background,
                     newPopupKeys,
+                    holdCode,
                 )
             } else {
                 Key.KeyParams(
@@ -391,6 +400,7 @@ sealed interface KeyData : AbstractKeyData {
                     newLabelFlags,
                     background,
                     newPopupKeys,
+                    holdCode,
                 )
             }
         } else {
@@ -403,6 +413,7 @@ sealed interface KeyData : AbstractKeyData {
                 newLabelFlags,
                 background,
                 newPopupKeys,
+                holdCode,
             )
         }
     }

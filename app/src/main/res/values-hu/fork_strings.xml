@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Alapértelmezés szerint az utolsó pont kimarad. Szünet után az új mondat kezdetekor továbbra is bekerül egy pont.</string>
     <string name="voice_full_stop_next_sentence">A következő mondat kezdetekor</string>
     <string name="voice_full_stop_always">Mindig</string>
+    <string name="key_long_presses">Billentyűk nyomva tartásának műveletei</string>
+    <string name="key_long_press_title">Tartsa nyomva: %1$s</string>
+    <string name="key_long_presses_summary">Válassza ki vagy kapcsolja ki a billentyű nyomva tartásakor végzett műveletet. A Semmi megtartja a szokásos érintési műveletet.</string>
 </resources>

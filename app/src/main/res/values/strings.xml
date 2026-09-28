@@ -1363,4 +1363,7 @@ New dictionary:
     <string name="button_pause_gesture_gathering">Pause gesture data gathering for 5 minutes</string>
     <string name="move_punctuation_before_space">Move punctuation before spaces</string>
     <string name="move_punctuation_before_space_summary">Typing “word ,” gives “word, ”. Backspace undoes the move.</string>
+    <string name="key_long_presses">Key long presses</string>
+    <string name="key_long_press_title">Hold %1$s</string>
+    <string name="key_long_presses_summary">Choose or disable what holding a key does. None keeps its normal tap action.</string>
 </resources>

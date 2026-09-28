@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">預設省略最後的句號。停頓後的新句子仍會加入句號。</string>
     <string name="voice_full_stop_next_sentence">當下一句開始時</string>
     <string name="voice_full_stop_always">一律</string>
+    <string name="key_long_presses">按鍵長按</string>
+    <string name="key_long_press_title">長按%1$s</string>
+    <string name="key_long_presses_summary">選擇或關閉長按按鍵時的操作。選擇「None」時，仍保留一般輕觸操作。</string>
 </resources>

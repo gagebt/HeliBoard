@@ -572,7 +572,10 @@ f""", // no newline at the end
             assertEquals(expected[index].label, keyParams.mLabel)
             assertEquals(expected[index].icon, keyParams.mIconName)
             assertEquals(expected[index].code, keyParams.mCode)
-            assertEquals(expected[index].popups, keyParams.mPopupKeys?.mapNotNull { it.mLabel to it.mCode })
+            // The default Space picker is now represented as an automatic popup, like other holds.
+            val expectedPopups = expected[index].popups ?: if (expected[index].code == 32)
+                listOf(" " to KeyCode.SYSTEM_INPUT_METHOD_PICKER) else null
+            assertEquals(expectedPopups, keyParams.mPopupKeys?.mapNotNull { it.mLabel to it.mCode })
             assertEquals(expected[index].text, keyParams.outputText)
             assertEquals(expected[index].background, keyParams.mBackgroundType)
             assertTrue(LayoutUtilsCustom.checkKeys(listOf(listOf(keyParams))))

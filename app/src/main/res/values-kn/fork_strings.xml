@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ಕೊನೆಯ ಪೂರ್ಣವಿರಾಮವನ್ನು ಬಿಡಲಾಗುತ್ತದೆ. ವಿರಾಮದ ನಂತರದ ಹೊಸ ವಾಕ್ಯಕ್ಕೆ ಇನ್ನೂ ಪೂರ್ಣವಿರಾಮ ಸಿಗುತ್ತದೆ.</string>
     <string name="voice_full_stop_next_sentence">ಮುಂದಿನ ವಾಕ್ಯ ಪ್ರಾರಂಭವಾದಾಗ</string>
     <string name="voice_full_stop_always">ಯಾವಾಗಲೂ</string>
+    <string name="key_long_presses">ಕೀಲಿಯನ್ನು ಒತ್ತಿ ಹಿಡಿಯುವ ಕ್ರಿಯೆಗಳು</string>
+    <string name="key_long_press_title">%1$s ಒತ್ತಿ ಹಿಡಿಯಿರಿ</string>
+    <string name="key_long_presses_summary">ಕೀಲಿಯನ್ನು ಒತ್ತಿ ಹಿಡಿದಾಗ ಏನಾಗಬೇಕು ಎಂಬುದನ್ನು ಆಯ್ಕೆಮಾಡಿ ಅಥವಾ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ. ಯಾವುದೂ ಇಲ್ಲ ಆಯ್ದರೆ ಸಾಮಾನ್ಯ ಟ್ಯಾಪ್ ಕ್ರಿಯೆ ಉಳಿಯುತ್ತದೆ.</string>
 </resources>

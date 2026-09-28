@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">Η προεπιλογή παραλείπει την τελευταία τελεία. Μια νέα πρόταση μετά από παύση εξακολουθεί να παίρνει τελεία.</string>
     <string name="voice_full_stop_next_sentence">Όταν αρχίζει η επόμενη πρόταση</string>
     <string name="voice_full_stop_always">Πάντα</string>
+    <string name="key_long_presses">Ενέργειες παρατεταμένου πατήματος πλήκτρων</string>
+    <string name="key_long_press_title">Κρατήστε πατημένο το %1$s</string>
+    <string name="key_long_presses_summary">Επιλέξτε ή απενεργοποιήστε την ενέργεια όταν κρατάτε πατημένο ένα πλήκτρο. Το Καμία διατηρεί την κανονική ενέργεια αγγίγματος.</string>
 </resources>

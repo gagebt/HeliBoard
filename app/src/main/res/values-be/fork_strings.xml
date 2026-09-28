@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">Паводле змаўчання апошняя кропка не ўстаўляецца. Пры пачатку новага сказа пасля паўзы кропка ўсё роўна ставіцца.</string>
     <string name="voice_full_stop_next_sentence">Калі пачынаецца наступны сказ</string>
     <string name="voice_full_stop_always">Заўсёды</string>
+    <string name="key_long_presses">Дзеянні доўгага націску клавіш</string>
+    <string name="key_long_press_title">Утрымлівайце %1$s</string>
+    <string name="key_long_presses_summary">Выберыце або адключыце дзеянне пры ўтрыманні клавішы. Бяздзейнасць захоўвае звычайнае дзеянне націску.</string>
 </resources>

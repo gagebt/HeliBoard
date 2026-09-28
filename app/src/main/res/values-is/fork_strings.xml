@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Sjálfgefið er síðasta punktinum sleppt. Ný setning eftir hlé fær samt punkt.</string>
     <string name="voice_full_stop_next_sentence">Þegar næsta setning byrjar</string>
     <string name="voice_full_stop_always">Alltaf</string>
+    <string name="key_long_presses">Aðgerðir við langa ýtingu á lyklum</string>
+    <string name="key_long_press_title">Haltu %1$s inni</string>
+    <string name="key_long_presses_summary">Veldu eða slökktu á því sem gerist þegar lykli er haldið inni. Ekkert heldur venjulegri aðgerð við snertingu.</string>
 </resources>

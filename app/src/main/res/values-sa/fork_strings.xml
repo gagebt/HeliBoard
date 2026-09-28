@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">पूर्वनिर्धारितविकल्पे अन्तिमः पूर्णविरामः लुप्यते। विरामानन्तरं नूतनवाक्ये तथापि पूर्णविरामः भवति।</string>
     <string name="voice_full_stop_next_sentence">अग्रिमवाक्यस्य आरम्भे</string>
     <string name="voice_full_stop_always">सर्वदा</string>
+    <string name="key_long_presses">Key long presses</string>
+    <string name="key_long_press_title">Hold %1$s</string>
+    <string name="key_long_presses_summary">Choose or disable what holding a key does. None keeps its normal tap action.</string>
 </resources>

@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Ngokuzenzakalelayo ungqi wokugcina uyashiywa. Umusho omusha ngemva kokumisa kancane usathola ungqi.</string>
     <string name="voice_full_stop_next_sentence">Lapho umusho olandelayo uqala</string>
     <string name="voice_full_stop_always">Njalo</string>
+    <string name="key_long_presses">Ukucindezela izinkinobho isikhathi eside</string>
+    <string name="key_long_press_title">Cindezela ubambe %1$s</string>
+    <string name="key_long_presses_summary">Khetha noma uvale okwenzeka uma ubambe inkinobho. “None” kugcina isenzo esivamile sokuthinta.</string>
 </resources>

@@ -15,7 +15,6 @@ language_swipe_distance|change how far to drag for language;make language gestur
 touchpad_sensitivity|change cursor pad speed;make caret movement slower;adjust finger tracking for text navigation|изменить скорость тачпада;замедлить движение курсора;настроить перемещение по тексту пальцем
 touchpad_edge_scroll|continue moving cursor at screen edge;scroll text from touchpad border;enable edge movement while selecting|двигать курсор у края экрана;прокручивать текст у границы тачпада;включить движение на краю
 delete_swipe|erase words by dragging backspace;slide delete to remove text;enable gesture on erase key|удалять слова движением по стиранию;вести пальцем по кнопке удаления;включить жест удаления текста
-prefs_long_press_keyboard_to_change_lang|hold space to choose another keyboard;switch input method with long hold;open system keyboard picker from space|удержать пробел для выбора клавиатуры;сменить способ ввода долгим нажатием;открыть выбор клавиатур пробелом
 long_press_symbols_for_numpad|hold symbols for number pad;open digits by pressing symbol key;quick numeric keypad shortcut|удержать символы для цифровой панели;открыть цифры через кнопку символов;быстрый вызов цифровой клавиатуры
 enable_emoji_alt_physical_key|type emoji from hardware keyboard;physical key for smileys;emoji shortcut on external keys|вводить эмодзи физической клавиатурой;кнопка смайлов на внешней клавиатуре;сочетание клавиш для эмодзи
 show_setup_wizard_icon|make application visible in launcher;hide keyboard app shortcut;display setup icon on home screen|показать приложение в меню;спрятать ярлык клавиатуры;значок настройки на главном экране
@@ -161,3 +160,6 @@ voice_stop_on_keyboard_close|stop dictation when keyboard closes;keep listening 
 move_punctuation_before_space|comma before space;move punctuation;fix spaces around punctuation;attach period to previous word|запятая перед пробелом;переместить знак препинания;исправить пробелы перед знаками;точка перед пробелом
 
 voice_full_stop|full stop;period;dot;punctuation;sentence|точка;пунктуация;предложение
+
+key_long_presses|choose key hold actions;disable long presses;change space bar long press|выбрать действия удержания клавиш;отключить долгие нажатия;изменить удержание пробела
+key_long_press|hold space enter shift delete comma period arrows;choose or disable a key hold;long press shortcut|удержание пробела ввода шифта удаления запятой точки стрелок;выбор или отключение удержания клавиши;действие долгого нажатия

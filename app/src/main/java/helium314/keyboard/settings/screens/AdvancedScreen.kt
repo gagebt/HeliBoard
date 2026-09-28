@@ -61,6 +61,7 @@ fun AdvancedSettingsScreen(
     val items = listOf(
         Settings.PREF_ALWAYS_INCOGNITO_MODE,
         Settings.PREF_KEY_LONGPRESS_TIMEOUT,
+        KEY_LONG_PRESSES,
         Settings.PREF_SPACE_HORIZONTAL_SWIPE,
         Settings.PREF_SPACE_VERTICAL_SWIPE,
         if (Settings.readHorizontalSpaceSwipe(prefs) == KeyboardActionListener.SwipeAction.SWITCH_LANGUAGE
@@ -71,8 +72,6 @@ fun AdvancedSettingsScreen(
         if (Settings.readVerticalSpaceSwipe(prefs) == KeyboardActionListener.SwipeAction.TOUCHPAD_MODE)
             Settings.PREF_TOUCHPAD_EDGE_SCROLL else null,
         Settings.PREF_DELETE_SWIPE,
-        Settings.PREF_SPACE_TO_CHANGE_LANG,
-        Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD,
         Settings.PREF_ENABLE_EMOJI_ALT_PHYSICAL_KEY,
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) Settings.PREF_SHOW_SETUP_WIZARD_ICON else null,
         Settings.PREF_ABC_AFTER_SYMBOL_SPACE,
@@ -98,7 +97,7 @@ fun AdvancedSettingsScreen(
 }
 
 @SuppressLint("ApplySharedPref")
-fun createAdvancedSettings(context: Context) = listOf(
+fun createAdvancedSettings(context: Context) = createKeyLongPressSettings(context) + listOf(
     Setting(context, Settings.PREF_ALWAYS_INCOGNITO_MODE,
         R.string.incognito, R.string.prefs_force_incognito_mode_summary)
     {
@@ -158,12 +157,6 @@ fun createAdvancedSettings(context: Context) = listOf(
     },
     Setting(context, Settings.PREF_DELETE_SWIPE, R.string.delete_swipe, R.string.delete_swipe_summary) {
         SwitchPreference(it, Defaults.PREF_DELETE_SWIPE)
-    },
-    Setting(context, Settings.PREF_SPACE_TO_CHANGE_LANG,
-        R.string.prefs_long_press_keyboard_to_change_lang,
-        R.string.prefs_long_press_keyboard_to_change_lang_summary)
-    {
-        SwitchPreference(it, Defaults.PREF_SPACE_TO_CHANGE_LANG)
     },
     Setting(context, Settings.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD, R.string.prefs_long_press_symbol_for_numpad) {
         SwitchPreference(it, Defaults.PREFS_LONG_PRESS_SYMBOLS_FOR_NUMPAD)

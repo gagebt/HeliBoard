@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">Լռելյայն վերջին վերջակետը բաց է թողնվում։ Դադարից հետո նոր նախադասությունը շարունակում է վերջակետ ստանալ։</string>
     <string name="voice_full_stop_next_sentence">Երբ սկսվում է հաջորդ նախադասությունը</string>
     <string name="voice_full_stop_always">Միշտ</string>
+    <string name="key_long_presses">Ստեղների երկար սեղմման գործողություններ</string>
+    <string name="key_long_press_title">Երկար սեղմեք %1$s</string>
+    <string name="key_long_presses_summary">Ընտրեք կամ անջատեք ստեղնը երկար սեղմելու գործողությունը։ Ոչ մեկը պահպանում է սովորական հպման գործողությունը։</string>
 </resources>

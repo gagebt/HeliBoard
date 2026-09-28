@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">Подразумевано се изоставља последња тачка. Нова реченица после паузе и даље добија тачку.</string>
     <string name="voice_full_stop_next_sentence">Када почне следећа реченица</string>
     <string name="voice_full_stop_always">Увек</string>
+    <string name="key_long_presses">Дуго притискање тастера</string>
+    <string name="key_long_press_title">Задржите %1$s</string>
+    <string name="key_long_presses_summary">Изаберите или искључите радњу при задржавању тастера. „None“ задржава уобичајену радњу при додиру.</string>
 </resources>

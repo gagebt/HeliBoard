@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">डिफ़ॉल्ट रूप से आखिरी पूर्ण विराम छोड़ दिया जाता है। विराम के बाद नया वाक्य शुरू होने पर पूर्ण विराम फिर भी डाला जाता है।</string>
     <string name="voice_full_stop_next_sentence">जब अगला वाक्य शुरू हो</string>
     <string name="voice_full_stop_always">हमेशा</string>
+    <string name="key_long_presses">कुंजियों को देर तक दबाने की क्रियाएँ</string>
+    <string name="key_long_press_title">%1$s दबाकर रखें</string>
+    <string name="key_long_presses_summary">कुंजी दबाकर रखने पर होने वाली क्रिया चुनें या बंद करें। कोई नहीं चुनने पर सामान्य टैप क्रिया बनी रहती है।</string>
 </resources>

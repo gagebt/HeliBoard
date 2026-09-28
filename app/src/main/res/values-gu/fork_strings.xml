@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">મૂળભૂત રીતે છેલ્લો પૂર્ણવિરામ છોડી દેવાય છે. વિરામ પછીના નવા વાક્યને હજી પણ પૂર્ણવિરામ મળે છે.</string>
     <string name="voice_full_stop_next_sentence">જ્યારે આગલું વાક્ય શરૂ થાય</string>
     <string name="voice_full_stop_always">હંમેશાં</string>
+    <string name="key_long_presses">કી લાંબા સમય સુધી દબાવવાની ક્રિયાઓ</string>
+    <string name="key_long_press_title">%1$s દબાવી રાખો</string>
+    <string name="key_long_presses_summary">કી દબાવી રાખવાથી શું થાય છે તે પસંદ કરો અથવા બંધ કરો. કંઈ નહીં સામાન્ય ટૅપ ક્રિયા જાળવે છે.</string>
 </resources>

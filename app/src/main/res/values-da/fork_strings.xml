@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">Som standard udelades det sidste punktum. En ny sætning efter en pause får stadig et punktum.</string>
     <string name="voice_full_stop_next_sentence">Når den næste sætning begynder</string>
     <string name="voice_full_stop_always">Altid</string>
+    <string name="key_long_presses">Handlinger ved langt tryk på taster</string>
+    <string name="key_long_press_title">Hold %1$s nede</string>
+    <string name="key_long_presses_summary">Vælg eller slå handlingen ved langt tryk på en tast fra. Ingen bevarer den normale handling ved et tryk.</string>
 </resources>

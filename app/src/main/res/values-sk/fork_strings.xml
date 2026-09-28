@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Predvolene sa posledná bodka vynechá. Pri začiatku novej vety po prestávke sa bodka stále vloží.</string>
     <string name="voice_full_stop_next_sentence">Keď sa začne ďalšia veta</string>
     <string name="voice_full_stop_always">Vždy</string>
+    <string name="key_long_presses">Dlhé stlačenia klávesov</string>
+    <string name="key_long_press_title">Podržte %1$s</string>
+    <string name="key_long_presses_summary">Vyberte alebo vypnite akciu pri podržaní klávesu. Žiadne zachová bežnú akciu pri ťuknutí.</string>
 </resources>

@@ -139,4 +139,7 @@
     <string name="voice_full_stop_summary">Si parazgjedhje, pika e fundit lihet jashtë. Një fjali e re pas një pauze merr ende një pikë.</string>
     <string name="voice_full_stop_next_sentence">Kur fillon fjalia tjetër</string>
     <string name="voice_full_stop_always">Gjithmonë</string>
+    <string name="key_long_presses">Shtypja e gjatë e tasteve</string>
+    <string name="key_long_press_title">Mbaje shtypur %1$s</string>
+    <string name="key_long_presses_summary">Zgjidh ose çaktivizo veprimin kur mban shtypur një tast. “None” ruan veprimin e zakonshëm me prekje.</string>
 </resources>

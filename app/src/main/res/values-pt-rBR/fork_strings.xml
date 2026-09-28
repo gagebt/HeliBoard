@@ -142,4 +142,7 @@
     <string name="voice_full_stop_summary">Por padrão, o último ponto final é omitido. Uma nova frase após uma pausa ainda recebe um ponto final.</string>
     <string name="voice_full_stop_next_sentence">Quando a próxima frase começa</string>
     <string name="voice_full_stop_always">Sempre</string>
+    <string name="key_long_presses">Toques longos nas teclas</string>
+    <string name="key_long_press_title">Manter %1$s pressionado</string>
+    <string name="key_long_presses_summary">Escolha ou desative o que acontece ao manter uma tecla pressionada. Nenhum mantém a ação normal ao tocar.</string>
 </resources>

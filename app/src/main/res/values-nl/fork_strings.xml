@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Standaard wordt de laatste punt weggelaten. Een nieuwe zin na een pauze krijgt nog steeds een punt.</string>
     <string name="voice_full_stop_next_sentence">Wanneer de volgende zin begint</string>
     <string name="voice_full_stop_always">Altijd</string>
+    <string name="key_long_presses">Lang indrukken van toetsen</string>
+    <string name="key_long_press_title">Houd %1$s ingedrukt</string>
+    <string name="key_long_presses_summary">Kies of schakel uit wat er gebeurt als je een toets ingedrukt houdt. Geen behoudt de gewone tikactie.</string>
 </resources>

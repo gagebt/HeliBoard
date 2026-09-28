@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">既定では最後の句点を省きます。間を置いて次の文を始めると、句点が挿入されます。</string>
     <string name="voice_full_stop_next_sentence">次の文が始まるとき</string>
     <string name="voice_full_stop_always">常に</string>
+    <string name="key_long_presses">キーの長押し操作</string>
+    <string name="key_long_press_title">%1$sを長押し</string>
+    <string name="key_long_presses_summary">キーを長押ししたときの操作を選択または無効にします。「なし」では通常のタップ操作が維持されます。</string>
 </resources>

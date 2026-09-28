@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">पूर्वनिर्धारित रूपमा अन्तिम पूर्णविराम छोडिन्छ। विरामपछि नयाँ वाक्यले अझै पूर्णविराम पाउँछ।</string>
     <string name="voice_full_stop_next_sentence">अर्को वाक्य सुरु हुँदा</string>
     <string name="voice_full_stop_always">सधैँ</string>
+    <string name="key_long_presses">कुञ्जी थिचेर राख्ने कार्य</string>
+    <string name="key_long_press_title">%1$s थिचेर राख्नुहोस्</string>
+    <string name="key_long_presses_summary">कुञ्जी थिचेर राख्दा के हुन्छ छान्नुहोस् वा बन्द गर्नुहोस्। “None” छान्दा सामान्य ट्याप कार्य यथावत् रहन्छ।</string>
 </resources>

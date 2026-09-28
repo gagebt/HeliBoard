@@ -1070,6 +1070,11 @@ public class Key implements Comparable<Key> {
             this(keySpec, KeySpecParser.getCode(keySpec), params, relativeWidth, labelFlags, backgroundType, popupSet);
         }
 
+        public KeyParams(String keySpec, KeyboardParams params, float width, int labelFlags,
+                int backgroundType, PopupSet<?> popupSet, @Nullable Integer holdCode) {
+            this(keySpec, KeySpecParser.getCode(keySpec), params, width, labelFlags, backgroundType, popupSet, holdCode);
+        }
+
         /**
          *  constructor that does not require attrs, style or absolute key dimension / position
          *  setDimensionsFromRelativeSize needs to be called before creating the key
@@ -1084,6 +1089,11 @@ public class Key implements Comparable<Key> {
                 final int backgroundType,
                 @Nullable final PopupSet<?> popupSet
         ) {
+            this(keySpec, code, params, width, labelFlags, backgroundType, popupSet, null);
+        }
+
+        public KeyParams(String keySpec, int code, KeyboardParams params, float width, int labelFlags,
+                int backgroundType, PopupSet<?> popupSet, @Nullable Integer holdCode) {
             mKeyboardParams = params;
             mBackgroundType = backgroundType;
             mLabelFlags = labelFlags;
@@ -1114,7 +1124,10 @@ public class Key implements Comparable<Key> {
             }
 
             // popupKeys
-            final String[] popupKeys = PopupKeysUtilsKt.createPopupKeysArray(popupSet, mKeyboardParams, label != null ? label : keySpec);
+            final String[] popupKeys = holdCode == null
+                    ? PopupKeysUtilsKt.createPopupKeysArray(popupSet, mKeyboardParams, label != null ? label : keySpec)
+                    : holdCode == KeyCode.UNSPECIFIED ? null
+                    : new String[] { POPUP_KEYS_NO_PANEL_AUTO_POPUP_KEY, " |!code/" + holdCode };
             mPopupKeysColumnAndFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys);
             final String[] finalPopupKeys = popupKeys == null ? null : PopupKeySpec.filterOutEmptyString(popupKeys);
             if (finalPopupKeys != null) {
@@ -1137,7 +1150,7 @@ public class Key implements Comparable<Key> {
             }
 
             // hint label
-            if ((mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
+            if (holdCode != null || (mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
                 mHintLabel = null;
                 mHintIconName = null;
             } else {
@@ -1182,10 +1195,7 @@ public class Key implements Comparable<Key> {
             }
 
             // action flags don't need to be specified, they can be deduced from the key
-            if (mCode == Constants.CODE_SPACE
-                    || mCode == KeyCode.LANGUAGE_SWITCH
-                    || (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.getElement().isAlphabet())
-            )
+            if (mCode == KeyCode.SYMBOL_ALPHA && !params.mId.getElement().isAlphabet())
                 actionFlags |= ACTION_FLAGS_ENABLE_LONG_PRESS;
             if (mCode <= Constants.CODE_SPACE && mCode != KeyCode.MULTIPLE_CODE_POINTS && mIconName == null)
                 actionFlags |= ACTION_FLAGS_NO_KEY_PREVIEW;
@@ -1193,7 +1203,7 @@ public class Key implements Comparable<Key> {
             case KeyCode.DELETE, KeyCode.ARROW_LEFT, KeyCode.ARROW_RIGHT, KeyCode.ARROW_UP, KeyCode.ARROW_DOWN,
                     KeyCode.WORD_LEFT, KeyCode.WORD_RIGHT, KeyCode.PAGE_UP, KeyCode.PAGE_DOWN:
                 // repeating is disabled if a key is configured with pop-ups
-                if (mPopupKeys == null)
+                if (mPopupKeys == null && holdCode == null)
                     actionFlags |= ACTION_FLAGS_IS_REPEATABLE;
                 // fallthrough
             case KeyCode.SHIFT, Constants.CODE_ENTER, KeyCode.SHIFT_ENTER, KeyCode.ALPHA, Constants.CODE_SPACE, KeyCode.NUMPAD,

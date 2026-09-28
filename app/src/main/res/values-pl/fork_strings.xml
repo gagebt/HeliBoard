@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Domyślnie ostatnia kropka jest pomijana. Nowe zdanie po pauzie nadal otrzymuje kropkę.</string>
     <string name="voice_full_stop_next_sentence">Gdy zaczyna się następne zdanie</string>
     <string name="voice_full_stop_always">Zawsze</string>
+    <string name="key_long_presses">Długie naciśnięcia klawiszy</string>
+    <string name="key_long_press_title">Przytrzymaj %1$s</string>
+    <string name="key_long_presses_summary">Wybierz lub wyłącz działanie przy przytrzymaniu klawisza. Brak zachowuje zwykłe działanie po dotknięciu.</string>
 </resources>

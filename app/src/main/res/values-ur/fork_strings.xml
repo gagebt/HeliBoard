@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">طے شدہ ترتیب آخری ختمہ چھوڑ دیتی ہے۔ وقفے کے بعد نئے جملے کو پھر بھی ختمہ ملتا ہے۔</string>
     <string name="voice_full_stop_next_sentence">جب اگلا جملہ شروع ہو</string>
     <string name="voice_full_stop_always">ہمیشہ</string>
+    <string name="key_long_presses">کلیدوں کو دیر تک دبانا</string>
+    <string name="key_long_press_title">%1$s دبا کر رکھیں</string>
+    <string name="key_long_presses_summary">کلید کو دبا کر رکھنے پر ہونے والا عمل منتخب کریں یا بند کریں۔ “None” سے معمول کا ٹیپ والا عمل برقرار رہتا ہے۔</string>
 </resources>

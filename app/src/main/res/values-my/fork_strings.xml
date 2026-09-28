@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">မူလသတ်မှတ်ချက်တွင် နောက်ဆုံးပုဒ်မကို ချန်လှပ်ထားသည်။ ခေတ္တရပ်ပြီးနောက် ဝါကျအသစ်တွင် ပုဒ်မပါဝင်ဆဲဖြစ်သည်။</string>
     <string name="voice_full_stop_next_sentence">နောက်ဝါကျ စတင်သောအခါ</string>
     <string name="voice_full_stop_always">အမြဲ</string>
+    <string name="key_long_presses">ကီးများကို ဖိထားခြင်း</string>
+    <string name="key_long_press_title">%1$s ကို ဖိထားပါ</string>
+    <string name="key_long_presses_summary">ကီးကို ဖိထားသည့်အခါ လုပ်ဆောင်မည့်အရာကို ရွေးပါ သို့မဟုတ် ပိတ်ပါ။ “None” ရွေးလျှင် ပုံမှန်တစ်ချက်နှိပ်သည့် လုပ်ဆောင်ချက်ကို ဆက်သုံးမည်။</string>
 </resources>

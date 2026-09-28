@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Standart olaraq son nöqtə buraxılır. Fasilədən sonra yeni cümlə başlayanda nöqtə yenə əlavə olunur.</string>
     <string name="voice_full_stop_next_sentence">Növbəti cümlə başlayanda</string>
     <string name="voice_full_stop_always">Həmişə</string>
+    <string name="key_long_presses">Düymələri basılı saxlama əməliyyatları</string>
+    <string name="key_long_press_title">%1$s düyməsini basılı saxlayın</string>
+    <string name="key_long_presses_summary">Düymə basılı saxlananda nə olacağını seçin və ya söndürün. Heç biri adi toxunma əməlini saxlayır.</string>
 </resources>

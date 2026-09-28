@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Pagal numatytąją nuostatą paskutinis taškas praleidžiamas. Naujas sakinys po pauzės vis tiek gauna tašką.</string>
     <string name="voice_full_stop_next_sentence">Kai prasideda kitas sakinys</string>
     <string name="voice_full_stop_always">Visada</string>
+    <string name="key_long_presses">Ilgi klavišų paspaudimai</string>
+    <string name="key_long_press_title">Laikykite %1$s</string>
+    <string name="key_long_presses_summary">Pasirinkite arba išjunkite veiksmą laikant klavišą. Joks palieka įprastą bakstelėjimo veiksmą.</string>
 </resources>

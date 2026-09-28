@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">Бо нобаёнӣ нуқтаи охирин гузошта намешавад. Ҳангоми оғози ҷумлаи нав пас аз таваққуф нуқта ҳамоно гузошта мешавад.</string>
     <string name="voice_full_stop_next_sentence">Ҳангоми оғози ҷумлаи навбатӣ</string>
     <string name="voice_full_stop_always">Ҳамеша</string>
+    <string name="key_long_presses">Пахши дарози тугмаҳо</string>
+    <string name="key_long_press_title">%1$s-ро нигоҳ доред</string>
+    <string name="key_long_presses_summary">Амали ҳангоми нигоҳ доштани тугмаро интихоб ё хомӯш кунед. “None” амали одии ламсро нигоҳ медорад.</string>
 </resources>

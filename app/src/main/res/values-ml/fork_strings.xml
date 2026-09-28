@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">സ്വതവേ അവസാനത്തെ പൂർണ്ണവിരാമം ഒഴിവാക്കുന്നു. ഇടവേളയ്ക്ക് ശേഷമുള്ള പുതിയ വാക്യത്തിന് അപ്പോഴും പൂർണ്ണവിരാമം ലഭിക്കും.</string>
     <string name="voice_full_stop_next_sentence">അടുത്ത വാക്യം ആരംഭിക്കുമ്പോൾ</string>
     <string name="voice_full_stop_always">എപ്പോഴും</string>
+    <string name="key_long_presses">കീകൾ അമർത്തിപ്പിടിക്കൽ</string>
+    <string name="key_long_press_title">%1$s അമർത്തിപ്പിടിക്കുക</string>
+    <string name="key_long_presses_summary">ഒരു കീ അമർത്തിപ്പിടിക്കുമ്പോൾ എന്ത് സംഭവിക്കണമെന്ന് തിരഞ്ഞെടുക്കുകയോ പ്രവർത്തനം ഒഴിവാക്കുകയോ ചെയ്യുക. “None” എന്നത് സാധാരണ തട്ടൽ പ്രവർത്തനം നിലനിർത്തും.</string>
 </resources>

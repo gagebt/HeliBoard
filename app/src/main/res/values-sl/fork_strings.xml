@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Privzeto je zadnja pika izpuščena. Nov stavek po premoru še vedno dobi piko.</string>
     <string name="voice_full_stop_next_sentence">Ko se začne naslednji stavek</string>
     <string name="voice_full_stop_always">Vedno</string>
+    <string name="key_long_presses">Dolgi pritiski tipk</string>
+    <string name="key_long_press_title">Pridržite %1$s</string>
+    <string name="key_long_presses_summary">Izberite ali izklopite dejanje ob pridržanju tipke. “None” ohrani običajno dejanje ob dotiku.</string>
 </resources>

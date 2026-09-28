@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">Som standard vert det siste punktumet utelate. Ei ny setning etter ein pause får framleis eit punktum.</string>
     <string name="voice_full_stop_next_sentence">Når neste setning byrjar</string>
     <string name="voice_full_stop_always">Alltid</string>
+    <string name="key_long_presses">Langt trykk på tastar</string>
+    <string name="key_long_press_title">Hald %1$s inne</string>
+    <string name="key_long_presses_summary">Vel eller slå av kva som skjer når du held ein tast inne. «None» tek vare på den vanlege handlinga ved eit kort trykk.</string>
 </resources>

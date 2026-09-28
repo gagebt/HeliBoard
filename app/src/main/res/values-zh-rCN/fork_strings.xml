@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">默认省略最后的句号。停顿后开始新句子时，仍会插入句号。</string>
     <string name="voice_full_stop_next_sentence">下一句开始时</string>
     <string name="voice_full_stop_always">始终</string>
+    <string name="key_long_presses">按键长按</string>
+    <string name="key_long_press_title">长按%1$s</string>
+    <string name="key_long_presses_summary">选择或关闭长按按键时的操作。选择“无”时，仍保留正常的轻触操作。</string>
 </resources>

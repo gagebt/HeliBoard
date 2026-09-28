@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">Демейкиде акыркы чекит коюлбайт. Тынымдан кийинки жаңы сүйлөмгө чекит баары бир коюлат.</string>
     <string name="voice_full_stop_next_sentence">Кийинки сүйлөм башталганда</string>
     <string name="voice_full_stop_always">Ар дайым</string>
+    <string name="key_long_presses">Баскычтарды басып туруу</string>
+    <string name="key_long_press_title">%1$s басып туруу</string>
+    <string name="key_long_presses_summary">Баскычты басып турганда эмне болорун тандаңыз же өчүрүңүз. «None» тандалса, кадимкидей басуу аракети сакталат.</string>
 </resources>

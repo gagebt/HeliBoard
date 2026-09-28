@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Varsayılan olarak son nokta atlanır. Duraklamadan sonraki yeni cümleye yine de nokta eklenir.</string>
     <string name="voice_full_stop_next_sentence">Sonraki cümle başladığında</string>
     <string name="voice_full_stop_always">Her zaman</string>
+    <string name="key_long_presses">Tuşlara uzun basma</string>
+    <string name="key_long_press_title">%1$s tuşunu basılı tut</string>
+    <string name="key_long_presses_summary">Bir tuşu basılı tutunca yapılacak işlemi seçin veya kapatın. Yok, normal dokunma işlemini korur.</string>
 </resources>

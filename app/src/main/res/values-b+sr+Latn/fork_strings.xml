@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Podrazumevano se izostavlja poslednja tačka. Nova rečenica posle pauze i dalje dobija tačku.</string>
     <string name="voice_full_stop_next_sentence">Kada počne sledeća rečenica</string>
     <string name="voice_full_stop_always">Uvek</string>
+    <string name="key_long_presses">Radnje dugog pritiska na tastere</string>
+    <string name="key_long_press_title">Zadržite %1$s</string>
+    <string name="key_long_presses_summary">Izaberite ili isključite radnju pri zadržavanju tastera. Nijedna zadržava uobičajenu radnju dodira.</string>
 </resources>

@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">Әдепкіде соңғы нүкте қойылмайды. Үзілістен кейінгі жаңа сөйлемге нүкте бәрібір қойылады.</string>
     <string name="voice_full_stop_next_sentence">Келесі сөйлем басталғанда</string>
     <string name="voice_full_stop_always">Әрқашан</string>
+    <string name="key_long_presses">Пернелерді ұзақ басу әрекеттері</string>
+    <string name="key_long_press_title">%1$s пернесін басып тұрыңыз</string>
+    <string name="key_long_presses_summary">Пернені басып тұрғанда не болатынын таңдаңыз немесе өшіріңіз. Ешқайсысы әдеттегі түрту әрекетін сақтайды.</string>
 </resources>

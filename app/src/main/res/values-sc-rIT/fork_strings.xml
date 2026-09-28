@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Pro predefinidu si bogat s’ùrtimu puntu. Cando cumintzat una frase noa a pustis de una pàusa, si ponet ancora unu puntu.</string>
     <string name="voice_full_stop_next_sentence">Cando cumintzat sa frase imbeniente</string>
     <string name="voice_full_stop_always">Semper</string>
+    <string name="key_long_presses">Key long presses</string>
+    <string name="key_long_press_title">Hold %1$s</string>
+    <string name="key_long_presses_summary">Choose or disable what holding a key does. None keeps its normal tap action.</string>
 </resources>

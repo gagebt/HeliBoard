@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Vaikimisi jäetakse viimane punkt ära. Uus lause pärast pausi saab endiselt punkti.</string>
     <string name="voice_full_stop_next_sentence">Kui järgmine lause algab</string>
     <string name="voice_full_stop_always">Alati</string>
+    <string name="key_long_presses">Klahvide allhoidmise toimingud</string>
+    <string name="key_long_press_title">Hoia %1$s all</string>
+    <string name="key_long_presses_summary">Vali või keela toiming, mis tehakse klahvi all hoides. Määramata jätab alles tavalise puudutuse toimingu.</string>
 </resources>

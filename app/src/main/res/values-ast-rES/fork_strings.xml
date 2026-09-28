@@ -142,4 +142,7 @@
     <string name="voice_full_stop_summary">Por defeutu omítese’l últimu puntu. Una frase nueva dempués d’una pausa sigue recibiendo un puntu.</string>
     <string name="voice_full_stop_next_sentence">Cuando entama la frase siguiente</string>
     <string name="voice_full_stop_always">Siempres</string>
+    <string name="key_long_presses">Acciones al caltener primes les tecles</string>
+    <string name="key_long_press_title">Caltién primíu %1$s</string>
+    <string name="key_long_presses_summary">Escueyi o desactiva lo que fai una tecla al caltenela primida. Denguna caltién la so aición normal al tocase.</string>
 </resources>

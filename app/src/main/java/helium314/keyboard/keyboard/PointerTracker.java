@@ -1193,16 +1193,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             sListener.onReleaseKey(popupKeyCode, false);
             return;
         }
-        if (code == KeyCode.LANGUAGE_SWITCH
-                || (code == Constants.CODE_SPACE && key.getPopupKeys() == null && Settings.getValues().mSpaceForLangChange)
-        ) {
-            // Long pressing the space key invokes IME switcher dialog.
-            if (sListener.onCustomRequest(KeyboardActionListener.CustomAction.SHOW_INPUT_METHOD_PICKER)) {
-                cancelKeyTracking();
-                sListener.onReleaseKey(code, false);
-                return;
-            }
-        }
         if (code == KeyCode.SYMBOL_ALPHA) {
             sListener.onLongPressAlphaSymbolForNumpad();
             return;
@@ -1298,7 +1288,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         // We always need to start the long press timer if the key has its popup keys regardless of
         // whether or not we are in the dragging finger mode.
         int code = key.getCode();
-        if (mIsInDraggingFinger && (code == KeyCode.SHIFT || key.getPopupKeys() == null)) return;
+        if (mIsInDraggingFinger && (code == KeyCode.SHIFT || code == Constants.CODE_SPACE
+                || key.getPopupKeys() == null)) return;
         if (code == KeyCode.SHIFT && sIsShiftLongPressSuppressed) {
             sIsShiftLongPressSuppressed = false;
             return;

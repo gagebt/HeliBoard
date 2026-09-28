@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">דר חאלת פישפֿרז נוקטה אכֿר חדֿףֿ מישוד. ג׳מלה ג׳דיד פס אז מקס הםצׄנאן נוקטה מיגירד.</string>
     <string name="voice_full_stop_next_sentence">הנגאם שרוע ג׳מלה בעדי</string>
     <string name="voice_full_stop_always">המישה</string>
+    <string name="key_long_presses">Key long presses</string>
+    <string name="key_long_press_title">Hold %1$s</string>
+    <string name="key_long_presses_summary">Choose or disable what holding a key does. None keeps its normal tap action.</string>
 </resources>

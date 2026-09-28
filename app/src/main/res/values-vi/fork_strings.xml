@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">Mặc định bỏ dấu chấm cuối cùng. Câu mới sau một khoảng dừng vẫn có dấu chấm.</string>
     <string name="voice_full_stop_next_sentence">Khi câu tiếp theo bắt đầu</string>
     <string name="voice_full_stop_always">Luôn luôn</string>
+    <string name="key_long_presses">Nhấn giữ phím</string>
+    <string name="key_long_press_title">Nhấn giữ %1$s</string>
+    <string name="key_long_presses_summary">Chọn hoặc tắt thao tác khi nhấn giữ một phím. “None” vẫn giữ thao tác chạm thông thường.</string>
 </resources>

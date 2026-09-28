@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Odatiy holatda oxirgi nuqta qo‘yilmaydi. Tanaffusdan keyin yangi gap boshlanganda nuqta baribir qo‘yiladi.</string>
     <string name="voice_full_stop_next_sentence">Keyingi gap boshlanganda</string>
     <string name="voice_full_stop_always">Har doim</string>
+    <string name="key_long_presses">Tugmalarni bosib turish</string>
+    <string name="key_long_press_title">%1$s ni bosib turing</string>
+    <string name="key_long_presses_summary">Tugmani bosib turganda bajariladigan amalni tanlang yoki o‘chiring. “None” oddiy tegish amalini saqlaydi.</string>
 </resources>

@@ -301,7 +301,8 @@ fun toolbarKeyHint(context: Context, key: ToolbarKey, holdAction: CharSequence? 
     return context.getString(R.string.button_hold_hint, main, hold)
 }
 
-private fun toolbarCodeName(context: Context, code: Int): String = when (code) {
+fun toolbarCodeName(context: Context, code: Int): String = when (code) {
+    KeyCode.SYSTEM_INPUT_METHOD_PICKER -> context.getString(R.string.select_input_method)
     KeyCode.UNSPECIFIED -> context.getString(R.string.action_none)
     KeyCode.VOICE_INPUT -> context.getString(R.string.voice_button_hint)
     KeyCode.CAPS_LOCK -> context.getString(R.string.label_shift_key_locked)
@@ -315,15 +316,13 @@ private fun toolbarCodeName(context: Context, code: Int): String = when (code) {
 fun keyboardKeyHint(context: Context, keyboard: Keyboard,
     key: Key, holdAction: Boolean): String? {
     val code = key.code
-    if (!hasKeyboardKeyHint(code)) return null
+    if (!hasKeyboardKeyHint(code) && !(key.hasNoPanelAutoPopupKey() && !Character.isLetter(code))) return null
     val mapper = KeyCodeDescriptionMapper.instance
     val main = mapper.getDescriptionForKey(context, keyboard, key, false) ?: return null
     val hold = when {
         key.isRepeatable -> context.getString(R.string.button_hold_repeat)
         !holdAction -> null
         key.hasNoPanelAutoPopupKey() -> toolbarCodeName(context, key.popupKeys!![0].mCode)
-        code == KeyCode.LANGUAGE_SWITCH || code == Constants.CODE_SPACE
-            && key.popupKeys == null && Settings.getValues().mSpaceForLangChange -> context.getString(R.string.select_input_method)
         code == KeyCode.SYMBOL_ALPHA -> context.getString(R.string.spoken_description_to_numeric)
         else -> key.popupKeys?.map { popup -> popup.mLabel?.takeIf { it.isNotBlank() }
             ?: toolbarCodeName(context, popup.mCode) }?.distinct()?.joinToString(", ")

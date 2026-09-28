@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">පෙරනිමියෙන් අවසාන තිත ඉවත් කරයි. විරාමයකින් පසු නව වාක්‍යයකට තවමත් තිතක් ලැබේ.</string>
     <string name="voice_full_stop_next_sentence">ඊළඟ වාක්‍යය ආරම්භ වන විට</string>
     <string name="voice_full_stop_always">සෑම විටම</string>
+    <string name="key_long_presses">යතුරු දිගු වේලාවක් එබීම</string>
+    <string name="key_long_press_title">%1$s ඔබාගෙන සිටින්න</string>
+    <string name="key_long_presses_summary">යතුරක් ඔබාගෙන සිටින විට සිදුවන ක්‍රියාව තෝරන්න හෝ අක්‍රිය කරන්න. “None” තේරීම සාමාන්‍ය තට්ටු කිරීමේ ක්‍රියාව තබා ගනී.</string>
 </resources>

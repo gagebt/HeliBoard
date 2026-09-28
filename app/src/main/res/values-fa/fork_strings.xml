@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">به‌طور پیش‌فرض، نقطهٔ آخر حذف می‌شود. با شروع جملهٔ جدید پس از مکث، همچنان نقطه درج می‌شود.</string>
     <string name="voice_full_stop_next_sentence">هنگام شروع جملهٔ بعدی</string>
     <string name="voice_full_stop_always">همیشه</string>
+    <string name="key_long_presses">عملکردهای نگه‌داشتن کلیدها</string>
+    <string name="key_long_press_title">%1$s را نگه دارید</string>
+    <string name="key_long_presses_summary">عملکرد نگه‌داشتن کلید را انتخاب یا غیرفعال کنید. هیچ‌کدام عملکرد عادی لمس کلید را حفظ می‌کند.</string>
 </resources>

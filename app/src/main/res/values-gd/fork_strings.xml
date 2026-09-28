@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">Fàgaidh an roghainn bhunaiteach a’ phuing mu dheireadh às. Gheibh seantans ùr às dèidh stad puing fhathast.</string>
     <string name="voice_full_stop_next_sentence">Nuair a thòisicheas an ath sheantans</string>
     <string name="voice_full_stop_always">An-còmhnaidh</string>
+    <string name="key_long_presses">Gnìomhan le putadh fada air iuchraichean</string>
+    <string name="key_long_press_title">Cum %1$s sìos</string>
+    <string name="key_long_presses_summary">Tagh no cuir à comas na thachras nuair a chumas tu iuchair sìos. Chan eil gin a’ cumail gnìomh àbhaisteach na tapaidh.</string>
 </resources>

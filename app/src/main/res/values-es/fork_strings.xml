@@ -139,4 +139,7 @@
     <string name="voice_full_stop_summary">Por defecto se omite el último punto. Una nueva oración después de una pausa sigue recibiendo un punto.</string>
     <string name="voice_full_stop_next_sentence">Cuando empieza la siguiente oración</string>
     <string name="voice_full_stop_always">Siempre</string>
+    <string name="key_long_presses">Acciones al mantener pulsadas las teclas</string>
+    <string name="key_long_press_title">Mantén pulsado %1$s</string>
+    <string name="key_long_presses_summary">Elige o desactiva la acción al mantener pulsada una tecla. Ninguna conserva la acción normal al tocarla.</string>
 </resources>

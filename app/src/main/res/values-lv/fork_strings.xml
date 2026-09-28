@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Pēc noklusējuma pēdējais punkts tiek izlaists. Jauns teikums pēc pauzes joprojām saņem punktu.</string>
     <string name="voice_full_stop_next_sentence">Kad sākas nākamais teikums</string>
     <string name="voice_full_stop_always">Vienmēr</string>
+    <string name="key_long_presses">Taustiņu ilgspiedieni</string>
+    <string name="key_long_press_title">Turēt nospiestu %1$s</string>
+    <string name="key_long_presses_summary">Izvēlieties vai atspējojiet darbību, kas notiek, turot taustiņu. “None” saglabā parasto pieskāriena darbību.</string>
 </resources>

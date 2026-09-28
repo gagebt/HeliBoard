@@ -139,4 +139,7 @@
     <string name="voice_full_stop_summary">Per defecte s’omet l’últim punt. Una frase nova després d’una pausa continua rebent un punt.</string>
     <string name="voice_full_stop_next_sentence">Quan comença la frase següent</string>
     <string name="voice_full_stop_always">Sempre</string>
+    <string name="key_long_presses">Accions en mantenir premudes les tecles</string>
+    <string name="key_long_press_title">Mantén premuda %1$s</string>
+    <string name="key_long_presses_summary">Tria o desactiva què passa en mantenir premuda una tecla. Cap conserva la funció habitual en tocar-la.</string>
 </resources>

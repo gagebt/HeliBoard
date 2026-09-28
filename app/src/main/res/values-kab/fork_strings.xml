@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">S wudem amezwer, taneqqiḍt taneggarut tettwakkes. Mi ara tebdu tefyirt tamaynut seld usgunfu, tettwarna mazal taneqqiḍt.</string>
     <string name="voice_full_stop_next_sentence">Mi ara tebdu tefyirt i d-iteddun</string>
     <string name="voice_full_stop_always">Yal tikelt</string>
+    <string name="key_long_presses">Tigawin n usiti γef tqeffalin</string>
+    <string name="key_long_press_title">Ṭṭef %1$s</string>
+    <string name="key_long_presses_summary">Fren neɣ sens tigawt n usiti γef tqeffalt. Ula yiwen ad yeǧǧ tigawt n usiti tamagnut.</string>
 </resources>

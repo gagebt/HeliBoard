@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">অবিকল্পিতভাৱে শেষ পূৰ্ণচ্ছেদ বাদ দিয়া হয়। বিৰতিৰ পিছত নতুন বাক্য আৰম্ভ হ’লে পূৰ্ণচ্ছেদ তথাপিও দিয়া হয়।</string>
     <string name="voice_full_stop_next_sentence">পৰৱৰ্তী বাক্য আৰম্ভ হ’লে</string>
     <string name="voice_full_stop_always">সদায়</string>
+    <string name="key_long_presses">কীৰ দীঘলীয়া চাপৰ কাৰ্য</string>
+    <string name="key_long_press_title">%1$s ধৰি ৰাখক</string>
+    <string name="key_long_presses_summary">কী এটা ধৰি ৰাখিলে কি হ’ব বাছক বা বন্ধ কৰক। একো নাই বাছিলে সাধাৰণ টিপাৰ কাৰ্য থাকে।</string>
 </resources>

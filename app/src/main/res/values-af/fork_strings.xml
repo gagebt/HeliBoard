@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Die verstek laat die laaste punt weg. ’n Nuwe sin ná ’n pouse kry steeds ’n punt.</string>
     <string name="voice_full_stop_next_sentence">Wanneer die volgende sin begin</string>
     <string name="voice_full_stop_always">Altyd</string>
+    <string name="key_long_presses">Langdrukaksies vir sleutels</string>
+    <string name="key_long_press_title">Hou %1$s in</string>
+    <string name="key_long_presses_summary">Kies of deaktiveer wat gebeur wanneer jy ’n sleutel inhou. Geen behou die gewone tikaksie.</string>
 </resources>

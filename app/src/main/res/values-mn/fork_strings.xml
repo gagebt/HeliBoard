@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">Анхдагчаар сүүлийн цэгийг орхино. Завсарласны дараа шинэ өгүүлбэр эхлэхэд цэгийг нэмж оруулна.</string>
     <string name="voice_full_stop_next_sentence">Дараагийн өгүүлбэр эхлэхэд</string>
     <string name="voice_full_stop_always">Үргэлж</string>
+    <string name="key_long_presses">Товчлуур удаан дарах</string>
+    <string name="key_long_press_title">%1$s-ийг удаан дарах</string>
+    <string name="key_long_presses_summary">Товчлуурыг удаан дарахад юу хийхийг сонгох эсвэл идэвхгүй болгох. “None” сонговол энгийн даралтын үйлдэл хэвээр байна.</string>
 </resources>

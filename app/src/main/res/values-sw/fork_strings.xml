@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Kwa chaguomsingi nukta ya mwisho huachwa. Sentensi mpya baada ya pumziko bado hupata nukta.</string>
     <string name="voice_full_stop_next_sentence">Sentensi inayofuata inapoanza</string>
     <string name="voice_full_stop_always">Daima</string>
+    <string name="key_long_presses">Kubonyeza vitufe kwa muda mrefu</string>
+    <string name="key_long_press_title">Bonyeza na ushikilie %1$s</string>
+    <string name="key_long_presses_summary">Chagua au zima kitendo kinachotokea unaposhikilia kitufe. “None” huacha kitendo cha kawaida cha kugusa.</string>
 </resources>

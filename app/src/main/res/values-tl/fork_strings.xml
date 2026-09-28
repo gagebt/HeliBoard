@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">Bilang default, inaalis ang huling tuldok. May tuldok pa rin kapag nagsimula ang bagong pangungusap pagkatapos ng paghinto.</string>
     <string name="voice_full_stop_next_sentence">Kapag nagsimula ang susunod na pangungusap</string>
     <string name="voice_full_stop_always">Palagi</string>
+    <string name="key_long_presses">Matagal na pagpindot sa mga key</string>
+    <string name="key_long_press_title">Pindutin nang matagal ang %1$s</string>
+    <string name="key_long_presses_summary">Piliin o i-disable ang gagawin kapag pinindot nang matagal ang isang key. “None” ay nagpapanatili ng karaniwang kilos sa pag-tap.</string>
 </resources>

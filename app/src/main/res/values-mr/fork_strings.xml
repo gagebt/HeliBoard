@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">मूळ सेटिंगमध्ये शेवटचा पूर्णविराम वगळला जातो. विरामानंतरच्या नवीन वाक्याला तरीही पूर्णविराम मिळतो.</string>
     <string name="voice_full_stop_next_sentence">पुढचे वाक्य सुरू झाल्यावर</string>
     <string name="voice_full_stop_always">नेहमी</string>
+    <string name="key_long_presses">कळा दाबून धरणे</string>
+    <string name="key_long_press_title">%1$s दाबून धरा</string>
+    <string name="key_long_presses_summary">कळ दाबून धरल्यावर काय होईल ते निवडा किंवा बंद करा. “None” निवडल्यास नेहमीची टॅप क्रिया कायम राहते.</string>
 </resources>

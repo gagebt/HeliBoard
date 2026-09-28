@@ -19,6 +19,8 @@ import helium314.keyboard.latin.common.encodeBase36
 import helium314.keyboard.latin.database.ClipboardDao
 import helium314.keyboard.latin.settings.Defaults
 import helium314.keyboard.latin.settings.Settings
+import helium314.keyboard.latin.settings.KeyLongPress
+import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.settings.SettingsSubtype
 import helium314.keyboard.latin.settings.SettingsSubtype.Companion.toSettingsSubtype
 import helium314.keyboard.latin.settings.createPrefKeyForBooleanSettings
@@ -723,6 +725,15 @@ private object AppUpgrade {
             prefs.edit {
                 if (!oldTranscribeNow) putString(Settings.PREF_VOICE_CONTROL_MODE, "stop_only")
                 remove(Settings.PREF_VOICE_TRANSCRIBE_NOW)
+            }
+        }
+        // Preserve the saved Space choice when replacing its old on/off control.
+        if (prefs.contains("prefs_long_press_keyboard_to_change_lang")) {
+            val enabled = prefs.getBoolean("prefs_long_press_keyboard_to_change_lang", true)
+            prefs.edit {
+                if (!enabled && !prefs.contains(KeyLongPress.SPACE.prefKey))
+                    putInt(KeyLongPress.SPACE.prefKey, KeyCode.UNSPECIFIED)
+                remove("prefs_long_press_keyboard_to_change_lang")
             }
         }
         upgradeToolbarPrefs(prefs)

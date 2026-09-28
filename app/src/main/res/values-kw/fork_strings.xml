@@ -138,4 +138,7 @@
     <string name="voice_full_stop_summary">Dre dhefowt, an poynt diwettha yw hepkorys. Pan dhall sentens nowydh war-lergh powes, poynt yw keworrys hwath.</string>
     <string name="voice_full_stop_next_sentence">Pan dhall an sentens nessa</string>
     <string name="voice_full_stop_always">Pub prys</string>
+    <string name="key_long_presses">Key long presses</string>
+    <string name="key_long_press_title">Hold %1$s</string>
+    <string name="key_long_presses_summary">Choose or disable what holding a key does. None keeps its normal tap action.</string>
 </resources>

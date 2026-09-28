@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">ნაგულისხმევად ბოლო წერტილი გამოტოვებულია. პაუზის შემდეგ ახალი წინადადება კვლავ იღებს წერტილს.</string>
     <string name="voice_full_stop_next_sentence">შემდეგი წინადადების დაწყებისას</string>
     <string name="voice_full_stop_always">ყოველთვის</string>
+    <string name="key_long_presses">ღილაკების ხანგრძლივი დაჭერის მოქმედებები</string>
+    <string name="key_long_press_title">ხანგრძლივად დააჭირეთ %1$s-ს</string>
+    <string name="key_long_presses_summary">აირჩიეთ ან გამორთეთ ღილაკის ხანგრძლივი დაჭერის მოქმედება. არცერთი ინარჩუნებს ჩვეულებრივ შეხების მოქმედებას.</string>
 </resources>

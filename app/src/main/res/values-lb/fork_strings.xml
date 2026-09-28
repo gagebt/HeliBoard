@@ -138,4 +138,7 @@
     <string name="voice_full_stop_summary">Standardméisseg gëtt de leschte Punkt ewechgelooss. Wann no enger Paus en neie Saz ufänkt, gëtt nach ëmmer e Punkt agesat.</string>
     <string name="voice_full_stop_next_sentence">Wann den nächste Saz ufänkt</string>
     <string name="voice_full_stop_always">Ëmmer</string>
+    <string name="key_long_presses">Laangt Drécke vun Tasten</string>
+    <string name="key_long_press_title">%1$s gedréckt halen</string>
+    <string name="key_long_presses_summary">Wielt oder deaktivéiert, wat geschitt, wann eng Tast gedréckt gehale gëtt. „None“ léisst déi normal Tippfunktioun onverännert.</string>
 </resources>

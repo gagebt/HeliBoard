@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">ค่าเริ่มต้นจะไม่ใส่จุดสุดท้าย ประโยคใหม่หลังการหยุดพักยังคงได้รับจุด</string>
     <string name="voice_full_stop_next_sentence">เมื่อประโยคถัดไปเริ่มต้น</string>
     <string name="voice_full_stop_always">เสมอ</string>
+    <string name="key_long_presses">การกดแป้นค้าง</string>
+    <string name="key_long_press_title">กด %1$s ค้าง</string>
+    <string name="key_long_presses_summary">เลือกหรือปิดการทำงานเมื่อกดแป้นค้าง “None” จะคงการทำงานตามปกติเมื่อแตะแป้น</string>
 </resources>

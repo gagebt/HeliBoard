@@ -14,4 +14,7 @@
     <string name="retention_2_hours">2 ساھت</string>
     <string name="retention_6_hours">6 ساھت</string>
     <string name="retention_12_hours">12 ساھت</string>
+    <string name="key_long_presses">Key long presses</string>
+    <string name="key_long_press_title">Hold %1$s</string>
+    <string name="key_long_presses_summary">Choose or disable what holding a key does. None keeps its normal tap action.</string>
 </resources>

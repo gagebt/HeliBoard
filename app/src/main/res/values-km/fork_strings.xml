@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">តាមលំនាំដើម សញ្ញាខណ្ឌចុងក្រោយត្រូវបានលុបចេញ។ ពេលចាប់ផ្តើមប្រយោគថ្មីបន្ទាប់ពីផ្អាក សញ្ញាខណ្ឌនៅតែត្រូវបានបញ្ចូល។</string>
     <string name="voice_full_stop_next_sentence">ពេលប្រយោគបន្ទាប់ចាប់ផ្តើម</string>
     <string name="voice_full_stop_always">ជានិច្ច</string>
+    <string name="key_long_presses">សកម្មភាពចុចគ្រាប់ចុចឱ្យជាប់</string>
+    <string name="key_long_press_title">ចុច %1$s ឱ្យជាប់</string>
+    <string name="key_long_presses_summary">ជ្រើស ឬបិទសកម្មភាពនៅពេលចុចគ្រាប់ចុចឱ្យជាប់។ គ្មាន រក្សាសកម្មភាពចុចធម្មតា។</string>
 </resources>

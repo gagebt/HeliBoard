@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">За замовчуванням остання крапка не вставляється. На початку нового речення після паузи крапка все одно ставиться.</string>
     <string name="voice_full_stop_next_sentence">Коли починається наступне речення</string>
     <string name="voice_full_stop_always">Завжди</string>
+    <string name="key_long_presses">Довге натискання клавіш</string>
+    <string name="key_long_press_title">Утримувати %1$s</string>
+    <string name="key_long_presses_summary">Виберіть або вимкніть дію під час утримання клавіші. «Бездіяльність» зберігає звичайну дію при дотику.</string>
 </resources>

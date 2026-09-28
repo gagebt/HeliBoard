@@ -140,4 +140,7 @@
     <string name="voice_full_stop_summary">Secara lalai, noktah terakhir ditinggalkan. Ayat baharu selepas jeda masih mendapat noktah.</string>
     <string name="voice_full_stop_next_sentence">Apabila ayat seterusnya bermula</string>
     <string name="voice_full_stop_always">Sentiasa</string>
+    <string name="key_long_presses">Tekan lama kekunci</string>
+    <string name="key_long_press_title">Tekan lama %1$s</string>
+    <string name="key_long_presses_summary">Pilih atau nyahdayakan tindakan apabila kekunci ditekan lama. “None” mengekalkan tindakan ketik biasa.</string>
 </resources>

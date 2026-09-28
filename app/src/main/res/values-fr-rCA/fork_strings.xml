@@ -135,4 +135,7 @@
     <string name="voice_full_stop_summary">Par défaut, le dernier point est omis. Une nouvelle phrase après une pause reçoit toujours un point.</string>
     <string name="voice_full_stop_next_sentence">Au début de la phrase suivante</string>
     <string name="voice_full_stop_always">Toujours</string>
+    <string name="key_long_presses">Actions par appui long sur les touches</string>
+    <string name="key_long_press_title">Maintenez %1$s enfoncé</string>
+    <string name="key_long_presses_summary">Choisissez ou désactivez l’action liée à l’appui long sur une touche. Aucun conserve l’action normale de la touche.</string>
 </resources>

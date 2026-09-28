@@ -138,4 +138,7 @@
     <string name="voice_full_stop_summary">Som standard utelämnas den sista punkten. En ny mening efter en paus får fortfarande en punkt.</string>
     <string name="voice_full_stop_next_sentence">När nästa mening börjar</string>
     <string name="voice_full_stop_always">Alltid</string>
+    <string name="key_long_presses">Långa tryck på tangenter</string>
+    <string name="key_long_press_title">Håll %1$s intryckt</string>
+    <string name="key_long_presses_summary">Välj eller stäng av vad som händer när du håller en tangent intryckt. Ingen behåller den vanliga åtgärden vid ett kort tryck.</string>
 </resources>

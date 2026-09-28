@@ -25,6 +25,7 @@ fun <T: Any> ListPreference(
     var showDialog by rememberSaveable { mutableStateOf(false) }
     val prefs = LocalContext.current.prefs()
     val selected = items.firstOrNull { it.second == getPrefOfType(prefs, setting.key, default) }
+        ?: items.firstOrNull { it.second == default }
     Preference(
         name = setting.title,
         description = setting.description?.let { "$it (${selected?.first.orEmpty()})" } ?: selected?.first,

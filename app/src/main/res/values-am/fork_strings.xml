@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">በነባሪነት የመጨረሻው ነጥብ ይቀራል። ከእረፍት በኋላ አዲስ ዓረፍተ ነገር ሲጀምር ነጥብ አሁንም ይጨመራል።</string>
     <string name="voice_full_stop_next_sentence">ቀጣዩ ዓረፍተ ነገር ሲጀምር</string>
     <string name="voice_full_stop_always">ሁልጊዜ</string>
+    <string name="key_long_presses">የቁልፍ ረጅም ጫን እርምጃዎች</string>
+    <string name="key_long_press_title">%1$sን ተጭነው ይያዙ</string>
+    <string name="key_long_presses_summary">ቁልፍን ተጭነው ሲይዙ የሚፈጸመውን ይምረጡ ወይም ያሰናክሉ። ምንም የለም መደበኛውን የአንድ ጊዜ ጫን ተግባር ያስቀራል።</string>
 </resources>

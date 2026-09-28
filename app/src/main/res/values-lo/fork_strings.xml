@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">ຄ່າເລີ່ມຕົ້ນຈະບໍ່ໃສ່ຈຸດສຸດທ້າຍ. ປະໂຫຍກໃໝ່ຫຼັງຈາກຢຸດພັກຍັງຄົງມີຈຸດ.</string>
     <string name="voice_full_stop_next_sentence">ເມື່ອປະໂຫຍກຕໍ່ໄປເລີ່ມຕົ້ນ</string>
     <string name="voice_full_stop_always">ສະເໝີ</string>
+    <string name="key_long_presses">ການກົດປຸ່ມຄ້າງ</string>
+    <string name="key_long_press_title">ກົດ %1$s ຄ້າງ</string>
+    <string name="key_long_presses_summary">ເລືອກ ຫຼື ປິດການກະທຳເມື່ອກົດປຸ່ມຄ້າງ. “None” ຈະຮັກສາການແຕະປຸ່ມຕາມປົກກະຕິ.</string>
 </resources>

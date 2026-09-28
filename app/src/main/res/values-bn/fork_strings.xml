@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">ডিফল্টভাবে শেষ পূর্ণচ্ছেদ বাদ দেওয়া হয়। বিরতির পরে নতুন বাক্য শুরু হলে পূর্ণচ্ছেদ তবুও বসে।</string>
     <string name="voice_full_stop_next_sentence">পরের বাক্য শুরু হলে</string>
     <string name="voice_full_stop_always">সবসময়</string>
+    <string name="key_long_presses">কী দীর্ঘক্ষণ চেপে ধরার কাজ</string>
+    <string name="key_long_press_title">%1$s চেপে ধরুন</string>
+    <string name="key_long_presses_summary">কী চেপে ধরলে কী হবে তা বেছে নিন বা বন্ধ করুন। কোনোটিই নয় সাধারণ টোকা দেওয়ার কাজটি বজায় রাখে।</string>
 </resources>

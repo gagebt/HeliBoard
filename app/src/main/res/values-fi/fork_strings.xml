@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Oletuksena viimeinen piste jätetään pois. Tauon jälkeinen uusi virke saa silti pisteen.</string>
     <string name="voice_full_stop_next_sentence">Kun seuraava virke alkaa</string>
     <string name="voice_full_stop_always">Aina</string>
+    <string name="key_long_presses">Näppäinten pitkän painalluksen toiminnot</string>
+    <string name="key_long_press_title">Pidä %1$s painettuna</string>
+    <string name="key_long_presses_summary">Valitse tai poista käytöstä toiminto, joka tapahtuu, kun näppäintä pidetään painettuna. Ei mitään säilyttää tavallisen napautuksen toiminnon.</string>
 </resources>

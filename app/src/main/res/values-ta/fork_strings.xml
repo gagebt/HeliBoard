@@ -141,4 +141,7 @@
     <string name="voice_full_stop_summary">இயல்பாக இறுதி முற்றுப்புள்ளி விடப்படும். இடைவேளைக்குப் பின் புதிய வாக்கியம் தொடங்கும்போது முற்றுப்புள்ளி சேர்க்கப்படும்.</string>
     <string name="voice_full_stop_next_sentence">அடுத்த வாக்கியம் தொடங்கும்போது</string>
     <string name="voice_full_stop_always">எப்போதும்</string>
+    <string name="key_long_presses">விசைகளை நீண்ட நேரம் அழுத்துதல்</string>
+    <string name="key_long_press_title">%1$s அழுத்திப் பிடி</string>
+    <string name="key_long_presses_summary">விசையை அழுத்திப் பிடிக்கும்போது நடக்கும் செயலைத் தேர்ந்தெடுக்கவும் அல்லது முடக்கவும். எதுவுமில்லை என்பதைத் தேர்ந்தெடுத்தால் வழக்கமான தட்டல் செயல் தொடரும்.</string>
 </resources>

@@ -715,10 +715,12 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
                 drawLanguageOnSpacebar(key, canvas, paint);
             }
             // Whether space key needs to show the "..." popup hint for special purposes
-            if (key.isLongPressEnabled() && mHasMultipleEnabledIMEsOrSubtypes && Settings.getValues().mSpaceForLangChange) {
+            if (key.isLongPressEnabled() && (mHasMultipleEnabledIMEsOrSubtypes
+                    || !key.hasNoPanelAutoPopupKey()
+                    || key.getPopupKeys()[0].mCode != KeyCode.SYSTEM_INPUT_METHOD_PICKER)) {
                 drawKeyPopupHint(key, canvas, paint, params);
             }
-        } else if (code == KeyCode.LANGUAGE_SWITCH) {
+        } else if (code == KeyCode.LANGUAGE_SWITCH && key.isLongPressEnabled()) {
             drawKeyPopupHint(key, canvas, paint, params);
         }
     }

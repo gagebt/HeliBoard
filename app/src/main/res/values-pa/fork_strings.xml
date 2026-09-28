@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">ਮੂਲ ਸੈਟਿੰਗ ਆਖਰੀ ਪੂਰਨ ਵਿਰਾਮ ਛੱਡ ਦਿੰਦੀ ਹੈ। ਵਿਰਾਮ ਤੋਂ ਬਾਅਦ ਨਵੇਂ ਵਾਕ ਨੂੰ ਫਿਰ ਵੀ ਪੂਰਨ ਵਿਰਾਮ ਮਿਲਦਾ ਹੈ।</string>
     <string name="voice_full_stop_next_sentence">ਜਦੋਂ ਅਗਲਾ ਵਾਕ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ</string>
     <string name="voice_full_stop_always">ਹਮੇਸ਼ਾ</string>
+    <string name="key_long_presses">ਕੁੰਜੀਆਂ ਨੂੰ ਦਬਾਈ ਰੱਖਣਾ</string>
+    <string name="key_long_press_title">%1$s ਨੂੰ ਦਬਾਈ ਰੱਖੋ</string>
+    <string name="key_long_presses_summary">ਕੁੰਜੀ ਦਬਾਈ ਰੱਖਣ ਤੇ ਕੀ ਹੋਵੇ, ਇਹ ਚੁਣੋ ਜਾਂ ਬੰਦ ਕਰੋ। “None” ਚੁਣਨ ਤੇ ਆਮ ਟੈਪ ਦੀ ਕਾਰਵਾਈ ਬਣੀ ਰਹਿੰਦੀ ਹੈ।</string>
 </resources>

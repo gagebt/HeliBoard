@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Ve výchozím nastavení se poslední tečka vynechá. Nová věta po pauze stále dostane tečku.</string>
     <string name="voice_full_stop_next_sentence">Při začátku další věty</string>
     <string name="voice_full_stop_always">Vždy</string>
+    <string name="key_long_presses">Akce při podržení kláves</string>
+    <string name="key_long_press_title">Podržte %1$s</string>
+    <string name="key_long_presses_summary">Vyberte nebo vypněte akci při podržení klávesy. Žádné zachová běžnou akci při klepnutí.</string>
 </resources>

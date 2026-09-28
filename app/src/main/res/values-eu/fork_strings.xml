@@ -143,4 +143,7 @@
     <string name="voice_full_stop_summary">Lehenespenez azken puntua ez da jartzen. Eten baten ondorengo esaldi berriak puntua jasotzen du oraindik.</string>
     <string name="voice_full_stop_next_sentence">Hurrengo esaldia hasten denean</string>
     <string name="voice_full_stop_always">Beti</string>
+    <string name="key_long_presses">Teklak luze sakatzeko ekintzak</string>
+    <string name="key_long_press_title">Sakatu luze %1$s</string>
+    <string name="key_long_presses_summary">Aukeratu edo desgaitu tekla luze sakatzean gertatzen dena. Bat ere ez aukerak ukitze arruntaren ekintza mantentzen du.</string>
 </resources>

@@ -139,4 +139,7 @@
     <string name="voice_full_stop_summary">Standardmäßig entfällt der letzte Punkt. Ein neuer Satz nach einer Pause erhält weiterhin einen Punkt.</string>
     <string name="voice_full_stop_next_sentence">Wenn der nächste Satz beginnt</string>
     <string name="voice_full_stop_always">Immer</string>
+    <string name="key_long_presses">Aktionen bei langem Tastendruck</string>
+    <string name="key_long_press_title">%1$s gedrückt halten</string>
+    <string name="key_long_presses_summary">Wähle oder deaktiviere die Aktion beim Gedrückthalten einer Taste. Nichts behält die normale Aktion beim Antippen bei.</string>
 </resources>

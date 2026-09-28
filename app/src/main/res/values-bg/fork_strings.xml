@@ -144,4 +144,7 @@
     <string name="voice_full_stop_summary">По подразбиране последната точка се пропуска. Ново изречение след пауза все пак получава точка.</string>
     <string name="voice_full_stop_next_sentence">Когато започне следващото изречение</string>
     <string name="voice_full_stop_always">Винаги</string>
+    <string name="key_long_presses">Действия при продължително натискане на клавиши</string>
+    <string name="key_long_press_title">Задръжте %1$s</string>
+    <string name="key_long_presses_summary">Изберете или изключете действието при задържане на клавиш. Няма запазва обичайното действие при докосване.</string>
 </resources>
