@@ -1128,8 +1128,17 @@ public class Key implements Comparable<Key> {
                     ? PopupKeysUtilsKt.createPopupKeysArray(popupSet, mKeyboardParams, label != null ? label : keySpec)
                     : holdCode == KeyCode.UNSPECIFIED ? null
                     : new String[] { POPUP_KEYS_NO_PANEL_AUTO_POPUP_KEY, " |!code/" + holdCode };
-            mPopupKeysColumnAndFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys);
-            final String[] finalPopupKeys = popupKeys == null ? null : PopupKeySpec.filterOutEmptyString(popupKeys);
+            int popupFlags = getPopupKeysColumnAndFlagsAndSetNullInArray(params, popupKeys);
+            String[] finalPopupKeys = popupKeys == null ? null : PopupKeySpec.filterOutEmptyString(popupKeys);
+            // Default follows the effective popups, after the user's popup-order filters.
+            final boolean useDefaultPicker = holdCode == null && (
+                    code == Constants.CODE_SPACE && (finalPopupKeys == null || finalPopupKeys.length == 0)
+                    || code == KeyCode.LANGUAGE_SWITCH && (popupFlags & POPUP_KEYS_FLAGS_NO_PANEL_AUTO_POPUP_KEY) == 0);
+            if (useDefaultPicker) {
+                finalPopupKeys = new String[] { " |!code/" + KeyCode.SYSTEM_INPUT_METHOD_PICKER };
+                popupFlags |= POPUP_KEYS_FLAGS_NO_PANEL_AUTO_POPUP_KEY;
+            }
+            mPopupKeysColumnAndFlags = popupFlags;
             if (finalPopupKeys != null) {
                 PopupKeySpec[] tempPopupKeys = new PopupKeySpec[finalPopupKeys.length];
                 boolean hasRepeatPopup = false;
@@ -1150,7 +1159,7 @@ public class Key implements Comparable<Key> {
             }
 
             // hint label
-            if (holdCode != null || (mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
+            if (holdCode != null || useDefaultPicker || (mLabelFlags & LABEL_FLAGS_DISABLE_HINT_LABEL) != 0) {
                 mHintLabel = null;
                 mHintIconName = null;
             } else {

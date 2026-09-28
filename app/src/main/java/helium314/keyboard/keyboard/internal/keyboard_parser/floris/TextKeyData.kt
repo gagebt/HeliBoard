@@ -359,11 +359,8 @@ sealed interface KeyData : AbstractKeyData {
         var newLabelFlags = labelFlags or additionalLabelFlags or getAdditionalLabelFlags(params)
         val holdKey = KeyLongPress.forKey(this,
             if (newCode == KeyCode.UNSPECIFIED) KeySpecParser.getCode(newLabel) else newCode)
-        val layoutPopups = popup.merge(getAdditionalPopupKeys(params))
-        val defaultPicker = holdKey == KeyLongPress.SPACE || holdKey == KeyLongPress.LANGUAGE
+        val newPopupKeys = popup.merge(getAdditionalPopupKeys(params))
         val holdCode = holdKey?.let { Settings.getInstance().getKeyLongPress(it) }
-            ?: KeyCode.SYSTEM_INPUT_METHOD_PICKER.takeIf { defaultPicker && layoutPopups.isEmpty() }
-        val newPopupKeys = layoutPopups
 
         val background = when (type) {
             KeyType.CHARACTER, KeyType.NUMERIC -> Key.BACKGROUND_TYPE_NORMAL

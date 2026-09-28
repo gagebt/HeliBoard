@@ -43,7 +43,9 @@ class KeyLongPressTest {
     }
 
     private fun key(label: String, code: Int = 0, group: Int = 0): Key =
-        LayoutParser.parseJsonString("""[[{"label":"$label","code":$code,"groupId":$group}]]""")
+        keyJson("""[[{"label":"$label","code":$code,"groupId":$group}]]""")
+
+    private fun keyJson(json: String): Key = LayoutParser.parseJsonString(json)
             .flatten().single().compute(params)!!.toKeyParams(params).apply {
                 mAbsoluteWidth = 100f
                 mAbsoluteHeight = 80f
@@ -111,6 +113,19 @@ class KeyLongPressTest {
         val after = key("e")
         assertEquals(before.popupKeys?.toList(), after.popupKeys?.toList())
         assertEquals(before.code, after.code)
+    }
+
+    @Test fun defaultPickerSurvivesFilteredCustomPopupsWhileNoneRemainsDisabled() {
+        val globe = """[[{"label":"language_switch","popup":{"main":{"label":"x"}}}]]"""
+        assertEquals(KeyCode.SYSTEM_INPUT_METHOD_PICKER, keyJson(globe).popupKeys!!.single().mCode)
+        val json = """[[{"label":"space","popup":{"main":{"label":"x"}}}]]"""
+        assertEquals('x'.code, keyJson(json).popupKeys!!.single().mCode)
+        params.mPopupKeyOrder.clear()
+        assertEquals(KeyCode.SYSTEM_INPUT_METHOD_PICKER, keyJson(json).popupKeys!!.single().mCode)
+        prefs.edit { putInt(KeyLongPress.SPACE.prefKey, 0) }
+        assertNull(keyJson(json).popupKeys)
+        prefs.edit { putInt(KeyLongPress.SPACE.prefKey, KeyCode.CLIPBOARD) }
+        assertEquals(KeyCode.CLIPBOARD, keyJson(json).popupKeys!!.single().mCode)
     }
 
     @Test fun upgradePreservesOldDisabledSpaceAndExplicitNewSelection() {

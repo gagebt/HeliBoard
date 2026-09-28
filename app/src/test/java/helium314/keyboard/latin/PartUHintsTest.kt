@@ -36,6 +36,15 @@ class PartUHintsTest {
         assertNull(helium314.keyboard.latin.utils.keyboardKeyHint(context, keyboard, key, true))
     }
 
+    @Test fun disabledArrowAndClipboardHoldsStillNameTheKey() {
+        val keyboard = org.mockito.Mockito.mock(helium314.keyboard.keyboard.Keyboard::class.java)
+        val key = org.mockito.Mockito.mock(helium314.keyboard.keyboard.Key::class.java)
+        for ((code, name) in listOf(KeyCode.ARROW_LEFT to "Left", KeyCode.CLIPBOARD to "Clipboard")) {
+            org.mockito.Mockito.doReturn(code).`when`(key).code
+            assertEquals(name, helium314.keyboard.latin.utils.keyboardKeyHint(context, keyboard, key, false))
+        }
+    }
+
     @Test fun hiddenLongPressActionsMapToTheirOwnKeys() {
         assertEquals(ToolbarKey.CUT, toolbarKeyForCode(defaultCodeForToolbarKeyLongClick(ToolbarKey.COPY)))
         assertEquals(ToolbarKey.PASTE, toolbarKeyForCode(defaultCodeForToolbarKeyLongClick(ToolbarKey.CLIPBOARD)))

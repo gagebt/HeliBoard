@@ -9,6 +9,7 @@ package helium314.keyboard.accessibility
 import android.content.Context
 import android.text.TextUtils
 import helium314.keyboard.latin.utils.Log
+import helium314.keyboard.latin.utils.toolbarActionName
 import android.util.SparseIntArray
 import android.view.inputmethod.EditorInfo
 import helium314.keyboard.keyboard.Key
@@ -110,6 +111,7 @@ internal class KeyCodeDescriptionMapper private constructor() {
         if (index >= 0) {
             return context.getString(mKeyCodeMap.valueAt(index))
         }
+        toolbarActionName(context, codePoint)?.let { return it }
         return if (Character.isDefined(codePoint) && !Character.isISOControl(codePoint)) {
             StringUtils.newSingleCodePointString(codePoint)
         } else null
