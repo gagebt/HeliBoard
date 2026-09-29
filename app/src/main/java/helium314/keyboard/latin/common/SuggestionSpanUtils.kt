@@ -37,7 +37,7 @@ fun getTextWithSuggestionSpan(context: Context, pickedWord: String, suggestedWor
         if (info.isKindOf(SuggestedWords.SuggestedWordInfo.KIND_PREDICTION)) {
             continue
         }
-        if (pickedWord != info.mWord) {
+        if (pickedWord != info.mWord && info.mWord !in suggestionsList) {
             suggestionsList.add(info.mWord)
         }
     }

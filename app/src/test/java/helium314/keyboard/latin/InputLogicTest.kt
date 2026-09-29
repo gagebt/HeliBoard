@@ -83,6 +83,39 @@ class InputLogicTest {
     }
 
 
+    // Observed pf10 cursor return showed Teh | The | Teh.
+    @Test fun savedCorrectionsKeepDistinctChoicesBeforeTheSpanLimit() {
+        fun saved(picked: String, words: List<String>): List<String> {
+            val infos = ArrayList(words.map { SuggestedWordInfo(it, "", 0, 0, null, 0, 0) })
+            val choices = SuggestedWords(infos, null, infos.first(), false, false, false, 0, 0)
+            val result = helium314.keyboard.latin.common.getTextWithSuggestionSpan(
+                latinIME, picked, choices, Locale.US) as android.text.Spanned
+            return result.getSpans(0, picked.length, android.text.style.SuggestionSpan::class.java)
+                .single().suggestions.toList()
+        }
+        assertEquals(listOf("Teh", "Then", "Ten"), saved("The", listOf("Teh", "The", "Teh", "Then", "Ten")))
+        assertEquals(listOf("Teh", "Then", "Ten", "Them", "They", "Thy").take(android.text.style.SuggestionSpan.SUGGESTIONS_MAX_SIZE),
+            saved("The", listOf("Teh", "The", "Teh", "Then", "Ten", "Them", "They", "Thy")))
+        assertEquals(listOf("Apple", "apple", "apples"), saved("pear", listOf("Apple", "apple", "Apple", "apples")))
+    }
+
+    @Test fun cursorReturnKeepsOldAndOverlappingSpanChoicesDistinct() {
+        setText("The"); setCursorPosition(1)
+        val word = android.text.SpannableString("The")
+        for (alternatives in listOf(arrayOf("Teh", "Teh", "Then"), arrayOf("Then", "the", "The"))) {
+            word.setSpan(android.text.style.SuggestionSpan(latinIME, Locale.US, alternatives, 0, null),
+                0, word.length, android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        InputLogic::class.java.getDeclaredMethod("restartSuggestions", helium314.keyboard.latin.utils.TextRange::class.java)
+            .apply { isAccessible = true }.invoke(inputLogic,
+                helium314.keyboard.latin.utils.TextRange(word, 0, word.length, 1, false))
+        handleMessages()
+        val choices = inputLogic.mSuggestedWords
+        assertEquals(listOf("The", "Teh", "Then", "the"), (0 until choices.size()).map { choices.getWord(it) })
+        pickSuggestion("Teh")
+        assertEquals("Teh", text)
+    }
+
     // Observed on Android 17: hello |world + a meeting swipe joined meetingworld.
     @Test fun gestureBeforeExistingWordKeepsItsRightBoundaryAndCandidates() {
         setText("hello world"); setCursorPosition(6)
