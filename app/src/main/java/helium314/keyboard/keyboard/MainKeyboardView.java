@@ -309,6 +309,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         mKeyDetector.setKeyboard(
                 keyboard, -getPaddingLeft(), -getPaddingTop() + getVerticalCorrection());
         PointerTracker.setKeyDetector(mKeyDetector);
+        PointerTracker.setFutoGestureAvailability(
+                helium314.keyboard.latin.FutoSuggestions.INSTANCE.supportsGesture(
+                        keyboard, keyboard.mId.getSubtype().getLocale()));
         mPopupKeysKeyboardCache.clear();
 
         mSpaceKey = keyboard.getKey(Constants.CODE_SPACE);

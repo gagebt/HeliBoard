@@ -12,11 +12,12 @@ public final class GestureEnabler {
     /** True if we should handle gesture events. */
     private boolean mShouldHandleGesture;
     private boolean mMainDictionaryAvailable;
+    private boolean mFutoGestureAvailable;
     private boolean mGestureHandlingEnabledByInputField;
     private boolean mGestureHandlingEnabledByUser;
 
     private void updateGestureHandlingMode() {
-        mShouldHandleGesture = mMainDictionaryAvailable
+        mShouldHandleGesture = (mMainDictionaryAvailable || mFutoGestureAvailable)
                 && mGestureHandlingEnabledByInputField
                 && mGestureHandlingEnabledByUser
                 && !AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled();
@@ -25,6 +26,11 @@ public final class GestureEnabler {
     // Note that this method is called from a non-UI thread.
     public void setMainDictionaryAvailability(final boolean mainDictionaryAvailable) {
         mMainDictionaryAvailable = mainDictionaryAvailable;
+        updateGestureHandlingMode();
+    }
+
+    public void setFutoGestureAvailability(final boolean available) {
+        mFutoGestureAvailable = available;
         updateGestureHandlingMode();
     }
 

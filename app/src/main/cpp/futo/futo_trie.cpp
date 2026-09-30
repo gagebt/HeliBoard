@@ -191,6 +191,7 @@ public:
         std::ifstream input(path);
         if (!input) return false;
         std::string line;
+        std::vector<uint8_t> chars;
         while (std::getline(input, line)) {
             const size_t start = line.find_first_not_of(" \t");
             if (start == std::string::npos || line.compare(start, 5, "word=") != 0) continue;
@@ -202,7 +203,7 @@ public:
             const float value = std::strtof(line.c_str() + freq + 3, &after);
             if (after == line.c_str() + freq + 3) continue;
             const bool not_a_word = line.find(",not_a_word=true", comma) != std::string::npos;
-            insert(line.substr(word_start, comma - word_start), value, not_a_word);
+            insert(line.substr(word_start, comma - word_start), value, not_a_word, chars);
         }
         finish_forms();
         return words_ != 0;
@@ -250,8 +251,8 @@ private:
         return (nodes_[node].flags & kWord) ? node : 0;
     }
 
-    void insert(const std::string &surface, float frequency, bool not_a_word) {
-        std::vector<uint8_t> chars;
+    void insert(const std::string &surface, float frequency, bool not_a_word, std::vector<uint8_t> &chars) {
+        chars.clear();
         bool exact = true;
         bool writable = true;
         if (!alpha_chars(surface, chars, &exact, &writable)) return;

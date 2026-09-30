@@ -45,6 +45,10 @@ object FutoSuggestions {
     private const val EN_VOCAB = "futo-vocab/main_en_US.combined"
     private const val RU_VOCAB = "futo-vocab/main_ru.combined"
 
+    /** Whether this keyboard can use FUTO; readiness is handled by the existing pending load. */
+    fun supportsGesture(keyboard: Keyboard?, locale: Locale): Boolean =
+        keyboard != null && Shape.of(keyboard, locale) != null
+
     @Volatile private var context: Context? = null
     @Volatile private var runtime: FutoSwipeRuntime? = null
     // guarded by this object's monitor
@@ -313,12 +317,14 @@ object FutoSuggestions {
             materialized[asset]?.let { return it }
             val target = File(context.filesDir, "futo/$asset")
             val expected = context.assets.open(asset).use { it.available().toLong() }
-            if (!target.isFile || target.length() != expected) {
+            val packageTime = File(context.applicationInfo.sourceDir).lastModified()
+            if (!target.isFile || target.length() != expected || target.lastModified() != packageTime) {
                 target.parentFile?.mkdirs()
                 context.assets.open(asset).use { input ->
                     target.outputStream().use(input::copyTo)
                 }
                 check(target.length() == expected) { "Incomplete asset copy for $asset" }
+                check(target.setLastModified(packageTime)) { "Cannot stamp copied asset $asset" }
             }
             materialized[asset] = target
             return target
