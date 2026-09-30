@@ -9,42 +9,32 @@ package helium314.keyboard.keyboard.internal;
 import helium314.keyboard.accessibility.AccessibilityUtils;
 
 public final class GestureEnabler {
-    /** True if we should handle gesture events. */
-    private boolean mShouldHandleGesture;
-    private boolean mMainDictionaryAvailable;
+    private volatile boolean mMainDictionaryAvailable;
     private boolean mFutoGestureAvailable;
     private boolean mGestureHandlingEnabledByInputField;
     private boolean mGestureHandlingEnabledByUser;
 
-    private void updateGestureHandlingMode() {
-        mShouldHandleGesture = (mMainDictionaryAvailable || mFutoGestureAvailable)
-                && mGestureHandlingEnabledByInputField
-                && mGestureHandlingEnabledByUser
-                && !AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled();
-    }
-
     // Note that this method is called from a non-UI thread.
     public void setMainDictionaryAvailability(final boolean mainDictionaryAvailable) {
         mMainDictionaryAvailable = mainDictionaryAvailable;
-        updateGestureHandlingMode();
     }
 
     public void setFutoGestureAvailability(final boolean available) {
         mFutoGestureAvailable = available;
-        updateGestureHandlingMode();
     }
 
     public void setGestureHandlingEnabledByUser(final boolean gestureHandlingEnabledByUser) {
         mGestureHandlingEnabledByUser = gestureHandlingEnabledByUser;
-        updateGestureHandlingMode();
     }
 
     public void setPasswordMode(final boolean passwordMode) {
         mGestureHandlingEnabledByInputField = !passwordMode;
-        updateGestureHandlingMode();
     }
 
     public boolean shouldHandleGesture() {
-        return mShouldHandleGesture;
+        return (mMainDictionaryAvailable || mFutoGestureAvailable)
+                && mGestureHandlingEnabledByInputField
+                && mGestureHandlingEnabledByUser
+                && !AccessibilityUtils.Companion.getInstance().isTouchExplorationEnabled();
     }
 }

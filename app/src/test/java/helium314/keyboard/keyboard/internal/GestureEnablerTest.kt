@@ -64,4 +64,20 @@ class GestureEnablerTest {
         gate.setFutoGestureAvailability(true)
         assertFalse(gate.shouldHandleGesture())
     }
+
+    @Test fun accessibilityChangesTakeEffectWithoutADictionaryCallback() {
+        val context = ApplicationProvider.getApplicationContext<App>()
+        val accessibility = Shadows.shadowOf(context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager)
+        accessibility.setEnabled(true)
+        accessibility.setTouchExplorationEnabled(false)
+        val gate = GestureEnabler()
+        gate.setPasswordMode(false)
+        gate.setGestureHandlingEnabledByUser(true)
+        gate.setFutoGestureAvailability(true)
+        assertTrue(gate.shouldHandleGesture())
+        accessibility.setTouchExplorationEnabled(true)
+        assertFalse(gate.shouldHandleGesture())
+        accessibility.setTouchExplorationEnabled(false)
+        assertTrue(gate.shouldHandleGesture())
+    }
 }
