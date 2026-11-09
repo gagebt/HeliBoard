@@ -9,7 +9,7 @@ There are two APKs:
 - **Full** (about 613 MiB): includes offline voice input. It updates over published version 34 when the signer is the same.
 - **Lite** (about 167 MiB): a separate application ID, without the large offline voice component.
 
-Downloads, sizes and SHA-256 hashes are on the release page. The APKs are also on the website: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56.apk (Full) and https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-lite.apk (Lite).
+Downloads, sizes and SHA-256 hashes are on the release page: https://github.com/gagebt/HeliBoard/releases/tag/4.1-pf56 . The APKs are also on the website: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56.apk (Full) and https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-lite.apk (Lite).
 
 **Source.** The complete corresponding source is the release asset `heliboard-parakeet-futo-4.1-pf56-source.tar.gz` (https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-source.tar.gz). The automatic GitHub source archives for a tag are not the complete build source.
 
