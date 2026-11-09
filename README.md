@@ -1,16 +1,27 @@
-# HeliBoard with Parakeet voice input and FUTO swipe
+# HeliBoard Parakeet/FUTO
 
-This personal beta keeps HeliBoard as the keyboard and adds offline Parakeet voice input plus FUTO swipe components. It is a separate app, not an official HeliBoard release.
+This repository holds a personal, noncommercial beta fork of HeliBoard, an Android keyboard. It adds speech input and other changes from Parakeet and FUTO components. It is not an official HeliBoard release.
 
-**[Download the current APK and read its test results](https://olegk.ai/r/5b79f3e08101cead8ceb1796/windows/keyboard/#heliboard).** The report also links the matching source archive and lists known limitations. Install a new APK to update; the app does not download updates itself. Android 8 or later is required. Builds contain arm64 and x86-64 native libraries.
+**Source tree.** The code tree on the branch is the 30 September snapshot. The tag marks the publication commit. Only the release asset `heliboard-parakeet-futo-4.1-pf56-source.tar.gz` matches the APKs.
 
-- Type, swipe and move the cursor while dictation runs. The pinned microphone starts voice input; Stop ends it. Transcribe now inserts a piece without ending the recording.
-- Text is inserted by default. If the editor cannot confirm delivery, Copy preserves a recovery route without blocking the keyboard. A successful copy dismisses that recovery action.
-- Voice settings include processing and sentence pauses, relative speech sensitivity, optional dictation history and control visibility. The keyboard keeps its existing dimensions.
-- FUTO swipe supports English and Russian here; FUTO next-word prediction supports English. Other languages retain HeliBoard's existing layout and dictionary capabilities. Interface translations do not add recognition models.
-- Models are bundled for offline use, so the APK is about 607 MB. A smaller download/import edition is not available.
+There are two APKs:
 
-The code and interface translations are AI-assisted. Translation coverage and emulator evidence are described in the report; machine drafts are not native-speaker certification. Physical-phone microphone testing remains a separate limit. Bundled component and model notices are included in the app assets. Upstream contribution rules apply to upstream submissions; this fork does not imply upstream acceptance.
+- **Full** (about 613 MiB): includes offline voice input. It updates over published version 34 when the signer is the same.
+- **Lite** (about 167 MiB): a separate application ID, without the large offline voice component.
+
+Downloads, sizes and SHA-256 hashes are on the release page. The APKs are also on the website: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56.apk (Full) and https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-lite.apk (Lite).
+
+**Source.** The complete corresponding source is the release asset `heliboard-parakeet-futo-4.1-pf56-source.tar.gz` (https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-source.tar.gz). The automatic GitHub source archives for a tag are not the complete build source.
+
+**Licence.** The code is GPL-3.0. Some components and data have separate terms, and Ga Wiemɔ attribution is required. See the NOTICE file: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-NOTICE.txt
+
+**Limits.** This is a beta. It was tested on x86_64 emulators only, not on a physical phone or an ARM64 device. Settings search in a native language can miss existing controls. Keep another keyboard enabled when you first install. Do not downgrade to version 34, because that needs an uninstall and deletes app data.
+
+If Android says "App not installed", download the APK again and check the SHA-256.
+
+Do not report problems with this beta to upstream HeliBoard.
+
+No pull request was sent to the original HeliBoard project. Its current rules prohibit AI-generated pull requests and issues.
 
 ## Upstream HeliBoard documentation
 
