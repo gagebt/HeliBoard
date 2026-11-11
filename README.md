@@ -2,20 +2,20 @@
 
 This repository holds a personal, noncommercial beta fork of HeliBoard, an Android keyboard. It adds speech input and other changes from Parakeet and FUTO components. It is not an official HeliBoard release.
 
-**Source tree.** The code tree on the branch is the 30 September snapshot. The tag marks the publication commit. Only the release asset `heliboard-parakeet-futo-4.1-pf56-source.tar.gz` matches the APKs.
+**Source tree.** The code tree on the branch is the 30 September snapshot. The tag marks the publication commit. Only the release asset `heliboard-parakeet-futo-4.1-pf57-source.tar.gz` matches the APKs.
 
 There are two APKs:
 
-- **Full** (about 613 MiB): includes offline voice input. It updates over published version 34 when the signer is the same.
-- **Lite** (about 167 MiB): a separate application ID, without the large offline voice component.
+- **Full** (about 534 MiB): includes offline voice input. It updates over published version 56 when the signer is the same.
+- **Lite** (about 88 MiB): a separate application ID, without the large offline voice component.
 
-Downloads, sizes and SHA-256 hashes are on the release page: https://github.com/gagebt/HeliBoard/releases/tag/4.1-pf56 . The APKs are also on the website: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56.apk (Full) and https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-lite.apk (Lite).
+Downloads, sizes and SHA-256 hashes are on the release page: https://github.com/gagebt/HeliBoard/releases/tag/4.1-pf57 . The APKs are also on the website: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf57.apk (Full) and https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf57-lite.apk (Lite).
 
-**Source.** The complete corresponding source is the release asset `heliboard-parakeet-futo-4.1-pf56-source.tar.gz` (https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-source.tar.gz). The automatic GitHub source archives for a tag are not the complete build source.
+**Source.** The complete corresponding source is the release asset `heliboard-parakeet-futo-4.1-pf57-source.tar.gz` (https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf57-source.tar.gz). The automatic GitHub source archives for a tag are not the complete build source.
 
-**Licence.** The code is GPL-3.0. Some components and data have separate terms, and Ga Wiemɔ attribution is required. See the NOTICE file: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf56-NOTICE.txt
+**Licence.** The code is GPL-3.0. Some components and data have separate terms, and Ga Wiemɔ attribution is required. See the NOTICE file: https://olegk.ai/dl-zfqlope5olthyny/heliboard-parakeet-futo-4.1-pf57-NOTICE.txt
 
-**Limits.** This is a beta. It was tested on x86_64 emulators only, not on a physical phone or an ARM64 device. Settings search in a native language can miss existing controls. Keep another keyboard enabled when you first install. Do not downgrade to version 34, because that needs an uninstall and deletes app data.
+**Limits.** This is a beta. It was tested on x86_64 emulators only, not on a physical phone or an ARM64 device. The current voice path is unverified. One focused Lite run retains an unexplained temporary hidden keyboard; a field tap restored it. Settings search in a native language can miss existing controls. Keep another keyboard enabled when you first install. Do not downgrade to version 34, because that needs an uninstall and deletes app data.
 
 If Android says "App not installed", download the APK again and check the SHA-256.
 
